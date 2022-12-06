@@ -1,61 +1,50 @@
-scalaVersion := "3.2.1"
+// heavily inspired by https://github.com/sjrd/scalajs-sbt-vite-laminar-chartjs-example/blob/laminar-scalablytyped-end-state/build.sbt
 
-Compile / npmDependencies ++= Seq(
-  "d3-array" -> "3.2.0",
-  "@types/d3-array" -> "3.0.3",
-  "d3-selection" -> "3.0.0",
-  "@types/d3-selection" -> "3.0.2",
-  "d3-scale" -> "4.0.2",
-  "@types/d3-scale" -> "4.0.2"
+scalaVersion := "3.2.1"
+scalacOptions ++= Seq("-encoding", "utf-8", "-deprecation", "-feature")
+
+libraryDependencies ++= Seq(
+  "org.scala-js" %%% "scalajs-dom" % "2.2.0",
+  "com.lihaoyi" %%% "utest"        % "0.8.1" % "test"
 )
 
-stFlavour := Flavour.Slinky
-useYarn := true
+testFrameworks += new TestFramework("utest.runner.Framework")
 
+// scalajs
+import org.scalajs.linker.interface.ModuleSplitStyle
+enablePlugins(ScalaJSPlugin)
+
+// Tell Scala.js that this is an application with a main method
 scalaJSUseMainModuleInitializer := true
 
-// bundler settings
-webpackCliVersion := "4.10.0"
-Compile / fastOptJS / webpackExtraArgs += "--mode=development"
-Compile / fullOptJS / webpackExtraArgs += "--mode=production"
-Compile / fastOptJS / webpackDevServerExtraArgs += "--mode=development"
-Compile / fullOptJS / webpackDevServerExtraArgs += "--mode=production"
-
-enablePlugins(ScalablyTypedConverterPlugin)
-
-/** From https://github.com/ScalablyTyped/Demos/blob/master/build.sbt#L348
-  */
-lazy val dist = TaskKey[File]("dist")
-dist := {
-  import java.nio.file.Files
-  import java.nio.file.StandardCopyOption.REPLACE_EXISTING
-
-  val artifacts = (Compile / fullOptJS / webpack).value
-  val artifactFolder = (Compile / fullOptJS / crossTarget).value
-  val distFolder = (ThisBuild / baseDirectory).value / "dist"
-
-  distFolder.mkdirs()
-  artifacts.foreach { artifact =>
-    val target = artifact.data.relativeTo(artifactFolder) match {
-      case None          => distFolder / artifact.data.name
-      case Some(relFile) => distFolder / relFile.toString
-    }
-
-    Files.copy(artifact.data.toPath, target.toPath, REPLACE_EXISTING)
-  }
-
-  val indexFrom = baseDirectory.value / "src/main/js/index.html"
-  val indexTo = distFolder / "index.html"
-
-  val indexPatchedContent = {
-    import collection.JavaConverters._
-    Files
-      .readAllLines(indexFrom.toPath, IO.utf8)
-      .asScala
-      .map(_.replaceAllLiterally("-fastopt-", "-opt-"))
-      .mkString("\n")
-  }
-
-  Files.write(indexTo.toPath, indexPatchedContent.getBytes(IO.utf8))
-  distFolder
+/* Configure Scala.js to emit modules in the optimal way to
+ * connect to Vite's incremental reload.
+ * - emit ECMAScript modules
+ * - emit as many small modules as possible for classes in the "rallyeye" package
+ * - emit as few (large) modules as possible for all other classes
+ *   (in particular, for the standard library)
+ */
+scalaJSLinkerConfig ~= {
+  _.withModuleKind(ModuleKind.ESModule)
+    .withModuleSplitStyle(
+      ModuleSplitStyle.SmallModulesFor(List("rallyeye"))
+    )
 }
+
+def linkerOutputDirectory(v: Attributed[org.scalajs.linker.interface.Report]): File =
+  v.get(scalaJSLinkerOutputDirectory.key).getOrElse {
+    throw new MessageOnlyException(
+      "Linking report was not attributed with output directory. " +
+        "Please report this as a Scala.js bug."
+    )
+  }
+
+val publicDev = taskKey[String]("output directory for `npm run dev`")
+val publicProd = taskKey[String]("output directory for `npm run build`")
+
+publicDev := linkerOutputDirectory((Compile / fastLinkJS).value).getAbsolutePath()
+publicProd := linkerOutputDirectory((Compile / fullLinkJS).value).getAbsolutePath()
+
+// scalably typed
+enablePlugins(ScalablyTypedConverterExternalNpmPlugin)
+externalNpm := baseDirectory.value // Tell ScalablyTyped that we manage `npm install` ourselves
