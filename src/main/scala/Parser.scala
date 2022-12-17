@@ -1,5 +1,6 @@
 package rallyeye
 
+import scala.collection.MapView
 import scala.concurrent.Await
 import scala.concurrent.duration._
 import scala.io.Source
@@ -35,7 +36,10 @@ def parse(csv: String) =
       )
     case _ => ???
   }
-  val withOverall = parsed
+  fromEntries(parsed)
+
+def fromEntries(entries: List[Entry]) =
+  val withOverall = entries
     .groupBy(_.userName)
     .view
     .mapValues { results =>
@@ -47,7 +51,7 @@ def parse(csv: String) =
     .flatten
 
   val grouped = withOverall
-    .groupBy(entry => Stage(entry.stageName))
+    .groupBy(entry => Stage(entry.stageNumber, entry.stageName))
     .view
     .mapValues(v =>
       v.collect { case Entry(_, _, userName, Some(stageTime), Some(overallTime), _, finished) =>
@@ -63,11 +67,20 @@ def parse(csv: String) =
     }
   }
 
-  positions.mapValues(results =>
-    results.groupBy(_.userName).toList.map { (driver, results) =>
-      Driver(driver, results.map(r => Result(r.stagePosition, r.overallPosition)))
-    }
-  )
+  positions
+
+def getStages(results: MapView[Stage, List[PositionResult]]) =
+  results.keys
+
+def getDrivers(results: MapView[Stage, List[PositionResult]]) =
+  results
+    .flatMap((stage, positionResults) =>
+      positionResults.map(r => Driver(r.userName, List(Result(stage.number, r.stagePosition, r.overallPosition))))
+    )
+    .groupBy(_.name)
+    .map((name, results) => Driver(results.head.name, results.flatMap(_.results).toList.sortBy(_.stageNumber)))
+    .toList
+    .sortBy(_.name)
 
 def fetch() =
   val backend = FetchBackend()
