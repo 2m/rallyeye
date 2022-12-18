@@ -52,3 +52,8 @@ publicProd := linkerOutputDirectory((Compile / fullLinkJS).value).getAbsolutePat
 // scalably typed
 enablePlugins(ScalablyTypedConverterExternalNpmPlugin)
 externalNpm := baseDirectory.value // Tell ScalablyTyped that we manage `npm install` ourselves
+
+enablePlugins(AutomateHeaderPlugin)
+organizationName := "github.com/2m/rallyeye/contributors"
+startYear := Some(2022)
+licenses += ("Apache-2.0", url("http://www.apache.org/licenses/LICENSE-2.0"))
