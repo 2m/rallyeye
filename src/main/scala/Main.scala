@@ -83,6 +83,8 @@ object App {
     svg(
       width := RallyEye.width.toString,
       height := RallyEye.height.toString,
+      fontSize := "12px",
+      fontFamily := "Tahoma",
       children <-- driversSignal.map(drivers => drivers.map(renderDriver)),
       children <-- stagesSignal.map(stages => stages.zipWithIndex.toSeq.map(renderStage)),
       children <-- driversSignal.map(drivers => drivers.map(renderResultLine))
@@ -137,10 +139,10 @@ object App {
           )
         ),
         dy := "0.35em",
-        dx := "-0.275em",
-        stroke := "white",
         fill := "white",
-        strokeWidth := "1"
+        stroke := "white",
+        strokeWidth := "1",
+        textAnchor := "middle"
       )
 
     g(
