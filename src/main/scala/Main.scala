@@ -29,10 +29,14 @@ import typings.d3Selection.mod.Selection_
 import typings.d3Selection.mod.select
 import typings.d3Shape.mod.line
 
+import com.raquo.airstream.core.Observer
+import com.raquo.airstream.eventbus.EventBus
+import com.raquo.airstream.eventbus.EventBus.apply
 import com.raquo.airstream.state.Var
 import com.raquo.airstream.state.Var.apply
 import com.raquo.laminar.api._
 import com.raquo.laminar.api.L.children
+import com.raquo.laminar.api.L.onMouseOver
 import com.raquo.laminar.api.L.renderOnDomContentLoaded
 import com.raquo.laminar.api.L.seqToModifier
 import com.raquo.laminar.api.L.svg._
@@ -79,6 +83,11 @@ object App {
   val stagesSignal = results.signal.map(getStages)
   val driversSignal = results.signal.map(getDrivers)
 
+  var selectedDriver = Var(Option.empty[String])
+
+  val driverSelectionBus = EventBus[Driver]()
+  val selectDriver = Observer[Driver](onNext = d => selectedDriver.set(Some(d.name)))
+
   def appElement() =
     svg(
       width := RallyEye.width.toString,
@@ -96,7 +105,10 @@ object App {
       transform <-- driversSignal.map(drivers =>
         s"translate(0, ${yScale(drivers.toJSArray)(driver.results(0).overall)})"
       ),
-      text(driver.name, dy := "0.4em")
+      text(driver.name, dy := "0.4em"),
+      onMouseOver.map(_ => driver) --> driverSelectionBus.writer,
+      driverSelectionBus.events --> selectDriver,
+      opacity <-- selectedDriver.signal.map(d => d.map(d => if d == driver.name then "1" else "0.2").getOrElse("1"))
     )
 
   def renderStage(stage: Stage, idx: Int) =
@@ -127,7 +139,8 @@ object App {
             s"translate(${xScale(stages.toJSArray)(idx)},${yScale(drivers.toJSArray)(result.overall)})"
           )
         ),
-        r := "12"
+        r := "12",
+        onMouseOver.map(_ => driver) --> driverSelectionBus.writer
       )
 
     def mkResultNumber(result: Result, idx: Int) =
@@ -142,11 +155,13 @@ object App {
         fill := "white",
         stroke := "white",
         strokeWidth := "1",
-        textAnchor := "middle"
+        textAnchor := "middle",
+        onMouseOver.map(_ => driver) --> driverSelectionBus.writer
       )
 
     g(
       strokeWidth := "1.5",
+      opacity <-- selectedDriver.signal.map(d => d.map(d => if d == driver.name then "1" else "0.2").getOrElse("1")),
       // result line
       path(
         fill := "none",
