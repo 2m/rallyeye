@@ -57,7 +57,9 @@ object RallyEye:
   val margin = Margin(130, 30, 50, 130)
 
 def xScale(stages: js.Array[Stage]) = scaleLinear()
-  .domain(js.Array(0, stages.size - 1))
+  // double the x domain to have a spot for crash icon
+  // you can not crash after the last stage, therefore one less
+  .domain(js.Array(0, (stages.size - 1) * 2 - 1))
   .range(js.Array(RallyEye.margin.left, RallyEye.width - RallyEye.margin.right))
 
 def yScale(drivers: js.Array[Driver]) = scaleLinear()
@@ -75,7 +77,8 @@ def main() =
   import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
 
   fetch().map { r =>
-    App.results.update(_ => r)
+    App.results.update(_ => r // .mapValues(_.filter(_.userName == ""))
+    )
   }
 
   renderOnDomContentLoaded(dom.document.querySelector("#app"), App.appElement())
@@ -117,7 +120,7 @@ object App {
 
   def renderStage(stage: Stage, idx: Int) =
     g(
-      transform <-- stagesSignal.map(stages => s"translate(${xScale(stages.toJSArray)(idx)}, 0)"),
+      transform <-- stagesSignal.map(stages => s"translate(${xScale(stages.toJSArray)(idx * 2)}, 0)"),
       // top stage name
       text(stage.name, x := "20", dy := "0.35em", transform := s"translate(0, ${RallyEye.margin.top}) rotate(-90)"),
       // bottom stage name
@@ -132,11 +135,11 @@ object App {
 
   def renderResultLine(driver: Driver) =
     def mkLine(stages: js.Array[Stage], drivers: js.Array[Driver]) =
-      line[(Result, Int)]()
-        .x((r, _, _) => xScale(stages)(r._2))
-        .y((r, _, _) => yScale(drivers)(r._1.overall))
+      line[(Int, Int)]()
+        .x((r, _, _) => xScale(stages)(r._1))
+        .y((r, _, _) => yScale(drivers)(r._2))
 
-    def mkResultLine(results: List[(Result, Int)], superRally: Boolean) =
+    def mkResultLine(superRally: Boolean)(coordinates: List[(Int, Int)]) =
       path(
         fill := "none",
         stroke <-- driversSignal.map(drivers => colorScale(drivers.toJSArray)(driver.name)),
@@ -145,33 +148,37 @@ object App {
           for
             stages <- stagesSignal
             drivers <- driversSignal
-          yield mkLine(stages.toJSArray, drivers.toJSArray)(results.toJSArray)
+          yield mkLine(stages.toJSArray, drivers.toJSArray)(coordinates.toJSArray)
         )
       )
 
-    def mkCrashLine(results: List[(Result, Int)]) =
+    def resultIdxToCoords(result: Result, idx: Int) = (idx * 2, result.overall)
+
+    def mkCrashLine(lastStageResult: Result, superRallyStageResult: Result, superRallyStageIdx: Int) =
       Seq(
-        path(
-          idAttr := s"${driver.hashCode}-crash-line",
-          fill := "none",
-          stroke <-- driversSignal.map(drivers => colorScale(drivers.toJSArray)(driver.name)),
-          strokeDashArray := "1 0 1",
-          dy := "5em",
-          d <-- (
-            for
-              stages <- stagesSignal
-              drivers <- driversSignal
-            yield mkLine(stages.toJSArray, drivers.toJSArray)(results.toJSArray)
+        mkResultLine(false)(
+          List(
+            (superRallyStageIdx * 2 - 2, lastStageResult.overall),
+            (superRallyStageIdx * 2 - 1, lastStageResult.overall)
           )
         ),
-        text(
-          textAnchor := "middle",
-          fontSize := "20px",
-          textPath(
-            href := s"#${driver.hashCode}-crash-line",
-            startOffset := "1em",
-            "💥"
+        mkResultLine(true)(
+          List(
+            (superRallyStageIdx * 2 - 1, lastStageResult.overall),
+            (superRallyStageIdx * 2, superRallyStageResult.overall)
           )
+        ),
+        mkCrashCircle(superRallyStageIdx * 2 - 1, lastStageResult.overall),
+        text(
+          fontSize := "16px",
+          transform <-- stagesSignal.flatMap(stages =>
+            driversSignal.map(drivers =>
+              s"translate(${xScale(stages.toJSArray)(superRallyStageIdx * 2 - 1)},${yScale(drivers.toJSArray)(lastStageResult.overall)})"
+            )
+          ),
+          dy := "0.35em",
+          textAnchor := "middle",
+          "💥"
         )
       )
 
@@ -181,11 +188,23 @@ object App {
         fill := positionColorScale(result.position),
         transform <-- stagesSignal.flatMap(stages =>
           driversSignal.map(drivers =>
-            s"translate(${xScale(stages.toJSArray)(idx)},${yScale(drivers.toJSArray)(result.overall)})"
+            s"translate(${xScale(stages.toJSArray)(idx * 2)},${yScale(drivers.toJSArray)(result.overall)})"
           )
         ),
         r := "12",
         onMouseOver.map(_ => driver) --> driverSelectionBus.writer
+      )
+
+    def mkCrashCircle(x: Int, y: Int) =
+      circle(
+        fill := "white",
+        transform <-- (
+          for
+            stages <- stagesSignal
+            drivers <- driversSignal
+          yield s"translate(${xScale(stages.toJSArray)(x)},${yScale(drivers.toJSArray)(y)})"
+        ),
+        r := "6"
       )
 
     def mkResultNumber(result: Result, idx: Int) =
@@ -193,7 +212,7 @@ object App {
         result.position,
         transform <-- stagesSignal.flatMap(stages =>
           driversSignal.map(drivers =>
-            s"translate(${xScale(stages.toJSArray)(idx)},${yScale(drivers.toJSArray)(result.overall)})"
+            s"translate(${xScale(stages.toJSArray)(idx * 2)},${yScale(drivers.toJSArray)(result.overall)})"
           )
         ),
         dy := "0.35em",
@@ -204,15 +223,38 @@ object App {
         onMouseOver.map(_ => driver) --> driverSelectionBus.writer
       )
 
-    val (rallyResults, superRallyResults) = driver.results.zipWithIndex.span((r, _) => !r.superRally)
+    println(driver.name)
+
+    val (rallyResultsWoLast, superRallyResultsWoLast, lastStint, lastSuperRally) = driver.results.zipWithIndex.foldLeft(
+      (List.empty[List[(Result, Int)]], List.empty[List[(Result, Int)]], List.empty[(Result, Int)], false)
+    ) { case ((rallyResults, superRallyResults, acc, lastSuperRally), resWithIdx @ (result, idx)) =>
+      if lastSuperRally == result.superRally then
+        (rallyResults, superRallyResults, acc :+ resWithIdx, result.superRally)
+      else {
+        if lastSuperRally then
+          (rallyResults, superRallyResults :+ acc, acc.lastOption.toList :+ resWithIdx, result.superRally)
+        else (rallyResults :+ acc, superRallyResults, List(resWithIdx), result.superRally)
+      }
+    }
+
+    val rallyResults = if lastSuperRally then rallyResultsWoLast else rallyResultsWoLast :+ lastStint
+    val superRallyResults = if lastSuperRally then superRallyResultsWoLast :+ lastStint else superRallyResultsWoLast
+
+    val crashResults = superRallyResults.zipWithIndex.flatMap { case (results, idx) =>
+      val (superRallyResult, superRallyIdx) = results.head
+      rallyResults(idx).lastOption.map(lastStage => (lastStage._1, superRallyResult, superRallyIdx))
+    }
+
+    println(rallyResults)
+    println(superRallyResults)
 
     g(
       strokeWidth := "2",
       opacity <-- selectedDriver.signal.map(d => d.map(d => if d == driver.name then "1" else "0.2").getOrElse("1")),
-      mkResultLine(rallyResults, false),
-      mkCrashLine(List(rallyResults.lastOption, superRallyResults.headOption).flatten),
-      mkResultLine(superRallyResults, true),
-      Seq(driver.results.zipWithIndex.map(mkResultCircle)),
-      Seq(driver.results.zipWithIndex.map(mkResultNumber))
+      rallyResults.map(_.map(resultIdxToCoords)).map(mkResultLine(false)),
+      crashResults.map(mkCrashLine),
+      superRallyResults.map(_.map(resultIdxToCoords)).map(mkResultLine(true)),
+      driver.results.zipWithIndex.map(mkResultCircle),
+      driver.results.zipWithIndex.map(mkResultNumber)
     )
 }
