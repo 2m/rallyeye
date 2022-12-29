@@ -34,8 +34,10 @@ import com.raquo.airstream.eventbus.EventBus
 import com.raquo.airstream.eventbus.EventBus.apply
 import com.raquo.airstream.state.Var
 import com.raquo.airstream.state.Var.apply
+import com.raquo.domtypes.generic.codecs.StringAsIsCodec
 import com.raquo.laminar.api._
 import com.raquo.laminar.api.L.children
+import com.raquo.laminar.api.L.emptyNode
 import com.raquo.laminar.api.L.onMouseOver
 import com.raquo.laminar.api.L.renderOnDomContentLoaded
 import com.raquo.laminar.api.L.seqToModifier
@@ -44,7 +46,7 @@ import org.scalajs.dom
 import org.scalajs.dom.HTMLElement
 
 case class Stage(number: Int, name: String)
-case class Result(stageNumber: Int, position: Int, overall: Int)
+case class Result(stageNumber: Int, position: Int, overall: Int, superRally: Boolean)
 case class Driver(name: String, results: List[Result])
 
 case class Margin(top: Int, right: Int, bottom: Int, left: Int)
@@ -88,6 +90,8 @@ object App {
   val driverSelectionBus = EventBus[Driver]()
   val selectDriver = Observer[Driver](onNext = d => selectedDriver.set(Some(d.name)))
 
+  val startOffset = customSvgAttr("startOffset", StringAsIsCodec)
+
   def appElement() =
     svg(
       width := RallyEye.width.toString,
@@ -128,7 +132,48 @@ object App {
 
   def renderResultLine(driver: Driver) =
     def mkLine(stages: js.Array[Stage], drivers: js.Array[Driver]) =
-      line[Result]().x((r, idx, _) => xScale(stages)(idx)).y((r, _, _) => yScale(drivers)(r.overall))
+      line[(Result, Int)]()
+        .x((r, _, _) => xScale(stages)(r._2))
+        .y((r, _, _) => yScale(drivers)(r._1.overall))
+
+    def mkResultLine(results: List[(Result, Int)], superRally: Boolean) =
+      path(
+        fill := "none",
+        stroke <-- driversSignal.map(drivers => colorScale(drivers.toJSArray)(driver.name)),
+        if superRally then strokeDashArray := "1 0 1" else emptyNode,
+        d <-- (
+          for
+            stages <- stagesSignal
+            drivers <- driversSignal
+          yield mkLine(stages.toJSArray, drivers.toJSArray)(results.toJSArray)
+        )
+      )
+
+    def mkCrashLine(results: List[(Result, Int)]) =
+      Seq(
+        path(
+          idAttr := s"${driver.hashCode}-crash-line",
+          fill := "none",
+          stroke <-- driversSignal.map(drivers => colorScale(drivers.toJSArray)(driver.name)),
+          strokeDashArray := "1 0 1",
+          dy := "5em",
+          d <-- (
+            for
+              stages <- stagesSignal
+              drivers <- driversSignal
+            yield mkLine(stages.toJSArray, drivers.toJSArray)(results.toJSArray)
+          )
+        ),
+        text(
+          textAnchor := "middle",
+          fontSize := "20px",
+          textPath(
+            href := s"#${driver.hashCode}-crash-line",
+            startOffset := "1em",
+            "💥"
+          )
+        )
+      )
 
     def mkResultCircle(result: Result, idx: Int) =
       circle(
@@ -159,17 +204,14 @@ object App {
         onMouseOver.map(_ => driver) --> driverSelectionBus.writer
       )
 
+    val (rallyResults, superRallyResults) = driver.results.zipWithIndex.span((r, _) => !r.superRally)
+
     g(
-      strokeWidth := "1.5",
+      strokeWidth := "2",
       opacity <-- selectedDriver.signal.map(d => d.map(d => if d == driver.name then "1" else "0.2").getOrElse("1")),
-      // result line
-      path(
-        fill := "none",
-        stroke <-- driversSignal.map(drivers => colorScale(drivers.toJSArray)(driver.name)),
-        d <-- stagesSignal.flatMap(stages =>
-          driversSignal.map(drivers => mkLine(stages.toJSArray, drivers.toJSArray)(driver.results.toJSArray))
-        )
-      ),
+      mkResultLine(rallyResults, false),
+      mkCrashLine(List(rallyResults.lastOption, superRallyResults.headOption).flatten),
+      mkResultLine(superRallyResults, true),
       Seq(driver.results.zipWithIndex.map(mkResultCircle)),
       Seq(driver.results.zipWithIndex.map(mkResultNumber))
     )

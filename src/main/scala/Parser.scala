@@ -34,8 +34,14 @@ case class Entry(
     superRally: Boolean,
     finished: Boolean
 )
-case class TimeResult(userName: String, stageTime: BigDecimal, overallTime: BigDecimal, finished: Boolean)
-case class PositionResult(userName: String, stagePosition: Int, overallPosition: Int)
+case class TimeResult(
+    userName: String,
+    stageTime: BigDecimal,
+    overallTime: BigDecimal,
+    superRally: Boolean,
+    finished: Boolean
+)
+case class PositionResult(userName: String, stagePosition: Int, overallPosition: Int, superRally: Boolean)
 
 def parse(csv: String) =
   val (header :: data) = csv.split('\n').toList: @unchecked
@@ -70,8 +76,8 @@ def fromEntries(entries: List[Entry]) =
     .groupBy(entry => Stage(entry.stageNumber, entry.stageName))
     .view
     .mapValues(v =>
-      v.collect { case Entry(_, _, userName, Some(stageTime), Some(overallTime), _, finished) =>
-        TimeResult(userName, stageTime, overallTime, finished)
+      v.collect { case Entry(_, _, userName, Some(stageTime), Some(overallTime), superRally, finished) =>
+        TimeResult(userName, stageTime, overallTime, superRally, finished)
       }
     )
 
@@ -79,7 +85,7 @@ def fromEntries(entries: List[Entry]) =
     val stageResults = results.toList.filter(_.finished).sortBy(_.stageTime)
     val overallResults = results.toList.filter(_.finished).sortBy(_.overallTime)
     overallResults.zipWithIndex.map { (result, overall) =>
-      PositionResult(result.userName, stageResults.indexOf(result) + 1, overall + 1)
+      PositionResult(result.userName, stageResults.indexOf(result) + 1, overall + 1, result.superRally)
     }
   }
 
@@ -91,7 +97,9 @@ def getStages(results: MapView[Stage, List[PositionResult]]) =
 def getDrivers(results: MapView[Stage, List[PositionResult]]) =
   results
     .flatMap((stage, positionResults) =>
-      positionResults.map(r => Driver(r.userName, List(Result(stage.number, r.stagePosition, r.overallPosition))))
+      positionResults.map(r =>
+        Driver(r.userName, List(Result(stage.number, r.stagePosition, r.overallPosition, r.superRally)))
+      )
     )
     .groupBy(_.name)
     .map((name, results) => Driver(results.head.name, results.flatMap(_.results).toList.sortBy(_.stageNumber)))
