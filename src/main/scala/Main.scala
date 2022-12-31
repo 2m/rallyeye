@@ -200,10 +200,11 @@ object App {
         mkCrashCircle(lastStageResultIdx * 2 + 1, lastStageResult.overall),
         text(
           fontSize := "16px",
-          transform <-- stagesSignal.flatMap(stages =>
-            driversSignal.map(drivers =>
-              s"translate(${xScale(stages.toJSArray)(lastStageResultIdx * 2 + 1)},${yScale(drivers.toJSArray)(lastStageResult.overall)})"
-            )
+          transform <-- (
+            for
+              stages <- stagesSignal
+              drivers <- driversSignal
+            yield s"translate(${xScale(stages.toJSArray)(lastStageResultIdx * 2 + 1)},${yScale(drivers.toJSArray)(lastStageResult.overall)})"
           ),
           dy := "0.35em",
           textAnchor := "middle",
@@ -216,10 +217,11 @@ object App {
 
     def mkResultCircle(result: Result, idx: Int) =
       g(
-        transform <-- stagesSignal.flatMap(stages =>
-          driversSignal.map(drivers =>
-            s"translate(${xScale(stages.toJSArray)(idx * 2)},${yScale(drivers.toJSArray)(result.overall)})"
-          )
+        transform <-- (
+          for
+            stages <- stagesSignal
+            drivers <- driversSignal
+          yield s"translate(${xScale(stages.toJSArray)(idx * 2)},${yScale(drivers.toJSArray)(result.overall)})"
         ),
         circle(
           stroke := "white",
@@ -252,10 +254,11 @@ object App {
     def mkResultNumber(result: Result, idx: Int) =
       text(
         result.position,
-        transform <-- stagesSignal.flatMap(stages =>
-          driversSignal.map(drivers =>
-            s"translate(${xScale(stages.toJSArray)(idx * 2)},${yScale(drivers.toJSArray)(result.overall)})"
-          )
+        transform <-- (
+          for
+            stages <- stagesSignal
+            drivers <- driversSignal
+          yield s"translate(${xScale(stages.toJSArray)(idx * 2)},${yScale(drivers.toJSArray)(result.overall)})"
         ),
         dy := "0.35em",
         fill := "white",
@@ -265,8 +268,6 @@ object App {
         onMouseOver.map(_ => driver) --> driverSelectionBus.writer,
         onMouseOver.map(_ => result) --> resultSelectionBus.writer
       )
-
-    println(driver.name)
 
     val (rallyResultsWoLast, superRallyResultsWoLast, lastStint, lastSuperRally) = driver.results.zipWithIndex.foldLeft(
       (List.empty[List[(Result, Int)]], List.empty[List[(Result, Int)]], List.empty[(Result, Int)], false)
@@ -294,9 +295,6 @@ object App {
       val (lastResult, lastIdx) = lastStint.last
       if lastResult.rallyFinished then None else Some(lastResult, lastIdx)
     }
-
-    println(rallyResults)
-    println(superRallyResults)
 
     g(
       strokeWidth := "2",
