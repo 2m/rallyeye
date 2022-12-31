@@ -46,7 +46,7 @@ import org.scalajs.dom
 import org.scalajs.dom.HTMLElement
 
 case class Stage(number: Int, name: String)
-case class Result(stageNumber: Int, position: Int, overall: Int, superRally: Boolean)
+case class Result(stageNumber: Int, position: Int, overall: Int, superRally: Boolean, rallyFinished: Boolean)
 case class Driver(name: String, results: List[Result])
 
 case class Margin(top: Int, right: Int, bottom: Int, left: Int)
@@ -154,26 +154,30 @@ object App {
 
     def resultIdxToCoords(result: Result, idx: Int) = (idx * 2, result.overall)
 
-    def mkCrashLine(lastStageResult: Result, superRallyStageResult: Result, superRallyStageIdx: Int) =
+    def mkCrashLine(lastStageResult: Result, superRallyStageResult: Option[Result], lastStageResultIdx: Int) =
       Seq(
         mkResultLine(false)(
           List(
-            (superRallyStageIdx * 2 - 2, lastStageResult.overall),
-            (superRallyStageIdx * 2 - 1, lastStageResult.overall)
+            (lastStageResultIdx * 2, lastStageResult.overall),
+            (lastStageResultIdx * 2 + 1, lastStageResult.overall)
           )
         ),
-        mkResultLine(true)(
-          List(
-            (superRallyStageIdx * 2 - 1, lastStageResult.overall),
-            (superRallyStageIdx * 2, superRallyStageResult.overall)
-          )
-        ),
-        mkCrashCircle(superRallyStageIdx * 2 - 1, lastStageResult.overall),
+        superRallyStageResult
+          .map { result =>
+            mkResultLine(true)(
+              List(
+                (lastStageResultIdx * 2 + 1, lastStageResult.overall),
+                (lastStageResultIdx * 2 + 2, result.overall)
+              )
+            )
+          }
+          .getOrElse(emptyNode),
+        mkCrashCircle(lastStageResultIdx * 2 + 1, lastStageResult.overall),
         text(
           fontSize := "16px",
           transform <-- stagesSignal.flatMap(stages =>
             driversSignal.map(drivers =>
-              s"translate(${xScale(stages.toJSArray)(superRallyStageIdx * 2 - 1)},${yScale(drivers.toJSArray)(lastStageResult.overall)})"
+              s"translate(${xScale(stages.toJSArray)(lastStageResultIdx * 2 + 1)},${yScale(drivers.toJSArray)(lastStageResult.overall)})"
             )
           ),
           dy := "0.35em",
@@ -181,6 +185,9 @@ object App {
           "💥"
         )
       )
+
+    def mkCrashAndRecoveryLine(lastStageResult: Result, superRallyStageResult: Result, lastStageResultIdx: Int) =
+      mkCrashLine(lastStageResult, Some(superRallyStageResult), lastStageResultIdx)
 
     def mkResultCircle(result: Result, idx: Int) =
       circle(
@@ -241,8 +248,15 @@ object App {
     val superRallyResults = if lastSuperRally then superRallyResultsWoLast :+ lastStint else superRallyResultsWoLast
 
     val crashResults = superRallyResults.zipWithIndex.flatMap { case (results, idx) =>
-      val (superRallyResult, superRallyIdx) = results.head
-      rallyResults(idx).lastOption.map(lastStage => (lastStage._1, superRallyResult, superRallyIdx))
+      val (superRallyResult, _) = results.head
+      rallyResults(idx).lastOption.map { case (lastStageResult, lastStageIdx) =>
+        (lastStageResult, superRallyResult, lastStageIdx)
+      }
+    }
+
+    val retired = {
+      val (lastResult, lastIdx) = lastStint.last
+      if lastResult.rallyFinished then None else Some(lastResult, lastIdx)
     }
 
     println(rallyResults)
@@ -252,8 +266,9 @@ object App {
       strokeWidth := "2",
       opacity <-- selectedDriver.signal.map(d => d.map(d => if d == driver.name then "1" else "0.2").getOrElse("1")),
       rallyResults.map(_.map(resultIdxToCoords)).map(mkResultLine(false)),
-      crashResults.map(mkCrashLine),
+      crashResults.map(mkCrashAndRecoveryLine),
       superRallyResults.map(_.map(resultIdxToCoords)).map(mkResultLine(true)),
+      retired.map { case (result, idx) => mkCrashLine(result, None, idx) },
       driver.results.zipWithIndex.map(mkResultCircle),
       driver.results.zipWithIndex.map(mkResultNumber)
     )

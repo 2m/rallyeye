@@ -41,7 +41,13 @@ case class TimeResult(
     superRally: Boolean,
     finished: Boolean
 )
-case class PositionResult(userName: String, stagePosition: Int, overallPosition: Int, superRally: Boolean)
+case class PositionResult(
+    userName: String,
+    stagePosition: Int,
+    overallPosition: Int,
+    superRally: Boolean,
+    rallyFinished: Boolean
+)
 
 def parse(csv: String) =
   val (header :: data) = csv.split('\n').toList: @unchecked
@@ -72,6 +78,8 @@ def fromEntries(entries: List[Entry]) =
     .values
     .flatten
 
+  val retired = withOverall.filterNot(_.finished).map(_.userName).toSet
+
   val grouped = withOverall
     .groupBy(entry => Stage(entry.stageNumber, entry.stageName))
     .view
@@ -85,7 +93,13 @@ def fromEntries(entries: List[Entry]) =
     val stageResults = results.toList.filter(_.finished).sortBy(_.stageTime)
     val overallResults = results.toList.filter(_.finished).sortBy(_.overallTime)
     overallResults.zipWithIndex.map { (result, overall) =>
-      PositionResult(result.userName, stageResults.indexOf(result) + 1, overall + 1, result.superRally)
+      PositionResult(
+        result.userName,
+        stageResults.indexOf(result) + 1,
+        overall + 1,
+        result.superRally,
+        !retired.contains(result.userName)
+      )
     }
   }
 
@@ -98,7 +112,10 @@ def getDrivers(results: MapView[Stage, List[PositionResult]]) =
   results
     .flatMap((stage, positionResults) =>
       positionResults.map(r =>
-        Driver(r.userName, List(Result(stage.number, r.stagePosition, r.overallPosition, r.superRally)))
+        Driver(
+          r.userName,
+          List(Result(stage.number, r.stagePosition, r.overallPosition, r.superRally, r.rallyFinished))
+        )
       )
     )
     .groupBy(_.name)
