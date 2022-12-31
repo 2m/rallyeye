@@ -32,27 +32,32 @@ case class Entry(
     stageTime: Option[BigDecimal],
     overallTime: Option[BigDecimal],
     superRally: Boolean,
-    finished: Boolean
+    finished: Boolean,
+    comment: String
 )
 case class TimeResult(
     userName: String,
     stageTime: BigDecimal,
     overallTime: BigDecimal,
     superRally: Boolean,
-    finished: Boolean
+    finished: Boolean,
+    comment: String
 )
 case class PositionResult(
     userName: String,
     stagePosition: Int,
     overallPosition: Int,
+    stageTime: BigDecimal,
+    overallTime: BigDecimal,
     superRally: Boolean,
-    rallyFinished: Boolean
+    rallyFinished: Boolean,
+    comment: String
 )
 
 def parse(csv: String) =
   val (header :: data) = csv.split('\n').toList: @unchecked
   val parsed = data.map(_.split(";", -1).toList).map {
-    case stageNumber :: stageName :: _ :: userName :: _ :: _ :: _ :: _ :: _ :: time3 :: _ :: _ :: _ :: superRally :: finished :: _ :: Nil =>
+    case stageNumber :: stageName :: _ :: userName :: _ :: _ :: _ :: _ :: _ :: time3 :: _ :: _ :: _ :: superRally :: finished :: comment :: Nil =>
       Entry(
         stageNumber.toInt,
         stageName,
@@ -60,7 +65,8 @@ def parse(csv: String) =
         Try(BigDecimal(time3)).toOption,
         None,
         superRally == "1",
-        finished == "F"
+        finished == "F",
+        comment
       )
     case _ => ???
   }
@@ -84,8 +90,8 @@ def fromEntries(entries: List[Entry]) =
     .groupBy(entry => Stage(entry.stageNumber, entry.stageName))
     .view
     .mapValues(v =>
-      v.collect { case Entry(_, _, userName, Some(stageTime), Some(overallTime), superRally, finished) =>
-        TimeResult(userName, stageTime, overallTime, superRally, finished)
+      v.collect { case Entry(_, _, userName, Some(stageTime), Some(overallTime), superRally, finished, comment) =>
+        TimeResult(userName, stageTime, overallTime, superRally, finished, comment)
       }
     )
 
@@ -97,8 +103,11 @@ def fromEntries(entries: List[Entry]) =
         result.userName,
         stageResults.indexOf(result) + 1,
         overall + 1,
+        result.stageTime,
+        result.overallTime,
         result.superRally,
-        !retired.contains(result.userName)
+        !retired.contains(result.userName),
+        result.comment
       )
     }
   }
@@ -106,7 +115,7 @@ def fromEntries(entries: List[Entry]) =
   positions
 
 def getStages(results: MapView[Stage, List[PositionResult]]) =
-  results.keys
+  results.keys.toList.sortBy(_.number)
 
 def getDrivers(results: MapView[Stage, List[PositionResult]]) =
   results
@@ -114,7 +123,18 @@ def getDrivers(results: MapView[Stage, List[PositionResult]]) =
       positionResults.map(r =>
         Driver(
           r.userName,
-          List(Result(stage.number, r.stagePosition, r.overallPosition, r.superRally, r.rallyFinished))
+          List(
+            Result(
+              stage.number,
+              r.stagePosition,
+              r.overallPosition,
+              r.stageTime,
+              r.overallTime,
+              r.superRally,
+              r.rallyFinished,
+              r.comment
+            )
+          )
         )
       )
     )

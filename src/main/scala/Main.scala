@@ -46,15 +46,24 @@ import org.scalajs.dom
 import org.scalajs.dom.HTMLElement
 
 case class Stage(number: Int, name: String)
-case class Result(stageNumber: Int, position: Int, overall: Int, superRally: Boolean, rallyFinished: Boolean)
+case class Result(
+    stageNumber: Int,
+    position: Int,
+    overall: Int,
+    time: BigDecimal,
+    overallTime: BigDecimal,
+    superRally: Boolean,
+    rallyFinished: Boolean,
+    comment: String
+)
 case class Driver(name: String, results: List[Result])
 
 case class Margin(top: Int, right: Int, bottom: Int, left: Int)
 
 object RallyEye:
   val width = 1000
-  val height = 1100
-  val margin = Margin(130, 30, 50, 130)
+  val height = 1500
+  val margin = Margin(200, 30, 50, 200)
 
 def xScale(stages: js.Array[Stage]) = scaleLinear()
   // double the x domain to have a spot for crash icon
@@ -88,12 +97,13 @@ object App {
   val stagesSignal = results.signal.map(getStages)
   val driversSignal = results.signal.map(getDrivers)
 
-  var selectedDriver = Var(Option.empty[String])
-
+  val selectedDriver = Var(Option.empty[String])
   val driverSelectionBus = EventBus[Driver]()
   val selectDriver = Observer[Driver](onNext = d => selectedDriver.set(Some(d.name)))
 
-  val startOffset = customSvgAttr("startOffset", StringAsIsCodec)
+  val selectedResult = Var(Option.empty[Result])
+  val resultSelectionBus = EventBus[Result]()
+  val selectResult = Observer[Result](onNext = r => selectedResult.set(Some(r)))
 
   def appElement() =
     svg(
@@ -101,36 +111,51 @@ object App {
       height := RallyEye.height.toString,
       fontSize := "12px",
       fontFamily := "Tahoma",
+      renderInfo(),
       children <-- driversSignal.map(drivers => drivers.map(renderDriver)),
       children <-- stagesSignal.map(stages => stages.zipWithIndex.toSeq.map(renderStage)),
-      children <-- driversSignal.map(drivers => drivers.map(renderResultLine))
+      children <-- driversSignal.map(drivers => drivers.map(renderResultLine)),
+      driverSelectionBus.events --> selectDriver,
+      resultSelectionBus.events --> selectResult
+    )
+
+  def renderInfo() =
+    g(
+      children <-- (
+        for
+          maybeResult <- selectedResult.signal
+          driver <- selectedDriver.signal
+          stages <- stagesSignal
+        yield maybeResult match {
+          case None => Seq(emptyNode)
+          case Some(result) =>
+            Seq(
+              text(
+                tspan(x := "0", dy := "1.2em", s"SS${result.stageNumber} ${stages(result.stageNumber - 1).name}"),
+                tspan(x := "0", dy := "1.2em", driver),
+                tspan(x := "0", dy := "1.2em", s"Stage: ${result.time.prettyDuration}"),
+                tspan(x := "0", dy := "1.2em", s"Rally: ${result.overallTime.prettyDuration}"),
+                if result.comment.nonEmpty then tspan(x := "0", dy := "1.2em", s"“${result.comment}”") else emptyNode
+              )
+            )
+        }
+      )
     )
 
   def renderDriver(driver: Driver) =
     g(
-      // font := "12px sans-serif",
       transform <-- driversSignal.map(drivers =>
         s"translate(0, ${yScale(drivers.toJSArray)(driver.results(0).overall)})"
       ),
       text(driver.name, dy := "0.4em"),
       onMouseOver.map(_ => driver) --> driverSelectionBus.writer,
-      driverSelectionBus.events --> selectDriver,
       opacity <-- selectedDriver.signal.map(d => d.map(d => if d == driver.name then "1" else "0.2").getOrElse("1"))
     )
 
   def renderStage(stage: Stage, idx: Int) =
     g(
       transform <-- stagesSignal.map(stages => s"translate(${xScale(stages.toJSArray)(idx * 2)}, 0)"),
-      // top stage name
-      text(stage.name, x := "20", dy := "0.35em", transform := s"translate(0, ${RallyEye.margin.top}) rotate(-90)"),
-      // bottom stage name
-      text(
-        stage.name,
-        textAnchor := "end",
-        x := "-20",
-        dy := "0.35em",
-        transform := s"translate(0, ${RallyEye.height - RallyEye.margin.top}) rotate(-90)"
-      )
+      text(stage.name, x := "20", dy := "0.35em", transform := s"translate(0, ${RallyEye.margin.top}) rotate(-90)")
     )
 
   def renderResultLine(driver: Driver) =
@@ -190,16 +215,26 @@ object App {
       mkCrashLine(lastStageResult, Some(superRallyStageResult), lastStageResultIdx)
 
     def mkResultCircle(result: Result, idx: Int) =
-      circle(
-        stroke := "white",
-        fill := positionColorScale(result.position),
+      g(
         transform <-- stagesSignal.flatMap(stages =>
           driversSignal.map(drivers =>
             s"translate(${xScale(stages.toJSArray)(idx * 2)},${yScale(drivers.toJSArray)(result.overall)})"
           )
         ),
-        r := "12",
-        onMouseOver.map(_ => driver) --> driverSelectionBus.writer
+        circle(
+          stroke := "white",
+          fill := positionColorScale(result.position),
+          r := "12",
+          onMouseOver.map(_ => driver) --> driverSelectionBus.writer,
+          onMouseOver.map(_ => result) --> resultSelectionBus.writer
+        ),
+        if result.comment.nonEmpty then
+          circle(
+            fill := "black",
+            r := "2",
+            transform := "translate(10, -10)"
+          )
+        else emptyNode
       )
 
     def mkCrashCircle(x: Int, y: Int) =
@@ -227,7 +262,8 @@ object App {
         stroke := "white",
         strokeWidth := "1",
         textAnchor := "middle",
-        onMouseOver.map(_ => driver) --> driverSelectionBus.writer
+        onMouseOver.map(_ => driver) --> driverSelectionBus.writer,
+        onMouseOver.map(_ => result) --> resultSelectionBus.writer
       )
 
     println(driver.name)
