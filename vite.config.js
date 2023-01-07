@@ -6,7 +6,7 @@ function isDev() {
 }
 
 function printSbtTask(task) {
-    const args = ["--error", "--batch", `print ${task}`];
+    const args = ["--client", "--error", "--batch", `print ${task}`];
     const options = {
         stdio: [
             "pipe", // StdIn.
@@ -16,7 +16,7 @@ function printSbtTask(task) {
     };
     const result = process.platform === 'win32'
         ? spawnSync("sbt.bat", args.map(x => `"${x}"`), { shell: true, ...options })
-        : spawnSync("sbtn", args, options);
+        : spawnSync("sbt", args, options);
 
     if (result.error)
         throw result.error;
