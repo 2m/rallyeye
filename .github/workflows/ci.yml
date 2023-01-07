@@ -13,12 +13,21 @@ jobs:
       fail-fast: false
     steps:
     - uses: actions/checkout@v3
+
+    - name: yaml-lint
+      uses: ibiqlik/action-yamllint@v3
+
+    - uses: actions/setup-node@v3
+      with:
+        node-version: 18
+        cache: npm
+    - run: npm install
+
     - uses: actions/setup-java@v3
       with:
         distribution: temurin
         java-version: 17
-    - name: yaml-lint
-      uses: ibiqlik/action-yamllint@v3
+        cache: sbt
     - run: sbt --client scalafmtCheckAll
     - run: sbt --client scalafmtSbtCheck
     - run: sbt --client headerCheckAll
