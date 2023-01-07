@@ -53,6 +53,7 @@ case class PositionResult(
     rallyFinished: Boolean,
     comment: String
 )
+case class RallyData(name: String, data: MapView[Stage, List[PositionResult]])
 
 def parse(csv: String) =
   val (header :: data) = csv.split('\n').toList: @unchecked
@@ -143,11 +144,15 @@ def getDrivers(results: MapView[Stage, List[PositionResult]]) =
     .toList
     .sortBy(_.name)
 
-def fetch() =
+def fetch(rallyId: Int) =
   val backend = FetchBackend()
   val response = basicRequest
-    .get(uri"results.csv")
+    .get(uri"https://rallyeye-data.fly.dev/rally/".addPath(rallyId.toString))
     .send(backend)
 
   import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
-  response.map(_.body.getOrElse("") pipe parse)
+  response.map { r =>
+    val name = r.header("rally-name").getOrElse("")
+    val data = r.body.getOrElse("") pipe parse
+    RallyData(name, data)
+  }

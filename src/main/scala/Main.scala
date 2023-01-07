@@ -34,12 +34,10 @@ import com.raquo.airstream.eventbus.EventBus
 import com.raquo.airstream.eventbus.EventBus.apply
 import com.raquo.airstream.state.Var
 import com.raquo.airstream.state.Var.apply
-import com.raquo.domtypes.generic.codecs.StringAsIsCodec
 import com.raquo.laminar.api._
+import com.raquo.laminar.api.L
 import com.raquo.laminar.api.L.children
 import com.raquo.laminar.api.L.emptyNode
-import com.raquo.laminar.api.L.onMouseOver
-import com.raquo.laminar.api.L.renderOnDomContentLoaded
 import com.raquo.laminar.api.L.seqToModifier
 import com.raquo.laminar.api.L.svg._
 import org.scalajs.dom
@@ -61,19 +59,27 @@ case class Driver(name: String, results: List[Result])
 case class Margin(top: Int, right: Int, bottom: Int, left: Int)
 
 object RallyEye:
-  val width = 1000
-  val height = 1500
-  val margin = Margin(200, 30, 50, 200)
+  def columns(n: Int) = n * 2 - 1 // double the x domain to have a spot for crash icon
+  def width(stages: List[Stage]) = margin.left + columns(stages.size) * colWidth + margin.right
+  def height(drivers: List[Driver]) = margin.top + drivers.size * rowHeight + margin.bottom
+  val margin = Margin(200, 0, 28, 200)
 
-def xScale(stages: js.Array[Stage]) = scaleLinear()
-  // double the x domain to have a spot for crash icon
-  // you can not crash after the last stage, therefore one less
-  .domain(js.Array(0, (stages.size - 1) * 2 - 1))
-  .range(js.Array(RallyEye.margin.left, RallyEye.width - RallyEye.margin.right))
+  val colWidth = 28
+  val rowHeight = 28
+
+def xScale(stages: js.Array[Stage]) =
+  scaleLinear()
+    .domain(js.Array(0, RallyEye.columns(stages.size)))
+    .range(
+      js.Array(
+        RallyEye.margin.left,
+        RallyEye.margin.left + RallyEye.columns(stages.size) * RallyEye.colWidth
+      )
+    )
 
 def yScale(drivers: js.Array[Driver]) = scaleLinear()
   .domain(js.Array(1, drivers.flatMap(_.results.map(_.overall)).max))
-  .range(js.Array(RallyEye.margin.top, RallyEye.height - RallyEye.margin.bottom))
+  .range(js.Array(RallyEye.margin.top, RallyEye.margin.top + drivers.size * RallyEye.rowHeight))
 
 def colorScale(drivers: js.Array[Driver]) = scaleOrdinal(schemeCategory10).domain(drivers.map(d => d.name).toJSArray)
 
@@ -83,44 +89,74 @@ def positionColorScale = scaleOrdinal(js.Array(1, 2, 3), js.Array("#af9500", "#b
 
 @main
 def main() =
-  import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
-
-  fetch().map { r =>
-    App.results.update(_ => r // .mapValues(_.filter(_.userName == ""))
-    )
-  }
-
-  renderOnDomContentLoaded(dom.document.querySelector("#app"), App.appElement())
+  L.renderOnDomContentLoaded(dom.document.querySelector("#app"), App.app)
 
 object App {
+
+  val rallyName = Var("")
+
   val results = Var(Map.empty[Stage, List[PositionResult]].view)
   val stagesSignal = results.signal.map(getStages)
   val driversSignal = results.signal.map(getDrivers)
 
   val selectedDriver = Var(Option.empty[String])
-  val driverSelectionBus = EventBus[Driver]()
+  val driverSelectionBus = EventBus[Driver]
   val selectDriver = Observer[Driver](onNext = d => selectedDriver.set(Some(d.name)))
 
   val selectedResult = Var(Option.empty[Result])
-  val resultSelectionBus = EventBus[Result]()
+  val resultSelectionBus = EventBus[Result]
   val selectResult = Observer[Result](onNext = r => selectedResult.set(Some(r)))
 
-  def appElement() =
-    svg(
-      width := RallyEye.width.toString,
-      height := RallyEye.height.toString,
-      fontSize := "12px",
-      fontFamily := "Tahoma",
-      renderInfo(),
-      children <-- driversSignal.map(drivers => drivers.map(renderDriver)),
-      children <-- stagesSignal.map(stages => stages.zipWithIndex.toSeq.map(renderStage)),
-      children <-- driversSignal.map(drivers => drivers.map(renderResultLine)),
-      driverSelectionBus.events --> selectDriver,
-      resultSelectionBus.events --> selectResult
+  import Router._
+  val app = L.div(
+    L.child <-- router.currentPageSignal.map(renderPage)
+  )
+
+  def fetchData(rallyId: Int) =
+    import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
+
+    fetch(rallyId).map { r =>
+      App.rallyName.set(r.name)
+      App.results.set(
+        r.data // .mapValues(_.filter(_.userName == ""))
+      )
+      App.selectedDriver.set(None)
+      App.selectedResult.set(None)
+    }
+
+  def renderPage(page: Page) =
+    page match {
+      case IndexPage => indexPage()
+      case RallyPage(rallyId) =>
+        fetchData(rallyId)
+        rallyPage()
+    }
+
+  def indexPage() =
+    router.replaceState(RallyPage(48272)) // rally to show by default
+    L.div()
+
+  def rallyPage() =
+    L.div(
+      Components.header(rallyName.signal),
+      L.div(
+        L.cls := "graph relative p-4 text-xs overflow-scroll",
+        renderInfo(),
+        svg(
+          width <-- stagesSignal.map(s => RallyEye.width(s)).map(_.toString),
+          height <-- driversSignal.map(d => RallyEye.height(d)).map(_.toString),
+          children <-- driversSignal.map(drivers => drivers.map(renderDriver)),
+          children <-- stagesSignal.map(stages => stages.zipWithIndex.toSeq.map(renderStage)),
+          children <-- driversSignal.map(drivers => drivers.map(renderResultLine)),
+          driverSelectionBus.events --> selectDriver,
+          resultSelectionBus.events --> selectResult
+        )
+      )
     )
 
   def renderInfo() =
-    g(
+    L.div(
+      L.cls := "info absolute",
       children <-- (
         for
           maybeResult <- selectedResult.signal
@@ -130,13 +166,11 @@ object App {
           case None => Seq(emptyNode)
           case Some(result) =>
             Seq(
-              text(
-                tspan(x := "0", dy := "1.2em", s"SS${result.stageNumber} ${stages(result.stageNumber - 1).name}"),
-                tspan(x := "0", dy := "1.2em", driver),
-                tspan(x := "0", dy := "1.2em", s"Stage: ${result.time.prettyDuration}"),
-                tspan(x := "0", dy := "1.2em", s"Rally: ${result.overallTime.prettyDuration}"),
-                if result.comment.nonEmpty then tspan(x := "0", dy := "1.2em", s"“${result.comment}”") else emptyNode
-              )
+              L.div(s"SS${result.stageNumber} ${stages(result.stageNumber - 1).name}"),
+              L.div(driver),
+              L.div(s"Stage: ${result.time.prettyDiff} (${result.position})"),
+              L.div(s"Rally: ${result.overallTime.prettyDiff} (${result.overall})"),
+              if result.comment.nonEmpty then L.div(s"“${result.comment}”") else emptyNode
             )
         }
       )
@@ -148,7 +182,7 @@ object App {
         s"translate(0, ${yScale(drivers.toJSArray)(driver.results(0).overall)})"
       ),
       text(driver.name, dy := "0.4em"),
-      onMouseOver.map(_ => driver) --> driverSelectionBus.writer,
+      L.onMouseOver.map(_ => driver) --> driverSelectionBus.writer,
       opacity <-- selectedDriver.signal.map(d => d.map(d => if d == driver.name then "1" else "0.2").getOrElse("1"))
     )
 
@@ -227,8 +261,8 @@ object App {
           stroke := "white",
           fill := positionColorScale(result.position),
           r := "12",
-          onMouseOver.map(_ => driver) --> driverSelectionBus.writer,
-          onMouseOver.map(_ => result) --> resultSelectionBus.writer
+          L.onMouseOver.map(_ => driver) --> driverSelectionBus.writer,
+          L.onMouseOver.map(_ => result) --> resultSelectionBus.writer
         ),
         if result.comment.nonEmpty then
           circle(
@@ -265,8 +299,8 @@ object App {
         stroke := "white",
         strokeWidth := "1",
         textAnchor := "middle",
-        onMouseOver.map(_ => driver) --> driverSelectionBus.writer,
-        onMouseOver.map(_ => result) --> resultSelectionBus.writer
+        L.onMouseOver.map(_ => driver) --> driverSelectionBus.writer,
+        L.onMouseOver.map(_ => result) --> resultSelectionBus.writer
       )
 
     val (rallyResultsWoLast, superRallyResultsWoLast, lastStint, lastSuperRally) = driver.results.zipWithIndex.foldLeft(

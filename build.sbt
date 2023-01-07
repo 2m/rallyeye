@@ -5,9 +5,11 @@ scalacOptions ++= Seq("-encoding", "utf-8", "-deprecation", "-feature")
 
 libraryDependencies ++= Seq(
   "org.scala-js"                  %%% "scalajs-dom"     % "2.2.0",
-  "com.softwaremill.sttp.client3" %%% "core"            % "3.8.5",
-  "com.raquo"                     %%% "laminar"         % "0.14.5",
+  "com.softwaremill.sttp.client3" %%% "core"            % "3.8.7",
+  "com.raquo"                     %%% "laminar"         % "15.0.0-M1",
+  "com.raquo"                     %%% "waypoint"        % "6.0.0-M1",
   "io.github.cquiroz"             %%% "scala-java-time" % "2.5.0",
+  "com.lihaoyi"                   %%% "upickle"         % "3.0.0-M1",
   "com.lihaoyi"                   %%% "utest"           % "0.8.1" % "test"
 )
 
