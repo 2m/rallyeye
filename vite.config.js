@@ -22,7 +22,9 @@ function printSbtTask(task) {
         throw result.error;
     if (result.status !== 0)
         throw new Error(`sbt process failed with exit code ${result.status}`);
-    const value = result.stdout.toString('utf8').replace(/[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g,"").trim().split('\n').at(-2);
+    const output = result.stdout.toString('utf8').replace(/[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g, "").trim().split('\n');
+    console.log(output)
+    const value = output.at(-2);
     console.log(`"${task}" task output: [${value}]`)
     return value;
 }
