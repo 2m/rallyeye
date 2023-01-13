@@ -55,6 +55,7 @@ case class Result(
     comment: String
 )
 case class Driver(name: String, results: List[Result])
+case class Rally(id: Int, name: String)
 
 case class Margin(top: Int, right: Int, bottom: Int, left: Int)
 
@@ -93,7 +94,7 @@ def main() =
 
 object App {
 
-  val rallyName = Var("")
+  val selectedRally = Var(Option.empty[Rally])
 
   val results = Var(Map.empty[Stage, List[PositionResult]].view)
   val stagesSignal = results.signal.map(getStages)
@@ -116,7 +117,7 @@ object App {
     import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
 
     fetch(rallyId).map { r =>
-      App.rallyName.set(r.name)
+      App.selectedRally.set(Some(Rally(rallyId, r.name)))
       App.results.set(
         r.data // .mapValues(_.filter(_.userName == ""))
       )
@@ -138,7 +139,7 @@ object App {
 
   def rallyPage() =
     L.div(
-      Components.header(rallyName.signal),
+      Components.header(selectedRally.signal),
       L.div(
         L.cls := "graph relative p-4 text-xs overflow-scroll",
         renderInfo(),

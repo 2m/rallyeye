@@ -19,7 +19,7 @@ package rallyeye
 import com.raquo.laminar.api.L._
 
 object Components:
-  def header(rallyNameSignal: Signal[String]) =
+  def header(rallySignal: Signal[Option[Rally]]) =
     navTag(
       cls := "bg-white border-gray-200 px-4 lg:px-6 py-2.5 shadow-lg",
       div(
@@ -30,7 +30,17 @@ object Components:
           img(src := "/rallyeye.svg", cls := "mr-3 h-6 sm:h-9", alt := "RallyEye logo"),
           span(cls := "self-center text-xl font-semibold whitespace-nowrap", "RallyEye")
         ),
-        child <-- rallyNameSignal.map(div(_)),
+        child <-- rallySignal.map(
+          _.map(r =>
+            div(
+              a(
+                href := s"https://www.rallysimfans.hu/rbr/rally_online.php?centerbox=rally_list_details.php&rally_id=${r.id}",
+                target := "_blank",
+                r.name
+              )
+            )
+          ).getOrElse(emptyNode)
+        ),
         div(
           cls := "flex items-center lg:order-2",
           a(
