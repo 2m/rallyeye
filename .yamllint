@@ -1,0 +1,16 @@
+---
+extends: default
+ignore-from-file: .gitignore
+rules:
+  # Disable requirement for `---` at the beginning of each file
+  document-start: disable
+
+  indentation:
+    indent-sequences: false
+
+  line-length:
+    max: 100
+    level: warning
+
+  truthy:
+    allowed-values: ['true', 'false', 'on']
