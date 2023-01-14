@@ -2,8 +2,7 @@
 module.exports = {
   content: [
     "./index.html",
-    "./target/scala-3.2.1/rallyeye-scala-fastopt/*.js",
-    "./target/scala-3.2.1/rallyeye-scala-opt/*.js"
+    "./target/scala-*/rallyeye-*/*.js"
   ],
   theme: {
     fontFamily: {
