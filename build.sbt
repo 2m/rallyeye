@@ -38,19 +38,22 @@ scalaJSLinkerConfig ~= {
     )
 }
 
-def linkerOutputDirectory(v: Attributed[org.scalajs.linker.interface.Report]): File =
-  v.get(scalaJSLinkerOutputDirectory.key).getOrElse {
+def linkerOutputDirectory(v: Attributed[org.scalajs.linker.interface.Report], t: File): Unit = {
+  val output = v.get(scalaJSLinkerOutputDirectory.key).getOrElse {
     throw new MessageOnlyException(
       "Linking report was not attributed with output directory. " +
         "Please report this as a Scala.js bug."
     )
   }
+  IO.write(t / "linker-output.txt", output.getAbsolutePath.toString)
+  ()
+}
 
-val publicDev = taskKey[String]("output directory for `npm run dev`")
-val publicProd = taskKey[String]("output directory for `npm run build`")
+val publicDev = taskKey[Unit]("output directory for `npm run dev`")
+val publicProd = taskKey[Unit]("output directory for `npm run build`")
 
-publicDev := linkerOutputDirectory((Compile / fastLinkJS).value).getAbsolutePath()
-publicProd := linkerOutputDirectory((Compile / fullLinkJS).value).getAbsolutePath()
+publicDev := linkerOutputDirectory((Compile / fastLinkJS).value, target.value)
+publicProd := linkerOutputDirectory((Compile / fullLinkJS).value, target.value)
 
 // scalably typed
 enablePlugins(ScalablyTypedConverterExternalNpmPlugin)
