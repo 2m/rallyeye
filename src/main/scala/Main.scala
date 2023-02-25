@@ -179,11 +179,12 @@ object App {
 
   def renderDriver(driver: Driver) =
     g(
+      cls := "clickable",
       transform <-- driversSignal.map(drivers =>
         s"translate(0, ${yScale(drivers.toJSArray)(driver.results(0).overall)})"
       ),
       text(driver.name, dy := "0.4em"),
-      L.onMouseOver.map(_ => driver) --> driverSelectionBus.writer,
+      L.onClick.map(_ => driver) --> driverSelectionBus.writer,
       opacity <-- selectedDriver.signal.map(d => d.map(d => if d == driver.name then "1" else "0.2").getOrElse("1"))
     )
 
@@ -252,6 +253,7 @@ object App {
 
     def mkResultCircle(result: Result, idx: Int) =
       g(
+        cls := "clickable",
         transform <-- (
           for
             stages <- stagesSignal
@@ -262,8 +264,8 @@ object App {
           stroke := "white",
           fill := positionColorScale(result.position),
           r := "12",
-          L.onMouseOver.map(_ => driver) --> driverSelectionBus.writer,
-          L.onMouseOver.map(_ => result) --> resultSelectionBus.writer
+          L.onClick.map(_ => driver) --> driverSelectionBus.writer,
+          L.onClick.map(_ => result) --> resultSelectionBus.writer
         ),
         if result.comment.nonEmpty then
           circle(
@@ -288,6 +290,7 @@ object App {
 
     def mkResultNumber(result: Result, idx: Int) =
       text(
+        cls := "clickable",
         result.position,
         transform <-- (
           for
@@ -300,8 +303,8 @@ object App {
         stroke := "white",
         strokeWidth := "1",
         textAnchor := "middle",
-        L.onMouseOver.map(_ => driver) --> driverSelectionBus.writer,
-        L.onMouseOver.map(_ => result) --> resultSelectionBus.writer
+        L.onClick.map(_ => driver) --> driverSelectionBus.writer,
+        L.onClick.map(_ => result) --> resultSelectionBus.writer
       )
 
     val (rallyResultsWoLast, superRallyResultsWoLast, lastStint, lastSuperRally) = driver.results.zipWithIndex.foldLeft(
