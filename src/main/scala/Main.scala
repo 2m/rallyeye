@@ -101,11 +101,11 @@ object App {
   val driversSignal = results.signal.map(getDrivers)
 
   val selectedDriver = Var(Option.empty[String])
-  val driverSelectionBus = EventBus[Driver]
+  val driverSelectionBus = EventBus[Driver]()
   val selectDriver = Observer[Driver](onNext = d => selectedDriver.set(Some(d.name)))
 
   val selectedResult = Var(Option.empty[Result])
-  val resultSelectionBus = EventBus[Result]
+  val resultSelectionBus = EventBus[Result]()
   val selectResult = Observer[Result](onNext = r => selectedResult.set(Some(r)))
 
   import Router._
