@@ -102,7 +102,11 @@ object App {
 
   val selectedDriver = Var(Option.empty[String])
   val driverSelectionBus = EventBus[Driver]()
-  val selectDriver = Observer[Driver](onNext = d => selectedDriver.set(Some(d.name)))
+  val selectDriver = Observer[Driver](
+    onNext = d =>
+      selectedDriver.set(Some(d.name))
+      selectedResult.set(None)
+  )
 
   val selectedResult = Var(Option.empty[Result])
   val resultSelectionBus = EventBus[Result]()
@@ -139,10 +143,10 @@ object App {
 
   def rallyPage() =
     L.div(
+      L.child <-- selectedResult.signal.map(r => if r.isDefined then renderInfo() else emptyNode),
       Components.header(selectedRally.signal),
       L.div(
-        L.cls := "graph relative p-4 text-xs overflow-scroll",
-        renderInfo(),
+        L.cls := "graph p-4 text-xs overflow-scroll",
         svg(
           width <-- stagesSignal.map(s => RallyEye.width(s)).map(_.toString),
           height <-- driversSignal.map(d => RallyEye.height(d)).map(_.toString),
@@ -157,7 +161,7 @@ object App {
 
   def renderInfo() =
     L.div(
-      L.cls := "info absolute",
+      L.cls := "info fixed p-4 text-xs border-2 bg-white",
       children <-- (
         for
           maybeResult <- selectedResult.signal
