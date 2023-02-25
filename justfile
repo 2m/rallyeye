@@ -1,5 +1,5 @@
 dev-scala:
-  sbtn ~fastLinkJS
+  sbt --client ~fastLinkJS
 
 dev-js:
   npm run dev
