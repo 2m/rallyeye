@@ -68,7 +68,7 @@ object RallyEye:
   val colWidth = 28
   val rowHeight = 28
 
-def xScale(stages: js.Array[Stage]) =
+def getXScale(stages: js.Array[Stage]) =
   scaleLinear()
     .domain(js.Array(0, RallyEye.columns(stages.size)))
     .range(
@@ -78,13 +78,13 @@ def xScale(stages: js.Array[Stage]) =
       )
     )
 
-def yScale(drivers: js.Array[Driver]) = scaleLinear()
+def getYScale(drivers: js.Array[Driver]) = scaleLinear()
   .domain(js.Array(1, drivers.flatMap(_.results.map(_.overall)).max))
   .range(js.Array(RallyEye.margin.top, RallyEye.margin.top + drivers.size * RallyEye.rowHeight))
 
-def colorScale(drivers: js.Array[Driver]) = scaleOrdinal(schemeCategory10).domain(drivers.map(d => d.name).toJSArray)
+def getColorScale(drivers: js.Array[Driver]) = scaleOrdinal(schemeCategory10).domain(drivers.map(d => d.name))
 
-def positionColorScale = scaleOrdinal(js.Array(1, 2, 3), js.Array("#af9500", "#b4b4b4", "#6a3805"))
+val positionColorScale = scaleOrdinal(js.Array(1, 2, 3), js.Array("#af9500", "#b4b4b4", "#6a3805"))
   .unknown("#000000")
   .asInstanceOf[ScaleOrdinal_[Int, String, Nothing]]
 
@@ -99,6 +99,10 @@ object App {
   val results = Var(Map.empty[Stage, List[PositionResult]].view)
   val stagesSignal = results.signal.map(getStages)
   val driversSignal = results.signal.map(getDrivers)
+
+  val $xScale = stagesSignal.map(s => getXScale(s.toJSArray))
+  val $yScale = driversSignal.map(d => getYScale(d.toJSArray))
+  val $colorScale = driversSignal.map(d => getColorScale(d.toJSArray))
 
   val selectedDriver = Var(Option.empty[String])
   val driverSelectionBus = EventBus[Driver]()
@@ -184,9 +188,7 @@ object App {
   def renderDriver(driver: Driver) =
     g(
       cls := "clickable",
-      transform <-- driversSignal.map(drivers =>
-        s"translate(0, ${yScale(drivers.toJSArray)(driver.results(0).overall)})"
-      ),
+      transform <-- $yScale.map(yScale => s"translate(0, ${yScale(driver.results(0).overall)})"),
       text(driver.name, dy := "0.4em"),
       L.onClick.map(_ => driver) --> driverSelectionBus.writer,
       opacity <-- selectedDriver.signal.map(d => d.map(d => if d == driver.name then "1" else "0.2").getOrElse("1"))
@@ -194,26 +196,23 @@ object App {
 
   def renderStage(stage: Stage, idx: Int) =
     g(
-      transform <-- stagesSignal.map(stages => s"translate(${xScale(stages.toJSArray)(idx * 2)}, 0)"),
+      transform <-- $xScale.map(xScale => s"translate(${xScale(idx * 2)}, 0)"),
       text(stage.name, x := "20", dy := "0.35em", transform := s"translate(0, ${RallyEye.margin.top}) rotate(-90)")
     )
 
   def renderResultLine(driver: Driver) =
-    def mkLine(stages: js.Array[Stage], drivers: js.Array[Driver]) =
-      line[(Int, Int)]()
-        .x((r, _, _) => xScale(stages)(r._1))
-        .y((r, _, _) => yScale(drivers)(r._2))
-
     def mkResultLine(superRally: Boolean)(coordinates: List[(Int, Int)]) =
       path(
         fill := "none",
-        stroke <-- driversSignal.map(drivers => colorScale(drivers.toJSArray)(driver.name)),
+        stroke <-- $colorScale.map(colorScale => colorScale(driver.name)),
         if superRally then strokeDashArray := "1 0 1" else emptyNode,
         d <-- (
           for
-            stages <- stagesSignal
-            drivers <- driversSignal
-          yield mkLine(stages.toJSArray, drivers.toJSArray)(coordinates.toJSArray)
+            xScale <- $xScale
+            yScale <- $yScale
+          yield line[(Int, Int)]()
+            .x((r, _, _) => xScale(r._1))
+            .y((r, _, _) => yScale(r._2))(coordinates.toJSArray)
         )
       )
 
@@ -242,9 +241,9 @@ object App {
           fontSize := "16px",
           transform <-- (
             for
-              stages <- stagesSignal
-              drivers <- driversSignal
-            yield s"translate(${xScale(stages.toJSArray)(lastStageResultIdx * 2 + 1)},${yScale(drivers.toJSArray)(lastStageResult.overall)})"
+              xScale <- $xScale
+              yScale <- $yScale
+            yield s"translate(${xScale(lastStageResultIdx * 2 + 1)},${yScale(lastStageResult.overall)})"
           ),
           dy := "0.35em",
           textAnchor := "middle",
@@ -260,9 +259,9 @@ object App {
         cls := "clickable",
         transform <-- (
           for
-            stages <- stagesSignal
-            drivers <- driversSignal
-          yield s"translate(${xScale(stages.toJSArray)(idx * 2)},${yScale(drivers.toJSArray)(result.overall)})"
+            xScale <- $xScale
+            yScale <- $yScale
+          yield s"translate(${xScale(idx * 2)},${yScale(result.overall)})"
         ),
         circle(
           stroke := "white",
@@ -285,9 +284,9 @@ object App {
         fill := "white",
         transform <-- (
           for
-            stages <- stagesSignal
-            drivers <- driversSignal
-          yield s"translate(${xScale(stages.toJSArray)(x)},${yScale(drivers.toJSArray)(y)})"
+            xScale <- $xScale
+            yScale <- $yScale
+          yield s"translate(${xScale(x)},${yScale(y)})"
         ),
         r := "6"
       )
@@ -298,9 +297,9 @@ object App {
         result.position,
         transform <-- (
           for
-            stages <- stagesSignal
-            drivers <- driversSignal
-          yield s"translate(${xScale(stages.toJSArray)(idx * 2)},${yScale(drivers.toJSArray)(result.overall)})"
+            xScale <- $xScale
+            yScale <- $yScale
+          yield s"translate(${xScale(idx * 2)},${yScale(result.overall)})"
         ),
         dy := "0.35em",
         fill := "white",
