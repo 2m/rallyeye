@@ -4,13 +4,14 @@ scalaVersion := "3.2.2"
 scalacOptions ++= Seq("-encoding", "utf-8", "-deprecation", "-feature")
 
 libraryDependencies ++= Seq(
-  "org.scala-js"                  %%% "scalajs-dom"     % "2.4.0",
-  "com.softwaremill.sttp.client3" %%% "core"            % "3.8.11",
-  "com.raquo"                     %%% "laminar"         % "15.0.0-M6",
-  "com.raquo"                     %%% "waypoint"        % "6.0.0-M4",
-  "io.github.cquiroz"             %%% "scala-java-time" % "2.5.0",
-  "com.lihaoyi"                   %%% "upickle"         % "3.0.0-M2",
-  "com.lihaoyi"                   %%% "utest"           % "0.8.1" % "test"
+  "org.scala-js"                  %%% "scalajs-dom"                 % "2.4.0",
+  "org.scala-js"                  %%% "scala-js-macrotask-executor" % "1.1.1",
+  "com.softwaremill.sttp.client3" %%% "core"                        % "3.8.11",
+  "com.raquo"                     %%% "laminar"                     % "15.0.0-M6",
+  "com.raquo"                     %%% "waypoint"                    % "6.0.0-M4",
+  "io.github.cquiroz"             %%% "scala-java-time"             % "2.5.0",
+  "com.lihaoyi"                   %%% "upickle"                     % "3.0.0-M2",
+  "com.lihaoyi"                   %%% "utest"                       % "0.8.1" % "test"
 )
 
 testFrameworks += new TestFramework("utest.runner.Framework")

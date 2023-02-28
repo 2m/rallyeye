@@ -150,7 +150,7 @@ def fetch(rallyId: Int) =
     .get(uri"https://rallyeye-data.fly.dev/rally/".addPath(rallyId.toString))
     .send(backend)
 
-  import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
+  import org.scalajs.macrotaskexecutor.MacrotaskExecutor.Implicits.global
   response.map { r =>
     val name = r.header("rally-name").getOrElse("")
     val data = r.body.getOrElse("") pipe parse
