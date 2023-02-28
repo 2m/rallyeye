@@ -122,7 +122,7 @@ object App {
   )
 
   def fetchData(rallyId: Int) =
-    import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
+    import org.scalajs.macrotaskexecutor.MacrotaskExecutor.Implicits.global
 
     fetch(rallyId).map { r =>
       App.selectedRally.set(Some(Rally(rallyId, r.name)))
