@@ -8,3 +8,17 @@ Serves rally data from [RallySimFans][rallysimfans] with relaxed CORS policy.
 
 [rallyeye]:     https://github.com/2m/rallyeye
 [rallysimfans]: https://www.rallysimfans.hu
+
+## Development
+
+Start server locally by running:
+
+```sh
+sbt --client reStart
+```
+
+Then get specific rally data by running:
+
+```sh
+http localhost:8080/rally/52804
+```
