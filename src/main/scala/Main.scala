@@ -29,7 +29,7 @@ import typings.d3Selection.mod.Selection_
 import typings.d3Selection.mod.select
 import typings.d3Shape.mod.line
 
-import com.raquo.airstream.core.Observer
+import com.raquo.airstream.core.{Observer, Signal}
 import com.raquo.airstream.eventbus.EventBus
 import com.raquo.airstream.eventbus.EventBus.apply
 import com.raquo.airstream.state.Var
@@ -100,21 +100,25 @@ object App {
   val stagesSignal = results.signal.map(getStages)
   val driversSignal = results.signal.map(getDrivers)
 
-  val $xScale = stagesSignal.map(s => getXScale(s.toJSArray))
-  val $yScale = driversSignal.map(d => getYScale(d.toJSArray))
-  val $colorScale = driversSignal.map(d => getColorScale(d.toJSArray))
+  val _xScale = stagesSignal.map(s => getXScale(s.toJSArray))
+  val _yScale = driversSignal.map(d => getYScale(d.toJSArray))
+  val _colorScale = driversSignal.map(d => getColorScale(d.toJSArray))
+
+  val _xyScale = _xScale.combineWith(_yScale)
 
   val selectedDriver = Var(Option.empty[String])
   val driverSelectionBus = EventBus[Driver]()
   val selectDriver = Observer[Driver](
     onNext = d =>
-      selectedDriver.set(Some(d.name))
-      selectedResult.set(None)
+      Var.set(
+        selectedDriver -> Some(d.name),
+        selectedResult -> None
+      )
   )
 
   val selectedResult = Var(Option.empty[Result])
   val resultSelectionBus = EventBus[Result]()
-  val selectResult = Observer[Result](onNext = r => selectedResult.set(Some(r)))
+  val selectResult =  selectedResult.someWriter
 
   import Router._
   val app = L.div(
@@ -125,12 +129,12 @@ object App {
     import org.scalajs.macrotaskexecutor.MacrotaskExecutor.Implicits.global
 
     fetch(rallyId).map { r =>
-      App.selectedRally.set(Some(Rally(rallyId, r.name)))
-      App.results.set(
-        r.data // .mapValues(_.filter(_.userName == ""))
+      Var.set(
+        App.selectedRally -> Some(Rally(rallyId, r.name)),
+        App.results -> r.data, // .mapValues(_.filter(_.userName == ""))
+        App.selectedDriver -> None,
+        App.selectedResult -> None
       )
-      App.selectedDriver.set(None)
-      App.selectedResult.set(None)
     }
 
   def renderPage(page: Page) =
@@ -167,28 +171,28 @@ object App {
     L.div(
       L.cls := "info fixed p-4 text-xs border-2 bg-white",
       children <-- (
-        for
-          maybeResult <- selectedResult.signal
-          driver <- selectedDriver.signal
-          stages <- stagesSignal
-        yield maybeResult match {
-          case None => Seq(emptyNode)
-          case Some(result) =>
-            Seq(
-              L.div(s"SS${result.stageNumber} ${stages(result.stageNumber - 1).name}"),
-              L.div(driver),
-              L.div(s"Stage: ${result.time.prettyDiff} (${result.position})"),
-              L.div(s"Rally: ${result.overallTime.prettyDiff} (${result.overall})"),
-              if result.comment.nonEmpty then L.div(s"“${result.comment}”") else emptyNode
-            )
-        }
+        Signal
+          .combine(selectedResult, selectedDriver, stagesSignal)
+          .mapN { (maybeResult, driver, stages) =>
+            maybeResult match {
+              case None => Seq(emptyNode)
+              case Some(result) =>
+                Seq(
+                  L.div(s"SS${result.stageNumber} ${stages(result.stageNumber - 1).name}"),
+                  L.div(driver),
+                  L.div(s"Stage: ${result.time.prettyDiff} (${result.position})"),
+                  L.div(s"Rally: ${result.overallTime.prettyDiff} (${result.overall})"),
+                  if result.comment.nonEmpty then L.div(s"“${result.comment}”") else emptyNode
+                )
+            }
+          }
       )
     )
 
   def renderDriver(driver: Driver) =
     g(
       cls := "clickable",
-      transform <-- $yScale.map(yScale => s"translate(0, ${yScale(driver.results(0).overall)})"),
+      transform <-- _yScale.map(yScale => s"translate(0, ${yScale(driver.results(0).overall)})"),
       text(driver.name, dy := "0.4em"),
       L.onClick.map(_ => driver) --> driverSelectionBus.writer,
       opacity <-- selectedDriver.signal.map(d => d.map(d => if d == driver.name then "1" else "0.2").getOrElse("1"))
@@ -196,7 +200,7 @@ object App {
 
   def renderStage(stage: Stage, idx: Int) =
     g(
-      transform <-- $xScale.map(xScale => s"translate(${xScale(idx * 2)}, 0)"),
+      transform <-- _xScale.map(xScale => s"translate(${xScale(idx * 2)}, 0)"),
       text(stage.name, x := "20", dy := "0.35em", transform := s"translate(0, ${RallyEye.margin.top}) rotate(-90)")
     )
 
@@ -204,16 +208,13 @@ object App {
     def mkResultLine(superRally: Boolean)(coordinates: List[(Int, Int)]) =
       path(
         fill := "none",
-        stroke <-- $colorScale.map(colorScale => colorScale(driver.name)),
+        stroke <-- _colorScale.map(colorScale => colorScale(driver.name)),
         if superRally then strokeDashArray := "1 0 1" else emptyNode,
-        d <-- (
-          for
-            xScale <- $xScale
-            yScale <- $yScale
-          yield line[(Int, Int)]()
+        d <-- _xyScale.mapN { (xScale, yScale) =>
+          line[(Int, Int)]()
             .x((r, _, _) => xScale(r._1))
             .y((r, _, _) => yScale(r._2))(coordinates.toJSArray)
-        )
+        },
       )
 
     def resultIdxToCoords(result: Result, idx: Int) = (idx * 2, result.overall)
@@ -239,12 +240,9 @@ object App {
         mkCrashCircle(lastStageResultIdx * 2 + 1, lastStageResult.overall),
         text(
           fontSize := "16px",
-          transform <-- (
-            for
-              xScale <- $xScale
-              yScale <- $yScale
-            yield s"translate(${xScale(lastStageResultIdx * 2 + 1)},${yScale(lastStageResult.overall)})"
-          ),
+          transform <-- _xyScale.mapN { (xScale, yScale) =>
+            s"translate(${xScale(lastStageResultIdx * 2 + 1)},${yScale(lastStageResult.overall)})"
+          },
           dy := "0.35em",
           textAnchor := "middle",
           "💥"
@@ -257,16 +255,14 @@ object App {
     def mkResultCircle(result: Result, idx: Int) =
       g(
         cls := "clickable",
-        transform <-- (
-          for
-            xScale <- $xScale
-            yScale <- $yScale
-          yield s"translate(${xScale(idx * 2)},${yScale(result.overall)})"
-        ),
+        transform <-- _xyScale.mapN { (xScale, yScale) =>
+          s"translate(${xScale(idx * 2)},${yScale(result.overall)})"
+        },
         circle(
           stroke := "white",
           fill := positionColorScale(result.position),
           r := "12",
+          // #TODO: Combine these two into a single  `L.onClick --> { _ => EventBus.emit(...) }` once Airstream fixes that method's type signature
           L.onClick.map(_ => driver) --> driverSelectionBus.writer,
           L.onClick.map(_ => result) --> resultSelectionBus.writer
         ),
@@ -282,12 +278,9 @@ object App {
     def mkCrashCircle(x: Int, y: Int) =
       circle(
         fill := "white",
-        transform <-- (
-          for
-            xScale <- $xScale
-            yScale <- $yScale
-          yield s"translate(${xScale(x)},${yScale(y)})"
-        ),
+        transform <-- _xyScale.mapN { (xScale, yScale) =>
+          s"translate(${xScale(x)},${yScale(y)})"
+        },
         r := "6"
       )
 
@@ -295,12 +288,9 @@ object App {
       text(
         cls := "clickable",
         result.position,
-        transform <-- (
-          for
-            xScale <- $xScale
-            yScale <- $yScale
-          yield s"translate(${xScale(idx * 2)},${yScale(result.overall)})"
-        ),
+        transform <-- _xyScale.mapN { (xScale, yScale) =>
+          s"translate(${xScale(idx * 2)},${yScale(result.overall)})"
+        },
         dy := "0.35em",
         fill := "white",
         stroke := "white",
