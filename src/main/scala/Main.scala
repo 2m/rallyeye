@@ -104,6 +104,8 @@ object App {
   val _yScale = driversSignal.map(d => getYScale(d.toJSArray))
   val _colorScale = driversSignal.map(d => getColorScale(d.toJSArray))
 
+  val _xyScale = _xScale.combineWith(_yScale)
+
   val selectedDriver = Var(Option.empty[String])
   val driverSelectionBus = EventBus[Driver]()
   val selectDriver = Observer[Driver](
@@ -208,7 +210,7 @@ object App {
         fill := "none",
         stroke <-- _colorScale.map(colorScale => colorScale(driver.name)),
         if superRally then strokeDashArray := "1 0 1" else emptyNode,
-        d <-- _xScale.combineWith(_yScale).mapN { (xScale, yScale) =>
+        d <-- _xyScale.mapN { (xScale, yScale) =>
           line[(Int, Int)]()
             .x((r, _, _) => xScale(r._1))
             .y((r, _, _) => yScale(r._2))(coordinates.toJSArray)
@@ -238,7 +240,7 @@ object App {
         mkCrashCircle(lastStageResultIdx * 2 + 1, lastStageResult.overall),
         text(
           fontSize := "16px",
-          transform <-- _xScale.combineWith(_yScale).mapN { (xScale, yScale) =>
+          transform <-- _xyScale.mapN { (xScale, yScale) =>
             s"translate(${xScale(lastStageResultIdx * 2 + 1)},${yScale(lastStageResult.overall)})"
           },
           dy := "0.35em",
@@ -253,7 +255,7 @@ object App {
     def mkResultCircle(result: Result, idx: Int) =
       g(
         cls := "clickable",
-        transform <-- _xScale.combineWith(_yScale).mapN { (xScale, yScale) =>
+        transform <-- _xyScale.mapN { (xScale, yScale) =>
           s"translate(${xScale(idx * 2)},${yScale(result.overall)})"
         },
         circle(
@@ -276,7 +278,7 @@ object App {
     def mkCrashCircle(x: Int, y: Int) =
       circle(
         fill := "white",
-        transform <-- _xScale.combineWith(_yScale).mapN { (xScale, yScale) =>
+        transform <-- _xyScale.mapN { (xScale, yScale) =>
           s"translate(${xScale(x)},${yScale(y)})"
         },
         r := "6"
@@ -286,7 +288,7 @@ object App {
       text(
         cls := "clickable",
         result.position,
-        transform <-- _xScale.combineWith(_yScale).mapN { (xScale, yScale) =>
+        transform <-- _xyScale.mapN { (xScale, yScale) =>
           s"translate(${xScale(idx * 2)},${yScale(result.overall)})"
         },
         dy := "0.35em",
