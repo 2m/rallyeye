@@ -100,9 +100,9 @@ object App {
   val stagesSignal = results.signal.map(getStages)
   val driversSignal = results.signal.map(getDrivers)
 
-  val $xScale = stagesSignal.map(s => getXScale(s.toJSArray))
-  val $yScale = driversSignal.map(d => getYScale(d.toJSArray))
-  val $colorScale = driversSignal.map(d => getColorScale(d.toJSArray))
+  val _xScale = stagesSignal.map(s => getXScale(s.toJSArray))
+  val _yScale = driversSignal.map(d => getYScale(d.toJSArray))
+  val _colorScale = driversSignal.map(d => getColorScale(d.toJSArray))
 
   val selectedDriver = Var(Option.empty[String])
   val driverSelectionBus = EventBus[Driver]()
@@ -188,7 +188,7 @@ object App {
   def renderDriver(driver: Driver) =
     g(
       cls := "clickable",
-      transform <-- $yScale.map(yScale => s"translate(0, ${yScale(driver.results(0).overall)})"),
+      transform <-- _yScale.map(yScale => s"translate(0, ${yScale(driver.results(0).overall)})"),
       text(driver.name, dy := "0.4em"),
       L.onClick.map(_ => driver) --> driverSelectionBus.writer,
       opacity <-- selectedDriver.signal.map(d => d.map(d => if d == driver.name then "1" else "0.2").getOrElse("1"))
@@ -196,7 +196,7 @@ object App {
 
   def renderStage(stage: Stage, idx: Int) =
     g(
-      transform <-- $xScale.map(xScale => s"translate(${xScale(idx * 2)}, 0)"),
+      transform <-- _xScale.map(xScale => s"translate(${xScale(idx * 2)}, 0)"),
       text(stage.name, x := "20", dy := "0.35em", transform := s"translate(0, ${RallyEye.margin.top}) rotate(-90)")
     )
 
@@ -204,16 +204,13 @@ object App {
     def mkResultLine(superRally: Boolean)(coordinates: List[(Int, Int)]) =
       path(
         fill := "none",
-        stroke <-- $colorScale.map(colorScale => colorScale(driver.name)),
+        stroke <-- _colorScale.map(colorScale => colorScale(driver.name)),
         if superRally then strokeDashArray := "1 0 1" else emptyNode,
-        d <-- (
-          for
-            xScale <- $xScale
-            yScale <- $yScale
-          yield line[(Int, Int)]()
+        d <-- _xScale.combineWith(_yScale).mapN { (xScale, yScale) =>
+          line[(Int, Int)]()
             .x((r, _, _) => xScale(r._1))
             .y((r, _, _) => yScale(r._2))(coordinates.toJSArray)
-        )
+        },
       )
 
     def resultIdxToCoords(result: Result, idx: Int) = (idx * 2, result.overall)
@@ -239,12 +236,9 @@ object App {
         mkCrashCircle(lastStageResultIdx * 2 + 1, lastStageResult.overall),
         text(
           fontSize := "16px",
-          transform <-- (
-            for
-              xScale <- $xScale
-              yScale <- $yScale
-            yield s"translate(${xScale(lastStageResultIdx * 2 + 1)},${yScale(lastStageResult.overall)})"
-          ),
+          transform <-- _xScale.combineWith(_yScale).mapN { (xScale, yScale) =>
+            s"translate(${xScale(lastStageResultIdx * 2 + 1)},${yScale(lastStageResult.overall)})"
+          },
           dy := "0.35em",
           textAnchor := "middle",
           "💥"
@@ -257,12 +251,9 @@ object App {
     def mkResultCircle(result: Result, idx: Int) =
       g(
         cls := "clickable",
-        transform <-- (
-          for
-            xScale <- $xScale
-            yScale <- $yScale
-          yield s"translate(${xScale(idx * 2)},${yScale(result.overall)})"
-        ),
+        transform <-- _xScale.combineWith(_yScale).mapN { (xScale, yScale) =>
+          s"translate(${xScale(idx * 2)},${yScale(result.overall)})"
+        },
         circle(
           stroke := "white",
           fill := positionColorScale(result.position),
@@ -282,12 +273,9 @@ object App {
     def mkCrashCircle(x: Int, y: Int) =
       circle(
         fill := "white",
-        transform <-- (
-          for
-            xScale <- $xScale
-            yScale <- $yScale
-          yield s"translate(${xScale(x)},${yScale(y)})"
-        ),
+        transform <-- _xScale.combineWith(_yScale).mapN { (xScale, yScale) =>
+          s"translate(${xScale(x)},${yScale(y)})"
+        },
         r := "6"
       )
 
@@ -295,12 +283,9 @@ object App {
       text(
         cls := "clickable",
         result.position,
-        transform <-- (
-          for
-            xScale <- $xScale
-            yScale <- $yScale
-          yield s"translate(${xScale(idx * 2)},${yScale(result.overall)})"
-        ),
+        transform <-- _xScale.combineWith(_yScale).mapN { (xScale, yScale) =>
+          s"translate(${xScale(idx * 2)},${yScale(result.overall)})"
+        },
         dy := "0.35em",
         fill := "white",
         stroke := "white",
