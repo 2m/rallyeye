@@ -29,7 +29,7 @@ import typings.d3Selection.mod.Selection_
 import typings.d3Selection.mod.select
 import typings.d3Shape.mod.line
 
-import com.raquo.airstream.core.Observer
+import com.raquo.airstream.core.{Observer, Signal}
 import com.raquo.airstream.eventbus.EventBus
 import com.raquo.airstream.eventbus.EventBus.apply
 import com.raquo.airstream.state.Var
@@ -108,13 +108,15 @@ object App {
   val driverSelectionBus = EventBus[Driver]()
   val selectDriver = Observer[Driver](
     onNext = d =>
-      selectedDriver.set(Some(d.name))
-      selectedResult.set(None)
+      Var.set(
+        selectedDriver -> Some(d.name),
+        selectedResult -> None
+      )
   )
 
   val selectedResult = Var(Option.empty[Result])
   val resultSelectionBus = EventBus[Result]()
-  val selectResult = Observer[Result](onNext = r => selectedResult.set(Some(r)))
+  val selectResult =  selectedResult.someWriter
 
   import Router._
   val app = L.div(
@@ -125,12 +127,12 @@ object App {
     import org.scalajs.macrotaskexecutor.MacrotaskExecutor.Implicits.global
 
     fetch(rallyId).map { r =>
-      App.selectedRally.set(Some(Rally(rallyId, r.name)))
-      App.results.set(
-        r.data // .mapValues(_.filter(_.userName == ""))
+      Var.set(
+        App.selectedRally -> Some(Rally(rallyId, r.name)),
+        App.results -> r.data, // .mapValues(_.filter(_.userName == ""))
+        App.selectedDriver -> None,
+        App.selectedResult -> None
       )
-      App.selectedDriver.set(None)
-      App.selectedResult.set(None)
     }
 
   def renderPage(page: Page) =
@@ -167,21 +169,21 @@ object App {
     L.div(
       L.cls := "info fixed p-4 text-xs border-2 bg-white",
       children <-- (
-        for
-          maybeResult <- selectedResult.signal
-          driver <- selectedDriver.signal
-          stages <- stagesSignal
-        yield maybeResult match {
-          case None => Seq(emptyNode)
-          case Some(result) =>
-            Seq(
-              L.div(s"SS${result.stageNumber} ${stages(result.stageNumber - 1).name}"),
-              L.div(driver),
-              L.div(s"Stage: ${result.time.prettyDiff} (${result.position})"),
-              L.div(s"Rally: ${result.overallTime.prettyDiff} (${result.overall})"),
-              if result.comment.nonEmpty then L.div(s"“${result.comment}”") else emptyNode
-            )
-        }
+        Signal
+          .combine(selectedResult, selectedDriver, stagesSignal)
+          .mapN { (maybeResult, driver, stages) =>
+            maybeResult match {
+              case None => Seq(emptyNode)
+              case Some(result) =>
+                Seq(
+                  L.div(s"SS${result.stageNumber} ${stages(result.stageNumber - 1).name}"),
+                  L.div(driver),
+                  L.div(s"Stage: ${result.time.prettyDiff} (${result.position})"),
+                  L.div(s"Rally: ${result.overallTime.prettyDiff} (${result.overall})"),
+                  if result.comment.nonEmpty then L.div(s"“${result.comment}”") else emptyNode
+                )
+            }
+          }
       )
     )
 
@@ -258,6 +260,7 @@ object App {
           stroke := "white",
           fill := positionColorScale(result.position),
           r := "12",
+          // #TODO: Combine these two into a single  `L.onClick --> { _ => EventBus.emit(...) }` once Airstream fixes that method's type signature
           L.onClick.map(_ => driver) --> driverSelectionBus.writer,
           L.onClick.map(_ => result) --> resultSelectionBus.writer
         ),
