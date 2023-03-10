@@ -1,16 +1,17 @@
 scalaVersion := "3.2.1"
 
 libraryDependencies ++= Seq(
-  "com.softwaremill.sttp.tapir"   %% "tapir-core"         % "1.2.5",
-  "com.softwaremill.sttp.tapir"   %% "tapir-netty-server" % "1.2.5",
-  "com.softwaremill.sttp.client3" %% "core"               % "3.8.8"
+  ("com.softwaremill.sttp.tapir"   %% "tapir-akka-http-server" % "1.2.9").cross(CrossVersion.for3Use2_13),
+  ("com.softwaremill.sttp.client3" %% "akka-http-backend"      % "3.8.11").cross(CrossVersion.for3Use2_13),
+  ("com.typesafe.akka"             %% "akka-stream"            % "2.8.0-M5").cross(CrossVersion.for3Use2_13),
+  ("com.typesafe.akka"             %% "akka-actor-typed"       % "2.8.0-M5").cross(CrossVersion.for3Use2_13),
+  ("com.typesafe.akka"             %% "akka-http"              % "10.5.0").cross(CrossVersion.for3Use2_13),
+  ("com.typesafe.akka"             %% "akka-http-caching"      % "10.5.0").cross(CrossVersion.for3Use2_13),
+  ("ch.megard"                     %% "akka-http-cors"         % "1.2.0").cross(CrossVersion.for3Use2_13),
+  "ch.qos.logback"                  % "logback-classic"        % "1.2.11"
 )
 
 assembly / assemblyJarName := "rallyeye-data.jar"
-assembly / assemblyMergeStrategy := {
-  case PathList("META-INF", _*) => MergeStrategy.discard
-  case _                        => MergeStrategy.first
-}
 
 enablePlugins(AutomateHeaderPlugin)
 organizationName := "github.com/2m/rallyeye-data/contributors"
