@@ -24,14 +24,18 @@ import scala.util.Failure
 
 import akka.actor.typed.ActorSystem
 import akka.actor.typed.scaladsl.Behaviors
+import akka.actor.typed.scaladsl.adapter.TypedActorSystemOps
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.model._
+import akka.http.scaladsl.server.directives.CachingDirectives._
+import akka.stream.scaladsl.Source
 import akka.util.ByteString
+import ch.megard.akka.http.cors.scaladsl.CorsDirectives._
+import com.typesafe.config.ConfigFactory
 import sttp.capabilities.akka.AkkaStreams
 import sttp.client3._
 import sttp.tapir._
 import sttp.tapir.server.akkahttp.AkkaHttpServerInterpreter
-import sttp.tapir.server.interceptor.cors.{CORSConfig, CORSInterceptor}
 
 val rallyEyeEndpoint = endpoint
   .in("rally" / path[Int])
@@ -67,11 +71,32 @@ def rallyEyeRoute(using ActorSystem[Any]) =
     for
       name <- rallyName
       results <- rallyResults
-    yield (name, results.entity.dataBytes)
+    yield (
+      name,
+      Source.fromFutureSource(results.entity.dataBytes.runFold(List.empty[ByteString])(_ :+ _).map(Source.apply))
+    )
   })
 
 @main
 def main() =
-  given ActorSystem[Any] = ActorSystem(Behaviors.empty, "RallyEye")
-  val binding = Http().newServerAt("localhost", 8080).bindFlow(rallyEyeRoute)
+  given ActorSystem[Any] = ActorSystem(
+    Behaviors.empty,
+    "RallyEye",
+    ConfigFactory
+      .parseString("""|akka.http.client.idle-timeout = 2m
+                      |akka.http.server.idle-timeout = 2m
+                      |akka.http.server.request-timeout = 2m
+            """.stripMargin)
+      .withFallback(ConfigFactory.defaultApplication())
+  )
+
+  val myCache = routeCache[Uri](summon[ActorSystem[Any]].toClassic)
+
+  val binding = Http().newServerAt("localhost", 8080).bindFlow {
+    cors() {
+      cache(myCache, _.request.uri) {
+        rallyEyeRoute
+      }
+    }
+  }
   Await.ready(Future.never, Duration.Inf)
