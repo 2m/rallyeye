@@ -21,6 +21,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 import scala.concurrent.duration._
 import scala.util.Failure
+import scala.util.Success
 
 import akka.actor.typed.ActorSystem
 import akka.actor.typed.scaladsl.Behaviors
@@ -94,11 +95,20 @@ def main() =
   val corsSettings = CorsSettings.defaultSettings.withExposedHeaders(List("rally-name"))
   val myCache = routeCache[Uri](summon[ActorSystem[Any]].toClassic)
 
-  val binding = Http().newServerAt("0.0.0.0", 8080).bindFlow {
-    cors(corsSettings) {
-      cache(myCache, _.request.uri) {
-        rallyEyeRoute
+  val binding = Http()
+    .newServerAt("0.0.0.0", 8080)
+    .bindFlow {
+      cors(corsSettings) {
+        cache(myCache, _.request.uri) {
+          rallyEyeRoute
+        }
       }
     }
-  }
-  Await.ready(Future.never, Duration.Inf)
+    .onComplete {
+      case Success(binding) =>
+        binding.addToCoordinatedShutdown(5.seconds)
+      case Failure(ex) =>
+        summon[ActorSystem[Any]].terminate()
+    }
+
+  Await.ready(summon[ActorSystem[Any]].whenTerminated, Duration.Inf)
