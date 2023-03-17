@@ -11,9 +11,10 @@ libraryDependencies ++= Seq(
   "ch.qos.logback"                  % "logback-classic"        % "1.2.11"
 )
 
-assembly / assemblyJarName := "rallyeye-data.jar"
-
 enablePlugins(AutomateHeaderPlugin)
 organizationName := "github.com/2m/rallyeye-data/contributors"
 startYear := Some(2023)
 licenses += ("Apache-2.0", url("http://www.apache.org/licenses/LICENSE-2.0"))
+
+jibOrganization := "martynas"
+jibTags += "latest"

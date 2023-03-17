@@ -31,6 +31,7 @@ import akka.http.scaladsl.server.directives.CachingDirectives._
 import akka.stream.scaladsl.Source
 import akka.util.ByteString
 import ch.megard.akka.http.cors.scaladsl.CorsDirectives._
+import ch.megard.akka.http.cors.scaladsl.settings.CorsSettings
 import com.typesafe.config.ConfigFactory
 import sttp.capabilities.akka.AkkaStreams
 import sttp.client3._
@@ -90,10 +91,11 @@ def main() =
       .withFallback(ConfigFactory.defaultApplication())
   )
 
+  val corsSettings = CorsSettings.defaultSettings.withExposedHeaders(List("rally-name"))
   val myCache = routeCache[Uri](summon[ActorSystem[Any]].toClassic)
 
-  val binding = Http().newServerAt("localhost", 8080).bindFlow {
-    cors() {
+  val binding = Http().newServerAt("0.0.0.0", 8080).bindFlow {
+    cors(corsSettings) {
       cache(myCache, _.request.uri) {
         rallyEyeRoute
       }
