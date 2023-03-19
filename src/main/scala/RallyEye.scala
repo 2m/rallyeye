@@ -99,7 +99,7 @@ def main() =
       .withFallback(ConfigFactory.defaultApplication())
   )
 
-  val corsSettings = CorsSettings.defaultSettings.withExposedHeaders(List("rally-name"))
+  val corsSettings = CorsSettings.defaultSettings.withExposedHeaders(List("rally-name", "results-retrieved-at"))
   val myCache = routeCache[Uri](summon[ActorSystem[Any]].toClassic)
 
   val binding = Http()
