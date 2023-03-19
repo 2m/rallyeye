@@ -16,6 +16,8 @@
 
 package rallyeye
 
+import java.time.Instant
+
 import scala.concurrent.Await
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
@@ -42,6 +44,7 @@ import sttp.tapir.server.akkahttp.AkkaHttpServerInterpreter
 val rallyEyeEndpoint = endpoint
   .in("rally" / path[Int])
   .out(header[String]("rally-name"))
+  .out(header[String]("results-retrieved-at"))
   .out(streamTextBody(AkkaStreams)(CodecFormat.TextPlain()))
 
 def rallyEyeRoute(using ActorSystem[Any]) =
@@ -70,12 +73,16 @@ def rallyEyeRoute(using ActorSystem[Any]) =
 
     val rallyResults = Http().singleRequest(resultsRequest)
 
-    for
-      name <- rallyName
-      results <- rallyResults
+    for name <- rallyName
     yield (
       name,
-      Source.fromFutureSource(results.entity.dataBytes.runFold(List.empty[ByteString])(_ :+ _).map(Source.apply))
+      Instant.now().toEpochMilli.toString,
+      Source.fromFutureSource {
+        for
+          results <- rallyResults
+          data <- results.entity.dataBytes.runFold(List.empty[ByteString])(_ :+ _)
+        yield Source(data)
+      }
     )
   })
 
