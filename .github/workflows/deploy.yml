@@ -40,4 +40,4 @@ jobs:
     - uses: actions/upload-pages-artifact@v1
       with:
         path: 'dist'
-    - uses: actions/deploy-pages@v1
+    - uses: actions/deploy-pages@v2
