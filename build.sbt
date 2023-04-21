@@ -8,7 +8,7 @@ libraryDependencies ++= Seq(
   ("com.typesafe.akka"             %% "akka-http"              % "10.5.0").cross(CrossVersion.for3Use2_13),
   ("com.typesafe.akka"             %% "akka-http-caching"      % "10.5.0").cross(CrossVersion.for3Use2_13),
   ("ch.megard"                     %% "akka-http-cors"         % "1.2.0").cross(CrossVersion.for3Use2_13),
-  "ch.qos.logback"                  % "logback-classic"        % "1.4.6"
+  "ch.qos.logback"                  % "logback-classic"        % "1.4.7"
 )
 
 enablePlugins(AutomateHeaderPlugin)
