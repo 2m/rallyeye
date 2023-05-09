@@ -1,16 +1,17 @@
 // heavily inspired by https://github.com/sjrd/scalajs-sbt-vite-laminar-chartjs-example/blob/laminar-scalablytyped-end-state/build.sbt
 
-scalaVersion := "3.2.2"
+scalaVersion := "3.3.0-RC5"
 scalacOptions ++= Seq("-encoding", "utf-8", "-deprecation", "-feature")
 
 libraryDependencies ++= Seq(
   "org.scala-js"                  %%% "scalajs-dom"                 % "2.4.0",
   "org.scala-js"                  %%% "scala-js-macrotask-executor" % "1.1.1",
-  "com.softwaremill.sttp.client3" %%% "core"                        % "3.8.13",
+  "com.softwaremill.sttp.client3" %%% "core"                        % "3.8.15",
   "com.raquo"                     %%% "laminar"                     % "15.0.1",
   "com.raquo"                     %%% "waypoint"                    % "6.0.0",
   "io.github.cquiroz"             %%% "scala-java-time"             % "2.5.0",
-  "com.lihaoyi"                   %%% "upickle"                     % "3.0.0",
+  "io.bullet"                     %%% "borer-core"                  % "1.10.2",
+  "io.bullet"                     %%% "borer-derivation"            % "1.10.2",
   "com.lihaoyi"                   %%% "utest"                       % "0.8.1" % "test"
 )
 
