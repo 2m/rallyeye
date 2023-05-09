@@ -18,15 +18,16 @@ package rallyeye
 
 import com.raquo.laminar.api._
 import com.raquo.waypoint._
-import upickle.default._
+import io.bullet.borer.Codec
+import io.bullet.borer.Json
+import io.bullet.borer.derivation.MapBasedCodecs._
 
 object Router:
   sealed trait Page
   case object IndexPage extends Page
   case class RallyPage(rallyId: Int) extends Page
 
-  implicit val RallyPageRW: ReadWriter[RallyPage] = macroRW
-  implicit val rw: ReadWriter[Page] = macroRW
+  given Codec[Page] = deriveAllCodecs[Page]
 
   val indexRoute = Route.static(IndexPage, root / endOfSegments)
 
@@ -40,8 +41,8 @@ object Router:
   val router = new Router[Page](
     routes = List(rallyRoute, indexRoute),
     getPageTitle = _ => "RallyEye",
-    serializePage = page => write(page),
-    deserializePage = pageStr => read(pageStr)(rw)
+    serializePage = page => Json.encode(page).toUtf8String,
+    deserializePage = pageStr => Json.decode(pageStr.getBytes("UTF8")).to[Page].value
   )(
     popStateEvents = L.windowEvents(_.onPopState),
     owner = L.unsafeWindowOwner
