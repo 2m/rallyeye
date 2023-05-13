@@ -8,7 +8,9 @@ libraryDependencies ++= Seq(
   ("com.typesafe.akka"             %% "akka-http"              % "10.5.0").cross(CrossVersion.for3Use2_13),
   ("com.typesafe.akka"             %% "akka-http-caching"      % "10.5.0").cross(CrossVersion.for3Use2_13),
   ("ch.megard"                     %% "akka-http-cors"         % "1.2.0").cross(CrossVersion.for3Use2_13),
-  "ch.qos.logback"                  % "logback-classic"        % "1.4.7"
+  "ch.qos.logback"                  % "logback-classic"        % "1.4.7",
+  "org.scalameta"                  %% "munit"                  % "1.0.0-M7" % Test,
+  "com.eed3si9n.expecty"           %% "expecty"                % "0.16.0"   % Test
 )
 
 enablePlugins(AutomateHeaderPlugin)

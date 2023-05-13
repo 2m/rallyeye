@@ -77,7 +77,7 @@ def rallyEyeRoute(using ActorSystem[Any]) =
     yield (
       name,
       Instant.now().toEpochMilli.toString,
-      Source.fromFutureSource {
+      Source.futureSource {
         for
           results <- rallyResults
           data <- results.entity.dataBytes.runFold(List.empty[ByteString])(_ :+ _)
