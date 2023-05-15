@@ -32,5 +32,5 @@ jobs:
     - run: sbt --client scalafmtSbtCheck
     - run: sbt --client headerCheckAll
     - run: sbt --client test
-    - run: sbt --client publicDev
-    - run: sbt --client publicProd
+    - run: sbt --client frontend/publicDev
+    - run: sbt --client frontend/publicProd
