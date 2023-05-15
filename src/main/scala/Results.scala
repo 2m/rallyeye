@@ -71,6 +71,7 @@ case class CarResults(
 )
 
 case class RallyData(
+    name: String,
     stages: List[Stage],
     allResults: List[DriverResults],
     groupResults: List[GroupResults],
@@ -87,7 +88,7 @@ def parse(csv: String) =
         userName,
         group,
         car,
-        BigDecimal(time3),
+        Try(BigDecimal(time3)).toOption.getOrElse(0),
         superRally == "1",
         finished == "F",
         comment
@@ -160,7 +161,7 @@ def drivers(results: MapView[Stage, List[PositionResult]]) =
     .toList
     .sortBy(_.name)
 
-def rally(entries: List[Entry]) =
+def rally(rallyName: String, entries: List[Entry]) =
   val groupResults = entries.groupBy(_.group).map { case (group, entries) =>
     GroupResults(group, results(entries) pipe drivers)
   }
@@ -168,4 +169,4 @@ def rally(entries: List[Entry]) =
     CarResults(car, group, results(entries) pipe drivers)
   }
 
-  RallyData(stages(entries), results(entries) pipe drivers, groupResults.toList, carResults.toList)
+  RallyData(rallyName, stages(entries), results(entries) pipe drivers, groupResults.toList, carResults.toList)

@@ -25,97 +25,97 @@ import scala.concurrent.duration._
 import scala.util.Failure
 import scala.util.Success
 
-import akka.actor.typed.ActorSystem
-import akka.actor.typed.scaladsl.Behaviors
-import akka.actor.typed.scaladsl.adapter.TypedActorSystemOps
-import akka.http.scaladsl.Http
-import akka.http.scaladsl.model._
-import akka.http.scaladsl.server.directives.CachingDirectives._
-import akka.stream.scaladsl.Source
-import akka.util.ByteString
-import ch.megard.akka.http.cors.scaladsl.CorsDirectives._
-import ch.megard.akka.http.cors.scaladsl.settings.CorsSettings
-import com.typesafe.config.ConfigFactory
-import sttp.capabilities.akka.AkkaStreams
-import sttp.client3._
+import TapirJsonBorer._
+import cats.effect.IO
+import cats.effect.IOApp
+import cats.effect.LiftIO
+import com.comcast.ip4s._
+import io.bullet.borer.Codec
+import io.bullet.borer.derivation.MapBasedCodecs._
+import io.chrisdavenport.mules.caffeine.CaffeineCache
+import io.chrisdavenport.mules.http4s.CacheItem
+import io.chrisdavenport.mules.http4s.CacheMiddleware
+import io.chrisdavenport.mules.http4s.CacheType
+import org.http4s.CacheDirective
+import org.http4s.Method
+import org.http4s.client.Client
+import org.http4s.ember.client.EmberClientBuilder
+import org.http4s.ember.server.EmberServerBuilder
+import org.http4s.server.middleware.Caching
+import org.http4s.server.middleware.CORS
+import org.http4s.server.middleware.GZip
 import sttp.tapir._
-import sttp.tapir.server.akkahttp.AkkaHttpServerInterpreter
+import sttp.tapir.client.http4s.Http4sClientInterpreter
+import sttp.tapir.generic.auto._
+import sttp.tapir.server.http4s.Http4sServerInterpreter
 
-val rallyEyeEndpoint = endpoint
-  .in("rally" / path[Int])
-  .out(header[String]("rally-name"))
-  .out(header[String]("results-retrieved-at"))
-  .out(streamTextBody(AkkaStreams)(CodecFormat.TextPlain()))
+given Codec[Stage] = deriveCodec[Stage]
+given Codec[PositionResult] = deriveCodec[PositionResult]
+given Codec[DriverResults] = deriveCodec[DriverResults]
+given Codec[GroupResults] = deriveCodec[GroupResults]
+given Codec[CarResults] = deriveCodec[CarResults]
+given Codec[RallyData] = deriveCodec[RallyData]
 
-def rallyEyeRoute(using ActorSystem[Any]) =
-  AkkaHttpServerInterpreter().toRoute(rallyEyeEndpoint.serverLogicSuccess { rallyId =>
-    val nameRequest =
-      HttpRequest(uri = {
-        val uri = Uri("https://www.rallysimfans.hu/rbr/rally_online.php")
-        uri.withQuery(Uri.Query("centerbox" -> "rally_results.php", "rally_id" -> rallyId.toString))
-      })
+val dataEndpoint = endpoint
+  .in("data" / path[Int])
+  .out(jsonBody[RallyData])
 
-    val rallyName = Http()
-      .singleRequest(nameRequest)
-      .flatMap { response =>
-        response.entity.dataBytes.runFold(ByteString(""))(_ ++ _)
-      }
-      .map { response =>
-        val regexp = "Final standings for: (.*)<br>".r
-        regexp.findFirstMatchIn(response.utf8String).get.group(1)
-      }
-
-    val resultsRequest =
-      HttpRequest(uri = {
-        val uri = Uri("https://www.rallysimfans.hu/rbr/csv_export_beta.php")
-        uri.withQuery(Uri.Query("ngp_enable" -> "6", "rally_id" -> rallyId.toString))
-      })
-
-    val rallyResults = Http().singleRequest(resultsRequest)
-
-    for name <- rallyName
-    yield (
-      name,
-      Instant.now().toEpochMilli.toString,
-      Source.futureSource {
+def dataLogic(rallyId: Int): IO[Either[Unit, RallyData]] =
+  EmberClientBuilder
+    .default[IO]
+    .build
+    .use { client =>
+      IO.both(rallyName(client, rallyId), rallyResults(client, rallyId)).map { case (name, results) =>
         for
-          results <- rallyResults
-          data <- results.entity.dataBytes.runFold(List.empty[ByteString])(_ :+ _)
-        yield Source(data)
-      }
-    )
-  })
-
-@main
-def main() =
-  given ActorSystem[Any] = ActorSystem(
-    Behaviors.empty,
-    "RallyEye",
-    ConfigFactory
-      .parseString("""|akka.http.client.idle-timeout = 2m
-                      |akka.http.server.idle-timeout = 2m
-                      |akka.http.server.request-timeout = 2m
-            """.stripMargin)
-      .withFallback(ConfigFactory.defaultApplication())
-  )
-
-  val corsSettings = CorsSettings.defaultSettings.withExposedHeaders(List("rally-name", "results-retrieved-at"))
-  val myCache = routeCache[Uri](summon[ActorSystem[Any]].toClassic)
-
-  val binding = Http()
-    .newServerAt("0.0.0.0", 8080)
-    .bindFlow {
-      cors(corsSettings) {
-        cache(myCache, _.request.uri) {
-          rallyEyeRoute
-        }
+          n <- name
+          r <- results
+        yield rally(n, r)
       }
     }
-    .onComplete {
-      case Success(binding) =>
-        binding.addToCoordinatedShutdown(5.seconds)
-      case Failure(ex) =>
-        summon[ActorSystem[Any]].terminate()
-    }
 
-  Await.ready(summon[ActorSystem[Any]].whenTerminated, Duration.Inf)
+def rallyName(client: Client[IO], rallyId: Int): IO[Either[Unit, String]] =
+  val (request, parseResponse) = Rsf.rallyName(rallyId)
+  for
+    response <- client.run(request).use(parseResponse(_))
+    rallyName = response.map { body =>
+      val regexp = "Final standings for: (.*)<br>".r
+      regexp.findFirstMatchIn(body).get.group(1)
+    }
+  yield rallyName
+
+def rallyResults(client: Client[IO], rallyId: Int): IO[Either[Unit, List[Entry]]] =
+  val (request, parseResponse) = Rsf.rallyResults(rallyId)
+  for
+    response <- client.run(request).use(parseResponse(_))
+    entries = response.map(parse)
+  yield entries
+
+object Data extends IOApp.Simple:
+  def run: IO[Unit] =
+    val routes = Http4sServerInterpreter[IO]().toRoutes(dataEndpoint.serverLogic(dataLogic)).orNotFound
+
+    for
+      caffeine <- CaffeineCache.build[IO, (Method, org.http4s.Uri), CacheItem](None, None, Some(100))
+      cache = CacheMiddleware.httpApp(caffeine, CacheType.Public)
+      server <- EmberServerBuilder
+        .default[IO]
+        .withHost(ipv4"0.0.0.0")
+        .withPort(port"8080")
+        .withHttpApp(
+          cache(
+            GZip(
+              CORS.policy.withAllowOriginAll(
+                Caching.cache(
+                  3.hours,
+                  isPublic = Left(CacheDirective.public),
+                  methodToSetOn = _ == Method.GET,
+                  statusToSetOn = _.isSuccess,
+                  routes
+                )
+              )
+            )
+          )
+        )
+        .build
+        .use(_ => IO.never)
+    yield ()

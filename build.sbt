@@ -1,17 +1,18 @@
 scalaVersion := "3.2.2"
 
 libraryDependencies ++= Seq(
-  ("com.softwaremill.sttp.tapir"   %% "tapir-akka-http-server" % "1.2.13").cross(CrossVersion.for3Use2_13),
-  ("com.softwaremill.sttp.client3" %% "akka-http-backend"      % "3.8.15").cross(CrossVersion.for3Use2_13),
-  ("com.typesafe.akka"             %% "akka-stream"            % "2.8.0").cross(CrossVersion.for3Use2_13),
-  ("com.typesafe.akka"             %% "akka-actor-typed"       % "2.8.0").cross(CrossVersion.for3Use2_13),
-  ("com.typesafe.akka"             %% "akka-http"              % "10.5.0").cross(CrossVersion.for3Use2_13),
-  ("com.typesafe.akka"             %% "akka-http-caching"      % "10.5.0").cross(CrossVersion.for3Use2_13),
-  ("ch.megard"                     %% "akka-http-cors"         % "1.2.0").cross(CrossVersion.for3Use2_13),
-  "ch.qos.logback"                  % "logback-classic"        % "1.4.7",
-  "org.scalameta"                  %% "munit"                  % "1.0.0-M7" % Test,
-  "com.eed3si9n.expecty"           %% "expecty"                % "0.16.0"   % Test
+  "com.softwaremill.sttp.tapir" %% "tapir-http4s-server" % "1.3.0",
+  "com.softwaremill.sttp.tapir" %% "tapir-http4s-client" % "1.3.0",
+  "org.http4s"                  %% "http4s-ember-server" % "0.23.19",
+  "org.http4s"                  %% "http4s-ember-client" % "0.23.19",
+  "io.chrisdavenport"           %% "mules-http4s"        % "0.4.0",
+  "io.chrisdavenport"           %% "mules-caffeine"      % "0.7.0",
+  "io.bullet"                   %% "borer-derivation"    % "1.10.2",
+  "org.scalameta"               %% "munit"               % "1.0.0-M7" % Test,
+  "com.eed3si9n.expecty"        %% "expecty"             % "0.16.0"   % Test
 )
+
+scalacOptions ++= Seq("-Xmax-inlines", "64")
 
 enablePlugins(AutomateHeaderPlugin)
 organizationName := "github.com/2m/rallyeye-data/contributors"
