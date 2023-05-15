@@ -1,8 +1,14 @@
-dev-scala:
-  sbt --client ~frontend/fastLinkJS
+dev:
+  tmux new-session -s rallyeye "tmux source-file './.tmux.conf'"
 
 dev-js:
   cd modules/frontend; npm run dev
+
+dev-scala-js:
+  sbt --client ~frontend/fastLinkJS
+
+dev-scala:
+  sbt --client ~backend/reStart
 
 build-scala:
   sbt --client publicProd

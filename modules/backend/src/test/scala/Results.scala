@@ -17,6 +17,7 @@
 package rallyeye
 
 import com.eed3si9n.expecty.Expecty.expect
+import rallyeye.shared._
 
 class ResultsSuite extends munit.FunSuite:
   val entries = List(

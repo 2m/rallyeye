@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package rallyeye
+package rallyeye.shared
 
 import io.bullet.borer.Codec
 import sttp.tapir._

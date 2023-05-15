@@ -25,13 +25,10 @@ import scala.concurrent.duration._
 import scala.util.Failure
 import scala.util.Success
 
-import TapirJsonBorer._
 import cats.effect.IO
 import cats.effect.IOApp
 import cats.effect.LiftIO
 import com.comcast.ip4s._
-import io.bullet.borer.Codec
-import io.bullet.borer.derivation.MapBasedCodecs._
 import io.chrisdavenport.mules.caffeine.CaffeineCache
 import io.chrisdavenport.mules.http4s.CacheItem
 import io.chrisdavenport.mules.http4s.CacheMiddleware
@@ -44,21 +41,11 @@ import org.http4s.ember.server.EmberServerBuilder
 import org.http4s.server.middleware.Caching
 import org.http4s.server.middleware.CORS
 import org.http4s.server.middleware.GZip
+import rallyeye.shared._
 import sttp.tapir._
 import sttp.tapir.client.http4s.Http4sClientInterpreter
 import sttp.tapir.generic.auto._
 import sttp.tapir.server.http4s.Http4sServerInterpreter
-
-given Codec[Stage] = deriveCodec[Stage]
-given Codec[PositionResult] = deriveCodec[PositionResult]
-given Codec[DriverResults] = deriveCodec[DriverResults]
-given Codec[GroupResults] = deriveCodec[GroupResults]
-given Codec[CarResults] = deriveCodec[CarResults]
-given Codec[RallyData] = deriveCodec[RallyData]
-
-val dataEndpoint = endpoint
-  .in("data" / path[Int])
-  .out(jsonBody[RallyData])
 
 def dataLogic(rallyId: Int): IO[Either[Unit, RallyData]] =
   EmberClientBuilder

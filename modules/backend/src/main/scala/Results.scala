@@ -20,6 +20,8 @@ import scala.collection.MapView
 import scala.util.Try
 import scala.util.chaining._
 
+import rallyeye.shared._
+
 case class Entry(
     stageNumber: Int,
     stageName: String,
@@ -41,41 +43,6 @@ case class TimeResult(
     superRally: Boolean,
     finished: Boolean,
     comment: String
-)
-
-case class Stage(number: Int, name: String)
-
-case class PositionResult(
-    stageNumber: Int,
-    userName: String,
-    stagePosition: Int,
-    overallPosition: Int,
-    stageTime: BigDecimal,
-    overallTime: BigDecimal,
-    superRally: Boolean,
-    rallyFinished: Boolean,
-    comment: String
-)
-
-case class DriverResults(name: String, results: List[PositionResult])
-
-case class GroupResults(
-    group: String,
-    results: List[DriverResults]
-)
-
-case class CarResults(
-    car: String,
-    group: String,
-    results: List[DriverResults]
-)
-
-case class RallyData(
-    name: String,
-    stages: List[Stage],
-    allResults: List[DriverResults],
-    groupResults: List[GroupResults],
-    carResults: List[CarResults]
 )
 
 def parse(csv: String) =

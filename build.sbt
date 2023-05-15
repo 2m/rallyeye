@@ -1,23 +1,25 @@
 ThisBuild / scalaVersion := "3.3.0-RC6"
 ThisBuild / scalafmtOnCompile := true
 
+ThisBuild / organization := "lt.dvim.rallyeye"
 ThisBuild / organizationName := "github.com/2m/rallyeye/contributors"
 ThisBuild / startYear := Some(2022)
 ThisBuild / licenses += ("Apache-2.0", url("http://www.apache.org/licenses/LICENSE-2.0"))
 
 ThisBuild / dynverSeparator := "-"
 
-enablePlugins(AutomateHeaderPlugin)
-
-lazy val shared = crossProject(JSPlatform, JVMPlatform)
-  .crossType(CrossType.Pure)
+lazy val shared = project
   .in(file("modules/shared"))
   .settings(
-    name := "shared"
+    name := "shared",
+    libraryDependencies ++= Seq(
+      "com.softwaremill.sttp.tapir" %% "tapir-core"       % "1.3.0",
+      "io.bullet"                   %% "borer-derivation" % "1.10.2"
+    ),
+    // for borer semi-automatic derivation
+    scalacOptions ++= Seq("-Xmax-inlines", "64")
   )
-  .jsSettings(
-    scalaJSLinkerConfig ~= { _.withModuleKind(ModuleKind.CommonJSModule) }
-  )
+  .enablePlugins(AutomateHeaderPlugin)
 
 def linkerOutputDirectory(v: Attributed[org.scalajs.linker.interface.Report], t: File): Unit = {
   val output = v.get(scalaJSLinkerOutputDirectory.key).getOrElse {
@@ -70,6 +72,8 @@ lazy val frontend = project
     // scalably typed
     externalNpm := baseDirectory.value // Tell ScalablyTyped that we manage `npm install` ourselves
   )
+  .dependsOn(shared)
+  .enablePlugins(AutomateHeaderPlugin)
   .enablePlugins(ScalaJSPlugin)
   .enablePlugins(ScalablyTypedConverterExternalNpmPlugin)
 
@@ -83,14 +87,13 @@ lazy val backend = project
       "org.http4s"                  %% "http4s-ember-client" % "0.23.19",
       "io.chrisdavenport"           %% "mules-http4s"        % "0.4.0",
       "io.chrisdavenport"           %% "mules-caffeine"      % "0.7.0",
-      "io.bullet"                   %% "borer-derivation"    % "1.10.2",
       "org.scalameta"               %% "munit"               % "1.0.0-M7" % Test,
       "com.eed3si9n.expecty"        %% "expecty"             % "0.16.0"   % Test
     ),
-    // for borer semi-automatic derivation
-    scalacOptions ++= Seq("-Xmax-inlines", "64"),
 
     // jib docker image builder
     jibOrganization := "martynas",
     jibTags += "latest"
   )
+  .dependsOn(shared)
+  .enablePlugins(AutomateHeaderPlugin)
