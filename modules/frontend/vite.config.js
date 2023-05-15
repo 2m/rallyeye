@@ -16,8 +16,8 @@ function printSbtTask(task) {
         ],
     };
     const result = process.platform === 'win32'
-        ? spawnSync("sbt.bat", args.map(x => `"${x}"`), { shell: true, ...options })
-        : spawnSync("sbt", args, options);
+        ? spawnSync("sbt.bat", args.map(x => `"${x}"`), { shell: true, cwd: "../../", ...options })
+        : spawnSync("sbt", args, { cwd: "../../", ...options });
 
     if (result.error)
         throw result.error;
@@ -29,8 +29,8 @@ function printSbtTask(task) {
 }
 
 const linkOutputDir = isDev()
-    ? printSbtTask("publicDev")
-    : printSbtTask("publicProd");
+    ? printSbtTask("frontend/publicDev")
+    : printSbtTask("frontend/publicProd");
 
 export default defineConfig({
     resolve: {

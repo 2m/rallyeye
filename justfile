@@ -1,11 +1,11 @@
 dev-scala:
-  sbt --client ~fastLinkJS
+  sbt --client ~frontend/fastLinkJS
 
 dev-js:
-  npm run dev
+  cd modules/frontend; npm run dev
 
 build:
-  npm run build
+  cd modules/frontend; npm run build
 
 serve:
   cd dist; webfsd -p 8001 -F -f index.html

@@ -2,7 +2,7 @@
 module.exports = {
   content: [
     "./index.html",
-    "./target/scala-*/rallyeye-*/*.js"
+    "./target/scala-*/frontend-*/*.js"
   ],
   theme: {
     fontFamily: {

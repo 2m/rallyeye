@@ -1,44 +1,21 @@
-// heavily inspired by https://github.com/sjrd/scalajs-sbt-vite-laminar-chartjs-example/blob/laminar-scalablytyped-end-state/build.sbt
+ThisBuild / scalaVersion := "3.3.0-RC5"
+ThisBuild / scalafmtOnCompile := true
 
-scalaVersion := "3.3.0-RC5"
-scalacOptions ++= Seq("-encoding", "utf-8", "-deprecation", "-feature")
+ThisBuild / organizationName := "github.com/2m/rallyeye/contributors"
+ThisBuild / startYear := Some(2022)
+ThisBuild / licenses += ("Apache-2.0", url("http://www.apache.org/licenses/LICENSE-2.0"))
 
-libraryDependencies ++= Seq(
-  "org.scala-js"                  %%% "scalajs-dom"                 % "2.4.0",
-  "org.scala-js"                  %%% "scala-js-macrotask-executor" % "1.1.1",
-  "com.softwaremill.sttp.client3" %%% "core"                        % "3.8.15",
-  "com.raquo"                     %%% "laminar"                     % "15.0.1",
-  "com.raquo"                     %%% "waypoint"                    % "6.0.0",
-  "io.github.cquiroz"             %%% "scala-java-time"             % "2.5.0",
-  "io.bullet"                     %%% "borer-core"                  % "1.10.2",
-  "io.bullet"                     %%% "borer-derivation"            % "1.10.2",
-  "com.lihaoyi"                   %%% "utest"                       % "0.8.1" % "test"
-)
+enablePlugins(AutomateHeaderPlugin)
 
-testFrameworks += new TestFramework("utest.runner.Framework")
-
-scalafmtOnCompile := true
-
-// scalajs
-import org.scalajs.linker.interface.ModuleSplitStyle
-enablePlugins(ScalaJSPlugin)
-
-// Tell Scala.js that this is an application with a main method
-scalaJSUseMainModuleInitializer := true
-
-/* Configure Scala.js to emit modules in the optimal way to
- * connect to Vite's incremental reload.
- * - emit ECMAScript modules
- * - emit as many small modules as possible for classes in the "rallyeye" package
- * - emit as few (large) modules as possible for all other classes
- *   (in particular, for the standard library)
- */
-scalaJSLinkerConfig ~= {
-  _.withModuleKind(ModuleKind.ESModule)
-    .withModuleSplitStyle(
-      ModuleSplitStyle.SmallModulesFor(List("rallyeye"))
-    )
-}
+lazy val shared = crossProject(JSPlatform, JVMPlatform)
+  .crossType(CrossType.Pure)
+  .in(file("modules/shared"))
+  .settings(
+    name := "shared"
+  )
+  .jsSettings(
+    scalaJSLinkerConfig ~= { _.withModuleKind(ModuleKind.CommonJSModule) }
+  )
 
 def linkerOutputDirectory(v: Attributed[org.scalajs.linker.interface.Report], t: File): Unit = {
   val output = v.get(scalaJSLinkerOutputDirectory.key).getOrElse {
@@ -54,14 +31,42 @@ def linkerOutputDirectory(v: Attributed[org.scalajs.linker.interface.Report], t:
 val publicDev = taskKey[Unit]("output directory for `npm run dev`")
 val publicProd = taskKey[Unit]("output directory for `npm run build`")
 
-publicDev := linkerOutputDirectory((Compile / fastLinkJS).value, target.value)
-publicProd := linkerOutputDirectory((Compile / fullLinkJS).value, target.value)
+lazy val frontend = project
+  .in(file("modules/frontend"))
+  .settings(
+    libraryDependencies ++= Seq(
+      "org.scala-js"                  %%% "scalajs-dom"                 % "2.4.0",
+      "org.scala-js"                  %%% "scala-js-macrotask-executor" % "1.1.1",
+      "com.softwaremill.sttp.client3" %%% "core"                        % "3.8.15",
+      "com.raquo"                     %%% "laminar"                     % "15.0.1",
+      "com.raquo"                     %%% "waypoint"                    % "6.0.0",
+      "io.github.cquiroz"             %%% "scala-java-time"             % "2.5.0",
+      "io.bullet"                     %%% "borer-core"                  % "1.10.2",
+      "io.bullet"                     %%% "borer-derivation"            % "1.10.2",
+      "com.lihaoyi"                   %%% "utest"                       % "0.8.1" % "test"
+    ),
+    // Tell Scala.js that this is an application with a main method
+    scalaJSUseMainModuleInitializer := true,
 
-// scalably typed
-enablePlugins(ScalablyTypedConverterExternalNpmPlugin)
-externalNpm := baseDirectory.value // Tell ScalablyTyped that we manage `npm install` ourselves
+    /* Configure Scala.js to emit modules in the optimal way to
+     * connect to Vite's incremental reload.
+     * - emit ECMAScript modules
+     * - emit as many small modules as possible for classes in the "rallyeye" package
+     * - emit as few (large) modules as possible for all other classes
+     *   (in particular, for the standard library)
+     */
+    scalaJSLinkerConfig ~= {
+      import org.scalajs.linker.interface.ModuleSplitStyle
+      _.withModuleKind(ModuleKind.ESModule)
+        .withModuleSplitStyle(
+          ModuleSplitStyle.SmallModulesFor(List("rallyeye"))
+        )
+    },
+    publicDev := linkerOutputDirectory((Compile / fastLinkJS).value, target.value),
+    publicProd := linkerOutputDirectory((Compile / fullLinkJS).value, target.value),
 
-enablePlugins(AutomateHeaderPlugin)
-organizationName := "github.com/2m/rallyeye/contributors"
-startYear := Some(2022)
-licenses += ("Apache-2.0", url("http://www.apache.org/licenses/LICENSE-2.0"))
+    // scalably typed
+    externalNpm := baseDirectory.value // Tell ScalablyTyped that we manage `npm install` ourselves
+  )
+  .enablePlugins(ScalaJSPlugin)
+  .enablePlugins(ScalablyTypedConverterExternalNpmPlugin)
