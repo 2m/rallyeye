@@ -13,6 +13,7 @@ jobs:
       fail-fast: false
     steps:
     - uses: actions/checkout@v3
+    - uses: extractions/setup-just@v1
 
     - name: yaml-lint
       uses: ibiqlik/action-yamllint@v3
@@ -21,7 +22,9 @@ jobs:
       with:
         node-version: 18
         cache: npm
-    - run: npm install
+        cache-dependency-path: modules/frontend
+
+    - run: just install
 
     - uses: actions/setup-java@v3
       with:
