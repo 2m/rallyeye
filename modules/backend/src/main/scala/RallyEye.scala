@@ -47,9 +47,13 @@ import sttp.tapir.client.http4s.Http4sClientInterpreter
 import sttp.tapir.generic.auto._
 import sttp.tapir.server.http4s.Http4sServerInterpreter
 
+val Timeout = 2.minutes
+
 def dataLogic(rallyId: Int): IO[Either[Unit, RallyData]] =
   EmberClientBuilder
     .default[IO]
+    .withTimeout(Timeout)
+    .withIdleConnectionTime(Timeout)
     .build
     .use { client =>
       IO.both(rallyName(client, rallyId), rallyResults(client, rallyId)).map { case (name, results) =>
@@ -88,6 +92,7 @@ object Data extends IOApp.Simple:
         .default[IO]
         .withHost(ipv4"0.0.0.0")
         .withPort(port"8080")
+        .withIdleTimeout(Timeout)
         .withHttpApp(
           cache(
             GZip(
