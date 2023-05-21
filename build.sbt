@@ -8,7 +8,8 @@ ThisBuild / licenses += ("Apache-2.0", url("http://www.apache.org/licenses/LICEN
 
 ThisBuild / dynverSeparator := "-"
 
-lazy val shared = project
+lazy val shared = crossProject(JSPlatform, JVMPlatform)
+  .crossType(CrossType.Pure)
   .in(file("modules/shared"))
   .settings(
     name := "shared",
@@ -39,15 +40,15 @@ lazy val frontend = project
   .in(file("modules/frontend"))
   .settings(
     libraryDependencies ++= Seq(
-      "org.scala-js"                  %%% "scalajs-dom"                 % "2.4.0",
-      "org.scala-js"                  %%% "scala-js-macrotask-executor" % "1.1.1",
-      "com.softwaremill.sttp.client3" %%% "core"                        % "3.8.15",
-      "com.raquo"                     %%% "laminar"                     % "15.0.1",
-      "com.raquo"                     %%% "waypoint"                    % "6.0.0",
-      "io.github.cquiroz"             %%% "scala-java-time"             % "2.5.0",
-      "io.bullet"                     %%% "borer-core"                  % "1.10.2",
-      "io.bullet"                     %%% "borer-derivation"            % "1.10.2",
-      "com.lihaoyi"                   %%% "utest"                       % "0.8.1" % "test"
+      "org.scala-js"                %%% "scalajs-dom"                 % "2.4.0",
+      "org.scala-js"                %%% "scala-js-macrotask-executor" % "1.1.1",
+      "com.softwaremill.sttp.tapir" %%% "tapir-sttp-client"           % "1.3.0",
+      "com.raquo"                   %%% "laminar"                     % "15.0.1",
+      "com.raquo"                   %%% "waypoint"                    % "6.0.0",
+      "io.github.cquiroz"           %%% "scala-java-time"             % "2.5.0",
+      "io.bullet"                   %%% "borer-core"                  % "1.10.2",
+      "io.bullet"                   %%% "borer-derivation"            % "1.10.2",
+      "com.lihaoyi"                 %%% "utest"                       % "0.8.1" % "test"
     ),
     // Tell Scala.js that this is an application with a main method
     scalaJSUseMainModuleInitializer := true,
@@ -70,12 +71,17 @@ lazy val frontend = project
     publicProd := linkerOutputDirectory((Compile / fullLinkJS).value, target.value),
 
     // scalably typed
-    externalNpm := baseDirectory.value // Tell ScalablyTyped that we manage `npm install` ourselves
+    externalNpm := baseDirectory.value, // Tell ScalablyTyped that we manage `npm install` ourselves
+
+    // build info
+    buildInfoKeys := Seq[BuildInfoKey](version, isSnapshot),
+    buildInfoPackage := "rallyeye"
   )
-  .dependsOn(shared)
+  .dependsOn(shared.js)
   .enablePlugins(AutomateHeaderPlugin)
   .enablePlugins(ScalaJSPlugin)
   .enablePlugins(ScalablyTypedConverterExternalNpmPlugin)
+  .enablePlugins(BuildInfoPlugin)
 
 lazy val backend = project
   .in(file("modules/backend"))
@@ -96,5 +102,5 @@ lazy val backend = project
     jibOrganization := "martynas",
     jibTags += "latest"
   )
-  .dependsOn(shared)
+  .dependsOn(shared.jvm)
   .enablePlugins(AutomateHeaderPlugin)
