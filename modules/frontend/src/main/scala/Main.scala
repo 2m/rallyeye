@@ -283,7 +283,7 @@ object App {
     def mkResultNumber(result: PositionResult, idx: Int) =
       text(
         cls := "clickable",
-        result.stagePosition,
+        if !result.superRally then result.stagePosition else "SR",
         transform <-- scale.mapN { (x, y) =>
           s"translate(${x(idx * 2)},${y(result.overallPosition)})"
         },
