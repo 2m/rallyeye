@@ -14,8 +14,8 @@ lazy val shared = crossProject(JSPlatform, JVMPlatform)
   .settings(
     name := "shared",
     libraryDependencies ++= Seq(
-      "com.softwaremill.sttp.tapir" %% "tapir-core"       % "1.3.0",
-      "io.bullet"                   %% "borer-derivation" % "1.10.2"
+      "com.softwaremill.sttp.tapir" %% "tapir-core"       % "1.5.0",
+      "io.bullet"                   %% "borer-derivation" % "1.10.3"
     ),
     // for borer semi-automatic derivation
     scalacOptions ++= Seq("-Xmax-inlines", "64")
@@ -40,14 +40,14 @@ lazy val frontend = project
   .in(file("modules/frontend"))
   .settings(
     libraryDependencies ++= Seq(
-      "org.scala-js"                %%% "scalajs-dom"                 % "2.4.0",
+      "org.scala-js"                %%% "scalajs-dom"                 % "2.6.0",
       "org.scala-js"                %%% "scala-js-macrotask-executor" % "1.1.1",
-      "com.softwaremill.sttp.tapir" %%% "tapir-sttp-client"           % "1.3.0",
+      "com.softwaremill.sttp.tapir" %%% "tapir-sttp-client"           % "1.5.0",
       "com.raquo"                   %%% "laminar"                     % "15.0.1",
       "com.raquo"                   %%% "waypoint"                    % "6.0.0",
       "io.github.cquiroz"           %%% "scala-java-time"             % "2.5.0",
-      "io.bullet"                   %%% "borer-core"                  % "1.10.2",
-      "io.bullet"                   %%% "borer-derivation"            % "1.10.2",
+      "io.bullet"                   %%% "borer-core"                  % "1.10.3",
+      "io.bullet"                   %%% "borer-derivation"            % "1.10.3",
       "com.lihaoyi"                 %%% "utest"                       % "0.8.1" % "test"
     ),
     // Tell Scala.js that this is an application with a main method
@@ -87,8 +87,8 @@ lazy val backend = project
   .in(file("modules/backend"))
   .settings(
     libraryDependencies ++= Seq(
-      "com.softwaremill.sttp.tapir" %% "tapir-http4s-server" % "1.3.0",
-      "com.softwaremill.sttp.tapir" %% "tapir-http4s-client" % "1.3.0",
+      "com.softwaremill.sttp.tapir" %% "tapir-http4s-server" % "1.5.0",
+      "com.softwaremill.sttp.tapir" %% "tapir-http4s-client" % "1.5.0",
       "org.http4s"                  %% "http4s-ember-server" % "0.23.19",
       "org.http4s"                  %% "http4s-ember-client" % "0.23.19",
       "io.chrisdavenport"           %% "mules-http4s"        % "0.4.0",
