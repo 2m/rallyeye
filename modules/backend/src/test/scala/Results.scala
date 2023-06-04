@@ -44,9 +44,11 @@ class ResultsSuite extends munit.FunSuite:
   }
 
   test("gives rally results") {
-    val obtained = rally("rally", entries)
+    val obtained = rally(1, "rally", entries)
     val expected = RallyData(
+      1,
       "rally",
+      obtained.retrievedAt,
       List(
         Stage(1, "SS1"),
         Stage(2, "SS2")

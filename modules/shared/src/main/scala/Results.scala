@@ -16,6 +16,9 @@
 
 package rallyeye.shared
 
+import java.time.Instant
+
+import Codecs.given
 import TapirJsonBorer._
 import io.bullet.borer.Codec
 import io.bullet.borer.derivation.MapBasedCodecs._
@@ -56,13 +59,14 @@ case class CarResults(
 case class RallyData(
     id: Int,
     name: String,
+    retrievedAt: Instant,
     stages: List[Stage],
     allResults: List[DriverResults],
     groupResults: List[GroupResults],
     carResults: List[CarResults]
 )
 object RallyData {
-  val empty = RallyData(0, "Loading...", Nil, Nil, Nil, Nil)
+  val empty = RallyData(0, "Loading...", Instant.now, Nil, Nil, Nil, Nil)
 }
 
 given Codec[Stage] = deriveCodec[Stage]

@@ -16,14 +16,18 @@
 
 package rallyeye.shared
 
+import java.time.Instant
+
 import io.bullet.borer.Codec
+import io.bullet.borer.Decoder
+import io.bullet.borer.Encoder
 import sttp.tapir._
 import sttp.tapir.Codec.JsonCodec
 import sttp.tapir.DecodeResult.{Error, Value}
 import sttp.tapir.DecodeResult.Error.{JsonDecodeException, JsonError}
 import sttp.tapir.Schema.SName
 
-object TapirJsonBorer {
+object TapirJsonBorer:
   def jsonBody[T: Codec: Schema]: EndpointIO.Body[String, T] = stringBodyUtf8AnyFormat(borerCodec[T])
 
   implicit def borerCodec[T: Codec: Schema]: JsonCodec[T] =
@@ -42,4 +46,7 @@ object TapirJsonBorer {
           )
       }
     }(t => io.bullet.borer.Json.encode(t).toUtf8String)
-}
+
+object Codecs:
+  given Encoder[Instant] = Encoder[Long].contramap(_.toEpochMilli)
+  given Decoder[Instant] = Decoder[Long].map(Instant.ofEpochMilli(_))

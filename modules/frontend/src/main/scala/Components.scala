@@ -39,7 +39,8 @@ object Components:
               href := s"https://www.rallysimfans.hu/rbr/rally_online.php?centerbox=rally_list_details.php&rally_id=${r.id}",
               target := "_blank",
               r.name
-            )
+            ),
+            p(cls := "text-xs text-gray-400", "Data retrieved at ", r.retrievedAt.toString)
           )
         },
         children <-- rallySignal.combineWith(filterSignal).map(ResultFilter.render),

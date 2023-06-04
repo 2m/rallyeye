@@ -16,6 +16,8 @@
 
 package rallyeye
 
+import java.time.Instant
+
 import scala.collection.MapView
 import scala.util.Try
 import scala.util.chaining._
@@ -137,4 +139,12 @@ def rally(id: Int, name: String, entries: List[Entry]) =
     CarResults(car, group, results(entries) pipe drivers)
   }
 
-  RallyData(id, name, stages(entries), results(entries) pipe drivers, groupResults.toList, carResults.toList)
+  RallyData(
+    id,
+    name,
+    Instant.now(),
+    stages(entries),
+    results(entries) pipe drivers,
+    groupResults.toList,
+    carResults.toList
+  )
