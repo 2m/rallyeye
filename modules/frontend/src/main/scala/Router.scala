@@ -43,8 +43,15 @@ object Router:
     basePath = Route.fragmentBasePath
   )
 
+  val rallyRouteAllResults = Route[RallyPage, Int](
+    encode = _.rallyId,
+    decode = rallyId => RallyPage(rallyId, ResultFilter.AllResultsId),
+    pattern = root / "rally" / segment[Int] / endOfSegments,
+    basePath = Route.fragmentBasePath
+  )
+
   val router = new Router[Page](
-    routes = List(rallyRoute, indexRoute),
+    routes = List(rallyRoute, rallyRouteAllResults, indexRoute),
     getPageTitle = _ => "RallyEye",
     serializePage = page => Json.encode(page).toUtf8String,
     deserializePage = pageStr => Json.decode(pageStr.getBytes("UTF8")).to[Page].value

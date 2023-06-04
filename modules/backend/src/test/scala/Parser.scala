@@ -26,7 +26,7 @@ class ParserSuite extends munit.FunSuite:
        |1;Vauxhall Rally of Wales 1993;LT;Denas Kraulys;Denas Kraulys;Group A8;Audi 200 quattro GrpA;76.9378;161.409;254.086;2022-10-29 22:51:48;;;;F;
        |""".stripMargin
 
-  test("parses a CSV file") {
+  test("parses a CSV file"):
     val obtained = parse(csv)
     val expected = List(
       Entry(
@@ -75,4 +75,3 @@ class ParserSuite extends munit.FunSuite:
       )
     )
     assertEquals(obtained, expected)
-  }
