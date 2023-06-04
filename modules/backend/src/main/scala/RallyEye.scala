@@ -60,7 +60,7 @@ def dataLogic(rallyId: Int): IO[Either[Unit, RallyData]] =
         for
           n <- name
           r <- results
-        yield rally(n, r)
+        yield rally(rallyId, n, r)
       }
     }
 

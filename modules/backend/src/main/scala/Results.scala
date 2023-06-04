@@ -53,7 +53,8 @@ def parse(csv: String) =
         stageNumber.toInt,
         stageName,
         userName,
-        group,
+        // until https://discord.com/channels/723091638951608320/792825986055798825/1114861057035489341 is fixed
+        if group.isEmpty then "Rally 3" else group,
         car,
         Try(BigDecimal(time3)).toOption.getOrElse(0),
         superRally == "1",
@@ -128,7 +129,7 @@ def drivers(results: MapView[Stage, List[PositionResult]]) =
     .toList
     .sortBy(_.name)
 
-def rally(rallyName: String, entries: List[Entry]) =
+def rally(id: Int, name: String, entries: List[Entry]) =
   val groupResults = entries.groupBy(_.group).map { case (group, entries) =>
     GroupResults(group, results(entries) pipe drivers)
   }
@@ -136,4 +137,4 @@ def rally(rallyName: String, entries: List[Entry]) =
     CarResults(car, group, results(entries) pipe drivers)
   }
 
-  RallyData(rallyName, stages(entries), results(entries) pipe drivers, groupResults.toList, carResults.toList)
+  RallyData(id, name, stages(entries), results(entries) pipe drivers, groupResults.toList, carResults.toList)

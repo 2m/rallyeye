@@ -16,10 +16,13 @@
 
 package rallyeye
 
+import typings.flowbite.mod.initFlowbite
+
 import com.raquo.laminar.api.L._
+import rallyeye.shared.RallyData
 
 object Components:
-  def header(rallySignal: Signal[Option[Rally]]) =
+  def header(rallySignal: Signal[RallyData], filterSignal: Signal[String]) =
     navTag(
       cls := "bg-white border-gray-200 px-4 lg:px-6 py-2.5 shadow-lg",
       div(
@@ -30,17 +33,16 @@ object Components:
           img(src := "/rallyeye.svg", cls := "mr-3 h-6 sm:h-9", alt := "RallyEye logo"),
           span(cls := "self-center text-xl font-semibold whitespace-nowrap", "RallyEye")
         ),
-        child <-- rallySignal.map(
-          _.map(r =>
-            div(
-              a(
-                href := s"https://www.rallysimfans.hu/rbr/rally_online.php?centerbox=rally_list_details.php&rally_id=${r.id}",
-                target := "_blank",
-                r.name
-              )
+        child <-- rallySignal.map { r =>
+          div(
+            a(
+              href := s"https://www.rallysimfans.hu/rbr/rally_online.php?centerbox=rally_list_details.php&rally_id=${r.id}",
+              target := "_blank",
+              r.name
             )
-          ).getOrElse(emptyNode)
-        ),
+          )
+        },
+        children <-- rallySignal.combineWith(filterSignal).map(ResultFilter.render),
         div(
           cls := "flex items-center lg:order-2",
           a(
@@ -50,5 +52,61 @@ object Components:
             "GitHub"
           )
         )
+      )
+    )
+
+object ResultFilter:
+  val AllResults = "All Results"
+  val AllResultsId = filterId(AllResults)
+
+  case class ResultFilter(name: String, group: String, isGroup: Boolean = false, isCar: Boolean = false) {
+    def id = filterId(name)
+  }
+
+  def filters(rallyData: RallyData) =
+    (List(ResultFilter(AllResults, AllResults)) :++ rallyData.groupResults
+      .map(r => ResultFilter(r.group, r.group, isGroup = true))
+      :++ rallyData.carResults
+        .map(r => ResultFilter(r.car, r.group, isCar = true)))
+      .map(rf => rf.id -> rf)
+      .toMap
+
+  def entries(rallyData: RallyData) =
+    Map(filterId(AllResults) -> rallyData.allResults) ++ rallyData.groupResults.map(r =>
+      filterId(r.group) -> r.results
+    ) ++ rallyData.carResults.map(r => filterId(r.car) -> r.results)
+
+  def filterId(name: String) =
+    name.toLowerCase.replaceAll("[^a-z0-9]", "-")
+
+  def render(rallyData: RallyData, filter: String) =
+    val selected = filters(rallyData)(filter)
+    Seq(
+      button(
+        cls := "text-white bg-gray-600 rounded-lg text-sm px-4 py-2.5 w-30 text-center inline-flex items-center",
+        dataAttr("dropdown-toggle") := "dropdown",
+        s"${selected.name} ▼"
+      ),
+      div(
+        idAttr := "dropdown",
+        cls := "hidden bg-white divide-y divide-gray-100 shadow w-30",
+        ul(
+          filters(rallyData).values.toSeq
+            .sortBy(rf => (rf.group, rf.isCar))
+            .map(rf =>
+              li(
+                a(
+                  cls := "block px-4 py-2 hover:text-white hover:bg-gray-600",
+                  if rf.id == filter then cls := "text-white bg-gray-600"
+                  else if rf.isGroup then cls := "bg-gray-200"
+                  else if rf.isCar then cls := "text-sm"
+                  else emptyMod,
+                  Router.navigateTo(Router.RallyPage(rallyData.id, rf.id)),
+                  rf.name
+                )
+              )
+            )
+        ),
+        onMountCallback(ctx => initFlowbite())
       )
     )

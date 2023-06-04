@@ -13,7 +13,8 @@
     "d3-scale": "4.0.2",
     "d3-scale-chromatic": "3.0.0",
     "d3-selection": "3.0.0",
-    "d3-shape": "3.1.0"
+    "d3-shape": "3.1.0",
+    "flowbite": "^1.6.5"
   },
   "devDependencies": {
     "@types/d3-array": "3.0.3",

@@ -44,8 +44,6 @@ import org.scalajs.dom
 import org.scalajs.dom.HTMLElement
 import rallyeye.shared._
 
-case class Rally(id: Int, name: String)
-
 case class Margin(top: Int, right: Int, bottom: Int, left: Int)
 
 object RallyEye:
@@ -85,15 +83,16 @@ object App {
 
   val rallyData = Var(RallyData.empty)
   val rallyDataSignal = rallyData.signal
-  val stagesSignal = rallyDataSignal.map(_.stages)
-  val driversSignal = rallyDataSignal.map(_.allResults)
+  val resultFilter = Var(ResultFilter.AllResultsId)
 
-  val selectedRally = Var(Option.empty[Rally])
+  val stagesSignal = rallyDataSignal.map(_.stages)
+  val driversSignal =
+    rallyDataSignal.combineWith(resultFilter.signal).map((data, filter) => ResultFilter.entries(data)(filter))
 
   val xScale = stagesSignal.map(s => getXScale(s.toJSArray))
   val yScale = driversSignal.map(d => getYScale(d.toJSArray))
   val scale = xScale.combineWith(yScale)
-  val colorScale = rallyDataSignal.map(data => getColorScale(data.allResults.toJSArray))
+  val colorScale = driversSignal.map(drivers => getColorScale(drivers.toJSArray))
 
   val selectedDriver = Var(Option.empty[String])
   val driverSelectionBus = EventBus[DriverResults]()
@@ -119,7 +118,6 @@ object App {
 
     fetch(rallyId).map { rallyData =>
       Var.set(
-        App.selectedRally -> Some(Rally(rallyId, rallyData.name)),
         App.rallyData -> rallyData,
         App.selectedDriver -> None,
         App.selectedResult -> None
@@ -129,19 +127,20 @@ object App {
   def renderPage(page: Page) =
     page match {
       case IndexPage => indexPage()
-      case RallyPage(rallyId) =>
-        fetchData(rallyId)
+      case RallyPage(rallyId, results) =>
+        if rallyData.now().id != rallyId then fetchData(rallyId)
+        Var.set(resultFilter -> results)
         rallyPage()
     }
 
   def indexPage() =
-    router.replaceState(RallyPage(48272)) // rally to show by default
+    router.replaceState(RallyPage(48272, ResultFilter.AllResultsId)) // rally to show by default
     L.div()
 
   def rallyPage() =
     L.div(
       L.child <-- selectedResult.signal.map(r => if r.isDefined then renderInfo() else emptyNode),
-      Components.header(selectedRally.signal),
+      Components.header(rallyDataSignal, resultFilter.signal),
       L.div(
         L.cls := "graph p-4 text-xs overflow-scroll",
         svg(

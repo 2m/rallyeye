@@ -16,25 +16,30 @@
 
 package rallyeye
 
+import scala.deriving.Mirror
+
 import com.raquo.laminar.api._
+import com.raquo.laminar.api.L._
+import com.raquo.laminar.modifiers.Binder
 import com.raquo.waypoint._
 import io.bullet.borer.Codec
 import io.bullet.borer.Json
 import io.bullet.borer.derivation.MapBasedCodecs._
+import org.scalajs.dom
 
 object Router:
   sealed trait Page
   case object IndexPage extends Page
-  case class RallyPage(rallyId: Int) extends Page
+  case class RallyPage(rallyId: Int, results: String) extends Page
 
   given Codec[Page] = deriveAllCodecs[Page]
 
   val indexRoute = Route.static(IndexPage, root / endOfSegments)
 
-  val rallyRoute = Route[RallyPage, Int](
-    encode = rallyPage => rallyPage.rallyId,
-    decode = arg => RallyPage(rallyId = arg),
-    pattern = root / "rally" / segment[Int] / endOfSegments,
+  val rallyRoute = Route[RallyPage, (Int, String)](
+    encode = Tuple.fromProductTyped,
+    decode = summon[Mirror.Of[RallyPage]].fromProduct,
+    pattern = root / "rally" / segment[Int] / segment[String] / endOfSegments,
     basePath = Route.fragmentBasePath
   )
 
@@ -47,3 +52,21 @@ object Router:
     popStateEvents = L.windowEvents(_.onPopState),
     owner = L.unsafeWindowOwner
   )
+
+  def navigateTo(page: Page): Binder[HtmlElement] = Binder { el =>
+
+    val isLinkElement = el.ref.isInstanceOf[dom.html.Anchor]
+
+    if (isLinkElement) {
+      el.amend(href(router.absoluteUrlForPage(page)))
+    }
+
+    // If element is a link and user is holding a modifier while clicking:
+    //  - Do nothing, browser will open the URL in new tab / window / etc. depending on the modifier key
+    // Otherwise:
+    //  - Perform regular pushState transition
+    (onClick
+      .filter(ev => !(isLinkElement && (ev.ctrlKey || ev.metaKey || ev.shiftKey || ev.altKey)))
+      .preventDefault
+      --> (_ => router.pushState(page))).bind(el)
+  }
