@@ -27,7 +27,7 @@ class ResultsSuite extends munit.FunSuite:
     Entry(2, "SS2", "driver2", "group1", "car2", 24.5, false, true, "good stage")
   )
 
-  test("gives results") {
+  test("gives results"):
     val obtained = results(entries).toMap
     val expected = Map(
       Stage(1, "SS1") -> List(
@@ -41,9 +41,8 @@ class ResultsSuite extends munit.FunSuite:
     )
 
     assertEquals(obtained, expected)
-  }
 
-  test("gives rally results") {
+  test("gives rally results"):
     val obtained = rally(1, "rally", entries)
     val expected = RallyData(
       1,
@@ -126,4 +125,3 @@ class ResultsSuite extends munit.FunSuite:
       obtained.groupResults == expected.groupResults,
       obtained.carResults == expected.carResults
     )
-  }
