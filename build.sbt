@@ -99,7 +99,8 @@ lazy val backend = project
     ),
 
     // jib docker image builder
-    jibOrganization := "martynas",
+    jibRegistry := "registry.fly.io",
+    jibCustomRepositoryPath := Some("rallyeye-data"),
     jibTags += "latest"
   )
   .dependsOn(shared.jvm)

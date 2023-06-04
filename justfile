@@ -21,3 +21,9 @@ install:
 
 serve:
   cd dist; webfsd -p 8001 -F -f index.html
+
+build-backend:
+  sbtc --client backend/jibImageBuild
+
+deploy-backend:
+  cd modules/backend; flyctl deploy

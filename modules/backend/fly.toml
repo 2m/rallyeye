@@ -4,7 +4,7 @@ kill_timeout = 5
 processes = []
 
 [build]
-  image = "martynas/rallyeye-data:latest"
+  image = "registry.fly.io/rallyeye-data:latest"
 
 [env]
 
