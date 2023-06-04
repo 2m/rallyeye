@@ -1,7 +1,10 @@
+name-template: $RESOLVED_VERSION
+tag-template: v$RESOLVED_VERSION
+
 template: |
   ## What’s Changed
 
   $CHANGES
 
 exclude-labels:
-- 'dependencies'
+- dependencies
