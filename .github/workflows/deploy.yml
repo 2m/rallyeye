@@ -42,7 +42,7 @@ jobs:
 
     - uses: actions/upload-pages-artifact@v1
       with:
-        path: 'dist'
+        path: 'modules/frontend/dist'
     - uses: actions/deploy-pages@v2
 
     # backend
