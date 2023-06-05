@@ -3,8 +3,6 @@
 Online rally results visualizer.
 Fetches rally results from [RallySimFans][rallysimfans] and produces an interactive graph with all the drivers and stages of the rally.
 
-Uses [rallyeye-data][] as a backend.
-
 [ci-badge]: https://github.com/2m/rallyeye/actions/workflows/ci.yml/badge.svg
 [ci]:       https://github.com/2m/rallyeye/actions/workflows/ci.yml
 
