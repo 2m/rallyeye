@@ -2,10 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-.info {
-  max-width: 180px;
-}
-
 .clickable {
   cursor: pointer;
 }
