@@ -139,10 +139,11 @@ object App {
 
   def rallyPage() =
     L.div(
+      L.cls := "grid",
       Components.header(rallyDataSignal, resultFilter.signal),
+      L.child <-- selectedResult.signal.map(r => if r.isDefined then renderInfo() else emptyNode),
       L.div(
-        L.cls := "graph p-4 text-xs overflow-scroll",
-        L.child <-- selectedResult.signal.map(r => if r.isDefined then renderInfo() else emptyNode),
+        L.cls := "row-start-2 col-start-1 p-4 text-xs overflow-scroll",
         svg(
           width <-- stagesSignal.map(s => RallyEye.width(s)).map(_.toString),
           height <-- driversSignal.map(d => RallyEye.height(d)).map(_.toString),
@@ -157,7 +158,7 @@ object App {
 
   def renderInfo() =
     L.div(
-      L.cls := "info absolute p-4 text-xs border-2 bg-white",
+      L.cls := "w-44 h-44 sticky row-start-2 col-start-1 top-4 left-4 mt-4 p-4 text-xs border-2 bg-white",
       children <-- (
         Signal
           .combine(selectedResult, selectedDriver, stagesSignal)
