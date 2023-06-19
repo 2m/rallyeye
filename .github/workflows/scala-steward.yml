@@ -6,7 +6,7 @@ on:
 name: Launch Scala Steward
 
 env:
-  SCALA_STEWARD: True
+  SCALA_STEWARD: true
 
 jobs:
   scala-steward:
