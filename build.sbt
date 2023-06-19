@@ -96,7 +96,7 @@ lazy val backend = project
       "io.chrisdavenport"           %% "mules-http4s"        % "0.4.0",
       "io.chrisdavenport"           %% "mules-caffeine"      % "0.7.0",
       "ch.qos.logback"               % "logback-classic"     % "1.4.7",
-      "org.scalameta"               %% "munit"               % "1.0.0-M7" % Test,
+      "org.scalameta"               %% "munit"               % "1.0.0-M8" % Test,
       "com.eed3si9n.expecty"        %% "expecty"             % "0.16.0"   % Test
     ),
 
