@@ -6,7 +6,7 @@ on:
 name: Launch Scala Steward
 
 env:
-  SCALA_STEWARD: True
+  SCALA_STEWARD: true
 
 jobs:
   scala-steward:
@@ -19,3 +19,4 @@ jobs:
         github-app-id: ${{ secrets.APP_ID }}
         github-app-installation-id: ${{ secrets.APP_INSTALLATION_ID }}
         github-app-key: ${{ secrets.APP_PRIVATE_KEY }}
+        other-args: '--add-labels'
