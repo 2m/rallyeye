@@ -5,18 +5,14 @@ on:
 
 name: Launch Scala Steward
 
+env:
+  SCALA_STEWARD: True
+
 jobs:
   scala-steward:
     runs-on: ubuntu-22.04
     name: Launch Scala Steward
     steps:
-
-    - uses: actions/setup-node@v3
-      with:
-        node-version: 18
-        cache: npm
-        cache-dependency-path: modules/frontend
-
     - name: Launch Scala Steward
       uses: scala-steward-org/scala-steward-action@v2
       with:
