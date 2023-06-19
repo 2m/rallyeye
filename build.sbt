@@ -80,7 +80,9 @@ lazy val frontend = project
   .dependsOn(shared.js)
   .enablePlugins(AutomateHeaderPlugin)
   .enablePlugins(ScalaJSPlugin)
-  .enablePlugins(ScalablyTypedConverterExternalNpmPlugin)
+  .enablePlugins(
+    (if (!sys.env.get("SCALA_STEWARD").isDefined) Seq(ScalablyTypedConverterExternalNpmPlugin) else Seq.empty): _*
+  )
   .enablePlugins(BuildInfoPlugin)
 
 lazy val backend = project
