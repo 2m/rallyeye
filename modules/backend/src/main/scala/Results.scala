@@ -33,7 +33,8 @@ case class Entry(
     stageTime: BigDecimal,
     superRally: Boolean,
     finished: Boolean,
-    comment: String
+    comment: String,
+    nominal: Boolean = false
 )
 
 case class TimeResult(
@@ -63,6 +64,33 @@ def parse(csv: String) =
         finished == "F",
         comment
       )
+    case _ => ???
+  }
+
+def parsePressRally(csv: String) =
+  def parseTimestamp(ts: String) = ts.replace(" (N)", "") match {
+    case s"$h:$m:$s.$ms" => BigDecimal(h.toInt * 3600 + m.toInt * 60 + s.toInt) + BigDecimal(s"0.$ms")
+    case _               => BigDecimal(0)
+  }
+
+  val (header :: data) = csv.split('\n').toList: @unchecked
+  val stages = header.split(";", -1).drop(6).init.zipWithIndex
+  data.map(_.split(";", -1).toList).flatMap {
+    case _ :: _ :: realName :: _ :: group :: car :: times =>
+      times.init.zip(stages).map { case (time, (stageName, stageNumber)) =>
+        Entry(
+          stageNumber + 1,
+          stageName,
+          realName,
+          group,
+          car,
+          parseTimestamp(time),
+          false,
+          time != "",
+          "",
+          time.contains("(N)")
+        )
+      }
     case _ => ???
   }
 

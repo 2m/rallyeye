@@ -97,13 +97,16 @@ lazy val backend = project
       "io.chrisdavenport"           %% "mules-caffeine"      % "0.7.0",
       "ch.qos.logback"               % "logback-classic"     % "1.4.8",
       "org.scalameta"               %% "munit"               % "1.0.0-M8" % Test,
-      "com.eed3si9n.expecty"        %% "expecty"             % "0.16.0"   % Test
+      "com.softwaremill.diffx"      %% "diffx-munit"         % "0.8.3"    % Test
     ),
 
     // jib docker image builder
     jibRegistry := "registry.fly.io",
     jibCustomRepositoryPath := Some("rallyeye-data"),
-    jibTags += "latest"
+    jibTags += "latest",
+
+    // for diffx assertions in tests
+    Test / scalacOptions ++= Seq("-Xmax-inlines", "64")
   )
   .dependsOn(shared.jvm)
   .enablePlugins(AutomateHeaderPlugin)

@@ -16,10 +16,11 @@
 
 package rallyeye
 
-import com.eed3si9n.expecty.Expecty.expect
+import com.softwaremill.diffx.generic.auto.given
+import com.softwaremill.diffx.munit.DiffxAssertions
 import rallyeye.shared._
 
-class ResultsSuite extends munit.FunSuite:
+class ResultsSuite extends munit.FunSuite with DiffxAssertions:
   val entries = List(
     Entry(1, "SS1", "driver1", "group1", "car1", 10.1, false, true, "good stage"),
     Entry(1, "SS1", "driver2", "group1", "car2", 14.9, false, true, "good stage"),
@@ -119,9 +120,7 @@ class ResultsSuite extends munit.FunSuite:
       )
     )
 
-    expect(
-      obtained.stages == expected.stages,
-      obtained.allResults == expected.allResults,
-      obtained.groupResults == expected.groupResults,
-      obtained.carResults == expected.carResults
-    )
+    assertEqual(obtained.stages, expected.stages)
+    assertEqual(obtained.allResults, expected.allResults)
+    assertEqual(obtained.groupResults, expected.groupResults)
+    assertEqual(obtained.carResults, expected.carResults)
