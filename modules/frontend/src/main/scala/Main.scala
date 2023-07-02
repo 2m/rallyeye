@@ -40,6 +40,7 @@ import com.raquo.laminar.api.L.children
 import com.raquo.laminar.api.L.emptyNode
 import com.raquo.laminar.api.L.seqToModifier
 import com.raquo.laminar.api.L.svg._
+import com.raquo.laminar.codecs.StringAsIsCodec
 import org.scalajs.dom
 import org.scalajs.dom.HTMLElement
 import rallyeye.shared._
@@ -75,6 +76,9 @@ val positionColorScale = scaleOrdinal(js.Array(1, 2, 3), js.Array("#af9500", "#b
   .unknown("#000000")
   .asInstanceOf[ScaleOrdinal_[Int, String, Nothing]]
 
+val textLength = svgAttr[String]("textLength", StringAsIsCodec, None)
+val lengthAdjust = svgAttr[String]("lengthAdjust", StringAsIsCodec, None)
+
 @main
 def main() =
   L.renderOnDomContentLoaded(dom.document.querySelector("#app"), App.app)
@@ -108,6 +112,8 @@ object App {
   val resultSelectionBus = EventBus[PositionResult]()
   val selectResult = selectedResult.someWriter
 
+  var fillDriverNames = Var(Option.empty[Unit])
+
   import Router._
   val app = L.div(
     L.child <-- router.currentPageSignal.map(renderPage)
@@ -129,11 +135,11 @@ object App {
       case IndexPage => indexPage()
       case RallyPage(rallyId, results) =>
         if rallyData.now().id != rallyId then fetchData(rallyId, dataEndpoint)
-        Var.set(resultFilter -> results)
+        Var.set(resultFilter -> results, fillDriverNames -> None)
         rallyPage()
       case PressAuto(year, results) =>
         if rallyData.now().id != year then fetchData(year, pressAutoEndpoint)
-        Var.set(resultFilter -> results)
+        Var.set(resultFilter -> results, fillDriverNames -> Some(()))
         rallyPage()
     }
 
@@ -193,7 +199,12 @@ object App {
     g(
       cls := "clickable",
       transform <-- yScale.map(y => s"translate(0, ${y(driver.results(0).overallPosition)})"),
-      text(driver.name, dy := "0.4em"),
+      text(
+        driver.name,
+        dy := "0.4em",
+        textLength <-- fillDriverNames.signal.map(_.fold("none")(_ => "185")),
+        lengthAdjust := "spacingAndGlyphs"
+      ),
       L.onClick.map(_ => driver) --> driverSelectionBus.writer,
       opacity <-- selectedDriver.signal.map(d => d.map(d => if d == driver.name then "1" else "0.2").getOrElse("1"))
     )
