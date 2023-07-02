@@ -150,7 +150,8 @@ class PressAutoParserSuite extends munit.FunSuite with DiffxAssertions:
         stageTime = 0,
         superRally = false,
         finished = true,
-        comment = ""
+        comment = "",
+        nominal = true
       ),
       Entry(
         stageNumber = 12,
@@ -295,7 +296,8 @@ class PressAutoParserSuite extends munit.FunSuite with DiffxAssertions:
         stageTime = 0,
         superRally = false,
         finished = false,
-        comment = ""
+        comment = "",
+        nominal = true
       )
     )
     assertEqual(obtained, expected)

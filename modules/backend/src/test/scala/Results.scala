@@ -44,10 +44,11 @@ class ResultsSuite extends munit.FunSuite with DiffxAssertions:
     assertEquals(obtained, expected)
 
   test("gives rally results"):
-    val obtained = rally(1, "rally", entries)
+    val obtained = rally(1, "rally", "link", entries)
     val expected = RallyData(
       1,
       "rally",
+      "link",
       obtained.retrievedAt,
       List(
         Stage(1, "SS1"),
