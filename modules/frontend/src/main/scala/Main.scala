@@ -113,10 +113,10 @@ object App {
     L.child <-- router.currentPageSignal.map(renderPage)
   )
 
-  def fetchData(rallyId: Int) =
+  def fetchData(rallyId: Int, endpoint: Endpoint) =
     import org.scalajs.macrotaskexecutor.MacrotaskExecutor.Implicits.global
 
-    fetch(rallyId).map { rallyData =>
+    fetch(rallyId, endpoint).map { rallyData =>
       Var.set(
         App.rallyData -> rallyData,
         App.selectedDriver -> None,
@@ -128,7 +128,11 @@ object App {
     page match {
       case IndexPage => indexPage()
       case RallyPage(rallyId, results) =>
-        if rallyData.now().id != rallyId then fetchData(rallyId)
+        if rallyData.now().id != rallyId then fetchData(rallyId, dataEndpoint)
+        Var.set(resultFilter -> results)
+        rallyPage()
+      case PressAuto(year, results) =>
+        if rallyData.now().id != year then fetchData(year, pressAutoEndpoint)
         Var.set(resultFilter -> results)
         rallyPage()
     }

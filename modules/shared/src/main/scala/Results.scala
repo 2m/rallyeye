@@ -25,8 +25,14 @@ import io.bullet.borer.derivation.MapBasedCodecs._
 import sttp.tapir._
 import sttp.tapir.generic.auto._
 
+type Endpoint = sttp.tapir.Endpoint[Unit, Int, Unit, RallyData, Any]
+
 val dataEndpoint = endpoint
   .in("data" / path[Int])
+  .out(jsonBody[RallyData])
+
+val pressAutoEndpoint = endpoint
+  .in("pressauto" / path[Int])
   .out(jsonBody[RallyData])
 
 case class Stage(number: Int, name: String)

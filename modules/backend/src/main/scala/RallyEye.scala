@@ -22,6 +22,7 @@ import scala.concurrent.Await
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 import scala.concurrent.duration._
+import scala.io.Source
 import scala.util.Failure
 import scala.util.Success
 
@@ -81,9 +82,21 @@ def rallyResults(client: Client[IO], rallyId: Int): IO[Either[Unit, List[Entry]]
     entries = response.map(parse)
   yield entries
 
+def pressAutoLogic(year: Int): IO[Either[Unit, RallyData]] =
+  val response = for {
+    year <- if year == 2023 then Right(year) else Left(())
+    csv = Source.fromResource(s"pressauto$year.csv").mkString
+    results = parsePressAuto(csv)
+  } yield rally(year, s"Press Auto $year", results)
+  IO.pure(response)
+
 object Data extends IOApp.Simple:
   def run: IO[Unit] =
-    val routes = Http4sServerInterpreter[IO]().toRoutes(dataEndpoint.serverLogic(dataLogic)).orNotFound
+    import cats.syntax.semigroupk._
+    val interp = Http4sServerInterpreter[IO]()
+    val routes = (interp.toRoutes(dataEndpoint.serverLogic(dataLogic)) <+> interp.toRoutes(
+      pressAutoEndpoint.serverLogic(pressAutoLogic)
+    )).orNotFound
 
     for
       caffeine <- CaffeineCache.build[IO, (Method, org.http4s.Uri), CacheItem](None, None, Some(100))

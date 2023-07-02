@@ -67,7 +67,7 @@ def parse(csv: String) =
     case _ => ???
   }
 
-def parsePressRally(csv: String) =
+def parsePressAuto(csv: String) =
   def parseTimestamp(ts: String) = ts.replace(" (N)", "") match {
     case s"$h:$m:$s.$ms" => BigDecimal(h.toInt * 3600 + m.toInt * 60 + s.toInt) + BigDecimal(s"0.$ms")
     case _               => BigDecimal(0)

@@ -16,6 +16,8 @@
 
 package rallyeye
 
+import scala.io.Source
+
 import com.softwaremill.diffx.generic.auto.given
 import com.softwaremill.diffx.munit.DiffxAssertions
 
@@ -26,8 +28,8 @@ class PressAutoParserSuite extends munit.FunSuite with DiffxAssertions:
        |1;#107;Tomas Markelevičius - Tadas Martinaitis;15min;Press iki 2000cc;Mitsubishi Colt (2000);00:02:20.552;00:02:22.288;00:00:42.851;00:00:41.485;00:03:19.002;00:03:13.681;00:01:31.172;00:01:22.963;00:01:58.995;00:01:55.932;00:00:00.000;00:00:00.000 (N);00:00:00.000 (N);00:01:37.947;00:01:33.431;00:02:04.492;00:02:00.697;00:04:36.525;00:01:15.753;00:01:14.433;00:02:02.350;00:01:57.782;;;
        |""".stripMargin
 
-  test("parses a CSV file"):
-    val obtained = parsePressRally(csv)
+  test("parses single driver result"):
+    val obtained = parsePressAuto(csv)
     val expected = List(
       Entry(
         stageNumber = 1,
@@ -297,3 +299,8 @@ class PressAutoParserSuite extends munit.FunSuite with DiffxAssertions:
       )
     )
     assertEqual(obtained, expected)
+
+  test("parses all results"):
+    val csv = Source.fromResource("pressauto2023.csv").mkString
+    val obtained = parsePressAuto(csv)
+    assertEqual(obtained.size, 1632)
