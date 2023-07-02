@@ -61,7 +61,12 @@ def dataLogic(rallyId: Int): IO[Either[Unit, RallyData]] =
         for
           n <- name
           r <- results
-        yield rally(rallyId, n, r)
+        yield rally(
+          rallyId,
+          n,
+          s"https://www.rallysimfans.hu/rbr/rally_online.php?centerbox=rally_list_details.php&rally_id=$rallyId",
+          r
+        )
       }
     }
 
@@ -87,7 +92,7 @@ def pressAutoLogic(year: Int): IO[Either[Unit, RallyData]] =
     year <- if year == 2023 then Right(year) else Left(())
     csv = Source.fromResource(s"pressauto$year.csv").mkString
     results = parsePressAuto(csv)
-  } yield rally(year, s"Press Auto $year", results)
+  } yield rally(year, s"Press Auto $year", s"https://raceadmin.eu/pr${year}/pr${year}/results/overall/all", results)
   IO.pure(response)
 
 object Data extends IOApp.Simple:

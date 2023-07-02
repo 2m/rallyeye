@@ -66,6 +66,7 @@ case class CarResults(
 case class RallyData(
     id: Int,
     name: String,
+    link: String,
     retrievedAt: Instant,
     stages: List[Stage],
     allResults: List[DriverResults],
@@ -73,7 +74,7 @@ case class RallyData(
     carResults: List[CarResults]
 )
 object RallyData {
-  val empty = RallyData(0, "Loading...", Instant.now, Nil, Nil, Nil, Nil)
+  val empty = RallyData(0, "Loading...", "", Instant.now, Nil, Nil, Nil, Nil)
 }
 
 given Codec[Stage] = deriveCodec[Stage]

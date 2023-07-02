@@ -89,7 +89,7 @@ def parsePressAuto(csv: String) =
           false,
           time != "",
           "",
-          time.contains("(N)")
+          time.contains("(N)") || stageName.contains("LK Day")
         )
       }
     case _ => ???
@@ -172,7 +172,7 @@ def drivers(results: MapView[Stage, List[PositionResult]]) =
     .toList
     .sortBy(_.name)
 
-def rally(id: Int, name: String, entries: List[Entry]) =
+def rally(id: Int, name: String, link: String, entries: List[Entry]) =
   val groupResults = entries.groupBy(_.group).map { case (group, entries) =>
     GroupResults(group, results(entries) pipe drivers)
   }
@@ -183,6 +183,7 @@ def rally(id: Int, name: String, entries: List[Entry]) =
   RallyData(
     id,
     name,
+    link,
     Instant.now(),
     stages(entries),
     results(entries) pipe drivers,
