@@ -16,10 +16,11 @@
 
 package rallyeye
 
-import com.eed3si9n.expecty.Expecty.expect
+import com.softwaremill.diffx.generic.auto.given
+import com.softwaremill.diffx.munit.DiffxAssertions
 import rallyeye.shared._
 
-class ResultsSuite extends munit.FunSuite:
+class ResultsSuite extends munit.FunSuite with DiffxAssertions:
   val entries = List(
     Entry(1, "SS1", "driver1", "group1", "car1", 10.1, false, true, "good stage"),
     Entry(1, "SS1", "driver2", "group1", "car2", 14.9, false, true, "good stage"),
@@ -31,22 +32,23 @@ class ResultsSuite extends munit.FunSuite:
     val obtained = results(entries).toMap
     val expected = Map(
       Stage(1, "SS1") -> List(
-        PositionResult(1, "driver1", 1, 1, 10.1, 10.1, false, true, "good stage"),
-        PositionResult(1, "driver2", 2, 2, 14.9, 14.9, false, true, "good stage")
+        PositionResult(1, "driver1", 1, 1, 10.1, 10.1, false, true, "good stage", false),
+        PositionResult(1, "driver2", 2, 2, 14.9, 14.9, false, true, "good stage", false)
       ),
       Stage(2, "SS2") -> List(
-        PositionResult(2, "driver1", 1, 1, 20.5, 30.6, false, true, "good stage"),
-        PositionResult(2, "driver2", 2, 2, 24.5, 39.4, false, true, "good stage")
+        PositionResult(2, "driver1", 1, 1, 20.5, 30.6, false, true, "good stage", false),
+        PositionResult(2, "driver2", 2, 2, 24.5, 39.4, false, true, "good stage", false)
       )
     )
 
     assertEquals(obtained, expected)
 
   test("gives rally results"):
-    val obtained = rally(1, "rally", entries)
+    val obtained = rally(1, "rally", "link", entries)
     val expected = RallyData(
       1,
       "rally",
+      "link",
       obtained.retrievedAt,
       List(
         Stage(1, "SS1"),
@@ -56,15 +58,15 @@ class ResultsSuite extends munit.FunSuite:
         DriverResults(
           "driver1",
           List(
-            PositionResult(1, "driver1", 1, 1, 10.1, 10.1, false, true, "good stage"),
-            PositionResult(2, "driver1", 1, 1, 20.5, 30.6, false, true, "good stage")
+            PositionResult(1, "driver1", 1, 1, 10.1, 10.1, false, true, "good stage", false),
+            PositionResult(2, "driver1", 1, 1, 20.5, 30.6, false, true, "good stage", false)
           )
         ),
         DriverResults(
           "driver2",
           List(
-            PositionResult(1, "driver2", 2, 2, 14.9, 14.9, false, true, "good stage"),
-            PositionResult(2, "driver2", 2, 2, 24.5, 39.4, false, true, "good stage")
+            PositionResult(1, "driver2", 2, 2, 14.9, 14.9, false, true, "good stage", false),
+            PositionResult(2, "driver2", 2, 2, 24.5, 39.4, false, true, "good stage", false)
           )
         )
       ),
@@ -75,15 +77,15 @@ class ResultsSuite extends munit.FunSuite:
             DriverResults(
               "driver1",
               List(
-                PositionResult(1, "driver1", 1, 1, 10.1, 10.1, false, true, "good stage"),
-                PositionResult(2, "driver1", 1, 1, 20.5, 30.6, false, true, "good stage")
+                PositionResult(1, "driver1", 1, 1, 10.1, 10.1, false, true, "good stage", false),
+                PositionResult(2, "driver1", 1, 1, 20.5, 30.6, false, true, "good stage", false)
               )
             ),
             DriverResults(
               "driver2",
               List(
-                PositionResult(1, "driver2", 2, 2, 14.9, 14.9, false, true, "good stage"),
-                PositionResult(2, "driver2", 2, 2, 24.5, 39.4, false, true, "good stage")
+                PositionResult(1, "driver2", 2, 2, 14.9, 14.9, false, true, "good stage", false),
+                PositionResult(2, "driver2", 2, 2, 24.5, 39.4, false, true, "good stage", false)
               )
             )
           )
@@ -97,8 +99,8 @@ class ResultsSuite extends munit.FunSuite:
             DriverResults(
               "driver2",
               List(
-                PositionResult(1, "driver2", 1, 1, 14.9, 14.9, false, true, "good stage"),
-                PositionResult(2, "driver2", 1, 1, 24.5, 39.4, false, true, "good stage")
+                PositionResult(1, "driver2", 1, 1, 14.9, 14.9, false, true, "good stage", false),
+                PositionResult(2, "driver2", 1, 1, 24.5, 39.4, false, true, "good stage", false)
               )
             )
           )
@@ -110,8 +112,8 @@ class ResultsSuite extends munit.FunSuite:
             DriverResults(
               "driver1",
               List(
-                PositionResult(1, "driver1", 1, 1, 10.1, 10.1, false, true, "good stage"),
-                PositionResult(2, "driver1", 1, 1, 20.5, 30.6, false, true, "good stage")
+                PositionResult(1, "driver1", 1, 1, 10.1, 10.1, false, true, "good stage", false),
+                PositionResult(2, "driver1", 1, 1, 20.5, 30.6, false, true, "good stage", false)
               )
             )
           )
@@ -119,9 +121,7 @@ class ResultsSuite extends munit.FunSuite:
       )
     )
 
-    expect(
-      obtained.stages == expected.stages,
-      obtained.allResults == expected.allResults,
-      obtained.groupResults == expected.groupResults,
-      obtained.carResults == expected.carResults
-    )
+    assertEqual(obtained.stages, expected.stages)
+    assertEqual(obtained.allResults, expected.allResults)
+    assertEqual(obtained.groupResults, expected.groupResults)
+    assertEqual(obtained.carResults, expected.carResults)

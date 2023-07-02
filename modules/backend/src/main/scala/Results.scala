@@ -33,7 +33,8 @@ case class Entry(
     stageTime: BigDecimal,
     superRally: Boolean,
     finished: Boolean,
-    comment: String
+    comment: String,
+    nominal: Boolean = false
 )
 
 case class TimeResult(
@@ -44,7 +45,8 @@ case class TimeResult(
     overallTime: BigDecimal,
     superRally: Boolean,
     finished: Boolean,
-    comment: String
+    comment: String,
+    nominal: Boolean
 )
 
 def parse(csv: String) =
@@ -66,6 +68,33 @@ def parse(csv: String) =
     case _ => ???
   }
 
+def parsePressAuto(csv: String) =
+  def parseTimestamp(ts: String) = ts.replace(" (N)", "") match {
+    case s"$h:$m:$s.$ms" => BigDecimal(h.toInt * 3600 + m.toInt * 60 + s.toInt) + BigDecimal(s"0.$ms")
+    case _               => BigDecimal(0)
+  }
+
+  val (header :: data) = csv.split('\n').toList: @unchecked
+  val stages = header.split(";", -1).drop(6).init.zipWithIndex
+  data.map(_.split(";", -1).toList).flatMap {
+    case _ :: _ :: realName :: _ :: group :: car :: times =>
+      times.init.zip(stages).map { case (time, (stageName, stageNumber)) =>
+        Entry(
+          stageNumber + 1,
+          stageName,
+          realName,
+          group,
+          car,
+          parseTimestamp(time),
+          false,
+          time != "",
+          "",
+          time.contains("(N)") || stageName.contains("LK Day")
+        )
+      }
+    case _ => ???
+  }
+
 def stages(entries: List[Entry]) =
   entries.map(e => Stage(e.stageNumber, e.stageName)).distinct.sortBy(_.number)
 
@@ -78,7 +107,17 @@ def results(entries: List[Entry]) =
       results
         .zip(overallTimes.drop(1))
         .map((e, overall) =>
-          TimeResult(e.stageNumber, e.stageName, e.userName, e.stageTime, overall, e.superRally, e.finished, e.comment)
+          TimeResult(
+            e.stageNumber,
+            e.stageName,
+            e.userName,
+            e.stageTime,
+            overall,
+            e.superRally,
+            e.finished,
+            e.comment,
+            e.nominal
+          )
         )
     }
     .values
@@ -99,7 +138,8 @@ def results(entries: List[Entry]) =
         result.overallTime,
         result.superRally,
         !retired.contains(result.userName),
-        result.comment
+        result.comment,
+        result.nominal
       )
     }
   }
@@ -120,7 +160,8 @@ def drivers(results: MapView[Stage, List[PositionResult]]) =
               r.overallTime,
               r.superRally,
               r.rallyFinished,
-              r.comment
+              r.comment,
+              r.nominal
             )
           )
         )
@@ -131,7 +172,7 @@ def drivers(results: MapView[Stage, List[PositionResult]]) =
     .toList
     .sortBy(_.name)
 
-def rally(id: Int, name: String, entries: List[Entry]) =
+def rally(id: Int, name: String, link: String, entries: List[Entry]) =
   val groupResults = entries.groupBy(_.group).map { case (group, entries) =>
     GroupResults(group, results(entries) pipe drivers)
   }
@@ -142,6 +183,7 @@ def rally(id: Int, name: String, entries: List[Entry]) =
   RallyData(
     id,
     name,
+    link,
     Instant.now(),
     stages(entries),
     results(entries) pipe drivers,

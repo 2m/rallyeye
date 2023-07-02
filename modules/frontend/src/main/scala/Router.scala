@@ -31,6 +31,7 @@ object Router:
   sealed trait Page
   case object IndexPage extends Page
   case class RallyPage(rallyId: Int, results: String) extends Page
+  case class PressAuto(year: Int, results: String) extends Page
 
   given Codec[Page] = deriveAllCodecs[Page]
 
@@ -50,8 +51,22 @@ object Router:
     basePath = Route.fragmentBasePath
   )
 
+  val pressAutoRoute = Route[PressAuto, (Int, String)](
+    encode = Tuple.fromProductTyped,
+    decode = summon[Mirror.Of[PressAuto]].fromProduct,
+    pattern = root / "pressauto" / segment[Int] / segment[String] / endOfSegments,
+    basePath = Route.fragmentBasePath
+  )
+
+  val pressAutoRouteAllResults = Route[PressAuto, Int](
+    encode = _.year,
+    decode = year => PressAuto(year, ResultFilter.AllResultsId),
+    pattern = root / "pressauto" / segment[Int] / endOfSegments,
+    basePath = Route.fragmentBasePath
+  )
+
   val router = new Router[Page](
-    routes = List(rallyRoute, rallyRouteAllResults, indexRoute),
+    routes = List(rallyRoute, rallyRouteAllResults, pressAutoRoute, pressAutoRouteAllResults, indexRoute),
     getPageTitle = _ => "RallyEye",
     serializePage = page => Json.encode(page).toUtf8String,
     deserializePage = pageStr => Json.decode(pageStr.getBytes("UTF8")).to[Page].value
@@ -76,4 +91,10 @@ object Router:
       .filter(ev => !(isLinkElement && (ev.ctrlKey || ev.metaKey || ev.shiftKey || ev.altKey)))
       .preventDefault
       --> (_ => router.pushState(page))).bind(el)
+  }
+
+  def withFilter(filter: String) = router.currentPageSignal.now() match {
+    case p: RallyPage => p.copy(results = filter)
+    case p: PressAuto => p.copy(results = filter)
+    case p            => p
   }
