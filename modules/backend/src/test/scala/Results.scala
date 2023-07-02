@@ -32,12 +32,12 @@ class ResultsSuite extends munit.FunSuite with DiffxAssertions:
     val obtained = results(entries).toMap
     val expected = Map(
       Stage(1, "SS1") -> List(
-        PositionResult(1, "driver1", 1, 1, 10.1, 10.1, false, true, "good stage"),
-        PositionResult(1, "driver2", 2, 2, 14.9, 14.9, false, true, "good stage")
+        PositionResult(1, "driver1", 1, 1, 10.1, 10.1, false, true, "good stage", false),
+        PositionResult(1, "driver2", 2, 2, 14.9, 14.9, false, true, "good stage", false)
       ),
       Stage(2, "SS2") -> List(
-        PositionResult(2, "driver1", 1, 1, 20.5, 30.6, false, true, "good stage"),
-        PositionResult(2, "driver2", 2, 2, 24.5, 39.4, false, true, "good stage")
+        PositionResult(2, "driver1", 1, 1, 20.5, 30.6, false, true, "good stage", false),
+        PositionResult(2, "driver2", 2, 2, 24.5, 39.4, false, true, "good stage", false)
       )
     )
 
@@ -57,15 +57,15 @@ class ResultsSuite extends munit.FunSuite with DiffxAssertions:
         DriverResults(
           "driver1",
           List(
-            PositionResult(1, "driver1", 1, 1, 10.1, 10.1, false, true, "good stage"),
-            PositionResult(2, "driver1", 1, 1, 20.5, 30.6, false, true, "good stage")
+            PositionResult(1, "driver1", 1, 1, 10.1, 10.1, false, true, "good stage", false),
+            PositionResult(2, "driver1", 1, 1, 20.5, 30.6, false, true, "good stage", false)
           )
         ),
         DriverResults(
           "driver2",
           List(
-            PositionResult(1, "driver2", 2, 2, 14.9, 14.9, false, true, "good stage"),
-            PositionResult(2, "driver2", 2, 2, 24.5, 39.4, false, true, "good stage")
+            PositionResult(1, "driver2", 2, 2, 14.9, 14.9, false, true, "good stage", false),
+            PositionResult(2, "driver2", 2, 2, 24.5, 39.4, false, true, "good stage", false)
           )
         )
       ),
@@ -76,15 +76,15 @@ class ResultsSuite extends munit.FunSuite with DiffxAssertions:
             DriverResults(
               "driver1",
               List(
-                PositionResult(1, "driver1", 1, 1, 10.1, 10.1, false, true, "good stage"),
-                PositionResult(2, "driver1", 1, 1, 20.5, 30.6, false, true, "good stage")
+                PositionResult(1, "driver1", 1, 1, 10.1, 10.1, false, true, "good stage", false),
+                PositionResult(2, "driver1", 1, 1, 20.5, 30.6, false, true, "good stage", false)
               )
             ),
             DriverResults(
               "driver2",
               List(
-                PositionResult(1, "driver2", 2, 2, 14.9, 14.9, false, true, "good stage"),
-                PositionResult(2, "driver2", 2, 2, 24.5, 39.4, false, true, "good stage")
+                PositionResult(1, "driver2", 2, 2, 14.9, 14.9, false, true, "good stage", false),
+                PositionResult(2, "driver2", 2, 2, 24.5, 39.4, false, true, "good stage", false)
               )
             )
           )
@@ -98,8 +98,8 @@ class ResultsSuite extends munit.FunSuite with DiffxAssertions:
             DriverResults(
               "driver2",
               List(
-                PositionResult(1, "driver2", 1, 1, 14.9, 14.9, false, true, "good stage"),
-                PositionResult(2, "driver2", 1, 1, 24.5, 39.4, false, true, "good stage")
+                PositionResult(1, "driver2", 1, 1, 14.9, 14.9, false, true, "good stage", false),
+                PositionResult(2, "driver2", 1, 1, 24.5, 39.4, false, true, "good stage", false)
               )
             )
           )
@@ -111,8 +111,8 @@ class ResultsSuite extends munit.FunSuite with DiffxAssertions:
             DriverResults(
               "driver1",
               List(
-                PositionResult(1, "driver1", 1, 1, 10.1, 10.1, false, true, "good stage"),
-                PositionResult(2, "driver1", 1, 1, 20.5, 30.6, false, true, "good stage")
+                PositionResult(1, "driver1", 1, 1, 10.1, 10.1, false, true, "good stage", false),
+                PositionResult(2, "driver1", 1, 1, 20.5, 30.6, false, true, "good stage", false)
               )
             )
           )

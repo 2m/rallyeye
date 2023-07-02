@@ -160,6 +160,13 @@ object App {
       )
     )
 
+  def renderStagePosition(result: PositionResult) =
+    (result.superRally, result.nominal) match {
+      case (true, _) => "SR"
+      case (_, true) => "N"
+      case _         => result.stagePosition.toString
+    }
+
   def renderInfo() =
     L.div(
       L.cls := "w-44 h-44 sticky row-start-2 col-start-1 top-4 left-4 mt-4 p-4 text-xs border-2 bg-white",
@@ -173,7 +180,7 @@ object App {
                 Seq(
                   L.div(s"SS${result.stageNumber} ${stages(result.stageNumber - 1).name}"),
                   L.div(driver),
-                  L.div(s"Stage: ${result.stageTime.prettyDiff} (${result.stagePosition})"),
+                  L.div(s"Stage: ${result.stageTime.prettyDiff} (${renderStagePosition(result)})"),
                   L.div(s"Rally: ${result.overallTime.prettyDiff} (${result.overallPosition})"),
                   if result.comment.nonEmpty then L.div(s"“${result.comment}”") else emptyNode
                 )
@@ -288,7 +295,7 @@ object App {
     def mkResultNumber(result: PositionResult, idx: Int) =
       text(
         cls := "clickable",
-        if !result.superRally then result.stagePosition else "SR",
+        renderStagePosition(result),
         transform <-- scale.mapN { (x, y) =>
           s"translate(${x(idx * 2)},${y(result.overallPosition)})"
         },

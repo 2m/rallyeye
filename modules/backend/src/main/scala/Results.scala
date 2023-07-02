@@ -45,7 +45,8 @@ case class TimeResult(
     overallTime: BigDecimal,
     superRally: Boolean,
     finished: Boolean,
-    comment: String
+    comment: String,
+    nominal: Boolean
 )
 
 def parse(csv: String) =
@@ -106,7 +107,17 @@ def results(entries: List[Entry]) =
       results
         .zip(overallTimes.drop(1))
         .map((e, overall) =>
-          TimeResult(e.stageNumber, e.stageName, e.userName, e.stageTime, overall, e.superRally, e.finished, e.comment)
+          TimeResult(
+            e.stageNumber,
+            e.stageName,
+            e.userName,
+            e.stageTime,
+            overall,
+            e.superRally,
+            e.finished,
+            e.comment,
+            e.nominal
+          )
         )
     }
     .values
@@ -127,7 +138,8 @@ def results(entries: List[Entry]) =
         result.overallTime,
         result.superRally,
         !retired.contains(result.userName),
-        result.comment
+        result.comment,
+        result.nominal
       )
     }
   }
@@ -148,7 +160,8 @@ def drivers(results: MapView[Stage, List[PositionResult]]) =
               r.overallTime,
               r.superRally,
               r.rallyFinished,
-              r.comment
+              r.comment,
+              r.nominal
             )
           )
         )

@@ -46,7 +46,8 @@ case class PositionResult(
     overallTime: BigDecimal,
     superRally: Boolean,
     rallyFinished: Boolean,
-    comment: String
+    comment: String,
+    nominal: Boolean
 )
 
 case class DriverResults(name: String, results: List[PositionResult])
