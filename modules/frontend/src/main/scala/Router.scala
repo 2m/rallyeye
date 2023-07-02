@@ -92,3 +92,9 @@ object Router:
       .preventDefault
       --> (_ => router.pushState(page))).bind(el)
   }
+
+  def withFilter(filter: String) = router.currentPageSignal.now() match {
+    case p: RallyPage => p.copy(results = filter)
+    case p: PressAuto => p.copy(results = filter)
+    case p            => p
+  }

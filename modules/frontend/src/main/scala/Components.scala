@@ -98,7 +98,7 @@ object ResultFilter:
                   else if rf.isGroup then cls := "bg-gray-200"
                   else if rf.isCar then cls := "text-sm"
                   else emptyMod,
-                  Router.navigateTo(Router.RallyPage(rallyData.id, rf.id)),
+                  Router.navigateTo(Router.withFilter(rf.id)),
                   rf.name
                 )
               )
