@@ -16,6 +16,7 @@
 
 package rallyeye
 
+import scala.io.Codec
 import scala.io.Source
 
 import com.softwaremill.diffx.generic.auto.given
@@ -303,6 +304,6 @@ class PressAutoParserSuite extends munit.FunSuite with DiffxAssertions:
     assertEqual(obtained, expected)
 
   test("parses all results"):
-    val csv = Source.fromResource("pressauto2023.csv").mkString
+    val csv = Source.fromResource("pressauto2023.csv")(Codec.UTF8).mkString
     val obtained = parsePressAuto(csv)
     assertEqual(obtained.size, 1632)
