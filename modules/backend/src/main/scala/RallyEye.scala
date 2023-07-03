@@ -90,7 +90,7 @@ def rallyResults(client: Client[IO], rallyId: Int): IO[Either[Unit, List[Entry]]
 def pressAutoLogic(year: Int): IO[Either[Unit, RallyData]] =
   val response = for {
     year <- if year == 2023 then Right(year) else Left(())
-    csv = Source.fromResource(s"pressauto$year.csv").mkString
+    csv = Source.fromResource(s"pressauto$year.csv")(scala.io.Codec.UTF8).mkString
     results = parsePressAuto(csv)
   } yield rally(year, s"Press Auto $year", s"https://raceadmin.eu/pr${year}/pr${year}/results/overall/all", results)
   IO.pure(response)
