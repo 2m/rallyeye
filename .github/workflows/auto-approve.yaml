@@ -9,4 +9,4 @@ jobs:
       pull-requests: write
     if: github.actor == 'dependabot[bot]' || github.actor == 'scala-steward-2m[bot]'
     steps:
-      - uses: hmarr/auto-approve-action@v3
+    - uses: hmarr/auto-approve-action@v3
