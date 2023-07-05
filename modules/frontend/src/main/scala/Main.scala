@@ -40,6 +40,7 @@ import com.raquo.laminar.api.L.children
 import com.raquo.laminar.api.L.emptyNode
 import com.raquo.laminar.api.L.seqToModifier
 import com.raquo.laminar.api.L.svg._
+import com.raquo.laminar.codecs.StringAsIsCodec
 import org.scalajs.dom
 import org.scalajs.dom.HTMLElement
 import rallyeye.shared._
@@ -75,6 +76,9 @@ val positionColorScale = scaleOrdinal(js.Array(1, 2, 3), js.Array("#af9500", "#b
   .unknown("#000000")
   .asInstanceOf[ScaleOrdinal_[Int, String, Nothing]]
 
+val textLength = svgAttr[String]("textLength", StringAsIsCodec, None)
+val lengthAdjust = svgAttr[String]("lengthAdjust", StringAsIsCodec, None)
+
 @main
 def main() =
   L.renderOnDomContentLoaded(dom.document.querySelector("#app"), App.app)
@@ -108,15 +112,17 @@ object App {
   val resultSelectionBus = EventBus[PositionResult]()
   val selectResult = selectedResult.someWriter
 
+  var fillDriverNames = Var(Option.empty[Unit])
+
   import Router._
   val app = L.div(
     L.child <-- router.currentPageSignal.map(renderPage)
   )
 
-  def fetchData(rallyId: Int) =
+  def fetchData(rallyId: Int, endpoint: Endpoint) =
     import org.scalajs.macrotaskexecutor.MacrotaskExecutor.Implicits.global
 
-    fetch(rallyId).map { rallyData =>
+    fetch(rallyId, endpoint).map { rallyData =>
       Var.set(
         App.rallyData -> rallyData,
         App.selectedDriver -> None,
@@ -128,8 +134,12 @@ object App {
     page match {
       case IndexPage => indexPage()
       case RallyPage(rallyId, results) =>
-        if rallyData.now().id != rallyId then fetchData(rallyId)
-        Var.set(resultFilter -> results)
+        if rallyData.now().id != rallyId then fetchData(rallyId, dataEndpoint)
+        Var.set(resultFilter -> results, fillDriverNames -> None)
+        rallyPage()
+      case PressAuto(year, results) =>
+        if rallyData.now().id != year then fetchData(year, pressAutoEndpoint)
+        Var.set(resultFilter -> results, fillDriverNames -> Some(()))
         rallyPage()
     }
 
@@ -156,6 +166,13 @@ object App {
       )
     )
 
+  def renderStagePosition(result: PositionResult) =
+    (result.superRally, result.nominal) match {
+      case (true, _) => "SR"
+      case (_, true) => "N"
+      case _         => result.stagePosition.toString
+    }
+
   def renderInfo() =
     L.div(
       L.cls := "w-44 h-44 sticky row-start-2 col-start-1 top-4 left-4 mt-4 p-4 text-xs border-2 bg-white",
@@ -169,7 +186,7 @@ object App {
                 Seq(
                   L.div(s"SS${result.stageNumber} ${stages(result.stageNumber - 1).name}"),
                   L.div(driver),
-                  L.div(s"Stage: ${result.stageTime.prettyDiff} (${result.stagePosition})"),
+                  L.div(s"Stage: ${result.stageTime.prettyDiff} (${renderStagePosition(result)})"),
                   L.div(s"Rally: ${result.overallTime.prettyDiff} (${result.overallPosition})"),
                   if result.comment.nonEmpty then L.div(s"“${result.comment}”") else emptyNode
                 )
@@ -182,7 +199,12 @@ object App {
     g(
       cls := "clickable",
       transform <-- yScale.map(y => s"translate(0, ${y(driver.results(0).overallPosition)})"),
-      text(driver.name, dy := "0.4em"),
+      text(
+        driver.name,
+        dy := "0.4em",
+        textLength <-- fillDriverNames.signal.map(_.fold("none")(_ => "185")),
+        lengthAdjust := "spacingAndGlyphs"
+      ),
       L.onClick.map(_ => driver) --> driverSelectionBus.writer,
       opacity <-- selectedDriver.signal.map(d => d.map(d => if d == driver.name then "1" else "0.2").getOrElse("1"))
     )
@@ -284,7 +306,7 @@ object App {
     def mkResultNumber(result: PositionResult, idx: Int) =
       text(
         cls := "clickable",
-        if !result.superRally then result.stagePosition else "SR",
+        renderStagePosition(result),
         transform <-- scale.mapN { (x, y) =>
           s"translate(${x(idx * 2)},${y(result.overallPosition)})"
         },

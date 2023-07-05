@@ -35,11 +35,7 @@ object Components:
         ),
         child <-- rallySignal.map { r =>
           div(
-            a(
-              href := s"https://www.rallysimfans.hu/rbr/rally_online.php?centerbox=rally_list_details.php&rally_id=${r.id}",
-              target := "_blank",
-              r.name
-            ),
+            a(href := r.link, target := "_blank", r.name),
             p(cls := "text-xs text-gray-400", "Data retrieved at ", r.retrievedAt.toString)
           )
         },
@@ -102,7 +98,7 @@ object ResultFilter:
                   else if rf.isGroup then cls := "bg-gray-200"
                   else if rf.isCar then cls := "text-sm"
                   else emptyMod,
-                  Router.navigateTo(Router.RallyPage(rallyData.id, rf.id)),
+                  Router.navigateTo(Router.withFilter(rf.id)),
                   rf.name
                 )
               )

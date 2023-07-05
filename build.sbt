@@ -91,19 +91,22 @@ lazy val backend = project
     libraryDependencies ++= Seq(
       "com.softwaremill.sttp.tapir" %% "tapir-http4s-server" % "1.5.5",
       "com.softwaremill.sttp.tapir" %% "tapir-http4s-client" % "1.5.5",
-      "org.http4s"                  %% "http4s-ember-server" % "0.23.21",
-      "org.http4s"                  %% "http4s-ember-client" % "0.23.21",
+      "org.http4s"                  %% "http4s-ember-server" % "0.23.22",
+      "org.http4s"                  %% "http4s-ember-client" % "0.23.22",
       "io.chrisdavenport"           %% "mules-http4s"        % "0.4.0",
       "io.chrisdavenport"           %% "mules-caffeine"      % "0.7.0",
       "ch.qos.logback"               % "logback-classic"     % "1.4.8",
       "org.scalameta"               %% "munit"               % "1.0.0-M8" % Test,
-      "com.eed3si9n.expecty"        %% "expecty"             % "0.16.0"   % Test
+      "com.softwaremill.diffx"      %% "diffx-munit"         % "0.8.3"    % Test
     ),
 
     // jib docker image builder
     jibRegistry := "registry.fly.io",
     jibCustomRepositoryPath := Some("rallyeye-data"),
-    jibTags += "latest"
+    jibTags += "latest",
+
+    // for diffx assertions in tests
+    Test / scalacOptions ++= Seq("-Xmax-inlines", "64")
   )
   .dependsOn(shared.jvm)
   .enablePlugins(AutomateHeaderPlugin)

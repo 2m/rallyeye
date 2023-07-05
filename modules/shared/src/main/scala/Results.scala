@@ -25,8 +25,14 @@ import io.bullet.borer.derivation.MapBasedCodecs._
 import sttp.tapir._
 import sttp.tapir.generic.auto._
 
+type Endpoint = sttp.tapir.Endpoint[Unit, Int, Unit, RallyData, Any]
+
 val dataEndpoint = endpoint
   .in("data" / path[Int])
+  .out(jsonBody[RallyData])
+
+val pressAutoEndpoint = endpoint
+  .in("pressauto" / path[Int])
   .out(jsonBody[RallyData])
 
 case class Stage(number: Int, name: String)
@@ -40,7 +46,8 @@ case class PositionResult(
     overallTime: BigDecimal,
     superRally: Boolean,
     rallyFinished: Boolean,
-    comment: String
+    comment: String,
+    nominal: Boolean
 )
 
 case class DriverResults(name: String, results: List[PositionResult])
@@ -59,6 +66,7 @@ case class CarResults(
 case class RallyData(
     id: Int,
     name: String,
+    link: String,
     retrievedAt: Instant,
     stages: List[Stage],
     allResults: List[DriverResults],
@@ -66,7 +74,7 @@ case class RallyData(
     carResults: List[CarResults]
 )
 object RallyData {
-  val empty = RallyData(0, "Loading...", Instant.now, Nil, Nil, Nil, Nil)
+  val empty = RallyData(0, "Loading...", "", Instant.now, Nil, Nil, Nil, Nil)
 }
 
 given Codec[Stage] = deriveCodec[Stage]
