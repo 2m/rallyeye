@@ -43,7 +43,7 @@ lazy val frontend = project
       "org.scala-js"                %%% "scalajs-dom"                 % "2.6.0",
       "org.scala-js"                %%% "scala-js-macrotask-executor" % "1.1.1",
       "com.softwaremill.sttp.tapir" %%% "tapir-sttp-client"           % "1.6.0",
-      "com.raquo"                   %%% "laminar"                     % "15.0.1",
+      "com.raquo"                   %%% "laminar"                     % "16.0.0",
       "com.raquo"                   %%% "waypoint"                    % "6.0.0",
       "io.github.cquiroz"           %%% "scala-java-time"             % "2.5.0",
       "io.bullet"                   %%% "borer-core"                  % "1.10.3",
