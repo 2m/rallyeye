@@ -89,6 +89,8 @@ object App {
       )
     }
 
+    ()
+
   def renderPage(page: Page) =
     page match {
       case IndexPage =>

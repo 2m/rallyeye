@@ -194,7 +194,7 @@ def drivers(results: MapView[Stage, List[PositionResult]]) =
       )
     )
     .groupBy(_.driver.userName)
-    .map((name, results) =>
+    .map((_, results) =>
       DriverResults(
         results.head.driver,
         results.flatMap(_.results).toList.sortBy(_.stageNumber)

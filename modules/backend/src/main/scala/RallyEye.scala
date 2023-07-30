@@ -97,7 +97,7 @@ object Data extends IOApp.Simple:
     for
       caffeine <- CaffeineCache.build[IO, (Method, org.http4s.Uri), CacheItem](None, None, Some(100))
       cache = CacheMiddleware.httpApp(caffeine, CacheType.Public)
-      server <- EmberServerBuilder
+      _ <- EmberServerBuilder
         .default[IO]
         .withHost(ipv4"0.0.0.0")
         .withPort(port"8080")
