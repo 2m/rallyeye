@@ -95,7 +95,7 @@ lazy val backend = project
       "org.http4s"                  %% "http4s-ember-client" % "0.23.23",
       "io.chrisdavenport"           %% "mules-http4s"        % "0.4.0",
       "io.chrisdavenport"           %% "mules-caffeine"      % "0.7.0",
-      "ch.qos.logback"               % "logback-classic"     % "1.4.8",
+      "ch.qos.logback"               % "logback-classic"     % "1.4.9",
       "org.scalameta"               %% "munit"               % "1.0.0-M8" % Test,
       "com.softwaremill.diffx"      %% "diffx-munit"         % "0.8.3"    % Test
     ),
