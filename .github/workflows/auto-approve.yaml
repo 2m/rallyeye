@@ -10,11 +10,16 @@ jobs:
     if: github.event.pull_request.user.login == 'dependabot[bot]' || github.event.pull_request.user.login == 'scala-steward-2m[bot]'
     steps:
     - uses: actions/checkout@v3
+
+    - name: Get Pull Request Number
+      run: echo "PULL_NUMBER=$(echo "$GITHUB_REF" | awk -F / '{print $3}')" >> $GITHUB_ENV
+      shell: bash
+
     - run: gh pr review $PR_NUMBER --approve
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        PR_NUMBER: ${{ github.event.number }}
+        PR_NUMBER: ${{ env.PULL_NUMBER }}
     - run: gh pr merge $PR_NUMBER --auto --merge
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        PR_NUMBER: ${{ github.event.number }}
+        PR_NUMBER: ${{ env.PULL_NUMBER }}
