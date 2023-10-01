@@ -11,11 +11,11 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - run: gh pr review $PR_NUMBER --approve
+    - run: gh pr review --approve "$PR_URL"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        PR_NUMBER: ${{ github.event.pull_request.number }}
-    - run: gh pr merge $PR_NUMBER --auto --merge
+        PR_URL: ${{ github.event.pull_request.html_url }}
+    - run: gh pr merge --auto --merge "$PR_URL"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        PR_NUMBER: ${{ github.event.pull_request.number }}
+        PR_URL: ${{ github.event.pull_request.html_url }}
