@@ -27,7 +27,9 @@ import rallyeye.shared._
 case class Entry(
     stageNumber: Int,
     stageName: String,
+    country: String,
     userName: String,
+    realName: String,
     group: String,
     car: String,
     stageTime: BigDecimal,
@@ -40,11 +42,28 @@ case class Entry(
 case class TimeResult(
     stageNumber: Int,
     stageName: String,
+    country: String,
     userName: String,
+    realName: String,
     stageTime: BigDecimal,
     overallTime: BigDecimal,
     superRally: Boolean,
     finished: Boolean,
+    comment: String,
+    nominal: Boolean
+)
+
+case class PositionResult(
+    stageNumber: Int,
+    country: String,
+    userName: String,
+    realName: String,
+    stagePosition: Int,
+    overallPosition: Int,
+    stageTime: BigDecimal,
+    overallTime: BigDecimal,
+    superRally: Boolean,
+    rallyFinished: Boolean,
     comment: String,
     nominal: Boolean
 )
@@ -56,7 +75,9 @@ def parse(csv: String) =
       Entry(
         stageNumber.toInt,
         stageName,
+        country,
         userName,
+        realName,
         // until https://discord.com/channels/723091638951608320/792825986055798825/1114861057035489341 is fixed
         if group.isEmpty then "Rally 3" else group,
         car,
@@ -82,7 +103,9 @@ def parsePressAuto(csv: String) =
         Entry(
           stageNumber + 1,
           stageName,
+          "LT",
           realName,
+          "",
           group,
           car,
           parseTimestamp(time),
@@ -110,7 +133,9 @@ def results(entries: List[Entry]) =
           TimeResult(
             e.stageNumber,
             e.stageName,
+            e.country,
             e.userName,
+            e.realName,
             e.stageTime,
             overall,
             e.superRally,
@@ -131,7 +156,9 @@ def results(entries: List[Entry]) =
     overallResults.zipWithIndex.map { (result, overall) =>
       PositionResult(
         result.stageNumber,
+        result.country,
         result.userName,
+        result.realName,
         stageResults.indexOf(result) + 1,
         overall + 1,
         result.stageTime,
@@ -149,11 +176,10 @@ def drivers(results: MapView[Stage, List[PositionResult]]) =
     .flatMap((stage, positionResults) =>
       positionResults.map(r =>
         DriverResults(
-          r.userName,
+          Driver(r.country, r.userName, r.realName),
           List(
-            PositionResult(
+            DriverResult(
               stage.number,
-              r.userName,
               r.stagePosition,
               r.overallPosition,
               r.stageTime,
@@ -167,10 +193,15 @@ def drivers(results: MapView[Stage, List[PositionResult]]) =
         )
       )
     )
-    .groupBy(_.name)
-    .map((name, results) => DriverResults(results.head.name, results.flatMap(_.results).toList.sortBy(_.stageNumber)))
+    .groupBy(_.driver.userName)
+    .map((name, results) =>
+      DriverResults(
+        results.head.driver,
+        results.flatMap(_.results).toList.sortBy(_.stageNumber)
+      )
+    )
     .toList
-    .sortBy(_.name)
+    .sortBy(_.driver.userName)
 
 def rally(id: Int, name: String, link: String, entries: List[Entry]) =
   val groupResults = entries.groupBy(_.group).map { case (group, entries) =>

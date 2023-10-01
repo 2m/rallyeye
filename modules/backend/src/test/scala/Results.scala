@@ -22,22 +22,22 @@ import rallyeye.shared._
 
 class ResultsSuite extends munit.FunSuite with DiffxAssertions:
   val entries = List(
-    Entry(1, "SS1", "driver1", "group1", "car1", 10.1, false, true, "good stage"),
-    Entry(1, "SS1", "driver2", "group1", "car2", 14.9, false, true, "good stage"),
-    Entry(2, "SS2", "driver1", "group1", "car1", 20.5, false, true, "good stage"),
-    Entry(2, "SS2", "driver2", "group1", "car2", 24.5, false, true, "good stage")
+    Entry(1, "SS1", "LT", "driver1", "name1", "group1", "car1", 10.1, false, true, "good stage"),
+    Entry(1, "SS1", "LT", "driver2", "name2", "group1", "car2", 14.9, false, true, "good stage"),
+    Entry(2, "SS2", "LT", "driver1", "name1", "group1", "car1", 20.5, false, true, "good stage"),
+    Entry(2, "SS2", "LT", "driver2", "name2", "group1", "car2", 24.5, false, true, "good stage")
   )
 
   test("gives results"):
     val obtained = results(entries).toMap
     val expected = Map(
       Stage(1, "SS1") -> List(
-        PositionResult(1, "driver1", 1, 1, 10.1, 10.1, false, true, "good stage", false),
-        PositionResult(1, "driver2", 2, 2, 14.9, 14.9, false, true, "good stage", false)
+        PositionResult(1, "LT", "driver1", "name1", 1, 1, 10.1, 10.1, false, true, "good stage", false),
+        PositionResult(1, "LT", "driver2", "name2", 2, 2, 14.9, 14.9, false, true, "good stage", false)
       ),
       Stage(2, "SS2") -> List(
-        PositionResult(2, "driver1", 1, 1, 20.5, 30.6, false, true, "good stage", false),
-        PositionResult(2, "driver2", 2, 2, 24.5, 39.4, false, true, "good stage", false)
+        PositionResult(2, "LT", "driver1", "name1", 1, 1, 20.5, 30.6, false, true, "good stage", false),
+        PositionResult(2, "LT", "driver2", "name2", 2, 2, 24.5, 39.4, false, true, "good stage", false)
       )
     )
 
@@ -56,17 +56,17 @@ class ResultsSuite extends munit.FunSuite with DiffxAssertions:
       ),
       List(
         DriverResults(
-          "driver1",
+          Driver("LT", "driver1", "name1"),
           List(
-            PositionResult(1, "driver1", 1, 1, 10.1, 10.1, false, true, "good stage", false),
-            PositionResult(2, "driver1", 1, 1, 20.5, 30.6, false, true, "good stage", false)
+            DriverResult(1, 1, 1, 10.1, 10.1, false, true, "good stage", false),
+            DriverResult(2, 1, 1, 20.5, 30.6, false, true, "good stage", false)
           )
         ),
         DriverResults(
-          "driver2",
+          Driver("LT", "driver2", "name2"),
           List(
-            PositionResult(1, "driver2", 2, 2, 14.9, 14.9, false, true, "good stage", false),
-            PositionResult(2, "driver2", 2, 2, 24.5, 39.4, false, true, "good stage", false)
+            DriverResult(1, 2, 2, 14.9, 14.9, false, true, "good stage", false),
+            DriverResult(2, 2, 2, 24.5, 39.4, false, true, "good stage", false)
           )
         )
       ),
@@ -75,17 +75,17 @@ class ResultsSuite extends munit.FunSuite with DiffxAssertions:
           "group1",
           List(
             DriverResults(
-              "driver1",
+              Driver("LT", "driver1", "name1"),
               List(
-                PositionResult(1, "driver1", 1, 1, 10.1, 10.1, false, true, "good stage", false),
-                PositionResult(2, "driver1", 1, 1, 20.5, 30.6, false, true, "good stage", false)
+                DriverResult(1, 1, 1, 10.1, 10.1, false, true, "good stage", false),
+                DriverResult(2, 1, 1, 20.5, 30.6, false, true, "good stage", false)
               )
             ),
             DriverResults(
-              "driver2",
+              Driver("LT", "driver2", "name2"),
               List(
-                PositionResult(1, "driver2", 2, 2, 14.9, 14.9, false, true, "good stage", false),
-                PositionResult(2, "driver2", 2, 2, 24.5, 39.4, false, true, "good stage", false)
+                DriverResult(1, 2, 2, 14.9, 14.9, false, true, "good stage", false),
+                DriverResult(2, 2, 2, 24.5, 39.4, false, true, "good stage", false)
               )
             )
           )
@@ -97,10 +97,10 @@ class ResultsSuite extends munit.FunSuite with DiffxAssertions:
           "group1",
           List(
             DriverResults(
-              "driver2",
+              Driver("LT", "driver2", "name2"),
               List(
-                PositionResult(1, "driver2", 1, 1, 14.9, 14.9, false, true, "good stage", false),
-                PositionResult(2, "driver2", 1, 1, 24.5, 39.4, false, true, "good stage", false)
+                DriverResult(1, 1, 1, 14.9, 14.9, false, true, "good stage", false),
+                DriverResult(2, 1, 1, 24.5, 39.4, false, true, "good stage", false)
               )
             )
           )
@@ -110,10 +110,10 @@ class ResultsSuite extends munit.FunSuite with DiffxAssertions:
           "group1",
           List(
             DriverResults(
-              "driver1",
+              Driver("LT", "driver1", "name1"),
               List(
-                PositionResult(1, "driver1", 1, 1, 10.1, 10.1, false, true, "good stage", false),
-                PositionResult(2, "driver1", 1, 1, 20.5, 30.6, false, true, "good stage", false)
+                DriverResult(1, 1, 1, 10.1, 10.1, false, true, "good stage", false),
+                DriverResult(2, 1, 1, 20.5, 30.6, false, true, "good stage", false)
               )
             )
           )

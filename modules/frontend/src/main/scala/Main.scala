@@ -21,6 +21,7 @@ import scala.concurrent.duration._
 import scala.scalajs.js
 import scala.scalajs.js.JSConverters._
 
+import typings.countryEmoji
 import typings.d3Scale.mod.ScaleOrdinal_
 import typings.d3Scale.mod.scaleLinear
 import typings.d3Scale.mod.scaleOrdinal
@@ -70,7 +71,8 @@ def getYScale(drivers: js.Array[DriverResults]) = scaleLinear()
   .domain(js.Array(1, drivers.flatMap(_.results.map(_.overallPosition)).max))
   .range(js.Array(RallyEye.margin.top, RallyEye.margin.top + drivers.size * RallyEye.rowHeight))
 
-def getColorScale(drivers: js.Array[DriverResults]) = scaleOrdinal(schemeCategory10).domain(drivers.map(d => d.name))
+def getColorScale(drivers: js.Array[DriverResults]) =
+  scaleOrdinal(schemeCategory10).domain(drivers.map(d => d.driver.userName))
 
 val positionColorScale = scaleOrdinal(js.Array(1, 2, 3), js.Array("#af9500", "#b4b4b4", "#6a3805"))
   .unknown("#000000")
@@ -98,18 +100,18 @@ object App {
   val scale = xScale.combineWith(yScale)
   val colorScale = driversSignal.map(drivers => getColorScale(drivers.toJSArray))
 
-  val selectedDriver = Var(Option.empty[String])
-  val driverSelectionBus = EventBus[DriverResults]()
-  val selectDriver = Observer[DriverResults](
-    onNext = d =>
+  val selectedDriver = Var(Option.empty[Driver])
+  val driverSelectionBus = EventBus[Driver]()
+  val selectDriver = Observer[Driver](
+    onNext = driver =>
       Var.set(
-        selectedDriver -> Some(d.name),
+        selectedDriver -> Some(driver),
         selectedResult -> None
       )
   )
 
-  val selectedResult = Var(Option.empty[PositionResult])
-  val resultSelectionBus = EventBus[PositionResult]()
+  val selectedResult = Var(Option.empty[DriverResult])
+  val resultSelectionBus = EventBus[DriverResult]()
   val selectResult = selectedResult.someWriter
 
   var fillDriverNames = Var(Option.empty[Unit])
@@ -166,7 +168,7 @@ object App {
       )
     )
 
-  def renderStagePosition(result: PositionResult) =
+  def renderStagePosition(result: DriverResult) =
     (result.superRally, result.nominal) match {
       case (true, _) => "SR"
       case (_, true) => "N"
@@ -179,34 +181,55 @@ object App {
       children <-- (
         Signal
           .combine(selectedResult, selectedDriver, stagesSignal)
-          .mapN { (maybeResult, driver, stages) =>
-            maybeResult match {
-              case None => Seq(emptyNode)
-              case Some(result) =>
+          .mapN { (maybeResult, maybeDriver, stages) =>
+            (maybeResult, maybeDriver) match {
+              case (Some(result), Some(driver)) =>
                 Seq(
                   L.div(s"SS${result.stageNumber} ${stages(result.stageNumber - 1).name}"),
-                  L.div(driver),
+                  L.div(renderCountryAndName(driver)),
                   L.div(s"Stage: ${result.stageTime.prettyDiff} (${renderStagePosition(result)})"),
                   L.div(s"Rally: ${result.overallTime.prettyDiff} (${result.overallPosition})"),
                   if result.comment.nonEmpty then L.div(s"“${result.comment}”") else emptyNode
                 )
+              case _ => Seq(emptyNode)
             }
           }
       )
     )
 
-  def renderDriver(driver: DriverResults) =
+  def renderCountryAndName(driver: Driver) =
+    Seq(
+      countryEmoji.mod.flag(driver.country).toOption.fold(emptyNode) { flag =>
+        L.span(
+          countryEmoji.mod.name(driver.country).toOption.fold(emptyNode)(L.aria.label := _),
+          flag + " "
+        )
+      },
+      L.span(renderFullName(driver))
+    )
+
+  def renderCountry(country: String) =
+    countryEmoji.mod.flag(country).toOption.getOrElse("🏴") + " "
+
+  def renderFullName(driver: Driver) =
+    val parts = driver.userName :: (if driver.realName.nonEmpty then driver.realName :: Nil else Nil)
+    parts.mkString(" / ")
+
+  def renderDriver(driverResults: DriverResults) =
     g(
       cls := "clickable",
-      transform <-- yScale.map(y => s"translate(0, ${y(driver.results(0).overallPosition)})"),
+      transform <-- yScale.map(y => s"translate(0, ${y(driverResults.results(0).overallPosition)})"),
       text(
-        driver.name,
+        renderCountry(driverResults.driver.country),
+        renderFullName(driverResults.driver),
         dy := "0.4em",
         textLength <-- fillDriverNames.signal.map(_.fold("none")(_ => "185")),
         lengthAdjust := "spacingAndGlyphs"
       ),
-      L.onClick.map(_ => driver) --> driverSelectionBus.writer,
-      opacity <-- selectedDriver.signal.map(d => d.map(d => if d == driver.name then "1" else "0.2").getOrElse("1"))
+      L.onClick.map(_ => driverResults.driver) --> driverSelectionBus.writer,
+      opacity <-- selectedDriver.signal.map(d =>
+        d.map(d => if d == driverResults.driver then "1" else "0.2").getOrElse("1")
+      )
     )
 
   def renderStage(stage: Stage, idx: Int) =
@@ -215,11 +238,11 @@ object App {
       text(stage.name, x := "20", dy := "0.35em", transform := s"translate(0, ${RallyEye.margin.top}) rotate(-90)")
     )
 
-  def renderResultLine(driver: DriverResults) =
+  def renderResultLine(driverResults: DriverResults) =
     def mkResultLine(superRally: Boolean)(coordinates: List[(Int, Int)]) =
       path(
         fill := "none",
-        stroke <-- colorScale.map(color => color(driver.name)),
+        stroke <-- colorScale.map(color => color(driverResults.driver.userName)),
         if superRally then strokeDashArray := "1 0 1" else emptyNode,
         d <-- scale.mapN { (x, y) =>
           line[(Int, Int)]()
@@ -228,11 +251,11 @@ object App {
         }
       )
 
-    def resultIdxToCoords(result: PositionResult, idx: Int) = (idx * 2, result.overallPosition)
+    def resultIdxToCoords(result: DriverResult, idx: Int) = (idx * 2, result.overallPosition)
 
     def mkCrashLine(
-        lastStageResult: PositionResult,
-        superRallyStageResult: Option[PositionResult],
+        lastStageResult: DriverResult,
+        superRallyStageResult: Option[DriverResult],
         lastStageResultIdx: Int
     ) =
       Seq(
@@ -265,13 +288,13 @@ object App {
       )
 
     def mkCrashAndRecoveryLine(
-        lastStageResult: PositionResult,
-        superRallyStageResult: PositionResult,
+        lastStageResult: DriverResult,
+        superRallyStageResult: DriverResult,
         lastStageResultIdx: Int
     ) =
       mkCrashLine(lastStageResult, Some(superRallyStageResult), lastStageResultIdx)
 
-    def mkResultCircle(result: PositionResult, idx: Int) =
+    def mkResultCircle(result: DriverResult, idx: Int) =
       g(
         cls := "clickable",
         transform <-- scale.mapN { (x, y) =>
@@ -282,7 +305,7 @@ object App {
           fill := positionColorScale(result.stagePosition),
           r := "12",
           // #TODO: Combine these two into a single  `L.onClick --> { _ => EventBus.emit(...) }` once Airstream fixes that method's type signature
-          L.onClick.map(_ => driver) --> driverSelectionBus.writer,
+          L.onClick.map(_ => driverResults.driver) --> driverSelectionBus.writer,
           L.onClick.map(_ => result) --> resultSelectionBus.writer
         ),
         if result.comment.nonEmpty then
@@ -303,7 +326,7 @@ object App {
         r := "6"
       )
 
-    def mkResultNumber(result: PositionResult, idx: Int) =
+    def mkResultNumber(result: DriverResult, idx: Int) =
       text(
         cls := "clickable",
         renderStagePosition(result),
@@ -315,26 +338,27 @@ object App {
         stroke := "white",
         strokeWidth := "1",
         textAnchor := "middle",
-        L.onClick.map(_ => driver) --> driverSelectionBus.writer,
+        L.onClick.map(_ => driverResults.driver) --> driverSelectionBus.writer,
         L.onClick.map(_ => result) --> resultSelectionBus.writer
       )
 
-    val (rallyResultsWoLast, superRallyResultsWoLast, lastStint, lastSuperRally) = driver.results.zipWithIndex.foldLeft(
-      (
-        List.empty[List[(PositionResult, Int)]],
-        List.empty[List[(PositionResult, Int)]],
-        List.empty[(PositionResult, Int)],
-        false
-      )
-    ) { case ((rallyResults, superRallyResults, acc, lastSuperRally), resWithIdx @ (result, idx)) =>
-      if lastSuperRally == result.superRally then
-        (rallyResults, superRallyResults, acc :+ resWithIdx, result.superRally)
-      else {
-        if lastSuperRally then
-          (rallyResults, superRallyResults :+ acc, acc.lastOption.toList :+ resWithIdx, result.superRally)
-        else (rallyResults :+ acc, superRallyResults, List(resWithIdx), result.superRally)
+    val (rallyResultsWoLast, superRallyResultsWoLast, lastStint, lastSuperRally) =
+      driverResults.results.zipWithIndex.foldLeft(
+        (
+          List.empty[List[(DriverResult, Int)]],
+          List.empty[List[(DriverResult, Int)]],
+          List.empty[(DriverResult, Int)],
+          false
+        )
+      ) { case ((rallyResults, superRallyResults, acc, lastSuperRally), resWithIdx @ (result, idx)) =>
+        if lastSuperRally == result.superRally then
+          (rallyResults, superRallyResults, acc :+ resWithIdx, result.superRally)
+        else {
+          if lastSuperRally then
+            (rallyResults, superRallyResults :+ acc, acc.lastOption.toList :+ resWithIdx, result.superRally)
+          else (rallyResults :+ acc, superRallyResults, List(resWithIdx), result.superRally)
+        }
       }
-    }
 
     val rallyResults = if lastSuperRally then rallyResultsWoLast else rallyResultsWoLast :+ lastStint
     val superRallyResults = if lastSuperRally then superRallyResultsWoLast :+ lastStint else superRallyResultsWoLast
@@ -353,12 +377,14 @@ object App {
 
     g(
       strokeWidth := "2",
-      opacity <-- selectedDriver.signal.map(d => d.map(d => if d == driver.name then "1" else "0.2").getOrElse("1")),
+      opacity <-- selectedDriver.signal.map(d =>
+        d.map(d => if d == driverResults.driver then "1" else "0.2").getOrElse("1")
+      ),
       rallyResults.map(_.map(resultIdxToCoords)).map(mkResultLine(false)),
       crashResults.map(mkCrashAndRecoveryLine),
       superRallyResults.map(_.map(resultIdxToCoords)).map(mkResultLine(true)),
       retired.map { case (result, idx) => mkCrashLine(result, None, idx) },
-      driver.results.zipWithIndex.map(mkResultCircle),
-      driver.results.zipWithIndex.map(mkResultNumber)
+      driverResults.results.zipWithIndex.map(mkResultCircle),
+      driverResults.results.zipWithIndex.map(mkResultNumber)
     )
 }
