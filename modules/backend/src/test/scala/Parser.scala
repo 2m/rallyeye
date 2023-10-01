@@ -32,7 +32,9 @@ class ParserSuite extends munit.FunSuite:
       Entry(
         1,
         "Vauxhall Rally of Wales 1993",
+        "AD",
         "CANA David",
+        "David Canaleta",
         "Group A8",
         "Subaru Impreza GC8 555 GrpA",
         250.461,
@@ -43,7 +45,9 @@ class ParserSuite extends munit.FunSuite:
       Entry(
         1,
         "Vauxhall Rally of Wales 1993",
+        "LT",
         "Markas Buteikis",
+        "Markas",
         "Group A8",
         "Subaru Impreza GC8 555 GrpA",
         252.286,
@@ -54,7 +58,9 @@ class ParserSuite extends munit.FunSuite:
       Entry(
         1,
         "Vauxhall Rally of Wales 1993",
+        "FI",
         "Samppis70",
+        "Sami Klemetti",
         "Group A8",
         "Subaru Impreza GC8 555 GrpA",
         252.422,
@@ -65,6 +71,8 @@ class ParserSuite extends munit.FunSuite:
       Entry(
         1,
         "Vauxhall Rally of Wales 1993",
+        "LT",
+        "Denas Kraulys",
         "Denas Kraulys",
         "Group A8",
         "Audi 200 quattro GrpA",

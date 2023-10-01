@@ -37,9 +37,10 @@ val pressAutoEndpoint = endpoint
 
 case class Stage(number: Int, name: String)
 
-case class PositionResult(
+case class Driver(country: String, userName: String, realName: String)
+
+case class DriverResult(
     stageNumber: Int,
-    userName: String,
     stagePosition: Int,
     overallPosition: Int,
     stageTime: BigDecimal,
@@ -50,7 +51,7 @@ case class PositionResult(
     nominal: Boolean
 )
 
-case class DriverResults(name: String, results: List[PositionResult])
+case class DriverResults(driver: Driver, results: List[DriverResult])
 
 case class GroupResults(
     group: String,
@@ -78,7 +79,8 @@ object RallyData {
 }
 
 given Codec[Stage] = deriveCodec[Stage]
-given Codec[PositionResult] = deriveCodec[PositionResult]
+given Codec[Driver] = deriveCodec[Driver]
+given Codec[DriverResult] = deriveCodec[DriverResult]
 given Codec[DriverResults] = deriveCodec[DriverResults]
 given Codec[GroupResults] = deriveCodec[GroupResults]
 given Codec[CarResults] = deriveCodec[CarResults]

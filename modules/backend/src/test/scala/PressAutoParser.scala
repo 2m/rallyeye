@@ -35,7 +35,9 @@ class PressAutoParserSuite extends munit.FunSuite with DiffxAssertions:
       Entry(
         stageNumber = 1,
         stageName = "SS1 Auto Bild I (Aukštadvaris)",
+        country = "LT",
         userName = "Tomas Markelevičius - Tadas Martinaitis",
+        realName = "",
         group = "Press iki 2000cc",
         car = "Mitsubishi Colt (2000)",
         stageTime = 140.552,
@@ -46,7 +48,9 @@ class PressAutoParserSuite extends munit.FunSuite with DiffxAssertions:
       Entry(
         stageNumber = 2,
         stageName = "SS2 Auto Bild II (Aukštadvaris)",
+        country = "LT",
         userName = "Tomas Markelevičius - Tadas Martinaitis",
+        realName = "",
         group = "Press iki 2000cc",
         car = "Mitsubishi Colt (2000)",
         stageTime = 142.288,
@@ -57,7 +61,9 @@ class PressAutoParserSuite extends munit.FunSuite with DiffxAssertions:
       Entry(
         stageNumber = 3,
         stageName = "SS3 Gold FM I (Kaunas)",
+        country = "LT",
         userName = "Tomas Markelevičius - Tadas Martinaitis",
+        realName = "",
         group = "Press iki 2000cc",
         car = "Mitsubishi Colt (2000)",
         stageTime = 42.851,
@@ -68,7 +74,9 @@ class PressAutoParserSuite extends munit.FunSuite with DiffxAssertions:
       Entry(
         stageNumber = 4,
         stageName = "SS4 Gold FM II (Kaunas)",
+        country = "LT",
         userName = "Tomas Markelevičius - Tadas Martinaitis",
+        realName = "",
         group = "Press iki 2000cc",
         car = "Mitsubishi Colt (2000)",
         stageTime = 41.485,
@@ -79,7 +87,9 @@ class PressAutoParserSuite extends munit.FunSuite with DiffxAssertions:
       Entry(
         stageNumber = 5,
         stageName = "SS5 Continental I (Nacionalinis žiedas)",
+        country = "LT",
         userName = "Tomas Markelevičius - Tadas Martinaitis",
+        realName = "",
         group = "Press iki 2000cc",
         car = "Mitsubishi Colt (2000)",
         stageTime = 199.002,
@@ -90,6 +100,8 @@ class PressAutoParserSuite extends munit.FunSuite with DiffxAssertions:
       Entry(
         stageNumber = 6,
         stageName = "SS6 Continental II (Nacionalinis žiedas)",
+        realName = "",
+        country = "LT",
         userName = "Tomas Markelevičius - Tadas Martinaitis",
         group = "Press iki 2000cc",
         car = "Mitsubishi Colt (2000)",
@@ -101,7 +113,9 @@ class PressAutoParserSuite extends munit.FunSuite with DiffxAssertions:
       Entry(
         stageNumber = 7,
         stageName = "SS7 Kėdainiai I",
+        country = "LT",
         userName = "Tomas Markelevičius - Tadas Martinaitis",
+        realName = "",
         group = "Press iki 2000cc",
         car = "Mitsubishi Colt (2000)",
         stageTime = 91.172,
@@ -112,7 +126,9 @@ class PressAutoParserSuite extends munit.FunSuite with DiffxAssertions:
       Entry(
         stageNumber = 8,
         stageName = "SS8 Kėdainiai II",
+        country = "LT",
         userName = "Tomas Markelevičius - Tadas Martinaitis",
+        realName = "",
         group = "Press iki 2000cc",
         car = "Mitsubishi Colt (2000)",
         stageTime = 82.963,
@@ -123,7 +139,9 @@ class PressAutoParserSuite extends munit.FunSuite with DiffxAssertions:
       Entry(
         stageNumber = 9,
         stageName = "SS9 Nissan I (Kuršėnai)",
+        country = "LT",
         userName = "Tomas Markelevičius - Tadas Martinaitis",
+        realName = "",
         group = "Press iki 2000cc",
         car = "Mitsubishi Colt (2000)",
         stageTime = 118.995,
@@ -134,7 +152,9 @@ class PressAutoParserSuite extends munit.FunSuite with DiffxAssertions:
       Entry(
         stageNumber = 10,
         stageName = "SS10 Nissan II (Kuršėnai)",
+        country = "LT",
         userName = "Tomas Markelevičius - Tadas Martinaitis",
+        realName = "",
         group = "Press iki 2000cc",
         car = "Mitsubishi Colt (2000)",
         stageTime = 115.932,
@@ -145,7 +165,9 @@ class PressAutoParserSuite extends munit.FunSuite with DiffxAssertions:
       Entry(
         stageNumber = 11,
         stageName = "LK Day 1",
+        country = "LT",
         userName = "Tomas Markelevičius - Tadas Martinaitis",
+        realName = "",
         group = "Press iki 2000cc",
         car = "Mitsubishi Colt (2000)",
         stageTime = 0,
@@ -157,7 +179,9 @@ class PressAutoParserSuite extends munit.FunSuite with DiffxAssertions:
       Entry(
         stageNumber = 12,
         stageName = "SS11 Melnragė I",
+        country = "LT",
         userName = "Tomas Markelevičius - Tadas Martinaitis",
+        realName = "",
         group = "Press iki 2000cc",
         car = "Mitsubishi Colt (2000)",
         stageTime = 0,
@@ -169,7 +193,9 @@ class PressAutoParserSuite extends munit.FunSuite with DiffxAssertions:
       Entry(
         stageNumber = 13,
         stageName = "SS12 Melnragė II",
+        country = "LT",
         userName = "Tomas Markelevičius - Tadas Martinaitis",
+        realName = "",
         group = "Press iki 2000cc",
         car = "Mitsubishi Colt (2000)",
         stageTime = 0,
@@ -181,7 +207,9 @@ class PressAutoParserSuite extends munit.FunSuite with DiffxAssertions:
       Entry(
         stageNumber = 14,
         stageName = "SS13 15min I (Merkio g.)",
+        country = "LT",
         userName = "Tomas Markelevičius - Tadas Martinaitis",
+        realName = "",
         group = "Press iki 2000cc",
         car = "Mitsubishi Colt (2000)",
         stageTime = 97.947,
@@ -192,7 +220,9 @@ class PressAutoParserSuite extends munit.FunSuite with DiffxAssertions:
       Entry(
         stageNumber = 15,
         stageName = "SS14 15min II (Merkio g.)",
+        country = "LT",
         userName = "Tomas Markelevičius - Tadas Martinaitis",
+        realName = "",
         group = "Press iki 2000cc",
         car = "Mitsubishi Colt (2000)",
         stageTime = 93.431,
@@ -203,7 +233,9 @@ class PressAutoParserSuite extends munit.FunSuite with DiffxAssertions:
       Entry(
         stageNumber = 16,
         stageName = "SS15 Febi I (Mickai)",
+        country = "LT",
         userName = "Tomas Markelevičius - Tadas Martinaitis",
+        realName = "",
         group = "Press iki 2000cc",
         car = "Mitsubishi Colt (2000)",
         stageTime = 124.492,
@@ -214,7 +246,9 @@ class PressAutoParserSuite extends munit.FunSuite with DiffxAssertions:
       Entry(
         stageNumber = 17,
         stageName = "SS16 Febi III (Mickai)",
+        country = "LT",
         userName = "Tomas Markelevičius - Tadas Martinaitis",
+        realName = "",
         group = "Press iki 2000cc",
         car = "Mitsubishi Colt (2000)",
         stageTime = 120.697,
@@ -225,7 +259,9 @@ class PressAutoParserSuite extends munit.FunSuite with DiffxAssertions:
       Entry(
         stageNumber = 18,
         stageName = "SS17 Inbalance I (Švepelių g. )",
+        country = "LT",
         userName = "Tomas Markelevičius - Tadas Martinaitis",
+        realName = "",
         group = "Press iki 2000cc",
         car = "Mitsubishi Colt (2000)",
         stageTime = 276.525,
@@ -236,7 +272,9 @@ class PressAutoParserSuite extends munit.FunSuite with DiffxAssertions:
       Entry(
         stageNumber = 19,
         stageName = "SS18 Transeksta I (Perkėlos g.)",
+        country = "LT",
         userName = "Tomas Markelevičius - Tadas Martinaitis",
+        realName = "",
         group = "Press iki 2000cc",
         car = "Mitsubishi Colt (2000)",
         stageTime = 75.753,
@@ -247,7 +285,9 @@ class PressAutoParserSuite extends munit.FunSuite with DiffxAssertions:
       Entry(
         stageNumber = 20,
         stageName = "SS19 Transeksta II (Perkėlos g.)",
+        country = "LT",
         userName = "Tomas Markelevičius - Tadas Martinaitis",
+        realName = "",
         group = "Press iki 2000cc",
         car = "Mitsubishi Colt (2000)",
         stageTime = 74.433,
@@ -258,7 +298,9 @@ class PressAutoParserSuite extends munit.FunSuite with DiffxAssertions:
       Entry(
         stageNumber = 21,
         stageName = "SS20 Febi III (Mickai)",
+        country = "LT",
         userName = "Tomas Markelevičius - Tadas Martinaitis",
+        realName = "",
         group = "Press iki 2000cc",
         car = "Mitsubishi Colt (2000)",
         stageTime = 122.350,
@@ -269,7 +311,9 @@ class PressAutoParserSuite extends munit.FunSuite with DiffxAssertions:
       Entry(
         stageNumber = 22,
         stageName = "SS21 Febi IV (Mickai)",
+        country = "LT",
         userName = "Tomas Markelevičius - Tadas Martinaitis",
+        realName = "",
         group = "Press iki 2000cc",
         car = "Mitsubishi Colt (2000)",
         stageTime = 117.782,
@@ -280,7 +324,9 @@ class PressAutoParserSuite extends munit.FunSuite with DiffxAssertions:
       Entry(
         stageNumber = 23,
         stageName = "SS22 Inbalance II (Švepelių g.)",
+        country = "LT",
         userName = "Tomas Markelevičius - Tadas Martinaitis",
+        realName = "",
         group = "Press iki 2000cc",
         car = "Mitsubishi Colt (2000)",
         stageTime = 0,
@@ -291,7 +337,9 @@ class PressAutoParserSuite extends munit.FunSuite with DiffxAssertions:
       Entry(
         stageNumber = 24,
         stageName = "LK Day 2",
+        country = "LT",
         userName = "Tomas Markelevičius - Tadas Martinaitis",
+        realName = "",
         group = "Press iki 2000cc",
         car = "Mitsubishi Colt (2000)",
         stageTime = 0,
