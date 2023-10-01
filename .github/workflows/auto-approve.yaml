@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       pull-requests: write
-    if: github.actor == 'dependabot[bot]' || github.actor == 'scala-steward-2m[bot]'
+    if: github.event.pull_request.user.login == 'dependabot[bot]' || github.event.pull_request.user.login == 'scala-steward-2m[bot]'
     steps:
     - uses: actions/checkout@v3
     - run: gh pr review --approve
