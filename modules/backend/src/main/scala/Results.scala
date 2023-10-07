@@ -77,7 +77,7 @@ def parse(csv: String) =
         stageName,
         country,
         userName,
-        realName,
+        realName.decodeHtmlUnicode,
         // until https://discord.com/channels/723091638951608320/792825986055798825/1114861057035489341 is fixed
         if group.isEmpty then "Rally 3" else group,
         car,
