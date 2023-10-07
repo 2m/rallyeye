@@ -16,7 +16,10 @@
 
 package components
 
+import scala.util.Random
+
 import typings.countryEmoji
+import typings.flowbite.mod.initFlowbite
 
 import com.raquo.airstream.core.{Observer, Signal}
 import com.raquo.airstream.eventbus.EventBus
@@ -105,18 +108,29 @@ case class RallyResult(
     )
 
   private def renderCountryAndName(driver: Driver) =
-    Seq(
-      countryEmoji.mod.flag(driver.country).toOption.fold(emptyNode) { flag =>
-        span(
-          countryEmoji.mod.name(driver.country).toOption.fold(emptyNode)(aria.label := _),
-          flag + " "
+    val (flag, countryName) =
+      if driver.country == "RU" then ("🌻", "Slava Ukraini!")
+      else
+        (
+          countryEmoji.mod.flag(driver.country).toOption.getOrElse("🏴"),
+          countryEmoji.mod.name(driver.country).toOption.getOrElse("???")
         )
-      },
+    val id = Random.nextString(5)
+
+    Seq(
+      span(
+        dataAttr("tooltip-target") := s"driver-flag-$id",
+        flag + " "
+      ),
+      div(
+        idAttr := s"driver-flag-$id",
+        role := "tooltip",
+        cls := "absolute z-10 invisible inline-block px-3 py-2 text-xs text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700",
+        countryName,
+        onMountCallback(ctx => initFlowbite())
+      ),
       span(renderFullName(driver))
     )
-
-  private def renderCountry(country: String) =
-    countryEmoji.mod.flag(country).toOption.getOrElse("🏴") + " "
 
   private def renderFullName(driver: Driver) =
     val parts = driver.userName :: (if driver.realName.nonEmpty then driver.realName :: Nil else Nil)
@@ -128,8 +142,7 @@ case class RallyResult(
       marginTop.auto,
       marginBottom.auto,
       whiteSpace.nowrap,
-      renderCountry(driverResults.driver.country) +
-        renderFullName(driverResults.driver),
+      renderCountryAndName(driverResults.driver),
       onClick.map(_ => driverResults.driver) --> driverSelectionBus.writer,
       opacity <-- selectedDriverSignal.map(d =>
         d.map(d => if d == driverResults.driver then "1" else "0.2").getOrElse("1")
