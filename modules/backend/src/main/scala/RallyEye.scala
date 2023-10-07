@@ -16,15 +16,8 @@
 
 package rallyeye
 
-import java.time.Instant
-
-import scala.concurrent.Await
-import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.Future
 import scala.concurrent.duration._
 import scala.io.Source
-import scala.util.Failure
-import scala.util.Success
 
 import cats.effect.IO
 import cats.effect.IOApp
@@ -44,8 +37,6 @@ import org.http4s.server.middleware.CORS
 import org.http4s.server.middleware.GZip
 import rallyeye.shared._
 import sttp.tapir._
-import sttp.tapir.client.http4s.Http4sClientInterpreter
-import sttp.tapir.generic.auto._
 import sttp.tapir.server.http4s.Http4sServerInterpreter
 
 val Timeout = 2.minutes
