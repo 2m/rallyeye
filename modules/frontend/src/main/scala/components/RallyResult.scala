@@ -127,6 +127,7 @@ case class RallyResult(
       cls := "clickable",
       marginTop.auto,
       marginBottom.auto,
+      whiteSpace.nowrap,
       renderCountry(driverResults.driver.country) +
         renderFullName(driverResults.driver),
       onClick.map(_ => driverResults.driver) --> driverSelectionBus.writer,
