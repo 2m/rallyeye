@@ -27,6 +27,9 @@ import rallyeye.shared._
 case object RallyResult:
   val writingMode = styleProp[String]("writing-mode")
 
+  val gridTemplateColumns = styleProp[String]("grid-template-columns")
+  val contain = styleProp[String]("contain")
+
 case class RallyResult(
     stagesSignal: Signal[List[Stage]],
     driversSignal: Signal[List[DriverResults]],
@@ -45,56 +48,34 @@ case class RallyResult(
       overflow.scroll,
       div(
         cls := "p-4 text-xs",
-        display.table,
-        height.percent(100),
+        display.grid,
+        gridTemplateColumns := "auto auto",
         div(
-          display.tableRow,
-          div(
-            cls := "w-min",
-            display.tableCell,
-            verticalAlign.top,
-            child <-- selectedResultSignal.map(r => if r.isDefined then renderInfo() else emptyNode)
-          ),
-          div(
-            display.tableCell,
-            div(
-              display.flex,
-              flexDirection.row,
-              width.percent(100),
-              marginBottom.px(ResultLines.rowHeight / 4),
-              children <-- stagesSignal.map(stages => stages.zipWithIndex.toSeq.map(renderStage))
-            )
-          )
+          contain := "inline-size",
+          child <-- selectedResultSignal.map(r => if r.isDefined then renderInfo() else emptyNode)
         ),
         div(
-          display.tableRow,
+          display.flex,
+          flexDirection.row,
+          width.percent(100),
+          marginBottom.px(ResultLines.rowHeight / 4),
+          children <-- stagesSignal.map(stages => stages.zipWithIndex.toSeq.map(renderStage))
+        ),
+        div(
+          display.flex,
+          flexDirection.column,
           height.percent(100),
-          div(
-            display.tableCell,
-            whiteSpace.nowrap,
-            verticalAlign.top,
-            height.percent(100),
-            div(
-              display.flex,
-              flexDirection.column,
-              height.percent(100),
-              textAlign.right,
-              children <-- driversSignal.map(drivers => drivers.sortBy(_.results.head.stagePosition).map(renderDriver))
-            )
-          ),
-          div(
-            display.tableCell,
-            width.percent(100),
-            ResultLines(
-              stagesSignal,
-              driversSignal,
-              selectedDriverSignal,
-              driverSelectionBus,
-              selectDriver,
-              selectResult
-            ).render()
-          )
-        )
+          textAlign.right,
+          children <-- driversSignal.map(drivers => drivers.sortBy(_.results.head.stagePosition).map(renderDriver))
+        ),
+        ResultLines(
+          stagesSignal,
+          driversSignal,
+          selectedDriverSignal,
+          driverSelectionBus,
+          selectDriver,
+          selectResult
+        ).render()
       ),
       driverSelectionBus.events --> selectDriver
     )
