@@ -16,21 +16,19 @@
 
 package rallyeye
 
-import scala.collection.MapView
-import scala.concurrent.Await
 import scala.concurrent.Future
-import scala.concurrent.duration._
-import scala.io.Source
-import scala.util.Try
 import scala.util.chaining._
 
+import org.scalajs.dom
 import rallyeye.shared._
 import sttp.client3._
 import sttp.tapir.DecodeResult
 import sttp.tapir.client.sttp.SttpClientInterpreter
 
 def fetch(rallyId: Int, endpoint: Endpoint) =
-  val baseUri = if BuildInfo.isSnapshot then uri"http://localhost:8080" else uri"https://rallyeye-data.fly.dev"
+  val baseUri =
+    if BuildInfo.isSnapshot then uri"http://${dom.window.location.hostname}:8080"
+    else uri"https://rallyeye-data.fly.dev"
   val client = SttpClientInterpreter().toClient(endpoint, Some(baseUri), FetchBackend())
   val response = client(rallyId)
 

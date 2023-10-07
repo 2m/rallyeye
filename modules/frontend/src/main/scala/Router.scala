@@ -22,6 +22,7 @@ import com.raquo.laminar.api._
 import com.raquo.laminar.api.L._
 import com.raquo.laminar.modifiers.Binder
 import com.raquo.waypoint._
+import components.ResultFilter
 import io.bullet.borer.Codec
 import io.bullet.borer.Json
 import io.bullet.borer.derivation.MapBasedCodecs._

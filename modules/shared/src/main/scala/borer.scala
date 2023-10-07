@@ -25,7 +25,6 @@ import sttp.tapir._
 import sttp.tapir.Codec.JsonCodec
 import sttp.tapir.DecodeResult.{Error, Value}
 import sttp.tapir.DecodeResult.Error.{JsonDecodeException, JsonError}
-import sttp.tapir.Schema.SName
 
 object TapirJsonBorer:
   def jsonBody[T: Codec: Schema]: EndpointIO.Body[String, T] = stringBodyUtf8AnyFormat(borerCodec[T])
