@@ -16,7 +16,7 @@
 
 package components
 
-import typings.flowbite.mod.initFlowbite
+import typings.flowbite.mod.initDropdowns
 
 import com.raquo.laminar.api.L._
 import rallyeye.Router
@@ -74,6 +74,6 @@ object ResultFilter:
               )
             )
         ),
-        onMountCallback(ctx => initFlowbite())
+        onMountCallback(ctx => initDropdowns())
       )
     )
