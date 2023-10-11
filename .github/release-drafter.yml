@@ -6,6 +6,11 @@ template: |
 
   $CHANGES
 
-exclude-labels:
-- dependencies
-- library-update
+categories:
+- title: '⬆️ Dependencies'
+  collapse-after: 3
+  labels:
+  - dependencies
+  - library-update
+  - test-library-update
+  - sbt-plugin-update
