@@ -5,3 +5,37 @@
 .clickable {
   cursor: pointer;
 }
+
+.tooltip-toggle {
+  cursor: pointer;
+  position: relative;
+
+  &::before {
+    position: absolute;
+    transform: translate(-50%, 0);
+    top: -40px;
+    background-color: #2B222A;
+    border-radius: 5px;
+    color: #fff;
+    content: attr(aria-label);
+    padding: 0.5rem;
+    text-transform: none;
+    transition: all 0.25s ease;
+  }
+
+  &::before,
+  &::after {
+    color: #efefef;
+    opacity: 0;
+    pointer-events: none;
+    text-align: center;
+  }
+
+  &:focus::before,
+  &:focus::after,
+  &:hover::before,
+  &:hover::after {
+    opacity: 1;
+    transition: all 0.25s ease;
+  }
+}

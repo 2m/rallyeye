@@ -19,7 +19,6 @@ package components
 import scala.util.Random
 
 import typings.countryEmoji
-import typings.flowbite.mod.initFlowbite
 
 import com.raquo.airstream.core.{Observer, Signal}
 import com.raquo.airstream.eventbus.EventBus
@@ -119,15 +118,9 @@ case class RallyResult(
 
     Seq(
       span(
-        dataAttr("tooltip-target") := s"driver-flag-$id",
+        cls := "tooltip-toggle",
+        aria.label := countryName,
         flag + " "
-      ),
-      div(
-        idAttr := s"driver-flag-$id",
-        role := "tooltip",
-        cls := "absolute z-10 invisible inline-block px-3 py-2 text-xs text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700",
-        countryName,
-        onMountCallback(ctx => initFlowbite())
       ),
       span(renderFullName(driver))
     )
