@@ -38,6 +38,20 @@ object Router:
 
   val indexRoute = Route.static(IndexPage, root / endOfSegments)
 
+  val rsfRoute = Route[RallyPage, (Int, String)](
+    encode = Tuple.fromProductTyped,
+    decode = summon[Mirror.Of[RallyPage]].fromProduct,
+    pattern = root / "rsf" / segment[Int] / segment[String] / endOfSegments,
+    basePath = Route.fragmentBasePath
+  )
+
+  val rsfRouteAllResults = Route[RallyPage, Int](
+    encode = _.rallyId,
+    decode = rallyId => RallyPage(rallyId, ResultFilter.AllResultsId),
+    pattern = root / "rsf" / segment[Int] / endOfSegments,
+    basePath = Route.fragmentBasePath
+  )
+
   val rallyRoute = Route[RallyPage, (Int, String)](
     encode = Tuple.fromProductTyped,
     decode = summon[Mirror.Of[RallyPage]].fromProduct,
@@ -67,7 +81,15 @@ object Router:
   )
 
   val router = new Router[Page](
-    routes = List(rallyRoute, rallyRouteAllResults, pressAutoRoute, pressAutoRouteAllResults, indexRoute),
+    routes = List(
+      rsfRoute,
+      rsfRouteAllResults,
+      rallyRoute,
+      rallyRouteAllResults,
+      pressAutoRoute,
+      pressAutoRouteAllResults,
+      indexRoute
+    ),
     getPageTitle = _ => "RallyEye",
     serializePage = page => Json.encode(page).toUtf8String,
     deserializePage = pageStr => Json.decode(pageStr.getBytes("UTF8")).to[Page].value

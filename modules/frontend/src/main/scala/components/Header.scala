@@ -36,7 +36,7 @@ object Header:
   )
 
 case class Header(
-    rallySignal: Signal[RallyData],
+    rallySignal: Signal[Option[RallyData]],
     filterSignal: Signal[String],
     refreshData: Observer[Unit],
     loadingSignal: Signal[Boolean]
@@ -51,7 +51,7 @@ case class Header(
       div(
         cls := "flex flex-wrap justify-between items-center mx-auto max-w-screen-xl",
         a(
-          href := "https://rallyeye.2m.lt",
+          Router.navigateTo(Router.IndexPage),
           cls := "flex items-center",
           child <-- loadingSignal.map {
             case true  => spinner
@@ -59,17 +59,23 @@ case class Header(
           },
           span(cls := "ml-3 self-center text-xl font-semibold whitespace-nowrap", "RallyEye")
         ),
-        child <-- rallySignal.map { r =>
-          div(
-            a(href := r.link, target := "_blank", r.name),
-            p(
-              cls := "text-xs text-gray-400",
-              span("Data retrieved ", r.retrievedAt.prettyAgo, " "),
-              a(cls := "clickable", onClick.map(_ => ()) --> refreshDataBus.writer, "↻")
+        child <-- rallySignal.map {
+          case Some(r) =>
+            div(
+              a(href := r.link, target := "_blank", r.name),
+              p(
+                cls := "text-xs text-gray-400",
+                span("Data retrieved ", r.retrievedAt.prettyAgo, " "),
+                a(cls := "clickable", onClick.map(_ => ()) --> refreshDataBus.writer, "↻")
+              )
             )
-          )
+          case None => emptyNode
         },
-        children <-- rallySignal.combineWith(filterSignal).map(ResultFilter.render),
+        children <-- rallySignal.combineWith(filterSignal).map {
+          case (Some(rally), filter) =>
+            ResultFilter.render(rally, filter)
+          case (None, _) => Seq(emptyNode)
+        },
         div(
           cls := "flex items-center lg:order-2",
           a(

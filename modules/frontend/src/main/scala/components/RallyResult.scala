@@ -33,8 +33,8 @@ case object RallyResult:
   val contain = styleProp[String]("contain")
 
 case class RallyResult(
-    stagesSignal: Signal[List[Stage]],
-    driversSignal: Signal[List[DriverResults]],
+    stagesSignal: Signal[Option[List[Stage]]],
+    driversSignal: Signal[Option[List[DriverResults]]],
     selectedDriverSignal: Signal[Option[Driver]],
     selectDriver: Observer[Driver],
     selectResult: Observer[DriverResult],
@@ -64,14 +64,16 @@ case class RallyResult(
           flexDirection.row,
           width.percent(100),
           marginBottom.px(ResultLines.rowHeight / 4),
-          children <-- stagesSignal.map(stages => stages.zipWithIndex.toSeq.map(renderStage))
+          children <-- stagesSignal.map(stages => stages.toList.flatten.zipWithIndex.toSeq.map(renderStage))
         ),
         div(
           display.flex,
           flexDirection.column,
           height.percent(100),
           textAlign.right,
-          children <-- driversSignal.map(drivers => drivers.sortBy(_.results.head.stagePosition).map(renderDriver))
+          children <-- driversSignal.map(drivers =>
+            drivers.toList.flatten.sortBy(_.results.head.stagePosition).map(renderDriver)
+          )
         ),
         ResultLines(
           stagesSignal,
@@ -93,9 +95,9 @@ case class RallyResult(
       children <-- (
         Signal
           .combine(selectedResultSignal, selectedDriverSignal, stagesSignal)
-          .mapN { (maybeResult, maybeDriver, stages) =>
-            (maybeResult, maybeDriver) match {
-              case (Some(result), Some(driver)) =>
+          .mapN { (maybeResult, maybeDriver, maybeStages) =>
+            (maybeResult, maybeDriver, maybeStages) match {
+              case (Some(result), Some(driver), Some(stages)) =>
                 Seq(
                   div(s"SS${result.stageNumber} ${stages(result.stageNumber - 1).name}"),
                   div(renderCountryAndName(driver)),
