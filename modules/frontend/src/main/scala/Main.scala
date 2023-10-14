@@ -33,6 +33,9 @@ def main() =
 
 object App {
 
+  val loading = Var(false)
+  val loadingSignal = loading.signal
+
   val rallyData = Var(RallyData.empty)
   val rallyDataSignal = rallyData.signal
   val resultFilter = Var(ResultFilter.AllResultsId)
@@ -55,16 +58,32 @@ object App {
   val selectedResultSignal = selectedResult.signal
   val selectResult = selectedResult.someWriter
 
+  val refreshData = Observer[Unit](
+    onNext = _ =>
+      val rallyIdAndEndpoint = Router.router.currentPageSignal.now() match {
+        case Router.RallyPage(rallyId, _) => Some(rallyId, dataEndpoint)
+        case Router.PressAuto(year, _)    => Some(year, pressAutoEndpoint)
+        case _                            => None
+      }
+
+      rallyIdAndEndpoint.foreach { (rallyId, endpoint) =>
+        fetchData(rallyId, endpoint, useCache = false)
+      }
+  )
+
   import Router._
   val app = div(
     child <-- router.currentPageSignal.map(renderPage)
   )
 
-  def fetchData(rallyId: Int, endpoint: Endpoint) =
+  def fetchData(rallyId: Int, endpoint: Endpoint, useCache: Boolean = true) =
+    loading.set(true)
+
     import org.scalajs.macrotaskexecutor.MacrotaskExecutor.Implicits.global
 
-    fetch(rallyId, endpoint).map { rallyData =>
+    fetch(rallyId, endpoint, useCache).map { rallyData =>
       Var.set(
+        App.loading -> false,
         App.rallyData -> rallyData,
         App.selectedDriver -> None,
         App.selectedResult -> None
@@ -90,7 +109,7 @@ object App {
 
   def rallyPage() =
     div(
-      Header(rallyDataSignal, resultFilter.signal),
+      Header(rallyDataSignal, resultFilter.signal, refreshData, loadingSignal).render(),
       RallyResult(
         stagesSignal,
         driversSignal,
