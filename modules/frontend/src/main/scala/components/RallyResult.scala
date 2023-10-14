@@ -48,7 +48,7 @@ case class RallyResult(
     div(
       display.flex,
       div(
-        cls := "p-4 text-xs",
+        cls := "p-4 text-xs shadow-inner",
         display.grid,
         gridTemplateColumns := "auto auto",
         div(
