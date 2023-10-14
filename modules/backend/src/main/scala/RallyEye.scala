@@ -23,7 +23,6 @@ import cats.effect.IO
 import cats.effect.IOApp
 import cats.effect.LiftIO
 import com.comcast.ip4s._
-import io.chrisdavenport.mules.TimeSpec
 import io.chrisdavenport.mules.caffeine.CaffeineCache
 import io.chrisdavenport.mules.http4s.CacheItem
 import io.chrisdavenport.mules.http4s.CacheMiddleware
@@ -96,8 +95,7 @@ object Data extends IOApp.Simple:
     )).orNotFound
 
     for
-      caffeine <- CaffeineCache
-        .build[IO, (Method, org.http4s.Uri), CacheItem](TimeSpec.fromDuration(5.minutes), None, Some(100))
+      caffeine <- CaffeineCache.build[IO, (Method, org.http4s.Uri), CacheItem](None, None, Some(100))
       cache = CacheMiddleware.httpApp(caffeine, CacheType.Public)
       server <- EmberServerBuilder
         .default[IO]
