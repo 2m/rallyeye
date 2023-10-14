@@ -47,13 +47,14 @@ case class RallyResult(
   def render() =
     div(
       display.flex,
-      overflow.scroll,
       div(
         cls := "p-4 text-xs",
         display.grid,
         gridTemplateColumns := "auto auto",
         div(
+          cls := "top-4 left-4 z-30",
           contain := "inline-size",
+          position := "sticky",
           child <-- selectedResultSignal.map(r => if r.isDefined then renderInfo() else emptyNode)
         ),
         div(

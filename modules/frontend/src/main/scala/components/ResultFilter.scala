@@ -56,7 +56,7 @@ object ResultFilter:
       ),
       div(
         idAttr := "dropdown",
-        cls := "hidden bg-white divide-y divide-gray-100 shadow w-30",
+        cls := "hidden bg-white divide-y divide-gray-100 shadow w-30 z-50",
         ul(
           filters(rallyData).values.toSeq
             .sortBy(rf => (rf.group, rf.isCar))
