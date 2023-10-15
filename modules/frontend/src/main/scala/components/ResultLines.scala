@@ -50,17 +50,17 @@ object ResultLines:
     }
 
 case class ResultLines(
-    stagesSignal: Signal[List[Stage]],
-    driversSignal: Signal[List[DriverResults]],
+    stagesSignal: Signal[Option[List[Stage]]],
+    driversSignal: Signal[Option[List[DriverResults]]],
     selectedDriverSignal: Signal[Option[Driver]],
     driverSelectionBus: EventBus[Driver],
     selectDriver: Observer[Driver],
     selectResult: Observer[DriverResult]
 ):
-  val xScale = stagesSignal.map(s => getXScale(s.toJSArray))
-  val yScale = driversSignal.map(d => getYScale(d.toJSArray))
+  val xScale = stagesSignal.map(s => getXScale(s.toList.flatten.toJSArray))
+  val yScale = driversSignal.map(d => getYScale(d.toList.flatten.toJSArray))
   val scale = xScale.combineWith(yScale)
-  val colorScale = driversSignal.map(drivers => getColorScale(drivers.toJSArray))
+  val colorScale = driversSignal.map(drivers => getColorScale(drivers.toList.flatten.toJSArray))
   val positionColorScale = scaleOrdinal(js.Array(1, 2, 3), js.Array("#af9500", "#b4b4b4", "#6a3805"))
     .unknown("#000000")
     .asInstanceOf[ScaleOrdinal_[Int, String, Nothing]]
@@ -92,9 +92,9 @@ case class ResultLines(
 
   def render() =
     svg(
-      width <-- stagesSignal.map(s => canvasWidth(s)).map(_.toString),
-      height <-- driversSignal.map(d => canvasHeight(d)).map(_.toString),
-      children <-- driversSignal.map(drivers => drivers.map(renderResultLine)),
+      width <-- stagesSignal.map(s => canvasWidth(s.toList.flatten)).map(_.toString),
+      height <-- driversSignal.map(d => canvasHeight(d.toList.flatten)).map(_.toString),
+      children <-- driversSignal.map(drivers => drivers.toList.flatten.map(renderResultLine)),
       resultSelectionBus.events --> selectResult
     )
 

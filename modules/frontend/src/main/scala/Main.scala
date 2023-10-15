@@ -22,6 +22,7 @@ import com.raquo.airstream.state.Var.apply
 import com.raquo.laminar.api._
 import com.raquo.laminar.api.L._
 import components.Header
+import components.RallyList
 import components.RallyResult
 import components.ResultFilter
 import org.scalajs.dom
@@ -36,13 +37,15 @@ object App {
   val loading = Var(false)
   val loadingSignal = loading.signal
 
-  val rallyData = Var(RallyData.empty)
+  val rallyData = Var(Option.empty[RallyData])
   val rallyDataSignal = rallyData.signal
   val resultFilter = Var(ResultFilter.AllResultsId)
 
-  val stagesSignal = rallyDataSignal.map(_.stages)
+  val stagesSignal = rallyDataSignal.map(_.map(_.stages))
   val driversSignal =
-    rallyDataSignal.combineWith(resultFilter.signal).map((data, filter) => ResultFilter.entries(data)(filter))
+    rallyDataSignal
+      .combineWith(resultFilter.signal)
+      .map((data, filter) => data.map(ResultFilter.entries).flatMap(_.get(filter)))
 
   val selectedDriver = Var(Option.empty[Driver])
   val selectedDriverSignal = selectedDriver.signal
@@ -77,35 +80,35 @@ object App {
   )
 
   def fetchData(rallyId: Int, endpoint: Endpoint, useCache: Boolean = true) =
-    loading.set(true)
-
     import org.scalajs.macrotaskexecutor.MacrotaskExecutor.Implicits.global
-
+    Var.set(App.loading -> true, App.rallyData -> None, App.selectedDriver -> None, App.selectedResult -> None)
     fetch(rallyId, endpoint, useCache).map { rallyData =>
       Var.set(
         App.loading -> false,
-        App.rallyData -> rallyData,
-        App.selectedDriver -> None,
-        App.selectedResult -> None
+        App.rallyData -> Some(rallyData)
       )
     }
 
   def renderPage(page: Page) =
     page match {
-      case IndexPage => indexPage()
+      case IndexPage =>
+        Var.set(App.rallyData -> None, App.selectedDriver -> None, App.selectedResult -> None)
+        indexPage()
       case RallyPage(rallyId, results) =>
-        if rallyData.now().id != rallyId then fetchData(rallyId, dataEndpoint)
+        rallyData.now().map(_.id).orElse(Some(0)).filter(_ != rallyId).foreach(_ => fetchData(rallyId, dataEndpoint))
         Var.set(resultFilter -> results)
         rallyPage()
       case PressAuto(year, results) =>
-        if rallyData.now().id != year then fetchData(year, pressAutoEndpoint)
+        rallyData.now().map(_.id).orElse(Some(0)).filter(_ != year).foreach(_ => fetchData(year, pressAutoEndpoint))
         Var.set(resultFilter -> results)
         rallyPage()
     }
 
   def indexPage() =
-    router.replaceState(RallyPage(48272, ResultFilter.AllResultsId)) // rally to show by default
-    div()
+    div(
+      Header(rallyDataSignal, resultFilter.signal, refreshData, loadingSignal).render(),
+      RallyList.render()
+    )
 
   def rallyPage() =
     div(
