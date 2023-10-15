@@ -7,7 +7,7 @@ module.exports = {
   ],
   theme: {
     fontFamily: {
-      sans: ['Graphik', 'sans-serif'],
+      sans: ['Twemoji Country Flags', 'Graphik', 'sans-serif'],
     },
     extend: {},
   },
