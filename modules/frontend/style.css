@@ -39,3 +39,7 @@
     transition: all 0.25s ease;
   }
 }
+
+.min-w-stretch {
+  min-width: stretch;
+}

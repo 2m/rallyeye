@@ -46,11 +46,13 @@ case class RallyResult(
 
   def render() =
     div(
+      cls := "shadow-inner min-w-stretch w-fit",
       display.flex,
       div(
-        cls := "p-4 text-xs shadow-inner",
+        cls := "p-4 text-xs",
         display.grid,
         gridTemplateColumns := "auto auto",
+        margin := "0 auto",
         div(
           cls := "top-4 left-4 z-30",
           contain := "inline-size",
