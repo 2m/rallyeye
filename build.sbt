@@ -16,7 +16,7 @@ lazy val shared = crossProject(JSPlatform, JVMPlatform)
     name := "shared",
     libraryDependencies ++= Seq(
       "com.softwaremill.sttp.tapir" %% "tapir-core"       % "1.8.1",
-      "io.bullet"                   %% "borer-derivation" % "1.11.0"
+      "io.bullet"                   %% "borer-derivation" % "1.12.0"
     ),
     // for borer semi-automatic derivation
     scalacOptions ++= Seq("-Xmax-inlines", "64")
@@ -47,8 +47,8 @@ lazy val frontend = project
       "com.raquo"                   %%% "laminar"                     % "16.0.0",
       "com.raquo"                   %%% "waypoint"                    % "7.0.0",
       "io.github.cquiroz"           %%% "scala-java-time"             % "2.5.0",
-      "io.bullet"                   %%% "borer-core"                  % "1.11.0",
-      "io.bullet"                   %%% "borer-derivation"            % "1.11.0",
+      "io.bullet"                   %%% "borer-core"                  % "1.12.0",
+      "io.bullet"                   %%% "borer-derivation"            % "1.12.0",
       "com.lihaoyi"                 %%% "utest"                       % "0.8.1" % "test"
     ),
     // Tell Scala.js that this is an application with a main method
