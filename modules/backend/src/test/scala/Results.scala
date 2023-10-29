@@ -16,11 +16,18 @@
 
 package rallyeye
 
-import com.softwaremill.diffx.generic.auto.given
+import com.softwaremill.diffx.Diff
 import com.softwaremill.diffx.munit.DiffxAssertions
 import rallyeye.shared._
 
 class ResultsSuite extends munit.FunSuite with DiffxAssertions:
+  given Diff[CarResults] = Diff.derived[CarResults]
+  given Diff[GroupResults] = Diff.derived[GroupResults]
+  given Diff[DriverResult] = Diff.derived[DriverResult]
+  given Diff[DriverResults] = Diff.derived[DriverResults]
+  given Diff[Stage] = Diff.derived[Stage]
+  given Diff[Driver] = Diff.derived[Driver]
+
   val entries = List(
     Entry(1, "SS1", "LT", "driver1", "name1", "group1", "car1", 10.1, false, true, "good stage"),
     Entry(1, "SS1", "LT", "driver2", "name2", "group1", "car2", 14.9, false, true, "good stage"),

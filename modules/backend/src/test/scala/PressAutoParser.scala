@@ -19,10 +19,11 @@ package rallyeye
 import scala.io.Codec
 import scala.io.Source
 
-import com.softwaremill.diffx.generic.auto.given
+import com.softwaremill.diffx.Diff
 import com.softwaremill.diffx.munit.DiffxAssertions
 
 class PressAutoParserSuite extends munit.FunSuite with DiffxAssertions:
+  given Diff[Entry] = Diff.derived[Entry]
 
   val csv =
     """|POS.;#;Name;Competitor;Group;Vehicle;SS1 Auto Bild I (Aukštadvaris);SS2 Auto Bild II (Aukštadvaris);SS3 Gold FM I (Kaunas);SS4 Gold FM II (Kaunas);SS5 Continental I (Nacionalinis žiedas);SS6 Continental II (Nacionalinis žiedas);SS7 Kėdainiai I;SS8 Kėdainiai II;SS9 Nissan I (Kuršėnai);SS10 Nissan II (Kuršėnai);LK Day 1;SS11 Melnragė I;SS12 Melnragė II;SS13 15min I (Merkio g.);SS14 15min II (Merkio g.);SS15 Febi I (Mickai);SS16 Febi III (Mickai);SS17 Inbalance I (Švepelių g. );SS18 Transeksta I (Perkėlos g.);SS19 Transeksta II (Perkėlos g.);SS20 Febi III (Mickai);SS21 Febi IV (Mickai);SS22 Inbalance II (Švepelių g.);LK Day 2;Total spent time
