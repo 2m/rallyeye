@@ -16,8 +16,6 @@
 
 package components
 
-import scala.util.Random
-
 import typings.countryEmoji
 
 import com.raquo.airstream.core.{Observer, Signal}
@@ -119,8 +117,6 @@ case class RallyResult(
           countryEmoji.mod.flag(driver.country).toOption.getOrElse("🏴"),
           countryEmoji.mod.name(driver.country).toOption.getOrElse("???")
         )
-    val id = Random.nextString(5)
-
     Seq(
       span(
         cls := "tooltip-toggle",
@@ -147,7 +143,7 @@ case class RallyResult(
       )
     )
 
-  private def renderStage(stage: Stage, idx: Int) =
+  private def renderStage(stage: Stage, @annotation.unused idx: Int) =
     span(
       marginLeft.auto,
       marginRight.auto,

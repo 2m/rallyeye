@@ -104,10 +104,7 @@ lazy val backend = project
     // jib docker image builder
     jibRegistry := "registry.fly.io",
     jibCustomRepositoryPath := Some("rallyeye-data"),
-    jibTags += "latest",
-
-    // for diffx assertions in tests
-    Test / scalacOptions ++= Seq("-Xmax-inlines", "64")
+    jibTags += "latest"
   )
   .dependsOn(shared.jvm)
   .enablePlugins(AutomateHeaderPlugin)

@@ -53,31 +53,31 @@ object Router:
   )
 
   val rallyRoute = Route[RallyPage, (Int, String)](
-    encode = Tuple.fromProductTyped,
-    decode = summon[Mirror.Of[RallyPage]].fromProduct,
-    pattern = root / "rally" / segment[Int] / segment[String] / endOfSegments,
-    basePath = Route.fragmentBasePath
+    Tuple.fromProductTyped,
+    summon[Mirror.Of[RallyPage]].fromProduct,
+    root / "rally" / segment[Int] / segment[String] / endOfSegments,
+    Route.fragmentBasePath
   )
 
   val rallyRouteAllResults = Route[RallyPage, Int](
-    encode = _.rallyId,
-    decode = rallyId => RallyPage(rallyId, ResultFilter.AllResultsId),
-    pattern = root / "rally" / segment[Int] / endOfSegments,
-    basePath = Route.fragmentBasePath
+    _.rallyId,
+    rallyId => RallyPage(rallyId, ResultFilter.AllResultsId),
+    root / "rally" / segment[Int] / endOfSegments,
+    Route.fragmentBasePath
   )
 
   val pressAutoRoute = Route[PressAuto, (Int, String)](
-    encode = Tuple.fromProductTyped,
-    decode = summon[Mirror.Of[PressAuto]].fromProduct,
-    pattern = root / "pressauto" / segment[Int] / segment[String] / endOfSegments,
-    basePath = Route.fragmentBasePath
+    Tuple.fromProductTyped,
+    summon[Mirror.Of[PressAuto]].fromProduct,
+    root / "pressauto" / segment[Int] / segment[String] / endOfSegments,
+    Route.fragmentBasePath
   )
 
   val pressAutoRouteAllResults = Route[PressAuto, Int](
-    encode = _.year,
-    decode = year => PressAuto(year, ResultFilter.AllResultsId),
-    pattern = root / "pressauto" / segment[Int] / endOfSegments,
-    basePath = Route.fragmentBasePath
+    _.year,
+    year => PressAuto(year, ResultFilter.AllResultsId),
+    root / "pressauto" / segment[Int] / endOfSegments,
+    Route.fragmentBasePath
   )
 
   val router = new Router[Page](
