@@ -16,11 +16,11 @@
 
 package rallyeye
 
-import scala.util.chaining._
+import scala.util.chaining.*
 
 import org.scalajs.dom
-import rallyeye.shared._
-import sttp.client3._
+import rallyeye.shared.*
+import sttp.client3.*
 import sttp.tapir.DecodeResult
 import sttp.tapir.client.sttp.SttpClientInterpreter
 

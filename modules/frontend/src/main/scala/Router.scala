@@ -18,14 +18,14 @@ package rallyeye
 
 import scala.deriving.Mirror
 
-import com.raquo.laminar.api._
-import com.raquo.laminar.api.L._
+import com.raquo.laminar.api.*
+import com.raquo.laminar.api.L.*
 import com.raquo.laminar.modifiers.Binder
-import com.raquo.waypoint._
+import com.raquo.waypoint.*
 import components.ResultFilter
 import io.bullet.borer.Codec
 import io.bullet.borer.Json
-import io.bullet.borer.derivation.MapBasedCodecs._
+import io.bullet.borer.derivation.MapBasedCodecs.*
 import org.scalajs.dom
 
 object Router:
@@ -102,7 +102,7 @@ object Router:
 
     val isLinkElement = el.ref.isInstanceOf[dom.html.Anchor]
 
-    if (isLinkElement) {
+    if isLinkElement then {
       el.amend(href(router.absoluteUrlForPage(page)))
     }
 

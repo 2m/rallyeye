@@ -21,7 +21,7 @@ import java.time.Instant
 import io.bullet.borer.Codec
 import io.bullet.borer.Decoder
 import io.bullet.borer.Encoder
-import sttp.tapir._
+import sttp.tapir.*
 import sttp.tapir.Codec.JsonCodec
 import sttp.tapir.DecodeResult.{Error, Value}
 import sttp.tapir.DecodeResult.Error.{JsonDecodeException, JsonError}

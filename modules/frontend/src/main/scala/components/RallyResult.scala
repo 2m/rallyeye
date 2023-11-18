@@ -20,9 +20,9 @@ import typings.countryEmoji
 
 import com.raquo.airstream.core.{Observer, Signal}
 import com.raquo.airstream.eventbus.EventBus
-import com.raquo.laminar.api.L._
-import rallyeye._
-import rallyeye.shared._
+import com.raquo.laminar.api.L.*
+import rallyeye.*
+import rallyeye.shared.*
 
 case object RallyResult:
   val writingMode = styleProp[String]("writing-mode")
@@ -38,7 +38,7 @@ case class RallyResult(
     selectResult: Observer[DriverResult],
     selectedResultSignal: Signal[Option[DriverResult]]
 ):
-  import RallyResult._
+  import RallyResult.*
 
   val driverSelectionBus = EventBus[Driver]()
 

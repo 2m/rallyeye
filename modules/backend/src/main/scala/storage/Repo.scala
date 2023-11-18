@@ -19,13 +19,13 @@ package storage
 
 import java.time.Instant
 
-import scala.util.chaining._
+import scala.util.chaining.*
 
 import cats.data.EitherT
 import cats.effect.IO
-import io.github.arainko.ducktape._
+import io.github.arainko.ducktape.*
 import io.github.iltotore.iron.*
-import io.github.iltotore.iron.constraint.numeric._
+import io.github.iltotore.iron.constraint.numeric.*
 
 object Repo:
   def saveRallyName(rallyKind: RallyKind)(rallyId: String, name: String) =

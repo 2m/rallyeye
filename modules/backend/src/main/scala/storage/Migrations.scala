@@ -24,7 +24,7 @@ import fly4s.core.Fly4s
 import fly4s.core.data.Fly4sConfig
 import fly4s.core.data.Locations
 import fly4s.core.data.ValidatePattern
-import fly4s.implicits._
+import fly4s.implicits.*
 
 val migrations = Fly4s
   .make[IO](

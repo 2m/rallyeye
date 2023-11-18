@@ -16,9 +16,9 @@
 
 package components
 
-import com.raquo.laminar.api.L._
+import com.raquo.laminar.api.L.*
 import com.raquo.laminar.api.L.svg
-import rallyeye._
+import rallyeye.*
 import rallyeye.shared.RallyData
 
 object Header:
@@ -41,7 +41,7 @@ case class Header(
     refreshData: Observer[Unit],
     loadingSignal: Signal[Boolean]
 ):
-  import Header._
+  import Header.*
 
   val refreshDataBus = EventBus[Unit]()
 

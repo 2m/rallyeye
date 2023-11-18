@@ -21,7 +21,7 @@ import scala.io.Source
 
 import com.softwaremill.diffx.Diff
 import com.softwaremill.diffx.munit.DiffxAssertions
-import io.github.iltotore.iron._
+import io.github.iltotore.iron.*
 
 class PressAutoParserSuite extends munit.FunSuite with DiffxAssertions with IronSupport:
   given Diff[Entry] = Diff.derived[Entry]

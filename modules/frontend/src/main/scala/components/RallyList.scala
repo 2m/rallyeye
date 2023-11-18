@@ -16,7 +16,7 @@
 
 package components
 
-import com.raquo.laminar.api.L._
+import com.raquo.laminar.api.L.*
 import rallyeye.Router
 
 object RallyList:

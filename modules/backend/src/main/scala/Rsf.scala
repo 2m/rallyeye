@@ -23,8 +23,8 @@ import scala.util.Try
 import cats.effect.IO
 import io.github.iltotore.iron.*
 import org.http4s.client.Client
-import org.http4s.implicits._
-import sttp.tapir._
+import org.http4s.implicits.*
+import sttp.tapir.*
 import sttp.tapir.client.http4s.Http4sClientInterpreter
 
 object Rsf:

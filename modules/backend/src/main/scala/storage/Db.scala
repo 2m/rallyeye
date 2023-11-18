@@ -17,11 +17,11 @@
 package rallyeye
 package storage
 
-import cats._
-import cats.effect._
-import cats.implicits._
-import doobie._
-import doobie.implicits._
+import cats.*
+import cats.effect.*
+import cats.implicits.*
+import doobie.*
+import doobie.implicits.*
 
 object Db:
   case class Config(

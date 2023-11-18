@@ -19,11 +19,11 @@ package rallyeye
 import java.time.Instant
 
 import scala.collection.MapView
-import scala.util.chaining._
+import scala.util.chaining.*
 
 import io.github.iltotore.iron.*
 import io.github.iltotore.iron.constraint.numeric.*
-import rallyeye.shared._
+import rallyeye.shared.*
 import rallyeye.storage.Rally
 import rallyeye.storage.RallyKind
 

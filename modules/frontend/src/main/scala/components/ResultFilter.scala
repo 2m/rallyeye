@@ -18,7 +18,7 @@ package components
 
 import typings.flowbite.mod.initDropdowns
 
-import com.raquo.laminar.api.L._
+import com.raquo.laminar.api.L.*
 import rallyeye.Router
 import rallyeye.shared.RallyData
 

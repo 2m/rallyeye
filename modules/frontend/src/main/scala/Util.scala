@@ -19,7 +19,7 @@ package rallyeye
 import java.time.Duration
 import java.time.Instant
 
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
 extension (d: BigDecimal)
   def padTo(n: Int)(i: Int) = i.toString.reverse.padTo(n, '0').reverse

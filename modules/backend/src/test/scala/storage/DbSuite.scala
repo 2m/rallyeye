@@ -27,15 +27,15 @@ import scala.collection.immutable.ArraySeq
 import cats.effect.IO
 import com.softwaremill.diffx.Diff
 import com.softwaremill.diffx.munit.DiffxAssertions
-import doobie.implicits._
-import io.github.iltotore.iron._
-import io.github.iltotore.iron.constraint.numeric._
+import doobie.implicits.*
+import io.github.iltotore.iron.*
+import io.github.iltotore.iron.constraint.numeric.*
 import io.github.iltotore.iron.scalacheck.numeric.given
 import org.scalacheck.Arbitrary
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.Gen
 import org.scalacheck.Prop
-import org.scalacheck.ops._
+import org.scalacheck.ops.*
 
 class DbSuite extends munit.ScalaCheckSuite with DiffxAssertions with IronSupport:
   import cats.effect.unsafe.implicits.global

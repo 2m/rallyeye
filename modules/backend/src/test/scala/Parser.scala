@@ -18,7 +18,7 @@ package rallyeye
 
 import java.time.Instant
 
-import io.github.iltotore.iron._
+import io.github.iltotore.iron.*
 
 class ParserSuite extends munit.FunSuite:
 

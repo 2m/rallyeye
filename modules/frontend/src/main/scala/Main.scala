@@ -21,14 +21,14 @@ import scala.concurrent.Future
 import com.raquo.airstream.core.{Observer, Signal}
 import com.raquo.airstream.state.Var
 import com.raquo.airstream.state.Var.apply
-import com.raquo.laminar.api._
-import com.raquo.laminar.api.L._
+import com.raquo.laminar.api.*
+import com.raquo.laminar.api.L.*
 import components.Header
 import components.RallyList
 import components.RallyResult
 import components.ResultFilter
 import org.scalajs.dom
-import rallyeye.shared._
+import rallyeye.shared.*
 
 @main
 def main() =
@@ -79,7 +79,7 @@ object App:
       }
   )
 
-  import Router._
+  import Router.*
   val app = div(
     child <-- router.currentPageSignal.map(renderPage)
   )
