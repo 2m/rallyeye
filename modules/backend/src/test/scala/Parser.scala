@@ -16,6 +16,10 @@
 
 package rallyeye
 
+import java.time.Instant
+
+import io.github.iltotore.iron._
+
 class ParserSuite extends munit.FunSuite:
 
   val csv =
@@ -27,7 +31,7 @@ class ParserSuite extends munit.FunSuite:
        |""".stripMargin
 
   test("parses a CSV file"):
-    val obtained = parse(csv)
+    val obtained = Rsf.parseResults(csv)
     val expected = List(
       Entry(
         1,
@@ -37,7 +41,12 @@ class ParserSuite extends munit.FunSuite:
         "David Canaleta",
         "Group A8",
         "Subaru Impreza GC8 555 GrpA",
+        Some(BigDecimal("73.3128")),
+        Some(BigDecimal("156.619")),
         250.461,
+        Some(Instant.parse("2022-10-24T16:37:02+02:00")),
+        None,
+        None,
         false,
         true,
         "good stage"
@@ -50,7 +59,12 @@ class ParserSuite extends munit.FunSuite:
         "Markas",
         "Group A8",
         "Subaru Impreza GC8 555 GrpA",
+        Some(BigDecimal("77.5726")),
+        Some(BigDecimal("161.94")),
         252.286,
+        Some(Instant.parse("2022-10-24T18:12:24+02:00")),
+        None,
+        None,
         false,
         true,
         ""
@@ -63,7 +77,12 @@ class ParserSuite extends munit.FunSuite:
         "Sami Klemetti",
         "Group A8",
         "Subaru Impreza GC8 555 GrpA",
+        Some(BigDecimal("77.767")),
+        Some(BigDecimal("160.588")),
         252.422,
+        Some(Instant.parse("2022-10-23T18:55:54+02:00")),
+        None,
+        None,
         false,
         true,
         ""
@@ -76,7 +95,12 @@ class ParserSuite extends munit.FunSuite:
         "Denas Kraulys",
         "Group A8",
         "Audi 200 quattro GrpA",
+        Some(BigDecimal("76.9378")),
+        Some(BigDecimal("161.409")),
         254.086,
+        Some(Instant.parse("2022-10-29T22:51:48+02:00")),
+        None,
+        None,
         false,
         true,
         ""

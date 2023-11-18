@@ -94,17 +94,32 @@ lazy val backend = project
       "com.softwaremill.sttp.tapir" %% "tapir-http4s-client" % "1.9.0",
       "org.http4s"                  %% "http4s-ember-server" % "0.23.23",
       "org.http4s"                  %% "http4s-ember-client" % "0.23.23",
-      "io.chrisdavenport"           %% "mules-http4s"        % "0.4.0",
-      "io.chrisdavenport"           %% "mules-caffeine"      % "0.7.0",
       "ch.qos.logback"               % "logback-classic"     % "1.4.11",
+      "com.github.geirolz"          %% "fly4s-core"          % "0.0.19",
+      "org.flywaydb"                 % "flyway-core"         % "9.22.3", // fixes logging
+      "org.xerial"                   % "sqlite-jdbc"         % "3.43.2.0",
+      "org.tpolecat"                %% "doobie-core"         % "1.0.0-RC4",
+      "io.github.arainko"           %% "ducktape"            % "0.1.11",
+      "com.monovore"                %% "decline-effect"      % "2.4.1",
+      "io.github.iltotore"          %% "iron"                % "2.3.0",
+      "org.tpolecat"                %% "doobie-munit"        % "1.0.0-RC4" % Test,
       "org.scalameta"               %% "munit"               % "1.0.0-M10" % Test,
-      "com.softwaremill.diffx"      %% "diffx-munit"         % "0.9.0"     % Test
+      "org.scalameta"               %% "munit-scalacheck"    % "1.0.0-M10" % Test,
+      "com.softwaremill.diffx"      %% "diffx-munit"         % "0.9.0"     % Test,
+      "io.github.iltotore"          %% "iron-scalacheck"     % "2.3.0"     % Test,
+      "com.rallyhealth"             %% "scalacheck-ops_1"    % "2.12.0"    % Test
     ),
 
     // jib docker image builder
     jibRegistry := "registry.fly.io",
     jibCustomRepositoryPath := Some("rallyeye-data"),
-    jibTags += "latest"
+    jibTags += "latest",
+
+    // for correct IOApp resource cleanup
+    Compile / run / fork := true,
+
+    // for diffx assertions in tests
+    Test / scalacOptions ++= Seq("-Xmax-inlines", "64")
   )
   .dependsOn(shared.jvm)
   .enablePlugins(AutomateHeaderPlugin)

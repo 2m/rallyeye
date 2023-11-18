@@ -19,14 +19,11 @@ package rallyeye
 import scala.concurrent.duration._
 import scala.io.Source
 
+import cats.data.EitherT
 import cats.effect.IO
 import cats.effect.IOApp
 import cats.effect.LiftIO
 import com.comcast.ip4s._
-import io.chrisdavenport.mules.caffeine.CaffeineCache
-import io.chrisdavenport.mules.http4s.CacheItem
-import io.chrisdavenport.mules.http4s.CacheMiddleware
-import io.chrisdavenport.mules.http4s.CacheType
 import org.http4s.CacheDirective
 import org.http4s.Method
 import org.http4s.client.Client
@@ -36,87 +33,95 @@ import org.http4s.server.middleware.Caching
 import org.http4s.server.middleware.CORS
 import org.http4s.server.middleware.GZip
 import rallyeye.shared._
+import rallyeye.storage.Repo
 import sttp.tapir._
 import sttp.tapir.server.http4s.Http4sServerInterpreter
 
 val Timeout = 2.minutes
 
-def dataLogic(rallyId: Int): IO[Either[Unit, RallyData]] =
-  EmberClientBuilder
-    .default[IO]
-    .withTimeout(Timeout)
-    .withIdleConnectionTime(Timeout)
-    .build
-    .use { client =>
-      IO.both(rallyName(client, rallyId), rallyResults(client, rallyId)).map { case (name, results) =>
-        for
-          n <- name
-          r <- results
-        yield rally(
-          rallyId,
-          n,
-          s"https://www.rallysimfans.hu/rbr/rally_online.php?centerbox=rally_list_details.php&rally_id=$rallyId",
-          r
-        )
-      }
-    }
+object Logic:
+  val RallyNotStored = Error("Rally not stored")
 
-def rallyName(client: Client[IO], rallyId: Int): IO[Either[Unit, String]] =
-  val (request, parseResponse) = Rsf.rallyName(rallyId)
-  for
-    response <- client.run(request).use(parseResponse(_))
-    rallyName = response.map { body =>
-      val regexp = "Final standings for: (.*)<br>".r
-      regexp.findFirstMatchIn(body).get.group(1)
-    }
-  yield rallyName
+  object Rsf:
+    private def rallyLink(rallyId: Int) =
+      s"https://www.rallysimfans.hu/rbr/rally_online.php?centerbox=rally_list_details.php&rally_id=$rallyId"
 
-def rallyResults(client: Client[IO], rallyId: Int): IO[Either[Unit, List[Entry]]] =
-  val (request, parseResponse) = Rsf.rallyResults(rallyId)
-  for
-    response <- client.run(request).use(parseResponse(_))
-    entries = response.map(parse)
-  yield entries
-
-def pressAutoLogic(year: Int): IO[Either[Unit, RallyData]] =
-  val response = for {
-    year <- if year == 2023 then Right(year) else Left(())
-    csv = Source.fromResource(s"pressauto$year.csv")(scala.io.Codec.UTF8).mkString
-    results = parsePressAuto(csv)
-  } yield rally(year, s"Press Auto $year", s"https://raceadmin.eu/pr${year}/pr${year}/results/overall/all", results)
-  IO.pure(response)
-
-object Data extends IOApp.Simple:
-  def run: IO[Unit] =
-    import cats.syntax.semigroupk._
-    val interp = Http4sServerInterpreter[IO]()
-    val routes = (interp.toRoutes(dataEndpoint.serverLogic(dataLogic)) <+> interp.toRoutes(
-      pressAutoEndpoint.serverLogic(pressAutoLogic)
-    )).orNotFound
-
-    for
-      caffeine <- CaffeineCache.build[IO, (Method, org.http4s.Uri), CacheItem](None, None, Some(100))
-      cache = CacheMiddleware.httpApp(caffeine, CacheType.Public)
-      _ <- EmberServerBuilder
+    private def fetchAndStore(rallyId: Int) =
+      EmberClientBuilder
         .default[IO]
-        .withHost(ipv4"0.0.0.0")
-        .withPort(port"8080")
-        .withIdleTimeout(Timeout)
-        .withHttpApp(
-          cache(
-            GZip(
-              CORS.policy.withAllowOriginAll(
-                Caching.cache(
-                  3.hours,
-                  isPublic = Left(CacheDirective.public),
-                  methodToSetOn = _ == Method.GET,
-                  statusToSetOn = _.isSuccess,
-                  routes
-                )
-              )
+        .withTimeout(Timeout)
+        .withIdleConnectionTime(Timeout)
+        .build
+        .use { client =>
+          (for {
+            name <- EitherT(rallyeye.Rsf.rallyName(client, rallyId))
+            results <- EitherT(rallyeye.Rsf.rallyResults(client, rallyId))
+            _ <- EitherT(Repo.Rsf.saveRallyName(rallyId, name))
+            _ <- EitherT(Repo.Rsf.saveRallyResults(rallyId, results))
+          } yield name).value
+        }
+
+    def data(rallyId: Int) =
+      for
+        maybeRally <- EitherT(Repo.Rsf.getRally(rallyId))
+        rally <- EitherT(
+          maybeRally.fold(IO.pure(Left(RallyNotStored)))(rally => IO.pure(Right(rally)))
+        )
+        rallyResults <- EitherT(Repo.Rsf.getRallyResults(rallyId))
+      yield rallyData(rally, rallyResults)
+
+    def refresh(rallyId: Int) =
+      for
+        _ <- EitherT(fetchAndStore(rallyId))
+        storedData <- data(rallyId)
+      yield storedData
+
+  object PressAuto:
+    def data(year: Int) =
+      for
+        maybeRallyName <- EitherT(Repo.PressAuto.getRally(year))
+        rally <- EitherT(
+          maybeRallyName.fold(IO.pure(Left(RallyNotStored)))(rally => IO.pure(Right(rally)))
+        )
+        rallyResults <- EitherT(Repo.PressAuto.getRallyResults(year))
+      yield rallyData(rally, rallyResults)
+
+def handleErrors[T](f: IO[Either[Throwable, T]]) =
+  f.map(_.left.map {
+    case Logic.RallyNotStored => RallyNotStored()
+    case t                    => GenericError(t.getMessage)
+  })
+
+val httpServer =
+  import cats.syntax.semigroupk._
+  val interp = Http4sServerInterpreter[IO]()
+  val endpoints =
+    List(
+      Endpoints.Rsf.data.serverLogic((Logic.Rsf.data _).andThen(_.value).andThen(handleErrors)),
+      Endpoints.Rsf.refresh.serverLogic((Logic.Rsf.refresh _).andThen(_.value).andThen(handleErrors)),
+      Endpoints.PressAuto.data.serverLogic((Logic.PressAuto.data _).andThen(_.value).andThen(handleErrors))
+    )
+
+  val routes = endpoints.map(interp.toRoutes).reduce(_ <+> _).orNotFound
+
+  for server <- EmberServerBuilder
+      .default[IO]
+      .withHost(ipv4"0.0.0.0")
+      .withPort(port"8080")
+      .withIdleTimeout(Timeout)
+      .withHttpApp(
+        GZip(
+          CORS.policy.withAllowOriginAll(
+            Caching.cache(
+              3.hours,
+              isPublic = Left(CacheDirective.public),
+              methodToSetOn = _ == Method.GET,
+              statusToSetOn = _.isSuccess,
+              routes
             )
           )
         )
-        .build
-        .use(_ => IO.never)
-    yield ()
+      )
+      .build
+      .use(_ => IO.never)
+  yield server

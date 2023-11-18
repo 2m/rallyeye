@@ -16,9 +16,14 @@
 
 package rallyeye
 
-import com.softwaremill.diffx.Diff
+import java.time.Instant
+
+import com.softwaremill.diffx.generic.auto.given
 import com.softwaremill.diffx.munit.DiffxAssertions
+import io.github.iltotore.iron._
 import rallyeye.shared._
+import rallyeye.storage.Rally
+import rallyeye.storage.RallyKind
 
 class ResultsSuite extends munit.FunSuite with DiffxAssertions:
   given Diff[CarResults] = Diff.derived[CarResults]
@@ -29,10 +34,78 @@ class ResultsSuite extends munit.FunSuite with DiffxAssertions:
   given Diff[Driver] = Diff.derived[Driver]
 
   val entries = List(
-    Entry(1, "SS1", "LT", "driver1", "name1", "group1", "car1", 10.1, false, true, "good stage"),
-    Entry(1, "SS1", "LT", "driver2", "name2", "group1", "car2", 14.9, false, true, "good stage"),
-    Entry(2, "SS2", "LT", "driver1", "name1", "group1", "car1", 20.5, false, true, "good stage"),
-    Entry(2, "SS2", "LT", "driver2", "name2", "group1", "car2", 24.5, false, true, "good stage")
+    Entry(
+      1,
+      "SS1",
+      "LT",
+      "driver1",
+      "name1",
+      "group1",
+      "car1",
+      None,
+      None,
+      10.1,
+      None,
+      None,
+      None,
+      false,
+      true,
+      "good stage"
+    ),
+    Entry(
+      1,
+      "SS1",
+      "LT",
+      "driver2",
+      "name2",
+      "group1",
+      "car2",
+      None,
+      None,
+      14.9,
+      None,
+      None,
+      None,
+      false,
+      true,
+      "good stage"
+    ),
+    Entry(
+      2,
+      "SS2",
+      "LT",
+      "driver1",
+      "name1",
+      "group1",
+      "car1",
+      None,
+      None,
+      20.5,
+      None,
+      None,
+      None,
+      false,
+      true,
+      "good stage"
+    ),
+    Entry(
+      2,
+      "SS2",
+      "LT",
+      "driver2",
+      "name2",
+      "group1",
+      "car2",
+      None,
+      None,
+      24.5,
+      None,
+      None,
+      None,
+      false,
+      true,
+      "good stage"
+    )
   )
 
   test("gives results"):
@@ -51,12 +124,13 @@ class ResultsSuite extends munit.FunSuite with DiffxAssertions:
     assertEquals(obtained, expected)
 
   test("gives rally results"):
-    val obtained = rally(1, "rally", "link", entries)
+    val rally = Rally(RallyKind.Rsf, "1", "rally", Instant.now)
+    val obtained = rallyData(rally, entries)
     val expected = RallyData(
-      1,
-      "rally",
-      "link",
-      obtained.retrievedAt,
+      rally.externalId.toInt,
+      rally.name,
+      rally.kind.link(rally),
+      rally.retrievedAt,
       List(
         Stage(1, "SS1"),
         Stage(2, "SS2")

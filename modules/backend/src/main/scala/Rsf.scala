@@ -16,8 +16,16 @@
 
 package rallyeye
 
+import java.time.Instant
+
+import scala.util.Try
+
 import cats.effect.IO
+import io.github.iltotore.iron.*
+import org.http4s.client.Client
 import org.http4s.implicits._
+import rallyeye.storage.Rally
+import rallyeye.storage.RallyKind
 import sttp.tapir._
 import sttp.tapir.client.http4s.Http4sClientInterpreter
 
@@ -45,3 +53,52 @@ object Rsf:
   def rallyResults(rallyId: Int) =
     Http4sClientInterpreter[IO]()
       .toRequestThrowDecodeFailures(resultsEndpoint, Some(Rsf))(6, rallyId)
+
+  def rallyName(client: Client[IO], rallyId: Int): IO[Either[Error, String]] =
+    val (request, parseResponse) = rallyName(rallyId)
+    for
+      response <- client
+        .run(request)
+        .use(parseResponse(_))
+        .map(_.left.map(_ => Error("Unable to parse RSF name response")))
+      rallyName = response.map { body =>
+        val regexp = "Final standings for: (.*)<table".r
+        regexp.findFirstMatchIn(body).get.group(1)
+      }
+    yield rallyName
+
+  def rallyResults(client: Client[IO], rallyId: Int): IO[Either[Error, List[Entry]]] =
+    val (request, parseResponse) = rallyResults(rallyId)
+    for
+      response <- client
+        .run(request)
+        .use(parseResponse(_))
+        .map(_.left.map(_ => Error("Unable to parse RSF results response")))
+      entries = response.map(parseResults)
+    yield entries
+
+  def parseResults(csv: String) =
+    val (header :: data) = csv.split('\n').toList: @unchecked
+    data.map(_.split(";", -1).toList).map {
+      case stageNumber :: stageName :: country :: userName :: realName :: group :: car :: time1 :: time2 :: time3 :: finishRealtime :: penalty :: servicePenalty :: superRally :: finished :: comment :: Nil =>
+        Entry(
+          stageNumber.toInt.refine,
+          stageName,
+          country,
+          userName,
+          realName.decodeHtmlUnicode,
+          // until https://discord.com/channels/723091638951608320/792825986055798825/1114861057035489341 is fixed
+          if group.isEmpty then "Rally 3" else group,
+          car,
+          Try(BigDecimal(time1)).toOption,
+          Try(BigDecimal(time2)).toOption,
+          Try(BigDecimal(time3)).toOption.getOrElse(0),
+          Try(Instant.parse(finishRealtime.replace(" ", "T") + "+02:00")).toOption,
+          Try(BigDecimal(penalty)).toOption,
+          Try(BigDecimal(servicePenalty)).toOption,
+          superRally == "1",
+          finished == "F",
+          comment
+        )
+      case _ => ???
+    }

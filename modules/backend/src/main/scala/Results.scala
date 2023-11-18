@@ -22,17 +22,36 @@ import scala.collection.MapView
 import scala.util.Try
 import scala.util.chaining._
 
+import io.github.iltotore.iron.*
+import io.github.iltotore.iron.constraint.numeric.*
 import rallyeye.shared._
+import rallyeye.storage.Rally
+import rallyeye.storage.RallyKind
+
+extension (kind: RallyKind)
+  def link(rally: Rally) =
+    rally.kind match {
+      case RallyKind.Rsf =>
+        s"https://www.rallysimfans.hu/rbr/rally_online.php?centerbox=rally_list_details.php&rally_id=${rally.externalId}"
+      case RallyKind.PressAuto =>
+        s"https://raceadmin.eu/pr${rally.externalId}/pr${rally.externalId}/results/overall/all"
+      case _ => ""
+    }
 
 case class Entry(
-    stageNumber: Int,
+    stageNumber: Int :| Greater[0],
     stageName: String,
     country: String,
     userName: String,
     realName: String,
     group: String,
     car: String,
+    split1Time: Option[BigDecimal] = None,
+    split2Time: Option[BigDecimal] = None,
     stageTime: BigDecimal,
+    finishRealtime: Option[Instant] = None,
+    penalty: Option[BigDecimal] = None,
+    servicePenalty: Option[BigDecimal] = None,
     superRally: Boolean,
     finished: Boolean,
     comment: String,
@@ -67,56 +86,6 @@ case class PositionResult(
     comment: String,
     nominal: Boolean
 )
-
-def parse(csv: String) =
-  val (header :: data) = csv.split('\n').toList: @unchecked
-  data.map(_.split(";", -1).toList).map {
-    case stageNumber :: stageName :: country :: userName :: realName :: group :: car :: time1 :: time2 :: time3 :: _ :: _ :: _ :: superRally :: finished :: comment :: Nil =>
-      Entry(
-        stageNumber.toInt,
-        stageName,
-        country,
-        userName,
-        realName.decodeHtmlUnicode,
-        // until https://discord.com/channels/723091638951608320/792825986055798825/1114861057035489341 is fixed
-        if group.isEmpty then "Rally 3" else group,
-        car,
-        Try(BigDecimal(time3)).toOption.getOrElse(0),
-        superRally == "1",
-        finished == "F",
-        comment
-      )
-    case _ => ???
-  }
-
-def parsePressAuto(csv: String) =
-  def parseTimestamp(ts: String) = ts.replace(" (N)", "") match {
-    case s"$h:$m:$s.$ms" => BigDecimal(h.toInt * 3600 + m.toInt * 60 + s.toInt) + BigDecimal(s"0.$ms")
-    case _               => BigDecimal(0)
-  }
-
-  val (header :: data) = csv.split('\n').toList: @unchecked
-  val stages = header.split(";", -1).drop(6).init.zipWithIndex
-  data.map(_.split(";", -1).toList).flatMap {
-    case _ :: _ :: realName :: _ :: group :: car :: times =>
-      times.init.zip(stages).map { case (time, (stageName, stageNumber)) =>
-        Entry(
-          stageNumber + 1,
-          stageName,
-          "LT",
-          realName,
-          "",
-          group,
-          car,
-          parseTimestamp(time),
-          false,
-          time != "",
-          "",
-          time.contains("(N)") || stageName.contains("LK Day")
-        )
-      }
-    case _ => ???
-  }
 
 def stages(entries: List[Entry]) =
   entries.map(e => Stage(e.stageNumber, e.stageName)).distinct.sortBy(_.number)
@@ -203,7 +172,7 @@ def drivers(results: MapView[Stage, List[PositionResult]]) =
     .toList
     .sortBy(_.driver.userName)
 
-def rally(id: Int, name: String, link: String, entries: List[Entry]) =
+def rallyData(rally: Rally, entries: List[Entry]) =
   val groupResults = entries.groupBy(_.group).map { case (group, entries) =>
     GroupResults(group, results(entries) pipe drivers)
   }
@@ -212,10 +181,10 @@ def rally(id: Int, name: String, link: String, entries: List[Entry]) =
   }
 
   RallyData(
-    id,
-    name,
-    link,
-    Instant.now(),
+    rally.externalId.toInt,
+    rally.name,
+    rally.kind.link(rally),
+    rally.retrievedAt,
     stages(entries),
     results(entries) pipe drivers,
     groupResults.toList,

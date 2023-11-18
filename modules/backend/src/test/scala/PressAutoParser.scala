@@ -21,6 +21,7 @@ import scala.io.Source
 
 import com.softwaremill.diffx.Diff
 import com.softwaremill.diffx.munit.DiffxAssertions
+import io.github.iltotore.iron._
 
 class PressAutoParserSuite extends munit.FunSuite with DiffxAssertions:
   given Diff[Entry] = Diff.derived[Entry]
@@ -31,7 +32,7 @@ class PressAutoParserSuite extends munit.FunSuite with DiffxAssertions:
        |""".stripMargin
 
   test("parses single driver result"):
-    val obtained = parsePressAuto(csv)
+    val obtained = PressAuto.parseResults(csv)
     val expected = List(
       Entry(
         stageNumber = 1,
@@ -354,5 +355,5 @@ class PressAutoParserSuite extends munit.FunSuite with DiffxAssertions:
 
   test("parses all results"):
     val csv = Source.fromResource("pressauto2023.csv")(Codec.UTF8).mkString
-    val obtained = parsePressAuto(csv)
+    val obtained = PressAuto.parseResults(csv)
     assertEqual(obtained.size, 1632)
