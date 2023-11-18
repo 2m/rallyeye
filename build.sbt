@@ -82,7 +82,7 @@ lazy val frontend = project
   .enablePlugins(AutomateHeaderPlugin)
   .enablePlugins(ScalaJSPlugin)
   .enablePlugins(
-    (if (!sys.env.get("SCALA_STEWARD").isDefined) Seq(ScalablyTypedConverterExternalNpmPlugin) else Seq.empty): _*
+    (if (!sys.env.get("SCALA_STEWARD").isDefined) Seq(ScalablyTypedConverterExternalNpmPlugin) else Seq.empty)*
   )
   .enablePlugins(BuildInfoPlugin)
 
