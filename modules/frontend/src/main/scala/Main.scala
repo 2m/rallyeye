@@ -16,6 +16,8 @@
 
 package rallyeye
 
+import scala.concurrent.Future
+
 import com.raquo.airstream.core.{Observer, Signal}
 import com.raquo.airstream.state.Var
 import com.raquo.airstream.state.Var.apply
@@ -32,7 +34,10 @@ import rallyeye.shared._
 def main() =
   renderOnDomContentLoaded(dom.document.querySelector("#app"), App.app)
 
-object App {
+object App:
+  case class DataAndRefresh(data: Endpoint, refresh: Option[Endpoint])
+  val RsfEndpoints = DataAndRefresh(Endpoints.Rsf.data, Some(Endpoints.Rsf.refresh))
+  val PressAutoEndpoints = DataAndRefresh(Endpoints.PressAuto.data, None)
 
   val loading = Var(false)
   val loadingSignal = loading.signal
@@ -64,13 +69,13 @@ object App {
   val refreshData = Observer[Unit](
     onNext = _ =>
       val rallyIdAndEndpoint = Router.router.currentPageSignal.now() match {
-        case Router.RallyPage(rallyId, _) => Some(rallyId, dataEndpoint)
-        case Router.PressAuto(year, _)    => Some(year, pressAutoEndpoint)
+        case Router.RallyPage(rallyId, _) => Some(rallyId, RsfEndpoints)
+        case Router.PressAuto(year, _)    => Some(year, PressAutoEndpoints)
         case _                            => None
       }
 
       rallyIdAndEndpoint.foreach { (rallyId, endpoint) =>
-        fetchData(rallyId, endpoint, useCache = false)
+        fetchData(rallyId, endpoint, true)
       }
   )
 
@@ -79,14 +84,26 @@ object App {
     child <-- router.currentPageSignal.map(renderPage)
   )
 
-  def fetchData(rallyId: Int, endpoint: Endpoint, useCache: Boolean = true) =
+  def fetchData(rallyId: Int, endpoints: DataAndRefresh, refresh: Boolean) =
     import org.scalajs.macrotaskexecutor.MacrotaskExecutor.Implicits.global
     Var.set(App.loading -> true, App.rallyData -> None, App.selectedDriver -> None, App.selectedResult -> None)
-    fetch(rallyId, endpoint, useCache).map { rallyData =>
-      Var.set(
-        App.loading -> false,
-        App.rallyData -> Some(rallyData)
-      )
+
+    val endpoint = if refresh && endpoints.refresh.isDefined then endpoints.refresh.get else endpoints.data
+    val response = fetch(rallyId, endpoint).flatMap {
+      case response @ Left(RallyNotStored()) =>
+        endpoints.refresh match {
+          case Some(refresh) => fetch(rallyId, refresh)
+          case None          => Future.successful(response)
+        }
+      case response => Future.successful(response)
+    }
+    response.map {
+      case Right(rallyData) =>
+        Var.set(
+          App.loading -> false,
+          App.rallyData -> Some(rallyData)
+        )
+      case Left(error) => println(error)
     }
 
     ()
@@ -97,11 +114,21 @@ object App {
         Var.set(App.rallyData -> None, App.selectedDriver -> None, App.selectedResult -> None)
         indexPage()
       case RallyPage(rallyId, results) =>
-        rallyData.now().map(_.id).orElse(Some(0)).filter(_ != rallyId).foreach(_ => fetchData(rallyId, dataEndpoint))
+        rallyData
+          .now()
+          .map(_.id)
+          .orElse(Some(0))
+          .filter(_ != rallyId)
+          .foreach(_ => fetchData(rallyId, RsfEndpoints, false))
         Var.set(resultFilter -> results)
         rallyPage()
       case PressAuto(year, results) =>
-        rallyData.now().map(_.id).orElse(Some(0)).filter(_ != year).foreach(_ => fetchData(year, pressAutoEndpoint))
+        rallyData
+          .now()
+          .map(_.id)
+          .orElse(Some(0))
+          .filter(_ != year)
+          .foreach(_ => fetchData(year, PressAutoEndpoints, false))
         Var.set(resultFilter -> results)
         rallyPage()
     }
@@ -124,5 +151,3 @@ object App {
         selectedResultSignal
       ).render()
     )
-
-}

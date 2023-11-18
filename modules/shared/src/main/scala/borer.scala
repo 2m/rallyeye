@@ -47,5 +47,5 @@ object TapirJsonBorer:
     }(t => io.bullet.borer.Json.encode(t).toUtf8String)
 
 object Codecs:
-  given Encoder[Instant] = Encoder[Long].contramap(_.toEpochMilli)
-  given Decoder[Instant] = Decoder[Long].map(Instant.ofEpochMilli(_))
+  given Encoder[Instant] = Encoder[Long].contramap(_.getEpochSecond)
+  given Decoder[Instant] = Decoder[Long].map(Instant.ofEpochSecond)

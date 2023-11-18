@@ -25,15 +25,25 @@ import io.bullet.borer.derivation.MapBasedCodecs._
 import sttp.tapir._
 import sttp.tapir.generic.auto._
 
-type Endpoint = sttp.tapir.Endpoint[Unit, Int, Unit, RallyData, Any]
+type Endpoint = sttp.tapir.Endpoint[Unit, Int, ErrorInfo, RallyData, Any]
 
-val dataEndpoint = endpoint
-  .in("data" / path[Int])
-  .out(jsonBody[RallyData])
+sealed trait ErrorInfo:
+  def message: String
+case class GenericError(message: String) extends ErrorInfo
+case class RallyNotStored() extends ErrorInfo:
+  def message = "Rally not stored"
 
-val pressAutoEndpoint = endpoint
-  .in("pressauto" / path[Int])
-  .out(jsonBody[RallyData])
+object Endpoints:
+  object Rsf:
+    private val base = endpoint.in("rsf" / path[Int]).errorOut(jsonBody[ErrorInfo])
+    val data = base.out(jsonBody[RallyData])
+    val refresh = base.post.in("refresh").out(jsonBody[RallyData])
+
+  object PressAuto:
+    val data = endpoint
+      .in("pressauto" / path[Int])
+      .out(jsonBody[RallyData])
+      .errorOut(jsonBody[ErrorInfo])
 
 case class Stage(number: Int, name: String)
 
@@ -85,3 +95,7 @@ given Codec[DriverResults] = deriveCodec[DriverResults]
 given Codec[GroupResults] = deriveCodec[GroupResults]
 given Codec[CarResults] = deriveCodec[CarResults]
 given Codec[RallyData] = deriveCodec[RallyData]
+
+given Codec[GenericError] = deriveCodec[GenericError]
+given Codec[RallyNotStored] = deriveCodec[RallyNotStored]
+given Codec[ErrorInfo] = deriveCodec[ErrorInfo]

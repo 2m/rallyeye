@@ -16,8 +16,6 @@
 
 package rallyeye
 
-import scala.concurrent.Future
-import scala.concurrent.duration._
 import scala.util.chaining._
 
 import org.scalajs.dom
@@ -25,27 +23,17 @@ import rallyeye.shared._
 import sttp.client3._
 import sttp.tapir.DecodeResult
 import sttp.tapir.client.sttp.SttpClientInterpreter
-import sttp.tapir.header
 
-def fetch(rallyId: Int, endpoint: Endpoint, useCache: Boolean = true) =
+def fetch(rallyId: Int, endpoint: Endpoint) =
   val baseUri =
     if BuildInfo.isSnapshot then uri"http://${dom.window.location.hostname}:8080"
     else uri"https://rallyeye-data.fly.dev"
 
-  val client =
-    SttpClientInterpreter().toClient(
-      endpoint.in(header("Cache-Control", if useCache then s"max-age=${3.hours.toSeconds}" else "no-cache")),
-      Some(baseUri),
-      FetchBackend()
-    )
+  val client = SttpClientInterpreter().toClient(endpoint, Some(baseUri), FetchBackend())
   val response = client(rallyId)
 
   import org.scalajs.macrotaskexecutor.MacrotaskExecutor.Implicits.global
-  response.flatMap {
-    case DecodeResult.Value(r) =>
-      r match {
-        case Right(rallyData) => Future.successful(rallyData)
-        case Left(_)          => Future.failed(new Exception("Error decoding response"))
-      }
-    case error => Future.failed(new Exception(error.toString))
+  response.map {
+    case DecodeResult.Value(r) => r
+    case error                 => Left(GenericError(error.toString))
   }
