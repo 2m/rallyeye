@@ -21,7 +21,7 @@ import java.time.Instant
 import io.bullet.borer.Codec
 import io.bullet.borer.Decoder
 import io.bullet.borer.Encoder
-import sttp.tapir._
+import sttp.tapir.*
 import sttp.tapir.Codec.JsonCodec
 import sttp.tapir.DecodeResult.{Error, Value}
 import sttp.tapir.DecodeResult.Error.{JsonDecodeException, JsonError}
@@ -31,7 +31,7 @@ object TapirJsonBorer:
 
   implicit def borerCodec[T: Codec: Schema]: JsonCodec[T] =
     sttp.tapir.Codec.json[T] { s =>
-      io.bullet.borer.Json.decode(s.getBytes("UTF8")).to[T].valueEither match {
+      io.bullet.borer.Json.decode(s.getBytes("UTF8")).to[T].valueEither match
         case Right(v) => Value(v)
         case Left(borerError) =>
           val tapirJsonError = JsonError(borerError.getMessage, path = List.empty)
@@ -43,7 +43,6 @@ object TapirJsonBorer:
               underlying = borerError
             )
           )
-      }
     }(t => io.bullet.borer.Json.encode(t).toUtf8String)
 
 object Codecs:

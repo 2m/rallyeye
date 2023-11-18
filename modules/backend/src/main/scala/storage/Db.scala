@@ -17,11 +17,11 @@
 package rallyeye
 package storage
 
-import cats._
-import cats.effect._
-import cats.implicits._
-import doobie._
-import doobie.implicits._
+import cats.*
+import cats.effect.*
+import cats.implicits.*
+import doobie.*
+import doobie.implicits.*
 
 object Db:
   case class Config(
@@ -38,14 +38,13 @@ object Db:
     migrationsLocations = List("db")
   )
 
-  val xa = {
+  val xa =
     val transactor = Transactor.fromDriverManager[IO](
       driver = "org.sqlite.JDBC",
       url = config.url,
       logHandler = None
     )
     Transactor.before.modify(transactor, sql"PRAGMA foreign_keys = 1".update.run *> _)
-  }
 
   def insertRally(rally: Rally) =
     sql"insert or replace into rally (kind, external_id, name, retrieved_at) values ($rally)".update.run.attemptSql

@@ -19,23 +19,22 @@ package rallyeye
 import java.time.Instant
 
 import scala.collection.MapView
-import scala.util.chaining._
+import scala.util.chaining.*
 
 import io.github.iltotore.iron.*
 import io.github.iltotore.iron.constraint.numeric.*
-import rallyeye.shared._
+import rallyeye.shared.*
 import rallyeye.storage.Rally
 import rallyeye.storage.RallyKind
 
 extension (kind: RallyKind)
   def link(rally: Rally) =
-    rally.kind match {
+    rally.kind match
       case RallyKind.Rsf =>
         s"https://www.rallysimfans.hu/rbr/rally_online.php?centerbox=rally_list_details.php&rally_id=${rally.externalId}"
       case RallyKind.PressAuto =>
         s"https://raceadmin.eu/pr${rally.externalId}/pr${rally.externalId}/results/overall/all"
       case _ => ""
-    }
 
 case class Entry(
     stageNumber: Int :| Greater[0],

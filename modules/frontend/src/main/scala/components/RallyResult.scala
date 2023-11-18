@@ -20,9 +20,9 @@ import typings.countryEmoji
 
 import com.raquo.airstream.core.{Observer, Signal}
 import com.raquo.airstream.eventbus.EventBus
-import com.raquo.laminar.api.L._
-import rallyeye._
-import rallyeye.shared._
+import com.raquo.laminar.api.L.*
+import rallyeye.*
+import rallyeye.shared.*
 
 case object RallyResult:
   val writingMode = styleProp[String]("writing-mode")
@@ -38,7 +38,7 @@ case class RallyResult(
     selectResult: Observer[DriverResult],
     selectedResultSignal: Signal[Option[DriverResult]]
 ):
-  import RallyResult._
+  import RallyResult.*
 
   val driverSelectionBus = EventBus[Driver]()
 
@@ -94,7 +94,7 @@ case class RallyResult(
         Signal
           .combine(selectedResultSignal, selectedDriverSignal, stagesSignal)
           .mapN { (maybeResult, maybeDriver, maybeStages) =>
-            (maybeResult, maybeDriver, maybeStages) match {
+            (maybeResult, maybeDriver, maybeStages) match
               case (Some(result), Some(driver), Some(stages)) =>
                 Seq(
                   div(s"SS${result.stageNumber} ${stages(result.stageNumber - 1).name}"),
@@ -104,7 +104,6 @@ case class RallyResult(
                   if result.comment.nonEmpty then div(s"“${result.comment}”") else emptyNode
                 )
               case _ => Seq(emptyNode)
-            }
           }
       )
     )

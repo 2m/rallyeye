@@ -16,12 +16,12 @@
 
 package rallyeye
 
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 
 import cats.data.EitherT
 import cats.effect.IO
 import cats.effect.LiftIO
-import com.comcast.ip4s._
+import com.comcast.ip4s.*
 import org.http4s.CacheDirective
 import org.http4s.Method
 import org.http4s.ember.client.EmberClientBuilder
@@ -29,9 +29,9 @@ import org.http4s.ember.server.EmberServerBuilder
 import org.http4s.server.middleware.Caching
 import org.http4s.server.middleware.CORS
 import org.http4s.server.middleware.GZip
-import rallyeye.shared._
+import rallyeye.shared.*
 import rallyeye.storage.Repo
-import sttp.tapir._
+import sttp.tapir.*
 import sttp.tapir.server.http4s.Http4sServerInterpreter
 
 val Timeout = 2.minutes
@@ -47,12 +47,12 @@ object Logic:
         .withIdleConnectionTime(Timeout)
         .build
         .use { client =>
-          (for {
+          (for
             name <- EitherT(rallyeye.Rsf.rallyName(client, rallyId))
             results <- EitherT(rallyeye.Rsf.rallyResults(client, rallyId))
             _ <- EitherT(Repo.Rsf.saveRallyName(rallyId, name))
             _ <- EitherT(Repo.Rsf.saveRallyResults(rallyId, results))
-          } yield name).value
+          yield name).value
         }
 
     def data(rallyId: Int) =
@@ -87,7 +87,7 @@ def handleErrors[T](f: IO[Either[Throwable, T]]) =
   })
 
 val httpServer =
-  import cats.syntax.semigroupk._
+  import cats.syntax.semigroupk.*
   val interp = Http4sServerInterpreter[IO]()
   val endpoints =
     List(

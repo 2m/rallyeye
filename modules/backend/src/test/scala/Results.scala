@@ -20,8 +20,8 @@ import java.time.Instant
 
 import com.softwaremill.diffx.Diff
 import com.softwaremill.diffx.munit.DiffxAssertions
-import io.github.iltotore.iron._
-import rallyeye.shared._
+import io.github.iltotore.iron.*
+import rallyeye.shared.*
 import rallyeye.storage.Rally
 import rallyeye.storage.RallyKind
 

@@ -21,14 +21,14 @@ import scala.concurrent.Future
 import com.raquo.airstream.core.{Observer, Signal}
 import com.raquo.airstream.state.Var
 import com.raquo.airstream.state.Var.apply
-import com.raquo.laminar.api._
-import com.raquo.laminar.api.L._
+import com.raquo.laminar.api.*
+import com.raquo.laminar.api.L.*
 import components.Header
 import components.RallyList
 import components.RallyResult
 import components.ResultFilter
 import org.scalajs.dom
-import rallyeye.shared._
+import rallyeye.shared.*
 
 @main
 def main() =
@@ -68,18 +68,17 @@ object App:
 
   val refreshData = Observer[Unit](
     onNext = _ =>
-      val rallyIdAndEndpoint = Router.router.currentPageSignal.now() match {
+      val rallyIdAndEndpoint = Router.router.currentPageSignal.now() match
         case Router.RallyPage(rallyId, _) => Some(rallyId, RsfEndpoints)
         case Router.PressAuto(year, _)    => Some(year, PressAutoEndpoints)
         case _                            => None
-      }
 
       rallyIdAndEndpoint.foreach { (rallyId, endpoint) =>
         fetchData(rallyId, endpoint, true)
       }
   )
 
-  import Router._
+  import Router.*
   val app = div(
     child <-- router.currentPageSignal.map(renderPage)
   )
@@ -91,10 +90,9 @@ object App:
     val endpoint = if refresh && endpoints.refresh.isDefined then endpoints.refresh.get else endpoints.data
     val response = fetch(rallyId, endpoint).flatMap {
       case response @ Left(RallyNotStored()) =>
-        endpoints.refresh match {
+        endpoints.refresh match
           case Some(refresh) => fetch(rallyId, refresh)
           case None          => Future.successful(response)
-        }
       case response => Future.successful(response)
     }
     response.map {
@@ -109,7 +107,7 @@ object App:
     ()
 
   def renderPage(page: Page) =
-    page match {
+    page match
       case IndexPage =>
         Var.set(App.rallyData -> None, App.selectedDriver -> None, App.selectedResult -> None)
         indexPage()
@@ -131,7 +129,6 @@ object App:
           .foreach(_ => fetchData(year, PressAutoEndpoints, false))
         Var.set(resultFilter -> results)
         rallyPage()
-    }
 
   def indexPage() =
     div(

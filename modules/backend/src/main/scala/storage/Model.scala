@@ -23,8 +23,8 @@ import cats.Show
 import doobie.util.{Get, Put}
 import doobie.util.Read
 import doobie.util.Write
-import io.github.iltotore.iron._
-import io.github.iltotore.iron.constraint.numeric._
+import io.github.iltotore.iron.*
+import io.github.iltotore.iron.constraint.numeric.*
 
 enum RallyKind:
   case Rsf, PressAuto, EWrc

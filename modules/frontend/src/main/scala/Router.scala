@@ -18,14 +18,14 @@ package rallyeye
 
 import scala.deriving.Mirror
 
-import com.raquo.laminar.api._
-import com.raquo.laminar.api.L._
+import com.raquo.laminar.api.*
+import com.raquo.laminar.api.L.*
 import com.raquo.laminar.modifiers.Binder
-import com.raquo.waypoint._
+import com.raquo.waypoint.*
 import components.ResultFilter
 import io.bullet.borer.Codec
 import io.bullet.borer.Json
-import io.bullet.borer.derivation.MapBasedCodecs._
+import io.bullet.borer.derivation.MapBasedCodecs.*
 import org.scalajs.dom
 
 object Router:
@@ -102,9 +102,7 @@ object Router:
 
     val isLinkElement = el.ref.isInstanceOf[dom.html.Anchor]
 
-    if (isLinkElement) {
-      el.amend(href(router.absoluteUrlForPage(page)))
-    }
+    if isLinkElement then el.amend(href(router.absoluteUrlForPage(page)))
 
     // If element is a link and user is holding a modifier while clicking:
     //  - Do nothing, browser will open the URL in new tab / window / etc. depending on the modifier key
@@ -116,8 +114,7 @@ object Router:
       --> (_ => router.pushState(page))).bind(el)
   }
 
-  def withFilter(filter: String) = router.currentPageSignal.now() match {
+  def withFilter(filter: String) = router.currentPageSignal.now() match
     case p: RallyPage => p.copy(results = filter)
     case p: PressAuto => p.copy(results = filter)
     case p            => p
-  }

@@ -19,11 +19,11 @@ package rallyeye.shared
 import java.time.Instant
 
 import Codecs.given
-import TapirJsonBorer._
+import TapirJsonBorer.*
 import io.bullet.borer.Codec
-import io.bullet.borer.derivation.MapBasedCodecs._
-import sttp.tapir._
-import sttp.tapir.generic.auto._
+import io.bullet.borer.derivation.MapBasedCodecs.*
+import sttp.tapir.*
+import sttp.tapir.generic.auto.*
 
 type Endpoint = sttp.tapir.Endpoint[Unit, Int, ErrorInfo, RallyData, Any]
 
@@ -84,9 +84,8 @@ case class RallyData(
     groupResults: List[GroupResults],
     carResults: List[CarResults]
 )
-object RallyData {
+object RallyData:
   val empty = RallyData(0, "Loading...", "", Instant.now, Nil, Nil, Nil, Nil)
-}
 
 given Codec[Stage] = deriveCodec[Stage]
 given Codec[Driver] = deriveCodec[Driver]
