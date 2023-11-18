@@ -102,9 +102,7 @@ object Router:
 
     val isLinkElement = el.ref.isInstanceOf[dom.html.Anchor]
 
-    if isLinkElement then {
-      el.amend(href(router.absoluteUrlForPage(page)))
-    }
+    if isLinkElement then el.amend(href(router.absoluteUrlForPage(page)))
 
     // If element is a link and user is holding a modifier while clicking:
     //  - Do nothing, browser will open the URL in new tab / window / etc. depending on the modifier key
@@ -116,8 +114,7 @@ object Router:
       --> (_ => router.pushState(page))).bind(el)
   }
 
-  def withFilter(filter: String) = router.currentPageSignal.now() match {
+  def withFilter(filter: String) = router.currentPageSignal.now() match
     case p: RallyPage => p.copy(results = filter)
     case p: PressAuto => p.copy(results = filter)
     case p            => p
-  }

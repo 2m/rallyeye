@@ -53,9 +53,8 @@ object Repo:
       .pipe(Db.insertManyResults)
 
   def getRsfRallyResults(rallyKind: RallyKind)(rallyId: Int) =
-    (for {
-      results <- EitherT(Db.selectResults(rallyKind, rallyId.toString))
-    } yield results.map(
+    (for results <- EitherT(Db.selectResults(rallyKind, rallyId.toString))
+    yield results.map(
       _.into[Entry].transform(
         Field.renamed(_.country, _.driverCountry),
         Field.renamed(_.userName, _.driverPrimaryName),

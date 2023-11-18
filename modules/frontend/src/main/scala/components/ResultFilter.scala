@@ -26,9 +26,8 @@ object ResultFilter:
   val AllResults = "All Results"
   val AllResultsId = filterId(AllResults)
 
-  case class ResultFilter(name: String, group: String, isGroup: Boolean = false, isCar: Boolean = false) {
+  case class ResultFilter(name: String, group: String, isGroup: Boolean = false, isCar: Boolean = false):
     def id = filterId(name)
-  }
 
   def filters(rallyData: RallyData) =
     (List(ResultFilter(AllResults, AllResults)) :++ rallyData.groupResults

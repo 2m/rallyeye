@@ -43,11 +43,10 @@ object ResultLines:
   val margin = Margin(rowHeight / 2, 0, rowHeight / 2, colWidth)
 
   def renderStagePosition(result: DriverResult) =
-    (result.superRally, result.nominal) match {
+    (result.superRally, result.nominal) match
       case (true, _) => "SR"
       case (_, true) => "N"
       case _         => result.stagePosition.toString
-    }
 
 case class ResultLines(
     stagesSignal: Signal[Option[List[Stage]]],
@@ -213,11 +212,9 @@ case class ResultLines(
       ) { case ((rallyResults, superRallyResults, acc, lastSuperRally), resWithIdx @ (result, idx)) =>
         if lastSuperRally == result.superRally then
           (rallyResults, superRallyResults, acc :+ resWithIdx, result.superRally)
-        else {
-          if lastSuperRally then
-            (rallyResults, superRallyResults :+ acc, acc.lastOption.toList :+ resWithIdx, result.superRally)
-          else (rallyResults :+ acc, superRallyResults, List(resWithIdx), result.superRally)
-        }
+        else if lastSuperRally then
+          (rallyResults, superRallyResults :+ acc, acc.lastOption.toList :+ resWithIdx, result.superRally)
+        else (rallyResults :+ acc, superRallyResults, List(resWithIdx), result.superRally)
       }
 
     val rallyResults = if lastSuperRally then rallyResultsWoLast else rallyResultsWoLast :+ lastStint
@@ -230,10 +227,9 @@ case class ResultLines(
       }
     }
 
-    val retired = {
+    val retired =
       val (lastResult, lastIdx) = lastStint.last
       if lastResult.rallyFinished then None else Some(lastResult, lastIdx)
-    }
 
     g(
       strokeWidth := "2",

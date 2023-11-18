@@ -19,6 +19,5 @@ package rallyeye
 import com.softwaremill.diffx.Diff
 import io.github.iltotore.iron.*
 
-trait IronSupport {
+trait IronSupport:
   implicit def ironDiff[T: Diff, P]: Diff[T IronType P] = Diff[T].contramap[T IronType P](identity)
-}

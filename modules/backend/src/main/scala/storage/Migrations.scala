@@ -40,9 +40,9 @@ val migrations = Fly4s
   .evalMap(_.validateAndMigrate.result)
 
 def loadPressAutoResults(rallyId: String, name: String, filename: String) =
-  for {
+  for
     csv <- IO.pure(Source.fromResource(filename)(scala.io.Codec.UTF8).mkString)
     results <- IO.pure(PressAuto.parseResults(csv))
     _ <- Repo.PressAuto.saveRallyName(rallyId, name)
     _ <- Repo.PressAuto.saveRallyResults(rallyId, results)
-  } yield ()
+  yield ()

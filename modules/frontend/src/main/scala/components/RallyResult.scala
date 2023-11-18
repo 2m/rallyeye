@@ -94,7 +94,7 @@ case class RallyResult(
         Signal
           .combine(selectedResultSignal, selectedDriverSignal, stagesSignal)
           .mapN { (maybeResult, maybeDriver, maybeStages) =>
-            (maybeResult, maybeDriver, maybeStages) match {
+            (maybeResult, maybeDriver, maybeStages) match
               case (Some(result), Some(driver), Some(stages)) =>
                 Seq(
                   div(s"SS${result.stageNumber} ${stages(result.stageNumber - 1).name}"),
@@ -104,7 +104,6 @@ case class RallyResult(
                   if result.comment.nonEmpty then div(s"“${result.comment}”") else emptyNode
                 )
               case _ => Seq(emptyNode)
-            }
           }
       )
     )

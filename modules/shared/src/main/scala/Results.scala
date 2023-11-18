@@ -84,9 +84,8 @@ case class RallyData(
     groupResults: List[GroupResults],
     carResults: List[CarResults]
 )
-object RallyData {
+object RallyData:
   val empty = RallyData(0, "Loading...", "", Instant.now, Nil, Nil, Nil, Nil)
-}
 
 given Codec[Stage] = deriveCodec[Stage]
 given Codec[Driver] = deriveCodec[Driver]

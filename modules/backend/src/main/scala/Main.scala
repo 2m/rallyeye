@@ -23,7 +23,7 @@ object Main
     extends CommandIOApp(
       name = "rallyeye",
       header = "RallyEye command line"
-    ) {
+    ):
 
   case class HttpServer()
   case class MigrateDb()
@@ -46,4 +46,3 @@ object Main
           IO(ExitCode.Success)
         } <* rallyeye.storage.loadPressAutoResults("2023", "Press Auto 2023", "pressauto2023.csv")
     }
-}

@@ -20,9 +20,8 @@ import com.raquo.laminar.api.L.*
 import rallyeye.Router
 
 object RallyList:
-  sealed trait Rally {
+  sealed trait Rally:
     val finish: String
-  }
   case class Rsf(
       id: Int,
       name: String,
@@ -265,7 +264,7 @@ object RallyList:
   private def renderRally(rally: Rally) =
     a(
       cls := "block mt-4 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100",
-      rally match {
+      rally match
         case r: Rsf =>
           Seq(
             Router.navigateTo(Router.RallyPage(r.id, ResultFilter.AllResultsId)),
@@ -305,5 +304,4 @@ object RallyList:
               )
             )
           )
-      }
     )

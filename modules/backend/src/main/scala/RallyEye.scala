@@ -47,12 +47,12 @@ object Logic:
         .withIdleConnectionTime(Timeout)
         .build
         .use { client =>
-          (for {
+          (for
             name <- EitherT(rallyeye.Rsf.rallyName(client, rallyId))
             results <- EitherT(rallyeye.Rsf.rallyResults(client, rallyId))
             _ <- EitherT(Repo.Rsf.saveRallyName(rallyId, name))
             _ <- EitherT(Repo.Rsf.saveRallyResults(rallyId, results))
-          } yield name).value
+          yield name).value
         }
 
     def data(rallyId: Int) =

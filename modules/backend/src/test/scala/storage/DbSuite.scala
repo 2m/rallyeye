@@ -75,11 +75,11 @@ class DbSuite extends munit.ScalaCheckSuite with DiffxAssertions with IronSuppor
       RallyWithResults(rally, results.toList)
 
   val db = FunFixture[Unit](
-    setup = { test =>
+    setup = test =>
       Files.deleteIfExists(Paths.get(Db.file))
       migrations.use(_ => IO.unit).unsafeRunSync()
-    },
-    teardown = { _ => }
+    ,
+    teardown = _ => ()
   )
 
   db.test("should insert and select rally") { _ =>
