@@ -24,8 +24,6 @@ import cats.effect.IO
 import io.github.iltotore.iron.*
 import org.http4s.client.Client
 import org.http4s.implicits._
-import rallyeye.storage.Rally
-import rallyeye.storage.RallyKind
 import sttp.tapir._
 import sttp.tapir.client.http4s.Http4sClientInterpreter
 

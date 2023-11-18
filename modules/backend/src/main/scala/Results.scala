@@ -19,7 +19,6 @@ package rallyeye
 import java.time.Instant
 
 import scala.collection.MapView
-import scala.util.Try
 import scala.util.chaining._
 
 import io.github.iltotore.iron.*

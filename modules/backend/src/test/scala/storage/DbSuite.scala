@@ -22,12 +22,9 @@ import java.nio.file.Paths
 import java.sql.SQLException
 import java.time.Instant
 
-import scala.collection.GenSet
 import scala.collection.immutable.ArraySeq
 
-import cats.data.NonEmptyList
 import cats.effect.IO
-import cats.implicits._
 import com.softwaremill.diffx.Diff
 import com.softwaremill.diffx.munit.DiffxAssertions
 import doobie.implicits._
@@ -38,12 +35,7 @@ import org.scalacheck.Arbitrary
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.Gen
 import org.scalacheck.Prop
-import org.scalacheck.Test
 import org.scalacheck.ops._
-
-trait IronSupport {
-  implicit def ironDiff[T: Diff, P]: Diff[T IronType P] = Diff[T].contramap[T IronType P](identity)
-}
 
 class DbSuite extends munit.ScalaCheckSuite with DiffxAssertions with IronSupport:
   import cats.effect.unsafe.implicits.global

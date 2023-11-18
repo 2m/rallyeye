@@ -23,7 +23,6 @@ import scala.util.chaining._
 
 import cats.data.EitherT
 import cats.effect.IO
-import cats.implicits._
 import io.github.arainko.ducktape._
 import io.github.iltotore.iron.*
 import io.github.iltotore.iron.constraint.numeric._

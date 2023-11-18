@@ -18,7 +18,7 @@ package rallyeye
 
 import java.time.Instant
 
-import com.softwaremill.diffx.generic.auto.given
+import com.softwaremill.diffx.Diff
 import com.softwaremill.diffx.munit.DiffxAssertions
 import io.github.iltotore.iron._
 import rallyeye.shared._

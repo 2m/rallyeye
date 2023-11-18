@@ -17,16 +17,13 @@
 package rallyeye
 
 import scala.concurrent.duration._
-import scala.io.Source
 
 import cats.data.EitherT
 import cats.effect.IO
-import cats.effect.IOApp
 import cats.effect.LiftIO
 import com.comcast.ip4s._
 import org.http4s.CacheDirective
 import org.http4s.Method
-import org.http4s.client.Client
 import org.http4s.ember.client.EmberClientBuilder
 import org.http4s.ember.server.EmberServerBuilder
 import org.http4s.server.middleware.Caching
@@ -43,9 +40,6 @@ object Logic:
   val RallyNotStored = Error("Rally not stored")
 
   object Rsf:
-    private def rallyLink(rallyId: Int) =
-      s"https://www.rallysimfans.hu/rbr/rally_online.php?centerbox=rally_list_details.php&rally_id=$rallyId"
-
     private def fetchAndStore(rallyId: Int) =
       EmberClientBuilder
         .default[IO]

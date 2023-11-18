@@ -16,8 +16,6 @@
 
 package rallyeye
 
-import scala.concurrent.Future
-import scala.concurrent.duration._
 import scala.util.chaining._
 
 import org.scalajs.dom
@@ -25,7 +23,6 @@ import rallyeye.shared._
 import sttp.client3._
 import sttp.tapir.DecodeResult
 import sttp.tapir.client.sttp.SttpClientInterpreter
-import sttp.tapir.header
 
 def fetch(rallyId: Int, endpoint: Endpoint) =
   val baseUri =

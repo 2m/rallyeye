@@ -22,7 +22,6 @@ import cats.effect._
 import cats.implicits._
 import doobie._
 import doobie.implicits._
-import org.flywaydb.core.internal.database.base.Database
 
 object Db:
   case class Config(

@@ -19,7 +19,6 @@ package storage
 
 import scala.io.Source
 
-import cats.effect.ExitCode
 import cats.effect.IO
 import fly4s.core.Fly4s
 import fly4s.core.data.Fly4sConfig
