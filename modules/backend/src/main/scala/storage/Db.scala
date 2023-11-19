@@ -30,7 +30,7 @@ object Db:
       migrationsLocations: List[String]
   )
 
-  val file = "rallyeye.db"
+  val file = sys.env.get("RALLYEYE_DB_PATH").map(_ + "/").getOrElse("") + "rallyeye.db"
 
   val config = Config(
     url = s"jdbc:sqlite:$file",

@@ -101,7 +101,7 @@ val httpServer =
   for server <- EmberServerBuilder
       .default[IO]
       .withHost(ipv4"0.0.0.0")
-      .withPort(port"8080")
+      .withPort(Port.fromString(sys.env.getOrElse("RALLYEYE_SERVER_PORT", "8080")).get)
       .withIdleTimeout(Timeout)
       .withHttpApp(
         GZip(
