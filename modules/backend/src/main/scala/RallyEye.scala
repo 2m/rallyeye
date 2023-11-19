@@ -16,6 +16,8 @@
 
 package rallyeye
 
+import java.time.Instant
+
 import scala.concurrent.duration.*
 
 import cats.data.EitherT
@@ -35,6 +37,7 @@ import sttp.tapir.*
 import sttp.tapir.server.http4s.Http4sServerInterpreter
 
 val Timeout = 2.minutes
+val IdleTimeout = 3.minutes
 
 object Logic:
   val RallyNotStored = Error("Rally not stored")
@@ -44,7 +47,7 @@ object Logic:
       EmberClientBuilder
         .default[IO]
         .withTimeout(Timeout)
-        .withIdleConnectionTime(Timeout)
+        .withIdleConnectionTime(IdleTimeout)
         .build
         .use { client =>
           (for
@@ -66,7 +69,9 @@ object Logic:
 
     def refresh(rallyId: Int) =
       for
-        _ <- EitherT(fetchAndStore(rallyId))
+        maybeRally <- EitherT(Repo.Rsf.getRally(rallyId))
+        needToFetch = maybeRally.fold(true)(_.retrievedAt.plusSeconds(60).isBefore(Instant.now))
+        _ <- EitherT(if needToFetch then fetchAndStore(rallyId) else IO.pure(Right("")))
         storedData <- data(rallyId)
       yield storedData
 
@@ -88,17 +93,12 @@ def handleErrors[T](f: IO[Either[Throwable, T]]) =
 
 val httpServer =
   import cats.syntax.semigroupk.*
-  val interp = Http4sServerInterpreter[IO]()
-  val endpoints =
-    List(
-      Endpoints.Rsf.data.serverLogic((Logic.Rsf.data _).andThen(_.value).andThen(handleErrors)),
-      Endpoints.Rsf.refresh.serverLogic((Logic.Rsf.refresh _).andThen(_.value).andThen(handleErrors)),
-      Endpoints.PressAuto.data.serverLogic((Logic.PressAuto.data _).andThen(_.value).andThen(handleErrors))
-    )
 
-  val routes = endpoints.map(interp.toRoutes).reduce(_ <+> _).orNotFound
-
-  for server <- EmberServerBuilder
+  for
+    refreshShardedStreamAndLogic <- shardedLogic(5)((Logic.Rsf.refresh _).andThen(_.value).andThen(handleErrors))
+    (refreshShardedStream, refreshShardedLogic) = refreshShardedStreamAndLogic
+    _ <- refreshShardedStream.compile.drain.start
+    server <- EmberServerBuilder
       .default[IO]
       .withHost(ipv4"0.0.0.0")
       .withPort(Port.fromString(sys.env.getOrElse("RALLYEYE_SERVER_PORT", "8080")).get)
@@ -110,8 +110,17 @@ val httpServer =
               3.hours,
               isPublic = Left(CacheDirective.public),
               methodToSetOn = _ == Method.GET,
-              statusToSetOn = _.isSuccess,
-              routes
+              statusToSetOn = _.isSuccess, {
+                val interp = Http4sServerInterpreter[IO]()
+                val endpoints =
+                  List(
+                    Endpoints.Rsf.data.serverLogic((Logic.Rsf.data _).andThen(_.value).andThen(handleErrors)),
+                    Endpoints.Rsf.refresh.serverLogic(refreshShardedLogic),
+                    Endpoints.PressAuto.data
+                      .serverLogic((Logic.PressAuto.data _).andThen(_.value).andThen(handleErrors))
+                  )
+                endpoints.map(interp.toRoutes).reduce(_ <+> _).orNotFound
+              }
             )
           )
         )
