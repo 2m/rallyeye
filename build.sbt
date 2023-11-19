@@ -115,6 +115,7 @@ lazy val backend = project
     jibCustomRepositoryPath := Some("rallyeye-data"),
     jibTags += "latest",
     jibBaseImage := "ghcr.io/2m/java-litefs-docker:main",
+    jibEntrypoint := Some(List("litefs", "mount")),
     jibExtraMappings += (baseDirectory.value / "litefs.yml" -> "/etc/litefs.yml"),
     jibEnvironment := Map("RALLYEYE_DB_PATH" -> "/litefs", "RALLYEYE_SERVER_PORT" -> "8081"),
 
