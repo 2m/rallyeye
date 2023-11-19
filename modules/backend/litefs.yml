@@ -58,7 +58,7 @@ lease:
   # Specifies if this node can become primary. The expression below evaluates
   # to true on nodes that are run in the primary region. Nodes in other regions
   # act as non-candidate, read-only replicas.
-  candidate: ${FLY_REGION == PRIMARY_REGION}
+  candidate: ${FLY_REGION == waw}
 
   # If true, then the node will automatically become primary after it has
   # connected with the cluster and sync'd up. This makes it easier to run
