@@ -1,0 +1,89 @@
+# The fuse section describes settings for the FUSE file system. This file system
+# is used as a thin layer between the SQLite client in your application and the
+# storage on disk. It intercepts disk writes to determine transaction boundaries
+# so that those transactions can be saved and shipped to replicas.
+fuse:
+  dir: "/litefs"
+
+# The data section describes settings for the internal LiteFS storage. We'll
+# mount a volume to the data directory so it can be persisted across restarts.
+# However, this data should not be accessed directly by the user application.
+data:
+  dir: "/var/lib/litefs"
+
+# This flag ensure that LiteFS continues to run if there is an issue on starup.
+# It makes it easy to ssh in and debug any issues you might be having rather
+# than continually restarting on initialization failure.
+exit-on-error: false
+
+# This section defines settings for the option HTTP proxy.
+# This proxy can handle primary forwarding & replica consistency
+# for applications that use a single SQLite database.
+proxy:
+  # Bind address for the proxy to listen on.
+  addr: ":8080"
+
+  # Hostport of your application
+  target: "localhost:8081"
+
+  # Filename of the SQLite database you want to use for TXID tracking
+  db: "rallyeye.db"
+
+  passthrough:
+  - "*.ico"
+  - "*.png"
+
+# This section defines a list of commands to run after LiteFS has connected
+# and sync'd with the cluster. You can run multiple commands but LiteFS expects
+# the last command to be long-running (e.g. an application server). When the
+# last command exits, LiteFS is shut down.
+exec:
+# Only run migrations on candidate nodes.
+- cmd: "java -cp /app/resources:/app/classes:/app/libs/* Main migrate-db"
+  if-candidate: true
+
+# Then run the application server on all nodes.
+- cmd: "java -cp /app/resources:/app/classes:/app/libs/* Main http-server"
+
+# The lease section specifies how the cluster will be managed. We're using the
+# "consul" lease type so that our application can dynamically change the primary.
+#
+# These environment variables will be available in your Fly.io application.
+lease:
+  type: "consul"
+
+  # The API URL that other nodes will use to connect to this node.
+  advertise-url: "http://${HOSTNAME}.vm.${FLY_APP_NAME}.internal:20202"
+
+  # Specifies if this node can become primary. The expression below evaluates
+  # to true on nodes that are run in the primary region. Nodes in other regions
+  # act as non-candidate, read-only replicas.
+  candidate: ${FLY_REGION == PRIMARY_REGION}
+
+  # If true, then the node will automatically become primary after it has
+  # connected with the cluster and sync'd up. This makes it easier to run
+  # migrations on start up.
+  promote: true
+
+  consul:
+    # The URL of the Consul cluster.
+    url: "${FLY_CONSUL_URL}"
+
+    # A unique key shared by all nodes in the LiteFS cluster.
+    # Change this if you are running multiple clusters in a single app!
+    key: "litefs/${FLY_APP_NAME}"
+
+# For standalone testing
+# lease:
+#   # Required. Must be either "consul" or "static".
+#   type: "static"
+
+#   # Required. The URL for the primary node's LiteFS API.
+#   # Note: replace `primary` with the appropriate hostname for your primary node!
+#   advertise-url: "http://primary:20202"
+
+#   # Specifies whether the node can become the primary. If using
+#   # "static" leasing, this should be set to true on the primary
+#   # and false on the replicas.
+#   # Note: update this to `false` on the replica nodes!
+#   candidate: true
