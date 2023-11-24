@@ -15,7 +15,7 @@ lazy val shared = crossProject(JSPlatform, JVMPlatform)
   .settings(
     name := "shared",
     libraryDependencies ++= Seq(
-      "com.softwaremill.sttp.tapir" %% "tapir-core"       % "1.9.0",
+      "com.softwaremill.sttp.tapir" %% "tapir-core"       % "1.9.2",
       "io.bullet"                   %% "borer-derivation" % "1.12.0"
     ),
     // for borer semi-automatic derivation
@@ -43,7 +43,7 @@ lazy val frontend = project
     libraryDependencies ++= Seq(
       "org.scala-js"                %%% "scalajs-dom"                 % "2.8.0",
       "org.scala-js"                %%% "scala-js-macrotask-executor" % "1.1.1",
-      "com.softwaremill.sttp.tapir" %%% "tapir-sttp-client"           % "1.9.0",
+      "com.softwaremill.sttp.tapir" %%% "tapir-sttp-client"           % "1.9.2",
       "com.raquo"                   %%% "laminar"                     % "16.0.0",
       "com.raquo"                   %%% "waypoint"                    % "7.0.0",
       "io.github.cquiroz"           %%% "scala-java-time"             % "2.5.0",
@@ -90,19 +90,19 @@ lazy val backend = project
   .in(file("modules/backend"))
   .settings(
     libraryDependencies ++= Seq(
-      "com.softwaremill.sttp.tapir" %% "tapir-http4s-server" % "1.9.0",
-      "com.softwaremill.sttp.tapir" %% "tapir-http4s-client" % "1.9.0",
+      "com.softwaremill.sttp.tapir" %% "tapir-http4s-server" % "1.9.2",
+      "com.softwaremill.sttp.tapir" %% "tapir-http4s-client" % "1.9.2",
       "org.http4s"                  %% "http4s-ember-server" % "0.23.24",
       "org.http4s"                  %% "http4s-ember-client" % "0.23.24",
       "ch.qos.logback"               % "logback-classic"     % "1.4.11",
       "com.github.geirolz"          %% "fly4s-core"          % "0.0.19",
-      "org.flywaydb"                 % "flyway-core"         % "10.0.1", // fixes logging
+      "org.flywaydb"                 % "flyway-core"         % "10.1.0", // fixes logging
       "org.xerial"                   % "sqlite-jdbc"         % "3.43.2.2",
-      "org.tpolecat"                %% "doobie-core"         % "1.0.0-RC4",
+      "org.tpolecat"                %% "doobie-core"         % "1.0.0-RC5",
       "io.github.arainko"           %% "ducktape"            % "0.1.11",
       "com.monovore"                %% "decline-effect"      % "2.4.1",
       "io.github.iltotore"          %% "iron"                % "2.3.0",
-      "org.tpolecat"                %% "doobie-munit"        % "1.0.0-RC4" % Test,
+      "org.tpolecat"                %% "doobie-munit"        % "1.0.0-RC5" % Test,
       "org.scalameta"               %% "munit"               % "1.0.0-M10" % Test,
       "org.scalameta"               %% "munit-scalacheck"    % "1.0.0-M10" % Test,
       "com.softwaremill.diffx"      %% "diffx-munit"         % "0.9.0"     % Test,
