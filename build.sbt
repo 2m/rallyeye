@@ -98,11 +98,11 @@ lazy val backend = project
       "com.github.geirolz"          %% "fly4s-core"          % "0.0.19",
       "org.flywaydb"                 % "flyway-core"         % "10.1.0", // fixes logging
       "org.xerial"                   % "sqlite-jdbc"         % "3.43.2.2",
-      "org.tpolecat"                %% "doobie-core"         % "1.0.0-RC4",
+      "org.tpolecat"                %% "doobie-core"         % "1.0.0-RC5",
       "io.github.arainko"           %% "ducktape"            % "0.1.11",
       "com.monovore"                %% "decline-effect"      % "2.4.1",
       "io.github.iltotore"          %% "iron"                % "2.3.0",
-      "org.tpolecat"                %% "doobie-munit"        % "1.0.0-RC4" % Test,
+      "org.tpolecat"                %% "doobie-munit"        % "1.0.0-RC5" % Test,
       "org.scalameta"               %% "munit"               % "1.0.0-M10" % Test,
       "org.scalameta"               %% "munit-scalacheck"    % "1.0.0-M10" % Test,
       "com.softwaremill.diffx"      %% "diffx-munit"         % "0.9.0"     % Test,
