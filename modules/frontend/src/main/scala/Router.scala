@@ -31,63 +31,64 @@ import org.scalajs.dom
 object Router:
   sealed trait Page
   case object IndexPage extends Page
-  case class RallyPage(rallyId: Int, results: String) extends Page
-  case class PressAuto(year: Int, results: String) extends Page
+  case class RallyPage(rallyId: String, results: String) extends Page
+  case class PressAuto(year: String, results: String) extends Page
+  case class Ewrc(rallyId: String, results: String) extends Page
 
   given Codec[Page] = deriveAllCodecs[Page]
 
   val indexRoute = Route.static(IndexPage, root / endOfSegments)
 
-  val rsfRoute = Route[RallyPage, (Int, String)](
+  val rsfRoute = Route[RallyPage, (String, String)](
     encode = Tuple.fromProductTyped,
     decode = summon[Mirror.Of[RallyPage]].fromProduct,
-    pattern = root / "rsf" / segment[Int] / segment[String] / endOfSegments,
+    pattern = root / "rsf" / segment[String] / segment[String] / endOfSegments,
     basePath = Route.fragmentBasePath
   )
 
-  val rsfRouteAllResults = Route[RallyPage, Int](
+  val rsfRouteAllResults = Route[RallyPage, String](
     encode = _.rallyId,
     decode = rallyId => RallyPage(rallyId, ResultFilter.AllResultsId),
-    pattern = root / "rsf" / segment[Int] / endOfSegments,
+    pattern = root / "rsf" / segment[String] / endOfSegments,
     basePath = Route.fragmentBasePath
   )
 
-  val rallyRoute = Route[RallyPage, (Int, String)](
-    Tuple.fromProductTyped,
-    summon[Mirror.Of[RallyPage]].fromProduct,
-    root / "rally" / segment[Int] / segment[String] / endOfSegments,
-    Route.fragmentBasePath
-  )
-
-  val rallyRouteAllResults = Route[RallyPage, Int](
-    _.rallyId,
-    rallyId => RallyPage(rallyId, ResultFilter.AllResultsId),
-    root / "rally" / segment[Int] / endOfSegments,
-    Route.fragmentBasePath
-  )
-
-  val pressAutoRoute = Route[PressAuto, (Int, String)](
+  val pressAutoRoute = Route[PressAuto, (String, String)](
     Tuple.fromProductTyped,
     summon[Mirror.Of[PressAuto]].fromProduct,
-    root / "pressauto" / segment[Int] / segment[String] / endOfSegments,
+    root / "pressauto" / segment[String] / segment[String] / endOfSegments,
     Route.fragmentBasePath
   )
 
-  val pressAutoRouteAllResults = Route[PressAuto, Int](
+  val pressAutoRouteAllResults = Route[PressAuto, String](
     _.year,
     year => PressAuto(year, ResultFilter.AllResultsId),
-    root / "pressauto" / segment[Int] / endOfSegments,
+    root / "pressauto" / segment[String] / endOfSegments,
     Route.fragmentBasePath
+  )
+
+  val ewrcRoute = Route[Ewrc, (String, String)](
+    encode = Tuple.fromProductTyped,
+    decode = summon[Mirror.Of[Ewrc]].fromProduct,
+    pattern = root / "ewrc" / segment[String] / segment[String] / endOfSegments,
+    basePath = Route.fragmentBasePath
+  )
+
+  val ewrcRouteAllResults = Route[Ewrc, String](
+    encode = _.rallyId,
+    decode = rallyId => Ewrc(rallyId, ResultFilter.AllResultsId),
+    pattern = root / "ewrc" / segment[String] / endOfSegments,
+    basePath = Route.fragmentBasePath
   )
 
   val router = new Router[Page](
     routes = List(
       rsfRoute,
       rsfRouteAllResults,
-      rallyRoute,
-      rallyRouteAllResults,
       pressAutoRoute,
       pressAutoRouteAllResults,
+      ewrcRoute,
+      ewrcRouteAllResults,
       indexRoute
     ),
     getPageTitle = _ => "RallyEye",
@@ -115,6 +116,7 @@ object Router:
   }
 
   def withFilter(filter: String) = router.currentPageSignal.now() match
-    case p: RallyPage => p.copy(results = filter)
-    case p: PressAuto => p.copy(results = filter)
-    case p            => p
+    case p: RallyPage      => p.copy(results = filter)
+    case p: PressAuto      => p.copy(results = filter)
+    case p: Ewrc           => p.copy(results = filter)
+    case p: IndexPage.type => p

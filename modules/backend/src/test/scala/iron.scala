@@ -17,7 +17,14 @@
 package rallyeye
 
 import com.softwaremill.diffx.Diff
+import io.bullet.borer.Codec
+import io.bullet.borer.Decoder
+import io.bullet.borer.Encoder
 import io.github.iltotore.iron.*
 
-trait IronSupport:
-  implicit def ironDiff[T: Diff, P]: Diff[T IronType P] = Diff[T].contramap[T IronType P](identity)
+trait IronDiffxSupport:
+  given [T: Diff, P]: Diff[T IronType P] = Diff[T].contramap[T IronType P](identity)
+
+trait IronBorerSupport:
+  inline given [T: Encoder: Decoder, P](using Constraint[T, P]): Codec[T :| P] =
+    Codec.bimap[T, T :| P](identity, _.refine)

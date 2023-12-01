@@ -27,7 +27,7 @@ import io.github.iltotore.iron.*
 import io.github.iltotore.iron.constraint.numeric.*
 
 enum RallyKind:
-  case Rsf, PressAuto, EWrc
+  case Rsf, PressAuto, Ewrc
 
 given Write[RallyKind] = Write[Int].contramap(_.ordinal)
 given Read[RallyKind] = Read[Int].map(RallyKind.fromOrdinal)

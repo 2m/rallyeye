@@ -9,6 +9,9 @@ ThisBuild / licenses += ("Apache-2.0", url("http://www.apache.org/licenses/LICEN
 
 ThisBuild / dynverSeparator := "-"
 
+val MUnitFramework = new TestFramework("munit.Framework")
+val Integration = config("integration").extend(Test)
+
 lazy val shared = crossProject(JSPlatform, JVMPlatform)
   .crossType(CrossType.Pure)
   .in(file("modules/shared"))
@@ -88,7 +91,9 @@ lazy val frontend = project
 
 lazy val backend = project
   .in(file("modules/backend"))
+  .configs(Integration)
   .settings(
+    inConfig(Integration)(Defaults.testTasks),
     libraryDependencies ++= Seq(
       "com.softwaremill.sttp.tapir" %% "tapir-http4s-server" % "1.9.2",
       "com.softwaremill.sttp.tapir" %% "tapir-http4s-client" % "1.9.2",
@@ -102,6 +107,7 @@ lazy val backend = project
       "io.github.arainko"           %% "ducktape"            % "0.1.11",
       "com.monovore"                %% "decline-effect"      % "2.4.1",
       "io.github.iltotore"          %% "iron"                % "2.3.0",
+      "com.themillhousegroup"       %% "scoup"               % "1.0.0",
       "org.tpolecat"                %% "doobie-munit"        % "1.0.0-RC5" % Test,
       "org.scalameta"               %% "munit"               % "1.0.0-M10" % Test,
       "org.scalameta"               %% "munit-scalacheck"    % "1.0.0-M10" % Test,
@@ -123,7 +129,16 @@ lazy val backend = project
     Compile / run / fork := true,
 
     // for diffx assertions in tests
-    Test / scalacOptions ++= Seq("-Xmax-inlines", "64")
+    Test / scalacOptions ++= Seq("-Xmax-inlines", "64"),
+
+    // exclude integration tests
+    Test / testOptions += Tests.Argument(MUnitFramework, "--exclude-tags=integration"),
+    Integration / testOptions := Seq(Tests.Argument(MUnitFramework, "--include-tags=integration")),
+
+    // for integration test snapshots
+    buildInfoKeys := Seq[BuildInfoKey](Test / resourceDirectory),
+    buildInfoPackage := "rallyeye"
   )
   .dependsOn(shared.jvm)
   .enablePlugins(AutomateHeaderPlugin)
+  .enablePlugins(BuildInfoPlugin)

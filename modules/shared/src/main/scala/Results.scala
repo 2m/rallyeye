@@ -25,7 +25,7 @@ import io.bullet.borer.derivation.MapBasedCodecs.*
 import sttp.tapir.*
 import sttp.tapir.generic.auto.*
 
-type Endpoint = sttp.tapir.Endpoint[Unit, Int, ErrorInfo, RallyData, Any]
+type Endpoint = sttp.tapir.Endpoint[Unit, String, ErrorInfo, RallyData, Any]
 
 sealed trait ErrorInfo:
   def message: String
@@ -35,15 +35,20 @@ case class RallyNotStored() extends ErrorInfo:
 
 object Endpoints:
   object Rsf:
-    private val base = endpoint.in("rsf" / path[Int]).errorOut(jsonBody[ErrorInfo])
+    private val base = endpoint.in("rsf" / path[String]).errorOut(jsonBody[ErrorInfo])
     val data = base.out(jsonBody[RallyData])
     val refresh = base.post.in("refresh").out(jsonBody[RallyData])
 
   object PressAuto:
     val data = endpoint
-      .in("pressauto" / path[Int])
+      .in("pressauto" / path[String])
       .out(jsonBody[RallyData])
       .errorOut(jsonBody[ErrorInfo])
+
+  object Ewrc:
+    private val base = endpoint.in("ewrc" / path[String]).errorOut(jsonBody[ErrorInfo])
+    val data = base.out(jsonBody[RallyData])
+    val refresh = base.post.in("refresh").out(jsonBody[RallyData])
 
 case class Stage(number: Int, name: String)
 
@@ -75,7 +80,7 @@ case class CarResults(
 )
 
 case class RallyData(
-    id: Int,
+    id: String,
     name: String,
     link: String,
     retrievedAt: Instant,
@@ -84,8 +89,6 @@ case class RallyData(
     groupResults: List[GroupResults],
     carResults: List[CarResults]
 )
-object RallyData:
-  val empty = RallyData(0, "Loading...", "", Instant.now, Nil, Nil, Nil, Nil)
 
 given Codec[Stage] = deriveCodec[Stage]
 given Codec[Driver] = deriveCodec[Driver]

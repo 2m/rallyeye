@@ -38,6 +38,7 @@ object App:
   case class DataAndRefresh(data: Endpoint, refresh: Option[Endpoint])
   val RsfEndpoints = DataAndRefresh(Endpoints.Rsf.data, Some(Endpoints.Rsf.refresh))
   val PressAutoEndpoints = DataAndRefresh(Endpoints.PressAuto.data, None)
+  val EwrcEndpoints = DataAndRefresh(Endpoints.Ewrc.data, Some(Endpoints.Ewrc.refresh))
 
   val loading = Var(false)
   val loadingSignal = loading.signal
@@ -71,7 +72,8 @@ object App:
       val rallyIdAndEndpoint = Router.router.currentPageSignal.now() match
         case Router.RallyPage(rallyId, _) => Some(rallyId, RsfEndpoints)
         case Router.PressAuto(year, _)    => Some(year, PressAutoEndpoints)
-        case _                            => None
+        case Router.Ewrc(rallyId, _)      => Some(rallyId, EwrcEndpoints)
+        case Router.IndexPage             => None
 
       rallyIdAndEndpoint.foreach { (rallyId, endpoint) =>
         fetchData(rallyId, endpoint, true)
@@ -83,7 +85,7 @@ object App:
     child <-- router.currentPageSignal.map(renderPage)
   )
 
-  def fetchData(rallyId: Int, endpoints: DataAndRefresh, refresh: Boolean) =
+  def fetchData(rallyId: String, endpoints: DataAndRefresh, refresh: Boolean) =
     import org.scalajs.macrotaskexecutor.MacrotaskExecutor.Implicits.global
     Var.set(App.loading -> true, App.rallyData -> None, App.selectedDriver -> None, App.selectedResult -> None)
 
@@ -115,7 +117,7 @@ object App:
         rallyData
           .now()
           .map(_.id)
-          .orElse(Some(0))
+          .orElse(Some(""))
           .filter(_ != rallyId)
           .foreach(_ => fetchData(rallyId, RsfEndpoints, false))
         Var.set(resultFilter -> results)
@@ -124,9 +126,18 @@ object App:
         rallyData
           .now()
           .map(_.id)
-          .orElse(Some(0))
+          .orElse(Some(""))
           .filter(_ != year)
           .foreach(_ => fetchData(year, PressAutoEndpoints, false))
+        Var.set(resultFilter -> results)
+        rallyPage()
+      case Ewrc(rallyId, results) =>
+        rallyData
+          .now()
+          .map(_.id)
+          .orElse(Some(""))
+          .filter(_ != rallyId)
+          .foreach(_ => fetchData(rallyId, EwrcEndpoints, false))
         Var.set(resultFilter -> results)
         rallyPage()
 

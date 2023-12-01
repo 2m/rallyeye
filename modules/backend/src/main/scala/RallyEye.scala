@@ -43,7 +43,7 @@ object Logic:
   val RallyNotStored = Error("Rally not stored")
 
   object Rsf:
-    private def fetchAndStore(rallyId: Int) =
+    private def fetchAndStore(rallyId: String) =
       EmberClientBuilder
         .default[IO]
         .withTimeout(Timeout)
@@ -58,7 +58,7 @@ object Logic:
           yield name).value
         }
 
-    def data(rallyId: Int) =
+    def data(rallyId: String) =
       for
         maybeRally <- EitherT(Repo.Rsf.getRally(rallyId))
         rally <- EitherT(
@@ -67,7 +67,7 @@ object Logic:
         rallyResults <- EitherT(Repo.Rsf.getRallyResults(rallyId))
       yield rallyData(rally, rallyResults)
 
-    def refresh(rallyId: Int) =
+    def refresh(rallyId: String) =
       for
         maybeRally <- EitherT(Repo.Rsf.getRally(rallyId))
         needToFetch = maybeRally.fold(true)(_.retrievedAt.plusSeconds(60).isBefore(Instant.now))
@@ -76,7 +76,7 @@ object Logic:
       yield storedData
 
   object PressAuto:
-    def data(year: Int) =
+    def data(year: String) =
       for
         maybeRallyName <- EitherT(Repo.PressAuto.getRally(year))
         rally <- EitherT(
@@ -84,6 +84,39 @@ object Logic:
         )
         rallyResults <- EitherT(Repo.PressAuto.getRallyResults(year))
       yield rallyData(rally, rallyResults)
+
+  object Ewrc:
+    private def fetchAndStore(rallyId: String) =
+      EmberClientBuilder
+        .default[IO]
+        .withTimeout(Timeout)
+        .withIdleConnectionTime(IdleTimeout)
+        .build
+        .use { client =>
+          (for
+            name <- EitherT(rallyeye.Ewrc.rallyName(client, rallyId))
+            results <- rallyeye.Ewrc.rallyResults(client, rallyId)
+            _ <- EitherT(Repo.Ewrc.saveRallyName(rallyId, name))
+            _ <- EitherT(Repo.Ewrc.saveRallyResults(rallyId, results))
+          yield name).value
+        }
+
+    def data(rallyId: String) =
+      for
+        maybeRally <- EitherT(Repo.Ewrc.getRally(rallyId))
+        rally <- EitherT(
+          maybeRally.fold(IO.pure(Left(RallyNotStored)))(rally => IO.pure(Right(rally)))
+        )
+        rallyResults <- EitherT(Repo.Ewrc.getRallyResults(rallyId))
+      yield rallyData(rally, rallyResults)
+
+    def refresh(rallyId: String) =
+      for
+        maybeRally <- EitherT(Repo.Ewrc.getRally(rallyId))
+        needToFetch = maybeRally.fold(true)(_.retrievedAt.plusSeconds(60).isBefore(Instant.now))
+        _ <- EitherT(if needToFetch then fetchAndStore(rallyId) else IO.pure(Right("")))
+        storedData <- data(rallyId)
+      yield storedData
 
 def handleErrors[T](f: IO[Either[Throwable, T]]) =
   f.map(_.left.map {
@@ -117,7 +150,9 @@ val httpServer =
                     Endpoints.Rsf.data.serverLogic((Logic.Rsf.data _).andThen(_.value).andThen(handleErrors)),
                     Endpoints.Rsf.refresh.serverLogic(refreshShardedLogic),
                     Endpoints.PressAuto.data
-                      .serverLogic((Logic.PressAuto.data _).andThen(_.value).andThen(handleErrors))
+                      .serverLogic((Logic.PressAuto.data _).andThen(_.value).andThen(handleErrors)),
+                    Endpoints.Ewrc.data.serverLogic((Logic.Ewrc.data _).andThen(_.value).andThen(handleErrors)),
+                    Endpoints.Ewrc.refresh.serverLogic((Logic.Ewrc.refresh _).andThen(_.value).andThen(handleErrors))
                   )
                 endpoints.map(interp.toRoutes).reduce(_ <+> _).orNotFound
               }

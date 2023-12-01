@@ -24,7 +24,7 @@ import sttp.client3.*
 import sttp.tapir.DecodeResult
 import sttp.tapir.client.sttp.SttpClientInterpreter
 
-def fetch(rallyId: Int, endpoint: Endpoint) =
+def fetch(rallyId: String, endpoint: Endpoint) =
   val baseUri =
     if BuildInfo.isSnapshot then uri"http://${dom.window.location.hostname}:8080"
     else uri"https://rallyeye-data.fly.dev"

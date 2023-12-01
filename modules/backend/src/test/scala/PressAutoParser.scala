@@ -23,7 +23,7 @@ import com.softwaremill.diffx.Diff
 import com.softwaremill.diffx.munit.DiffxAssertions
 import io.github.iltotore.iron.*
 
-class PressAutoParserSuite extends munit.FunSuite with DiffxAssertions with IronSupport:
+class PressAutoParserSuite extends munit.FunSuite with DiffxAssertions with IronDiffxSupport:
   given Diff[Entry] = Diff.derived[Entry]
 
   val csv =

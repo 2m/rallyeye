@@ -25,10 +25,10 @@ import rallyeye.shared.ErrorInfo
 trait Shardable[A]:
   extension (a: A) def shard(s: Int): Int
 
-given Shardable[Int] with
-  extension (i: Int)
-    def shard(s: Int): Int =
-      i % s
+given Shardable[String] with
+  extension (s: String)
+    def shard(shard: Int): Int =
+      s.hashCode % shard
 
 def shardedLogic[Req: Shardable, Resp](shards: Int)(logic: Req => IO[Either[ErrorInfo, Resp]]) =
   def logicPipe(shard: Int)(stream: Stream[IO, (Req, Deferred[IO, Either[ErrorInfo, Resp]])]) =

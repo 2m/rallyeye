@@ -37,7 +37,7 @@ import org.scalacheck.Gen
 import org.scalacheck.Prop
 import org.scalacheck.ops.*
 
-class DbSuite extends munit.ScalaCheckSuite with DiffxAssertions with IronSupport:
+class DbSuite extends munit.ScalaCheckSuite with DiffxAssertions with IronDiffxSupport:
   import cats.effect.unsafe.implicits.global
 
   given Diff[Instant] = Diff[Long].contramap(_.getEpochSecond)
