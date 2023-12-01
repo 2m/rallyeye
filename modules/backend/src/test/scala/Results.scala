@@ -127,7 +127,7 @@ class ResultsSuite extends munit.FunSuite with DiffxAssertions:
     val rally = Rally(RallyKind.Rsf, "1", "rally", Instant.now)
     val obtained = rallyData(rally, entries)
     val expected = RallyData(
-      rally.externalId.toInt,
+      rally.externalId,
       rally.name,
       rally.kind.link(rally),
       rally.retrievedAt,

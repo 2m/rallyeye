@@ -93,7 +93,8 @@ def results(entries: List[Entry]) =
     .groupBy(_.userName)
     .view
     .mapValues { results =>
-      val overallTimes = results.scanLeft(BigDecimal(0))((sofar, entry) => sofar + entry.stageTime)
+      val overallTimes =
+        results.scanLeft(BigDecimal(0))((sofar, entry) => sofar + entry.stageTime)
       results
         .zip(overallTimes.drop(1))
         .map((e, overall) =>
@@ -179,7 +180,7 @@ def rallyData(rally: Rally, entries: List[Entry]) =
   }
 
   RallyData(
-    rally.externalId.toInt,
+    rally.externalId,
     rally.name,
     rally.kind.link(rally),
     rally.retrievedAt,

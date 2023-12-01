@@ -23,7 +23,7 @@ object RallyList:
   sealed trait Rally:
     val finish: String
   case class Rsf(
-      id: Int,
+      id: String,
       name: String,
       championship: String,
       started: Int,
@@ -32,11 +32,11 @@ object RallyList:
       start: String,
       finish: String
   ) extends Rally
-  case class PressAuto(year: Int, start: String, finish: String) extends Rally
+  case class PressAuto(year: String, start: String, finish: String) extends Rally
 
   val showcase = List(
     Rsf(
-      60870,
+      "60870",
       "#6 Tulip Rally",
       "Sim Rally Masters 2023",
       472,
@@ -46,7 +46,7 @@ object RallyList:
       "2023-10-17"
     ),
     Rsf(
-      59430,
+      "59430",
       "#5 Rallye Yukon Puebla",
       "Sim Rally Masters 2023",
       611,
@@ -56,7 +56,7 @@ object RallyList:
       "2023-09-05"
     ),
     Rsf(
-      58147,
+      "58147",
       "#4 RACC Rallye Catalunya",
       "Sim Rally Masters 2023",
       538,
@@ -66,7 +66,7 @@ object RallyList:
       "2023-07-25"
     ),
     Rsf(
-      56098,
+      "56098",
       "#3 Romanian Winter Rally",
       "Sim Rally Masters 2023",
       779,
@@ -76,7 +76,7 @@ object RallyList:
       "2023-05-24"
     ),
     Rsf(
-      54067,
+      "54067",
       "#2 International Castrol Rally",
       "Sim Rally Masters 2023",
       988,
@@ -86,7 +86,7 @@ object RallyList:
       "2023-04-04"
     ),
     Rsf(
-      52325,
+      "52325",
       "#1 Circuit of Ireland",
       "Sim Rally Masters 2023",
       1039,
@@ -96,7 +96,7 @@ object RallyList:
       "2023-02-21"
     ),
     Rsf(
-      60569,
+      "60569",
       "#10 Rally Greece",
       "Virtual Rally Championship 2023",
       367,
@@ -106,7 +106,7 @@ object RallyList:
       "2023-10-01"
     ),
     Rsf(
-      59862,
+      "59862",
       "#9 Barum Czech Rally Zlin",
       "Virtual Rally Championship 2023",
       512,
@@ -116,7 +116,7 @@ object RallyList:
       "2023-09-10"
     ),
     Rsf(
-      59148,
+      "59148",
       "#8 Rally Finland",
       "Virtual Rally Championship 2023",
       445,
@@ -126,7 +126,7 @@ object RallyList:
       "2023-08-20"
     ),
     Rsf(
-      57878,
+      "57878",
       "#7 Safari Rally Kenya",
       "Virtual Rally Championship 2023",
       451,
@@ -136,7 +136,7 @@ object RallyList:
       "2023-07-09"
     ),
     Rsf(
-      57275,
+      "57275",
       "#6 Rally Poland",
       "Virtual Rally Championship 2023",
       514,
@@ -146,7 +146,7 @@ object RallyList:
       "2023-06-18"
     ),
     Rsf(
-      56613,
+      "56613",
       "#5 Rally Islas Canarias",
       "Virtual Rally Championship 2023",
       514,
@@ -156,7 +156,7 @@ object RallyList:
       "2023-05-30"
     ),
     Rsf(
-      55767,
+      "55767",
       "#4 Rally Croatia",
       "Virtual Rally Championship 2023",
       656,
@@ -166,7 +166,7 @@ object RallyList:
       "2023-05-07"
     ),
     Rsf(
-      53987,
+      "53987",
       "#3 Rally Serras de Fafe",
       "Virtual Rally Championship 2023",
       726,
@@ -176,7 +176,7 @@ object RallyList:
       "2023-03-26"
     ),
     Rsf(
-      52804,
+      "52804",
       "#2 Rally Sweden",
       "Virtual Rally Championship 2023",
       829,
@@ -186,7 +186,7 @@ object RallyList:
       "2023-02-26"
     ),
     Rsf(
-      51992,
+      "51992",
       "#1 Rallye Automobile Monte-Carlo",
       "Virtual Rally Championship 2023",
       989,
@@ -195,7 +195,7 @@ object RallyList:
       "2023-01-30",
       "2023-02-05"
     ),
-    PressAuto(2023, "2023-06-16", "2023-06-17")
+    PressAuto("2023", "2023-06-16", "2023-06-17")
   )
 
   def render() =

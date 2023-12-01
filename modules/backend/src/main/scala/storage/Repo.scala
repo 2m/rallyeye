@@ -31,7 +31,7 @@ object Repo:
   def saveRallyName(rallyKind: RallyKind)(rallyId: String, name: String) =
     Db.insertRally(Rally(rallyKind, rallyId.toString, name, Instant.now))
 
-  def getRally(rallyKind: RallyKind)(rallyId: Int) =
+  def getRally(rallyKind: RallyKind)(rallyId: String) =
     Db.selectRally(rallyKind, rallyId.toString)
 
   def saveRsfRallyResults(rallyKind: RallyKind)(rallyId: String, results: List[Entry]) =
@@ -52,8 +52,8 @@ object Repo:
       )
       .pipe(Db.insertManyResults)
 
-  def getRsfRallyResults(rallyKind: RallyKind)(rallyId: Int) =
-    (for results <- EitherT(Db.selectResults(rallyKind, rallyId.toString))
+  def getRsfRallyResults(rallyKind: RallyKind)(rallyId: String) =
+    (for results <- EitherT(Db.selectResults(rallyKind, rallyId))
     yield results.map(
       _.into[Entry].transform(
         Field.renamed(_.country, _.driverCountry),
@@ -70,10 +70,9 @@ object Repo:
     )).value
 
   object Rsf:
-    def saveRallyName(rallyId: Int, name: String) = Repo.saveRallyName(RallyKind.Rsf)(rallyId.toString, name)
+    val saveRallyName = Repo.saveRallyName(RallyKind.Rsf)
     val getRally = Repo.getRally(RallyKind.Rsf)
-    def saveRallyResults(rallyId: Int, results: List[Entry]) =
-      Repo.saveRsfRallyResults(RallyKind.Rsf)(rallyId.toString, results)
+    val saveRallyResults = Repo.saveRsfRallyResults(RallyKind.Rsf)
     val getRallyResults = Repo.getRsfRallyResults(RallyKind.Rsf)
 
   object PressAuto:
@@ -81,3 +80,9 @@ object Repo:
     val getRally = Repo.getRally(RallyKind.PressAuto)
     val saveRallyResults = Repo.saveRsfRallyResults(RallyKind.PressAuto)
     val getRallyResults = Repo.getRsfRallyResults(RallyKind.PressAuto)
+
+  object Ewrc:
+    val saveRallyName = Repo.saveRallyName(RallyKind.Ewrc)
+    val getRally = Repo.getRally(RallyKind.Ewrc)
+    val saveRallyResults = Repo.saveRsfRallyResults(RallyKind.Ewrc)
+    val getRallyResults = Repo.getRsfRallyResults(RallyKind.Ewrc)

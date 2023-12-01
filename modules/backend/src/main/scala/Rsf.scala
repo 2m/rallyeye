@@ -34,25 +34,25 @@ object Rsf:
     endpoint
       .in("rbr" / "rally_online.php")
       .in(query[String]("centerbox"))
-      .in(query[Int]("rally_id"))
+      .in(query[String]("rally_id"))
       .out(stringBody)
 
   val resultsEndpoint =
     endpoint
       .in("rbr" / "csv_export_beta.php")
       .in(query[Int]("ngp_enable"))
-      .in(query[Int]("rally_id"))
+      .in(query[String]("rally_id"))
       .out(stringBody)
 
-  def rallyName(rallyId: Int) =
+  def rallyName(rallyId: String) =
     Http4sClientInterpreter[IO]()
       .toRequestThrowDecodeFailures(rallyEndpoint, Some(Rsf))("rally_results.php", rallyId)
 
-  def rallyResults(rallyId: Int) =
+  def rallyResults(rallyId: String) =
     Http4sClientInterpreter[IO]()
       .toRequestThrowDecodeFailures(resultsEndpoint, Some(Rsf))(6, rallyId)
 
-  def rallyName(client: Client[IO], rallyId: Int): IO[Either[Error, String]] =
+  def rallyName(client: Client[IO], rallyId: String): IO[Either[Error, String]] =
     val (request, parseResponse) = rallyName(rallyId)
     for
       response <- client
@@ -65,7 +65,7 @@ object Rsf:
       }
     yield rallyName
 
-  def rallyResults(client: Client[IO], rallyId: Int): IO[Either[Error, List[Entry]]] =
+  def rallyResults(client: Client[IO], rallyId: String): IO[Either[Error, List[Entry]]] =
     val (request, parseResponse) = rallyResults(rallyId)
     for
       response <- client

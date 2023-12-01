@@ -26,18 +26,18 @@ class ShardedSuite extends munit.FunSuite:
 
   test("shards requests"):
     val requestDelay = 100.millis
-    val startupDelay = 200.millis
+    val startupDelay = 500.millis
     val numShards = 5
     val numRequests = 20
 
-    def delay(req: Int) = Temporal[IO].sleep(requestDelay) >> IO.pure(Right(req))
+    def delay(req: String) = Temporal[IO].sleep(requestDelay) >> IO.pure(Right(req))
 
     val result = for
       shardedStreamAndLogic <- shardedLogic(numShards)(delay)
       (shardedStream, logic) = shardedStreamAndLogic
       shardedStreamFiber <- shardedStream.compile.drain.start
       _ <- Temporal[IO].sleep(startupDelay)
-      fibers <- (0 until numRequests).toList.map(logic).traverse(_.start)
+      fibers <- (0 until numRequests).map(_.toString).toList.map(logic).traverse(_.start)
       results <- fibers.traverse(_.join)
       _ <- shardedStreamFiber.cancel
     yield results.filter(_.isSuccess).size
