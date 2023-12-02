@@ -102,7 +102,7 @@ lazy val backend = project
       "ch.qos.logback"               % "logback-classic"     % "1.4.14",
       "com.github.geirolz"          %% "fly4s-core"          % "0.0.19",
       "org.flywaydb"                 % "flyway-core"         % "10.1.0", // fixes logging
-      "org.xerial"                   % "sqlite-jdbc"         % "3.44.0.0",
+      "org.xerial"                   % "sqlite-jdbc"         % "3.44.1.0",
       "org.tpolecat"                %% "doobie-core"         % "1.0.0-RC5",
       "io.github.arainko"           %% "ducktape"            % "0.1.11",
       "com.monovore"                %% "decline-effect"      % "2.4.1",
