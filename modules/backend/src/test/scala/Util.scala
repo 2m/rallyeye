@@ -21,3 +21,10 @@ class UtilSuite extends munit.FunSuite:
     val obtained = "&#25289&#26222&#20848&#24503 &#33832&#21346&#20304 GACHA RT".decodeHtmlUnicode
     val expected = "拉普兰德 萨卢佐 GACHA RT"
     assertEquals(obtained, expected)
+
+  test("decodes seconds to milliseconds"):
+    val testCases = Map("2.2345" -> 2234, "1.234" -> 1234, "1.23" -> 1230, "1.2" -> 1200, "1" -> 1000)
+    for test <- testCases do
+      val (input, expected) = test
+      val obtained = input.toMs
+      assertEquals(obtained, expected)

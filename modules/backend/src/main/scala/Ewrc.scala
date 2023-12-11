@@ -89,14 +89,14 @@ object Ewrc:
     def getCountry(element: Element) =
       element.select("td img.flag-s").attr("src").split("/").last.split("\\.").head
 
-    def getDuration(s: String) =
+    def getDurationMs(s: String) =
       s.split(":").toList match
-        case hours :: minutes :: seconds :: Nil =>
-          hours.toInt * 3600 + minutes.toInt * 60 + BigDecimal(seconds)
-        case minutes :: seconds :: Nil =>
-          minutes.toInt * 60 + BigDecimal(seconds)
-        case seconds :: Nil =>
-          BigDecimal(seconds)
+        case hours :: minutes :: secondsAndTenths :: Nil =>
+          (hours.toInt * 3600 + minutes.toInt * 60) * 1000 + secondsAndTenths.toMs
+        case minutes :: secondsAndTenths :: Nil =>
+          minutes.toInt * 60 * 1000 + secondsAndTenths.toMs
+        case secondsAndTenths :: Nil =>
+          secondsAndTenths.toMs
         case time => throw Error(s"Unable to parse stage time from $time")
 
     val (request, parseResponse) = rallyStageResults(rallyId, Some(stageId))
@@ -135,10 +135,10 @@ object Ewrc:
               car,
               None,
               None,
-              BigDecimal(0),
+              0,
               None,
-              None,
-              None,
+              0,
+              0,
               false,
               false,
               ""
@@ -177,7 +177,7 @@ object Ewrc:
               .toList
               .map { penaltyRow =>
                 val driverCodriverName = penaltyRow.select("a").text
-                val penalty = getDuration(penaltyRow.select("td.text-danger.font-weight-bold").text.split(" ").head)
+                val penalty = getDurationMs(penaltyRow.select("td.text-danger.font-weight-bold").text.split(" ").head)
                 driverCodriverName -> penalty
               }
           }
@@ -195,7 +195,7 @@ object Ewrc:
 
           val stageTimeElement = result.select("td.font-weight-bold.text-right").first
           stageTimeElement.select("span").remove
-          val stageTime = getDuration(stageTimeElement.text)
+          val stageTime = getDurationMs(stageTimeElement.text)
 
           val superRally = result.select("td.position-relative > span").text.contains("[SR]")
 
@@ -209,12 +209,10 @@ object Ewrc:
             car,
             None,
             None,
-            // FIXME: separate penalties once they are stored in the DB
-            if !stageCancelled then stageTime + penalties.getOrElse(driverCodriverName, BigDecimal(0))
-            else BigDecimal(0),
+            (if !stageCancelled then stageTime else 0).refine,
             None,
-            None,
-            None,
+            0,
+            penalties.getOrElse(driverCodriverName, 0).refine,
             superRally,
             true,
             comments.getOrElse(driverCodriverName, ""),

@@ -21,11 +21,11 @@ import java.time.Instant
 
 import scala.concurrent.duration.*
 
-extension (d: BigDecimal)
+extension (millis: Int)
   def padTo(n: Int)(i: Int) = i.toString.reverse.padTo(n, '0').reverse
 
   def prettyDuration: String =
-    val duration = Duration.ofMillis((d * 1000).toLong)
+    val duration = Duration.ofMillis(millis.toLong)
     val ms = padTo(3)(duration.toMillisPart)
     val s = padTo(2)(duration.toSecondsPart)
     val m = padTo(2)(duration.toMinutesPart)
@@ -36,8 +36,8 @@ extension (d: BigDecimal)
 
     (parts ::: optionalHourPart).reverse.mkString("")
 
-  def prettyDiff: String =
-    val duration = Duration.ofMillis((d * 1000).toLong)
+  def prettyDurationAllParts: String =
+    val duration = Duration.ofMillis(millis.toLong)
     val ms = padTo(3)(duration.toMillisPart)
     val s = padTo(2)(duration.toSecondsPart)
     val m = padTo(2)(duration.toMinutesPart)

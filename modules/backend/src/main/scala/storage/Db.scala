@@ -72,11 +72,13 @@ object Db:
                  |  `group`,
                  |  car,
                  |  stage_time_ms,
+                 |  penalty_inside_stage_ms,
+                 |  penalty_outside_stage_ms,
                  |  super_rally,
                  |  finished,
                  |  comment,
                  |  nominal
-                 |) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""".stripMargin
+                 |) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""".stripMargin
     Update[Result](sql)
       .updateMany(results)
       .attemptSql
@@ -97,6 +99,8 @@ object Db:
           |  `group`,
           |  car,
           |  stage_time_ms,
+          |  penalty_inside_stage_ms,
+          |  penalty_outside_stage_ms,
           |  super_rally,
           |  finished,
           |  comment,

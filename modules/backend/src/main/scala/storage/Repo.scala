@@ -46,8 +46,7 @@ object Repo:
             Field.const(_.driverSecondaryName, None),
             Field.const(_.codriverCountry, None),
             Field.const(_.codriverPrimaryName, None),
-            Field.const(_.codriverSecondaryName, None),
-            Field.computed(_.stageTimeMs, r => (r.stageTime * 1000).toInt.refine[GreaterEqual[0]])
+            Field.const(_.codriverSecondaryName, None)
           )
       )
       .pipe(Db.insertManyResults)
@@ -61,10 +60,7 @@ object Repo:
         Field.const(_.realName, ""), // FIXME: realName should be Option
         Field.const(_.split1Time, None),
         Field.const(_.split2Time, None),
-        Field.computed(_.stageTime, r => BigDecimal(r.stageTimeMs) / 1000),
         Field.const(_.finishRealtime, None),
-        Field.const(_.penalty, None),
-        Field.const(_.servicePenalty, None),
         Field.computed(_.comment, r => r.comment.getOrElse("")) // FIXME: comment should be Option
       )
     )).value

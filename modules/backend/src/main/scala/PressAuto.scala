@@ -21,8 +21,9 @@ import io.github.iltotore.iron.*
 object PressAuto:
   def parseResults(csv: String) =
     def parseTimestamp(ts: String) = ts.replace(" (N)", "") match
-      case s"$h:$m:$s.$ms" => BigDecimal(h.toInt * 3600 + m.toInt * 60 + s.toInt) + BigDecimal(s"0.$ms")
-      case _               => BigDecimal(0)
+      case ""              => 0
+      case s"$h:$m:$s.$ms" => (h.toInt * 3600 + m.toInt * 60 + s.toInt) * 1000 + ms.toInt
+      case time            => throw Error(s"Unable to parse [$ts] timestamp")
 
     val (header :: data) = csv.split('\n').toList: @unchecked
     val stages = header.split(";", -1).drop(6).init.zipWithIndex
@@ -39,10 +40,10 @@ object PressAuto:
             car,
             None,
             None,
-            parseTimestamp(time),
+            parseTimestamp(time).refine,
             None,
-            None,
-            None,
+            0,
+            0,
             false,
             time != "",
             "",

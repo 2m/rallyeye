@@ -46,10 +46,10 @@ case class Entry(
     car: String,
     split1Time: Option[BigDecimal] = None,
     split2Time: Option[BigDecimal] = None,
-    stageTime: BigDecimal,
+    stageTimeMs: Int :| GreaterEqual[0],
     finishRealtime: Option[Instant] = None,
-    penalty: Option[BigDecimal] = None,
-    servicePenalty: Option[BigDecimal] = None,
+    penaltyInsideStageMs: Int :| GreaterEqual[0],
+    penaltyOutsideStageMs: Int :| GreaterEqual[0],
     superRally: Boolean,
     finished: Boolean,
     comment: String,
@@ -62,8 +62,10 @@ case class TimeResult(
     country: String,
     userName: String,
     realName: String,
-    stageTime: BigDecimal,
-    overallTime: BigDecimal,
+    stageTimeMs: Int,
+    overallTimeMs: Int,
+    penaltyInsideStageMs: Int,
+    penaltyOutsideStageMs: Int,
     superRally: Boolean,
     finished: Boolean,
     comment: String,
@@ -77,8 +79,10 @@ case class PositionResult(
     realName: String,
     stagePosition: Int,
     overallPosition: Int,
-    stageTime: BigDecimal,
-    overallTime: BigDecimal,
+    stageTimeMs: Int,
+    overallTimeMs: Int,
+    penaltyInsideStageMs: Int,
+    penaltyOutsideStageMs: Int,
     superRally: Boolean,
     rallyFinished: Boolean,
     comment: String,
@@ -94,7 +98,7 @@ def results(entries: List[Entry]) =
     .view
     .mapValues { results =>
       val overallTimes =
-        results.scanLeft(BigDecimal(0))((sofar, entry) => sofar + entry.stageTime)
+        results.scanLeft(0)((sofar, entry) => sofar + entry.stageTimeMs + entry.penaltyOutsideStageMs)
       results
         .zip(overallTimes.drop(1))
         .map((e, overall) =>
@@ -104,8 +108,10 @@ def results(entries: List[Entry]) =
             e.country,
             e.userName,
             e.realName,
-            e.stageTime,
+            e.stageTimeMs,
             overall,
+            e.penaltyInsideStageMs,
+            e.penaltyOutsideStageMs,
             e.superRally,
             e.finished,
             e.comment,
@@ -119,8 +125,8 @@ def results(entries: List[Entry]) =
   val retired = withOverall.filterNot(_.finished).map(_.userName).toSet
 
   withOverall.groupBy(r => Stage(r.stageNumber, r.stageName)).view.mapValues { results =>
-    val stageResults = results.toList.filter(_.finished).sortBy(_.stageTime)
-    val overallResults = results.toList.filter(_.finished).sortBy(_.overallTime)
+    val stageResults = results.toList.filter(_.finished).sortBy(_.stageTimeMs)
+    val overallResults = results.toList.filter(_.finished).sortBy(_.overallTimeMs)
     overallResults.zipWithIndex.map { (result, overall) =>
       PositionResult(
         result.stageNumber,
@@ -129,8 +135,10 @@ def results(entries: List[Entry]) =
         result.realName,
         stageResults.indexOf(result) + 1,
         overall + 1,
-        result.stageTime,
-        result.overallTime,
+        result.stageTimeMs,
+        result.overallTimeMs,
+        result.penaltyInsideStageMs,
+        result.penaltyOutsideStageMs,
         result.superRally,
         !retired.contains(result.userName),
         result.comment,
@@ -150,8 +158,10 @@ def drivers(results: MapView[Stage, List[PositionResult]]) =
               stage.number,
               r.stagePosition,
               r.overallPosition,
-              r.stageTime,
-              r.overallTime,
+              r.stageTimeMs,
+              r.overallTimeMs,
+              r.penaltyInsideStageMs,
+              r.penaltyOutsideStageMs,
               r.superRally,
               r.rallyFinished,
               r.comment,

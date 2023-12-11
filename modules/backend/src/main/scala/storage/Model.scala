@@ -51,6 +51,8 @@ case class Result(
     group: String,
     car: String,
     stageTimeMs: Int :| GreaterEqual[0],
+    penaltyInsideStageMs: Int :| GreaterEqual[0],
+    penaltyOutsideStageMs: Int :| GreaterEqual[0],
     superRally: Boolean,
     finished: Boolean,
     comment: Option[String],
