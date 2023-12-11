@@ -33,3 +33,9 @@ migrate:
 
 rm-db:
   rm modules/backend/rallyeye.db
+
+test:
+  sbt --client test
+
+test-integration:
+  sbt --client Integration/test
