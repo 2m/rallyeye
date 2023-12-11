@@ -51,7 +51,7 @@ class EwrcSuite
     .withIdleConnectionTime(IdleTimeout)
     .build
 
-  test("get rally name".tag(integration).ignore):
+  test("get rally name".tag(integration)):
     httpClient
       .use { client =>
         Ewrc.rallyName(client, "80245-forum8-rally-japan-2023")
@@ -60,7 +60,7 @@ class EwrcSuite
       case Right(name) => assertEquals(name, "FORUM8 Rally Japan 2023")
       case Left(error) => fail(s"Unable to get rally name: $error")
 
-  test("get rally japan 2023 results".tag(integration).ignore):
+  test("get rally japan 2023 results".tag(integration)):
     httpClient
       .use { client =>
         Ewrc.rallyResults(client, "80245-forum8-rally-japan-2023").value
@@ -71,7 +71,7 @@ class EwrcSuite
         assertEqual(results, expected)
       case Left(error) => fail(s"Unable to get rally results: $error")
 
-  test("get central european rally 2023 results".tag(integration).ignore):
+  test("get central european rally 2023 results".tag(integration)):
     httpClient
       .use { client =>
         Ewrc.rallyResults(client, "80244-central-european-rally-2023").value
