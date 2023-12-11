@@ -137,8 +137,15 @@ lazy val backend = project
 
     // for integration test snapshots
     buildInfoKeys := Seq[BuildInfoKey](Test / resourceDirectory),
-    buildInfoPackage := "rallyeye"
+    buildInfoPackage := "rallyeye",
+
+    // native image
+    nativeImageJvm := "graalvm-java21",
+    nativeImageVersion := "21.0.1",
+    nativeImageAgentOutputDir := (Compile / resourceDirectory).value / "META-INF" / "native-image" / organization.value / name.value,
+    nativeImageOptions ++= List("--verbose")
   )
   .dependsOn(shared.jvm)
   .enablePlugins(AutomateHeaderPlugin)
   .enablePlugins(BuildInfoPlugin)
+  .enablePlugins(NativeImagePlugin)

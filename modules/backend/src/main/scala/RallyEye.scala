@@ -133,7 +133,7 @@ val httpServer =
     refreshShardedStreamAndLogic <- shardedLogic(5)((Logic.Rsf.refresh _).andThen(_.value).andThen(handleErrors))
     (refreshShardedStream, refreshShardedLogic) = refreshShardedStreamAndLogic
     _ <- refreshShardedStream.compile.drain.start
-    server <- EmberServerBuilder
+    server = EmberServerBuilder
       .default[IO]
       .withHost(ipv4"0.0.0.0")
       .withPort(Port.fromString(sys.env.getOrElse("RALLYEYE_SERVER_PORT", "8080")).get)
@@ -163,5 +163,4 @@ val httpServer =
         )
       )
       .build
-      .use(_ => IO.never)
   yield server
