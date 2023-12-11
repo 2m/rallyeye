@@ -90,10 +90,10 @@ object Rsf:
           car,
           Try(BigDecimal(time1)).toOption,
           Try(BigDecimal(time2)).toOption,
-          Try(BigDecimal(time3)).toOption.getOrElse(0),
+          time3.toMs.refine,
           Try(Instant.parse(finishRealtime.replace(" ", "T") + "+02:00")).toOption,
-          Try(BigDecimal(penalty)).toOption,
-          Try(BigDecimal(servicePenalty)).toOption,
+          penalty.toMs.refine,
+          servicePenalty.toMs.refine,
           superRally == "1",
           finished == "F",
           comment

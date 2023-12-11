@@ -70,7 +70,7 @@ case class RallyResult(
           height.percent(100),
           textAlign.right,
           children <-- driversSignal.map(drivers =>
-            drivers.toList.flatten.sortBy(_.results.head.stagePosition).map(renderDriver)
+            drivers.toList.flatten.sortBy(_.results.head.overallPosition).map(renderDriver)
           )
         ),
         ResultLines(
@@ -99,8 +99,10 @@ case class RallyResult(
                 Seq(
                   div(s"SS${result.stageNumber} ${stages(result.stageNumber - 1).name}"),
                   div(renderCountryAndName(driver)),
-                  div(s"Stage: ${result.stageTime.prettyDiff} (${ResultLines.renderStagePosition(result)})"),
-                  div(s"Rally: ${result.overallTime.prettyDiff} (${result.overallPosition})"),
+                  div(
+                    s"Stage: ${result.stageTimeMs.prettyDurationAllParts} (${ResultLines.renderStagePosition(result)})"
+                  ),
+                  div(s"Rally: ${result.overallTimeMs.prettyDurationAllParts} (${result.overallPosition})"),
                   if result.comment.nonEmpty then div(s"“${result.comment}”") else emptyNode
                 )
               case _ => Seq(emptyNode)

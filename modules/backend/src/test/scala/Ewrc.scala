@@ -16,17 +16,11 @@
 
 package rallyeye
 
-import java.nio.file.Files
 import java.time.Instant
 
 import cats.effect.IO
 import com.softwaremill.diffx.Diff
 import com.softwaremill.diffx.munit.DiffxAssertions
-import io.bullet.borer.Codec
-import io.bullet.borer.Decoder
-import io.bullet.borer.Encoder
-import io.bullet.borer.Json
-import io.bullet.borer.derivation.MapBasedCodecs.*
 import io.github.iltotore.iron.*
 import org.http4s.ember.client.EmberClientBuilder
 
@@ -39,9 +33,6 @@ class EwrcSuite
   val integration = new munit.Tag("integration")
 
   import cats.effect.unsafe.implicits.global
-
-  given Codec[Instant] = Codec.bimap[Long, Instant](_.getEpochSecond, Instant.ofEpochSecond)
-  given Codec[Entry] = deriveCodec[Entry]
 
   given Diff[Entry] = Diff.derived[Entry]
 
@@ -92,17 +83,3 @@ class EwrcSuite
         val expected = snapshot(results, "central-safari-rally-kenya-2023")
         assertEqual(results, expected)
       case Left(error) => fail(s"Unable to get rally results: $error")
-
-trait SnapshotSupport:
-  def snapshot[A: Encoder: Decoder](value: A, snapshotName: String): A =
-    val resultJson = Json.encode(value).toUtf8String
-    Files.writeString(
-      BuildInfo.test_resourceDirectory.toPath().resolve(snapshotName + ".json.new"),
-      resultJson
-    )
-    Json
-      .decode(
-        Files.readString(BuildInfo.test_resourceDirectory.toPath().resolve(snapshotName + ".json")).getBytes
-      )
-      .to[A]
-      .value

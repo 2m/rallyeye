@@ -20,3 +20,12 @@ val Unicode = "&#[0-9]+".r
 
 extension (s: String)
   def decodeHtmlUnicode = Unicode.replaceAllIn(s, m => Integer.parseInt(m.group(0).drop(2)).toChar.toString)
+
+  def toMs =
+    s.match
+      case "" => 0
+      case s"$seconds.$millis" =>
+        seconds.toInt * 1000 + millis.padTo(3, '0').take(3).toInt
+      case s"$seconds" =>
+        seconds.toInt * 1000
+      case time => throw Error(s"Unable to parse milliseconds from [$s]")

@@ -44,10 +44,10 @@ class ResultsSuite extends munit.FunSuite with DiffxAssertions:
       "car1",
       None,
       None,
-      10.1,
+      10100,
       None,
-      None,
-      None,
+      0,
+      0,
       false,
       true,
       "good stage"
@@ -62,10 +62,10 @@ class ResultsSuite extends munit.FunSuite with DiffxAssertions:
       "car2",
       None,
       None,
-      14.9,
+      14900,
       None,
-      None,
-      None,
+      0,
+      0,
       false,
       true,
       "good stage"
@@ -80,10 +80,10 @@ class ResultsSuite extends munit.FunSuite with DiffxAssertions:
       "car1",
       None,
       None,
-      20.5,
+      20500,
       None,
-      None,
-      None,
+      0,
+      0,
       false,
       true,
       "good stage"
@@ -98,10 +98,10 @@ class ResultsSuite extends munit.FunSuite with DiffxAssertions:
       "car2",
       None,
       None,
-      24.5,
+      24500,
       None,
-      None,
-      None,
+      0,
+      0,
       false,
       true,
       "good stage"
@@ -112,12 +112,12 @@ class ResultsSuite extends munit.FunSuite with DiffxAssertions:
     val obtained = results(entries).toMap
     val expected = Map(
       Stage(1, "SS1") -> List(
-        PositionResult(1, "LT", "driver1", "name1", 1, 1, 10.1, 10.1, false, true, "good stage", false),
-        PositionResult(1, "LT", "driver2", "name2", 2, 2, 14.9, 14.9, false, true, "good stage", false)
+        PositionResult(1, "LT", "driver1", "name1", 1, 1, 10100, 10100, 0, 0, false, true, "good stage", false),
+        PositionResult(1, "LT", "driver2", "name2", 2, 2, 14900, 14900, 0, 0, false, true, "good stage", false)
       ),
       Stage(2, "SS2") -> List(
-        PositionResult(2, "LT", "driver1", "name1", 1, 1, 20.5, 30.6, false, true, "good stage", false),
-        PositionResult(2, "LT", "driver2", "name2", 2, 2, 24.5, 39.4, false, true, "good stage", false)
+        PositionResult(2, "LT", "driver1", "name1", 1, 1, 20500, 30600, 0, 0, false, true, "good stage", false),
+        PositionResult(2, "LT", "driver2", "name2", 2, 2, 24500, 39400, 0, 0, false, true, "good stage", false)
       )
     )
 
@@ -139,15 +139,15 @@ class ResultsSuite extends munit.FunSuite with DiffxAssertions:
         DriverResults(
           Driver("LT", "driver1", "name1"),
           List(
-            DriverResult(1, 1, 1, 10.1, 10.1, false, true, "good stage", false),
-            DriverResult(2, 1, 1, 20.5, 30.6, false, true, "good stage", false)
+            DriverResult(1, 1, 1, 10100, 10100, 0, 0, false, true, "good stage", false),
+            DriverResult(2, 1, 1, 20500, 30600, 0, 0, false, true, "good stage", false)
           )
         ),
         DriverResults(
           Driver("LT", "driver2", "name2"),
           List(
-            DriverResult(1, 2, 2, 14.9, 14.9, false, true, "good stage", false),
-            DriverResult(2, 2, 2, 24.5, 39.4, false, true, "good stage", false)
+            DriverResult(1, 2, 2, 14900, 14900, 0, 0, false, true, "good stage", false),
+            DriverResult(2, 2, 2, 24500, 39400, 0, 0, false, true, "good stage", false)
           )
         )
       ),
@@ -158,15 +158,15 @@ class ResultsSuite extends munit.FunSuite with DiffxAssertions:
             DriverResults(
               Driver("LT", "driver1", "name1"),
               List(
-                DriverResult(1, 1, 1, 10.1, 10.1, false, true, "good stage", false),
-                DriverResult(2, 1, 1, 20.5, 30.6, false, true, "good stage", false)
+                DriverResult(1, 1, 1, 10100, 10100, 0, 0, false, true, "good stage", false),
+                DriverResult(2, 1, 1, 20500, 30600, 0, 0, false, true, "good stage", false)
               )
             ),
             DriverResults(
               Driver("LT", "driver2", "name2"),
               List(
-                DriverResult(1, 2, 2, 14.9, 14.9, false, true, "good stage", false),
-                DriverResult(2, 2, 2, 24.5, 39.4, false, true, "good stage", false)
+                DriverResult(1, 2, 2, 14900, 14900, 0, 0, false, true, "good stage", false),
+                DriverResult(2, 2, 2, 24500, 39400, 0, 0, false, true, "good stage", false)
               )
             )
           )
@@ -180,8 +180,8 @@ class ResultsSuite extends munit.FunSuite with DiffxAssertions:
             DriverResults(
               Driver("LT", "driver2", "name2"),
               List(
-                DriverResult(1, 1, 1, 14.9, 14.9, false, true, "good stage", false),
-                DriverResult(2, 1, 1, 24.5, 39.4, false, true, "good stage", false)
+                DriverResult(1, 1, 1, 14900, 14900, 0, 0, false, true, "good stage", false),
+                DriverResult(2, 1, 1, 24500, 39400, 0, 0, false, true, "good stage", false)
               )
             )
           )
@@ -193,8 +193,8 @@ class ResultsSuite extends munit.FunSuite with DiffxAssertions:
             DriverResults(
               Driver("LT", "driver1", "name1"),
               List(
-                DriverResult(1, 1, 1, 10.1, 10.1, false, true, "good stage", false),
-                DriverResult(2, 1, 1, 20.5, 30.6, false, true, "good stage", false)
+                DriverResult(1, 1, 1, 10100, 10100, 0, 0, false, true, "good stage", false),
+                DriverResult(2, 1, 1, 20500, 30600, 0, 0, false, true, "good stage", false)
               )
             )
           )
@@ -206,3 +206,55 @@ class ResultsSuite extends munit.FunSuite with DiffxAssertions:
     assertEqual(obtained.allResults, expected.allResults)
     assertEqual(obtained.groupResults, expected.groupResults)
     assertEqual(obtained.carResults, expected.carResults)
+
+  test("applies penalties outside stage to overall time"):
+    val obtained = results(
+      List(
+        Entry(
+          1,
+          "SS1",
+          "LT",
+          "driver1",
+          "name1",
+          "group1",
+          "car1",
+          None,
+          None,
+          1000,
+          None,
+          500,
+          200,
+          false,
+          true,
+          "good stage"
+        ),
+        Entry(
+          2,
+          "SS2",
+          "LT",
+          "driver1",
+          "name1",
+          "group1",
+          "car1",
+          None,
+          None,
+          2000,
+          None,
+          0,
+          0,
+          false,
+          true,
+          "good stage"
+        )
+      )
+    ).toMap
+    val expected = Map(
+      Stage(1, "SS1") -> List(
+        PositionResult(1, "LT", "driver1", "name1", 1, 1, 1000, 1200, 500, 200, false, true, "good stage", false)
+      ),
+      Stage(2, "SS2") -> List(
+        PositionResult(2, "LT", "driver1", "name1", 1, 1, 2000, 3200, 0, 0, false, true, "good stage", false)
+      )
+    )
+
+    assertEquals(obtained, expected)
