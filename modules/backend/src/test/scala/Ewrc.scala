@@ -51,35 +51,17 @@ class EwrcSuite
       case Right(name) => assertEquals(name, "FORUM8 Rally Japan 2023")
       case Left(error) => fail(s"Unable to get rally name: $error")
 
-  test("get rally japan 2023 results".tag(integration)):
-    httpClient
-      .use { client =>
-        Ewrc.rallyResults(client, "80245-forum8-rally-japan-2023").value
-      }
-      .unsafeRunSync() match
-      case Right(results) =>
-        val expected = snapshot(results, "rally-japan-2023")
-        assertEqual(results, expected)
-      case Left(error) => fail(s"Unable to get rally results: $error")
+  def checkEwrcResult[T](rally: String)(using munit.Location): Unit =
+    test(s"get $rally results".tag(integration)):
+      httpClient
+        .use(Ewrc.rallyResults(_, rally).value)
+        .unsafeRunSync() match
+        case Right(results) =>
+          val expected = snapshot(results, s"ewrc-$rally")
+          assertEqual(results, expected)
+        case Left(error) => fail(s"Unable to get ewrc results: $error")
 
-  test("get central european rally 2023 results".tag(integration)):
-    httpClient
-      .use { client =>
-        Ewrc.rallyResults(client, "80244-central-european-rally-2023").value
-      }
-      .unsafeRunSync() match
-      case Right(results) =>
-        val expected = snapshot(results, "central-european-rally-2023")
-        assertEqual(results, expected)
-      case Left(error) => fail(s"Unable to get rally results: $error")
-
-  test("get central safari rally kenya 2023 results".tag(integration)):
-    httpClient
-      .use { client =>
-        Ewrc.rallyResults(client, "80239-safari-rally-kenya-2023").value
-      }
-      .unsafeRunSync() match
-      case Right(results) =>
-        val expected = snapshot(results, "central-safari-rally-kenya-2023")
-        assertEqual(results, expected)
-      case Left(error) => fail(s"Unable to get rally results: $error")
+  checkEwrcResult("80245-forum8-rally-japan-2023")
+  checkEwrcResult("80244-central-european-rally-2023")
+  checkEwrcResult("80239-safari-rally-kenya-2023")
+  checkEwrcResult("59972-rallye-automobile-monte-carlo-2020")

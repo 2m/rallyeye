@@ -17,6 +17,7 @@
 package rallyeye
 
 import scala.jdk.CollectionConverters.*
+import scala.util.Try
 
 import cats.data.EitherT
 import cats.effect.IO
@@ -99,6 +100,13 @@ object Ewrc:
           secondsAndTenths.toMs
         case time => throw Error(s"Unable to parse stage time from $time")
 
+    def getStageNumberAndName(s: String) =
+      Try:
+        s match
+          case s"SS$stageNumber $stageName - $_ km" => (stageNumber.toInt, stageName)
+          case s"SS$stageNumber $stageName"         => (stageNumber.toInt, stageName)
+      .fold(_ => throw Error(s"Unable to parse stage number and name from [$s]"), identity)
+
     val (request, parseResponse) = rallyStageResults(rallyId, Some(stageId))
     for
       response <- client
@@ -108,9 +116,8 @@ object Ewrc:
       entries = response.map { body =>
         val document = Scoup.parseHTML(body)
 
-        val stageNumberAndName = document.select("main#main-section h5").text.split("km").head.split("-").head.trim
-        val (stageNumber, stageName) = stageNumberAndName.splitAt(stageNumberAndName.indexOf(' ')) match
-          case (stageNumber, stageName) => (stageNumber.drop(2).toInt, stageName.trim)
+        val (stageNumber, stageName) =
+          getStageNumberAndName(document.select("main#main-section h5").first.textNodes.get(0).text)
 
         val stageResultTable = document
           .select("main#main-section div#stage-results table.results")
