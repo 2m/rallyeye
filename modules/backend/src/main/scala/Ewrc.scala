@@ -33,7 +33,7 @@ import sttp.tapir.client.http4s.Http4sClientInterpreter
 object Ewrc:
   val Ewrc = uri"https://www.ewrc-results.com/"
 
-  val rallyEndpoint =
+  val resultsEndpoint =
     endpoint
       .in("results")
       .in(path[String])
@@ -41,12 +41,23 @@ object Ewrc:
       .in(query[Option[Int]]("s"))
       .out(stringBody)
 
-  def rallyStageResults(rallyId: String, stage: Option[Int]) =
+  val finalEndpoint =
+    endpoint
+      .in("final")
+      .in(path[String])
+      .in("")
+      .out(stringBody)
+
+  def resultsPage(rallyId: String, stage: Option[Int]) =
     Http4sClientInterpreter[IO]()
-      .toRequestThrowDecodeFailures(rallyEndpoint, Some(Ewrc))(rallyId, stage)
+      .toRequestThrowDecodeFailures(resultsEndpoint, Some(Ewrc))(rallyId, stage)
+
+  def finalPage(rallyId: String) =
+    Http4sClientInterpreter[IO]()
+      .toRequestThrowDecodeFailures(finalEndpoint, Some(Ewrc))(rallyId)
 
   def rallyName(client: Client[IO], rallyId: String): IO[Either[Error, String]] =
-    val (request, parseResponse) = rallyStageResults(rallyId, None)
+    val (request, parseResponse) = resultsPage(rallyId, None)
     for
       response <- client
         .run(request)
@@ -57,8 +68,31 @@ object Ewrc:
       }
     yield rallyName
 
+  def retiredNumberGroup(client: Client[IO], rallyId: String): IO[Either[Error, Map[String, String]]] =
+    val (request, parseResponse) = finalPage(rallyId)
+    for
+      response <- client
+        .run(request)
+        .use(parseResponse(_))
+        .map(_.left.map(_ => Error("Unable to parse Ewrc final response")))
+      retiredDrivers = response.map { body =>
+        Scoup
+          .parseHTML(body)
+          .select(".final-results-stage")
+          .iterator()
+          .asScala
+          .toList
+          .map(_.parent)
+          .map: retiredRow =>
+            val number = retiredRow.select(".final-results-number").text
+            val group = retiredRow.select(".final-results-cat").text
+            number -> group
+          .toMap
+      }
+    yield retiredDrivers
+
   def rallyResults(client: Client[IO], rallyId: String) =
-    val (request, parseResponse) = rallyStageResults(rallyId, None)
+    val (request, parseResponse) = resultsPage(rallyId, None)
     for
       response <- EitherT(
         client
@@ -75,10 +109,10 @@ object Ewrc:
         .asScala
         .toList
         .map(_.attr("href").split("=").last.toInt)
+      retiredDrivers <- EitherT(retiredNumberGroup(client, rallyId))
       results <- EitherT(
         stageIds
-          // .take(8)
-          .traverse(stageResults(client, rallyId))
+          .traverse(stageResults(client, rallyId, retiredDrivers))
           .map(_.partitionMap(identity) match
             case (Nil, results) => Right(results.flatten)
             case (errors, _)    => Left(errors.head)
@@ -86,7 +120,7 @@ object Ewrc:
       )
     yield results
 
-  def stageResults(client: Client[IO], rallyId: String)(stageId: Int) =
+  def stageResults(client: Client[IO], rallyId: String, retiredDrivers: Map[String, String])(stageId: Int) =
     def getCountry(element: Element) =
       element.select("td img.flag-s").attr("src").split("/").last.split("\\.").head
 
@@ -107,7 +141,7 @@ object Ewrc:
           case s"SS$stageNumber $stageName"         => (stageNumber.toInt, stageName)
       .fold(_ => throw Error(s"Unable to parse stage number and name from [$s]"), identity)
 
-    val (request, parseResponse) = rallyStageResults(rallyId, Some(stageId))
+    val (request, parseResponse) = resultsPage(rallyId, Some(stageId))
     for
       response <- client
         .run(request)
@@ -132,13 +166,14 @@ object Ewrc:
             val country = getCountry(retiredEntry)
             val driverCodriverName = retiredEntry.select("a").text
             val car = retiredEntry.select("td.retired-car").text
+            val entryNumber = retiredEntry.select("td.font-weight-bold.text-primary").text
             Entry(
               stageNumber.refine,
               stageName,
               country,
               driverCodriverName,
               "",
-              "",
+              retiredDrivers(entryNumber),
               car,
               None,
               None,
