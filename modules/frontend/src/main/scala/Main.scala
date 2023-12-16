@@ -23,6 +23,7 @@ import com.raquo.airstream.state.Var
 import com.raquo.airstream.state.Var.apply
 import com.raquo.laminar.api.*
 import com.raquo.laminar.api.L.*
+import components.Alert
 import components.Header
 import components.RallyList
 import components.RallyResult
@@ -42,6 +43,9 @@ object App:
 
   val loading = Var(false)
   val loadingSignal = loading.signal
+
+  val errorInfo = Var(Option.empty[ErrorInfo])
+  val errorInfoSignal = errorInfo.signal
 
   val rallyData = Var(Option.empty[RallyData])
   val rallyDataSignal = rallyData.signal
@@ -87,7 +91,13 @@ object App:
 
   def fetchData(rallyId: String, endpoints: DataAndRefresh, refresh: Boolean) =
     import org.scalajs.macrotaskexecutor.MacrotaskExecutor.Implicits.global
-    Var.set(App.loading -> true, App.rallyData -> None, App.selectedDriver -> None, App.selectedResult -> None)
+    Var.set(
+      App.loading -> true,
+      App.errorInfo -> None,
+      App.rallyData -> None,
+      App.selectedDriver -> None,
+      App.selectedResult -> None
+    )
 
     val endpoint = if refresh && endpoints.refresh.isDefined then endpoints.refresh.get else endpoints.data
     val response = fetch(rallyId, endpoint).flatMap {
@@ -103,7 +113,11 @@ object App:
           App.loading -> false,
           App.rallyData -> Some(rallyData)
         )
-      case Left(error) => println(error)
+      case Left(error) =>
+        Var.set(
+          App.loading -> false,
+          App.errorInfo -> Some(error)
+        )
     }
 
     ()
@@ -150,6 +164,7 @@ object App:
   def rallyPage() =
     div(
       Header(rallyDataSignal, resultFilter.signal, refreshData, loadingSignal).render(),
+      Alert(errorInfoSignal).render(),
       RallyResult(
         stagesSignal,
         driversSignal,
