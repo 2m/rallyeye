@@ -41,6 +41,7 @@ val IdleTimeout = 3.minutes
 
 object Logic:
   val RallyNotStored = Error("Rally not stored")
+  val RallyInProgress = Error("Rally in progress")
 
   object Rsf:
     private def fetchAndStore(rallyId: String) =
@@ -120,8 +121,9 @@ object Logic:
 
 def handleErrors[T](f: IO[Either[Throwable, T]]) =
   f.map(_.left.map {
-    case Logic.RallyNotStored => RallyNotStored()
-    case t                    => GenericError(t.getMessage)
+    case Logic.RallyNotStored  => RallyNotStored()
+    case Logic.RallyInProgress => RallyInProgress()
+    case t                     => GenericError(t.getMessage)
   })
 
 val httpServer =

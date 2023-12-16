@@ -27,11 +27,10 @@ import sttp.tapir.generic.auto.*
 
 type Endpoint = sttp.tapir.Endpoint[Unit, String, ErrorInfo, RallyData, Any]
 
-sealed trait ErrorInfo:
-  def message: String
+sealed trait ErrorInfo
 case class GenericError(message: String) extends ErrorInfo
-case class RallyNotStored() extends ErrorInfo:
-  def message = "Rally not stored"
+case class RallyNotStored() extends ErrorInfo
+case class RallyInProgress() extends ErrorInfo
 
 object Endpoints:
   object Rsf:
@@ -102,4 +101,5 @@ given Codec[RallyData] = deriveCodec[RallyData]
 
 given Codec[GenericError] = deriveCodec[GenericError]
 given Codec[RallyNotStored] = deriveCodec[RallyNotStored]
+given Codec[RallyInProgress] = deriveCodec[RallyInProgress]
 given Codec[ErrorInfo] = deriveCodec[ErrorInfo]

@@ -67,13 +67,13 @@ object Rsf:
 
   def rallyResults(client: Client[IO], rallyId: String): IO[Either[Error, List[Entry]]] =
     val (request, parseResponse) = rallyResults(rallyId)
-    for
-      response <- client
+    for response <- client
         .run(request)
         .use(parseResponse(_))
         .map(_.left.map(_ => Error("Unable to parse RSF results response")))
-      entries = response.map(parseResults)
-    yield entries
+    yield response.flatMap:
+      case r if r.contains("The rally is not over yet.") => Left(Logic.RallyInProgress)
+      case r                                             => Right(parseResults(r))
 
   def parseResults(csv: String) =
     val (header :: data) = csv.split('\n').toList: @unchecked
