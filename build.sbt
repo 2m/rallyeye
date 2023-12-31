@@ -106,13 +106,13 @@ lazy val backend = project
       "org.tpolecat"                %% "doobie-core"         % "1.0.0-RC5",
       "io.github.arainko"           %% "ducktape"            % "0.1.11",
       "com.monovore"                %% "decline-effect"      % "2.4.1",
-      "io.github.iltotore"          %% "iron"                % "2.3.0",
+      "io.github.iltotore"          %% "iron"                % "2.4.0",
       "com.themillhousegroup"       %% "scoup"               % "1.0.0",
       "org.tpolecat"                %% "doobie-munit"        % "1.0.0-RC5" % Test,
       "org.scalameta"               %% "munit"               % "1.0.0-M10" % Test,
       "org.scalameta"               %% "munit-scalacheck"    % "1.0.0-M10" % Test,
       "com.softwaremill.diffx"      %% "diffx-munit"         % "0.9.0"     % Test,
-      "io.github.iltotore"          %% "iron-scalacheck"     % "2.3.0"     % Test,
+      "io.github.iltotore"          %% "iron-scalacheck"     % "2.4.0"     % Test,
       "com.rallyhealth"             %% "scalacheck-ops_1"    % "2.12.0"    % Test
     ),
 
