@@ -97,8 +97,8 @@ lazy val backend = project
     libraryDependencies ++= Seq(
       "com.softwaremill.sttp.tapir" %% "tapir-http4s-server" % "1.9.6",
       "com.softwaremill.sttp.tapir" %% "tapir-http4s-client" % "1.9.6",
-      "org.http4s"                  %% "http4s-ember-server" % "0.23.24",
-      "org.http4s"                  %% "http4s-ember-client" % "0.23.24",
+      "org.http4s"                  %% "http4s-ember-server" % "0.23.25",
+      "org.http4s"                  %% "http4s-ember-client" % "0.23.25",
       "ch.qos.logback"               % "logback-classic"     % "1.4.14",
       "com.github.geirolz"          %% "fly4s-core"          % "0.0.19",
       "org.flywaydb"                 % "flyway-core"         % "10.4.1", // fixes logging
