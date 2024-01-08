@@ -43,7 +43,7 @@ jobs:
     - uses: actions/upload-pages-artifact@v3
       with:
         path: 'modules/frontend/dist'
-    - uses: actions/deploy-pages@v2
+    - uses: actions/deploy-pages@v4
 
     # backend
     - uses: docker/login-action@v3.0.0
