@@ -60,8 +60,8 @@ object Rsf:
         .use(parseResponse(_))
         .map(_.left.map(_ => Error("Unable to parse RSF name response")))
       rallyName = response.map { body =>
-        val regexp = "Final standings for: (.*)<table".r
-        regexp.findFirstMatchIn(body).get.group(1)
+        val regexp = "Final standings for: ([^>]*)<table".r
+        regexp.findFirstMatchIn(body).get.group(1).strip()
       }
     yield rallyName
 

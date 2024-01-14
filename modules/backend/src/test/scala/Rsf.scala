@@ -16,7 +16,20 @@
 
 package rallyeye
 
+import cats.effect.IO
+import org.http4s.ember.client.EmberClientBuilder
+
 class RsfSuite extends munit.FunSuite with SnapshotSupport:
+
+  val integration = new munit.Tag("integration")
+
+  import cats.effect.unsafe.implicits.global
+
+  val httpClient = EmberClientBuilder
+    .default[IO]
+    .withTimeout(Timeout)
+    .withIdleConnectionTime(IdleTimeout)
+    .build
 
   val csv =
     """|SS;Stage name;Nationality;User name;Real name;Group;Car name;time1;time2;time3;Finish realtime;Penalty;Service penalty;Super rally;Progress;Comment
@@ -30,3 +43,15 @@ class RsfSuite extends munit.FunSuite with SnapshotSupport:
     val obtained = Rsf.parseResults(csv)
     val expected = snapshot(obtained, "rsv-csv")
     assertEquals(obtained, expected)
+
+  def checkRsfName[T](rally: String, expected: String)(using munit.Location): Unit =
+    test(s"get rsf $rally name".tag(integration)):
+      httpClient
+        .use(Rsf.rallyName(_, rally))
+        .unsafeRunSync() match
+        case Right(name) =>
+          assertEquals(name, expected)
+        case Left(error) => fail(s"Unable to get rsf rally name: $error")
+
+  checkRsfName("59862", "VRC #9 2023 - Barum Czech Rally Zlin")
+  checkRsfName("59247", "Barum Rally Zlin")
