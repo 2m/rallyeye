@@ -23,7 +23,7 @@ serve:
   cd dist; webfsd -p 8001 -F -f index.html
 
 build-backend:
-  sbt --client backend/jibImageBuild
+  sbt --client backend/dockerBuildAndPush
 
 deploy-backend:
   cd modules/backend; flyctl deploy
