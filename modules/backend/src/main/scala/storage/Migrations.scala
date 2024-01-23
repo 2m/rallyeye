@@ -34,7 +34,10 @@ val migrations = Fly4s
       locations = Locations(Db.config.migrationsLocations),
       ignoreMigrationPatterns = List(
         ValidatePattern.ignorePendingMigrations
-      )
+      ),
+      resourceProvider = Option(
+        System.getProperty("org.graalvm.nativeimage.imagecode")
+      ).map(_ => new GraalVMResourceProvider(Locations(Db.config.migrationsLocations)))
     )
   )
   .evalMap(_.validateAndMigrate.result)

@@ -143,7 +143,10 @@ lazy val backend = project
     nativeImageJvm := "graalvm-java21",
     nativeImageVersion := "21.0.1",
     nativeImageAgentOutputDir := (Compile / resourceDirectory).value / "META-INF" / "native-image" / organization.value / name.value,
-    nativeImageOptions ++= List("--verbose")
+    nativeImageOptions ++= List(
+      "--verbose",
+      "-H:IncludeResources=db/V.*sql$"
+    )
   )
   .dependsOn(shared.jvm)
   .enablePlugins(AutomateHeaderPlugin)
