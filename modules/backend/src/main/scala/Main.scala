@@ -27,6 +27,7 @@ object Main
 
   case class HttpServer()
   case class MigrateDb()
+  case class SmokeRun()
 
   val httpServer: Opts[HttpServer] =
     Opts.subcommand("http-server", "Runs RallyEye HTTP server.") {
@@ -38,11 +39,14 @@ object Main
       Opts.unit.map(_ => MigrateDb())
     }
 
+  val smokeRun: Opts[SmokeRun] =
+    Opts.subcommand("smoke-run", "Exercice all functionality of the app.") {
+      Opts.unit.map(_ => SmokeRun())
+    }
+
   override def main: Opts[IO[ExitCode]] =
-    (httpServer orElse migrateDb).map {
-      case HttpServer() => rallyeye.httpServer
-      case MigrateDb() =>
-        rallyeye.storage.migrations.use { _ =>
-          IO(ExitCode.Success)
-        } <* rallyeye.storage.loadPressAutoResults("2023", "Press Auto 2023", "pressauto2023.csv")
+    (httpServer orElse migrateDb orElse smokeRun).map {
+      case HttpServer() => rallyeye.httpServer.flatMap(_.use(_ => IO.never))
+      case MigrateDb()  => rallyeye.storage.allMigrations.map(_ => ExitCode.Success)
+      case SmokeRun()   => rallyeye.smokeRun.map(_ => ExitCode.Success)
     }

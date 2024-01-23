@@ -23,13 +23,22 @@ serve:
   cd dist; webfsd -p 8001 -F -f index.html
 
 build-backend:
-  sbt --client backend/jibImageBuild
+  sbt --client backend/dockerBuildAndPush
 
 deploy-backend:
   cd modules/backend; flyctl deploy
 
 migrate:
   sbt --client backend/run migrate-db
+
+smoke:
+  sbt --client backend/run smoke-run
+
+smoke-with-agent:
+  sbt --client backend/nativeImageRunAgent \" smoke-run\"
+
+native-image:
+  sbt --client backend/nativeImage
 
 rm-db:
   rm modules/backend/rallyeye.db

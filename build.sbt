@@ -116,15 +116,6 @@ lazy val backend = project
       "com.rallyhealth"             %% "scalacheck-ops_1"    % "2.12.0"    % Test
     ),
 
-    // jib docker image builder
-    jibRegistry := "registry.fly.io",
-    jibCustomRepositoryPath := Some("rallyeye-data"),
-    jibTags += "latest",
-    jibBaseImage := "ghcr.io/2m/java-litefs-docker:main",
-    jibEntrypoint := Some(List("litefs", "mount")),
-    jibExtraMappings += (baseDirectory.value / "litefs.yml" -> "/etc/litefs.yml"),
-    jibEnvironment := Map("RALLYEYE_DB_PATH" -> "/litefs", "RALLYEYE_SERVER_PORT" -> "8081"),
-
     // for correct IOApp resource cleanup
     Compile / run / fork := true,
 
@@ -137,8 +128,41 @@ lazy val backend = project
 
     // for integration test snapshots
     buildInfoKeys := Seq[BuildInfoKey](Test / resourceDirectory),
-    buildInfoPackage := "rallyeye"
+    buildInfoPackage := "rallyeye",
+
+    // native image
+    nativeImageJvm := "graalvm-java21",
+    nativeImageVersion := "21.0.1",
+    nativeImageAgentOutputDir := (Compile / resourceDirectory).value / "META-INF" / "native-image" / organization.value / name.value,
+    nativeImageOptions ++= List(
+      "--verbose",
+      "-H:IncludeResources=db/V.*sql$"
+    ),
+
+    // docker image build
+    docker / dockerfile := {
+      val artifact: File = nativeImage.value
+      val artifactTargetPath = s"/app/${artifact.name}"
+
+      new Dockerfile {
+        from("alpine:3.19")
+        add(artifact, artifactTargetPath)
+
+        // lite fs setup
+        run("apk", "add", "ca-certificates", "fuse3", "sqlite")
+        customInstruction("COPY", "--from=flyio/litefs:0.5 /usr/local/bin/litefs /usr/local/bin/litefs")
+        env("RALLYEYE_DB_PATH" -> "/litefs", "RALLYEYE_SERVER_PORT" -> "8081")
+        add(baseDirectory.value / "litefs.yml", "/etc/litefs.yml")
+        entryPoint("litefs", "mount")
+      }
+    },
+    docker / imageNames := Seq(
+      ImageName("registry.fly.io/rallyeye-data:latest"),
+      ImageName(s"registry.fly.io/rallyeye-data:${version.value}")
+    )
   )
   .dependsOn(shared.jvm)
   .enablePlugins(AutomateHeaderPlugin)
   .enablePlugins(BuildInfoPlugin)
+  .enablePlugins(NativeImagePlugin)
+  .enablePlugins(DockerPlugin)

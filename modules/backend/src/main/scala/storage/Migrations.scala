@@ -34,7 +34,10 @@ val migrations = Fly4s
       locations = Locations(Db.config.migrationsLocations),
       ignoreMigrationPatterns = List(
         ValidatePattern.ignorePendingMigrations
-      )
+      ),
+      resourceProvider = Option(
+        System.getProperty("org.graalvm.nativeimage.imagecode")
+      ).map(_ => new GraalVMResourceProvider(Locations(Db.config.migrationsLocations)))
     )
   )
   .evalMap(_.validateAndMigrate.result)
@@ -46,3 +49,6 @@ def loadPressAutoResults(rallyId: String, name: String, filename: String) =
     _ <- Repo.PressAuto.saveRallyName(rallyId, name)
     _ <- Repo.PressAuto.saveRallyResults(rallyId, results)
   yield ()
+
+val allMigrations = rallyeye.storage.migrations
+  .use(_ => IO(())) <* rallyeye.storage.loadPressAutoResults("2023", "Press Auto 2023", "pressauto2023.csv")

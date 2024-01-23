@@ -35,7 +35,7 @@ object Db:
   val config = Config(
     url = s"jdbc:sqlite:$file",
     migrationsTable = "flyway",
-    migrationsLocations = List("db")
+    migrationsLocations = List("classpath:db")
   )
 
   val xa =
