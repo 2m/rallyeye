@@ -48,3 +48,6 @@ test:
 
 test-integration:
   sbt --client Integration/test
+
+docker-login:
+  cd modules/backend; flyctl auth token | docker login registry.fly.io --username=x --password-stdin
