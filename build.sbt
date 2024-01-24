@@ -132,11 +132,13 @@ lazy val backend = project
 
     // native image
     nativeImageJvm := "graalvm-java21",
-    nativeImageVersion := "21.0.1",
+    nativeImageVersion := "21.0.2",
     nativeImageAgentOutputDir := (Compile / resourceDirectory).value / "META-INF" / "native-image" / organization.value / name.value,
     nativeImageOptions ++= List(
       "--verbose",
-      "-H:IncludeResources=db/V.*sql$"
+      "--no-fallback", // show the underlying problem due to unsupported features instead of building a fallback image
+      "-H:IncludeResources=db/V.*sql$",
+      "-march=native" // Enable more CPU features for improved performance.
     ),
 
     // docker image build
@@ -146,6 +148,8 @@ lazy val backend = project
 
       new Dockerfile {
         from("alpine:3.19")
+
+        run("apk", "add", "gcompat") // GNU C Library compatibility layer for native image
         add(artifact, artifactTargetPath)
 
         // lite fs setup
