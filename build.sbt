@@ -138,7 +138,7 @@ lazy val backend = project
       "--verbose",
       "--no-fallback", // show the underlying problem due to unsupported features instead of building a fallback image
       "-H:IncludeResources=db/V.*sql$",
-      "-march=native" // Enable more CPU features for improved performance.
+      "-march=compatibility" // Use most compatible instructions, 'native' fails to start on flyio
     ),
 
     // docker image build
