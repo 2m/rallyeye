@@ -20,10 +20,10 @@ package storage
 import scala.io.Source
 
 import cats.effect.IO
-import fly4s.core.Fly4s
-import fly4s.core.data.Fly4sConfig
-import fly4s.core.data.Locations
-import fly4s.core.data.ValidatePattern
+import fly4s.Fly4s
+import fly4s.data.Fly4sConfig
+import fly4s.data.Locations
+import fly4s.data.ValidatePattern
 import fly4s.implicits.*
 
 val migrations = Fly4s
