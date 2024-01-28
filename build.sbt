@@ -138,19 +138,19 @@ lazy val backend = project
       "--verbose",
       "--no-fallback", // show the underlying problem due to unsupported features instead of building a fallback image
       "-H:IncludeResources=db/V.*sql$",
-      "-march=compatibility" // Use most compatible instructions, 'native' fails to start on flyio
+      "-march=compatibility", // Use most compatible instructions, 'native' fails to start on flyio
+      s"-Dorg.sqlite.lib.exportPath=${nativeImageOutput.value.getParent}" // https://github.com/xerial/sqlite-jdbc#graalvm-native-image-support
     ),
 
     // docker image build
     docker / dockerfile := {
-      val artifact: File = nativeImage.value
-      val artifactTargetPath = s"/app/${artifact.name}"
+      val artifactDir = nativeImage.value.getParentFile
 
       new Dockerfile {
         from("alpine:3.19")
 
         run("apk", "add", "gcompat") // GNU C Library compatibility layer for native image
-        add(artifact, artifactTargetPath)
+        copy(artifactDir ** "*" filter { !_.isDirectory } get, "/app/")
 
         // lite fs setup
         run("apk", "add", "ca-certificates", "fuse3", "sqlite")
