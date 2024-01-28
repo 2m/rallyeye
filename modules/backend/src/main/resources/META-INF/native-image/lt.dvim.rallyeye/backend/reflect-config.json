@@ -381,7 +381,7 @@
   "fields":[{"name":"Advanced$lzy1"}, {"name":"Basic$lzy1"}]
 },
 {
-  "name":"fly4s.core.data.Fly4sConfig$",
+  "name":"fly4s.data.Fly4sConfig$",
   "fields":[{"name":"default$lzy1"}]
 },
 {
@@ -409,12 +409,24 @@
   "fields":[{"name":"globalDatagramSocketGroup$lzy1"}, {"name":"globalSocketGroup$lzy1"}]
 },
 {
+  "name":"io.bullet.borer.Decoder$",
+  "fields":[{"name":"_forJBigDecimal$lzy1"}, {"name":"_forJBigInteger$lzy1"}, {"name":"forBigDecimal$lzy1"}, {"name":"forBigInt$lzy1"}, {"name":"forBoolean$lzy1"}, {"name":"forBoxedBoolean$lzy1"}, {"name":"forBoxedByte$lzy1"}, {"name":"forBoxedChar$lzy1"}, {"name":"forBoxedDouble$lzy1"}, {"name":"forBoxedFloat$lzy1"}, {"name":"forBoxedInt$lzy1"}, {"name":"forBoxedLong$lzy1"}, {"name":"forBoxedShort$lzy1"}, {"name":"forByte$lzy1"}, {"name":"forByteArrayDefault$lzy1"}, {"name":"forChar$lzy1"}, {"name":"forDouble$lzy1"}, {"name":"forFloat$lzy1"}, {"name":"forInt$lzy1"}, {"name":"forLong$lzy1"}, {"name":"forNull$lzy1"}, {"name":"forShort$lzy1"}, {"name":"forString$lzy1"}, {"name":"forUnit$lzy1"}]
+},
+{
+  "name":"io.bullet.borer.Encoder$",
+  "fields":[{"name":"forBigDecimal$lzy1"}, {"name":"forBigInt$lzy1"}, {"name":"forBoolean$lzy1"}, {"name":"forBoxedBoolean$lzy1"}, {"name":"forBoxedByte$lzy1"}, {"name":"forBoxedChar$lzy1"}, {"name":"forBoxedDouble$lzy1"}, {"name":"forBoxedFloat$lzy1"}, {"name":"forBoxedInt$lzy1"}, {"name":"forBoxedLong$lzy1"}, {"name":"forBoxedShort$lzy1"}, {"name":"forByte$lzy1"}, {"name":"forByteArrayDefault$lzy1"}, {"name":"forByteArrayIterator$lzy1"}, {"name":"forChar$lzy1"}, {"name":"forDouble$lzy1"}, {"name":"forFloat$lzy1"}, {"name":"forInt$lzy1"}, {"name":"forJBigDecimal$lzy1"}, {"name":"forJBigInteger$lzy1"}, {"name":"forLong$lzy1"}, {"name":"forNull$lzy1"}, {"name":"forShort$lzy1"}, {"name":"forString$lzy1"}, {"name":"forStringIterator$lzy1"}, {"name":"forUnit$lzy1"}]
+},
+{
   "name":"io.bullet.borer.Input$",
   "fields":[{"name":"FromByteArrayProvider$lzy1"}, {"name":"FromByteBufferProvider$lzy1"}, {"name":"FromFileProvider$lzy1"}, {"name":"io$bullet$borer$input$FromInputStreamInput$$FromInputStreamProvider$lzy1"}]
 },
 {
   "name":"io.bullet.borer.Output$",
   "fields":[{"name":"ToByteArrayProvider$lzy1"}, {"name":"ToByteBufferProvider$lzy1"}, {"name":"ToFileProvider$lzy1"}, {"name":"ToOutputStreamProvider$lzy1"}, {"name":"ToUnitProvider$lzy1"}]
+},
+{
+  "name":"io.bullet.borer.derivation.DerivationConfig$",
+  "fields":[{"name":"default$lzy1"}]
 },
 {
   "name":"java.io.FilePermission"
