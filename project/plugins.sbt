@@ -1,5 +1,5 @@
 addSbtPlugin("org.scala-js"                % "sbt-scalajs"              % "1.15.0")
-addSbtPlugin("org.scalablytyped.converter" % "sbt-converter"            % "1.0.0-beta42")
+addSbtPlugin("org.scalablytyped.converter" % "sbt-converter"            % "1.0.0-beta44")
 addSbtPlugin("org.scalameta"               % "sbt-scalafmt"             % "2.5.2")
 addSbtPlugin("de.heikoseeberger"           % "sbt-header"               % "5.10.0")
 addSbtPlugin("org.typelevel"               % "sbt-tpolecat"             % "0.5.0")
