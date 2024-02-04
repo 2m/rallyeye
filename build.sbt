@@ -18,7 +18,7 @@ lazy val shared = crossProject(JSPlatform, JVMPlatform)
   .settings(
     name := "shared",
     libraryDependencies ++= Seq(
-      "com.softwaremill.sttp.tapir" %% "tapir-core"       % "1.9.7",
+      "com.softwaremill.sttp.tapir" %% "tapir-core"       % "1.9.9",
       "io.bullet"                   %% "borer-derivation" % "1.14.0"
     ),
     // for borer semi-automatic derivation
@@ -46,7 +46,7 @@ lazy val frontend = project
     libraryDependencies ++= Seq(
       "org.scala-js"                %%% "scalajs-dom"                 % "2.8.0",
       "org.scala-js"                %%% "scala-js-macrotask-executor" % "1.1.1",
-      "com.softwaremill.sttp.tapir" %%% "tapir-sttp-client"           % "1.9.7",
+      "com.softwaremill.sttp.tapir" %%% "tapir-sttp-client"           % "1.9.9",
       "com.raquo"                   %%% "laminar"                     % "16.0.0",
       "com.raquo"                   %%% "waypoint"                    % "7.0.0",
       "io.github.cquiroz"           %%% "scala-java-time"             % "2.5.0",
@@ -95,13 +95,13 @@ lazy val backend = project
   .settings(
     inConfig(Integration)(Defaults.testTasks),
     libraryDependencies ++= Seq(
-      "com.softwaremill.sttp.tapir" %% "tapir-http4s-server" % "1.9.7",
-      "com.softwaremill.sttp.tapir" %% "tapir-http4s-client" % "1.9.7",
+      "com.softwaremill.sttp.tapir" %% "tapir-http4s-server" % "1.9.9",
+      "com.softwaremill.sttp.tapir" %% "tapir-http4s-client" % "1.9.9",
       "org.http4s"                  %% "http4s-ember-server" % "0.23.25",
       "org.http4s"                  %% "http4s-ember-client" % "0.23.25",
       "ch.qos.logback"               % "logback-classic"     % "1.4.14",
       "com.github.geirolz"          %% "fly4s-core"          % "1.0.0",
-      "org.flywaydb"                 % "flyway-core"         % "10.6.0", // fixes logging
+      "org.flywaydb"                 % "flyway-core"         % "10.7.1", // fixes logging
       "org.xerial"                   % "sqlite-jdbc"         % "3.45.1.0",
       "org.tpolecat"                %% "doobie-core"         % "1.0.0-RC5",
       "io.github.arainko"           %% "ducktape"            % "0.1.11",
@@ -109,8 +109,8 @@ lazy val backend = project
       "io.github.iltotore"          %% "iron"                % "2.4.0",
       "com.themillhousegroup"       %% "scoup"               % "1.0.0",
       "org.tpolecat"                %% "doobie-munit"        % "1.0.0-RC5" % Test,
-      "org.scalameta"               %% "munit"               % "1.0.0-M10" % Test,
-      "org.scalameta"               %% "munit-scalacheck"    % "1.0.0-M10" % Test,
+      "org.scalameta"               %% "munit"               % "1.0.0-M11" % Test,
+      "org.scalameta"               %% "munit-scalacheck"    % "1.0.0-M11" % Test,
       "com.softwaremill.diffx"      %% "diffx-munit"         % "0.9.0"     % Test,
       "io.github.iltotore"          %% "iron-scalacheck"     % "2.4.0"     % Test,
       "com.rallyhealth"             %% "scalacheck-ops_1"    % "2.12.0"    % Test
