@@ -109,8 +109,8 @@ lazy val backend = project
       "io.github.iltotore"          %% "iron"                % "2.4.0",
       "com.themillhousegroup"       %% "scoup"               % "1.0.0",
       "org.tpolecat"                %% "doobie-munit"        % "1.0.0-RC5" % Test,
-      "org.scalameta"               %% "munit"               % "1.0.0-M10" % Test,
-      "org.scalameta"               %% "munit-scalacheck"    % "1.0.0-M10" % Test,
+      "org.scalameta"               %% "munit"               % "1.0.0-M11" % Test,
+      "org.scalameta"               %% "munit-scalacheck"    % "1.0.0-M11" % Test,
       "com.softwaremill.diffx"      %% "diffx-munit"         % "0.9.0"     % Test,
       "io.github.iltotore"          %% "iron-scalacheck"     % "2.4.0"     % Test,
       "com.rallyhealth"             %% "scalacheck-ops_1"    % "2.12.0"    % Test
