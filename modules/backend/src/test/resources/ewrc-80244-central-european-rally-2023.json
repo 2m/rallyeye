@@ -227,7 +227,7 @@
     {
         "stageNumber": 1,
         "stageName": "Velká Chuchle",
-        "country": "neutral",
+        "country": "russia",
         "userName": "Gryazin Nikolay - Aleksandrov K.",
         "realName": "",
         "group": "RC2",
@@ -1232,7 +1232,7 @@
     {
         "stageNumber": 2,
         "stageName": "Klatovy",
-        "country": "neutral",
+        "country": "russia",
         "userName": "Gryazin Nikolay - Aleksandrov K.",
         "realName": "",
         "group": "RC2",
@@ -2687,7 +2687,7 @@
     {
         "stageNumber": 3,
         "stageName": "Vlachovo Březí 1",
-        "country": "neutral",
+        "country": "russia",
         "userName": "Gryazin Nikolay - Aleksandrov K.",
         "realName": "",
         "group": "RC2",
@@ -3182,7 +3182,7 @@
     {
         "stageNumber": 4,
         "stageName": "Zvotoky 1",
-        "country": "neutral",
+        "country": "russia",
         "userName": "Gryazin Nikolay - Aleksandrov K.",
         "realName": "",
         "group": "RC2",
@@ -4097,7 +4097,7 @@
     {
         "stageNumber": 5,
         "stageName": "Šumavské Hoštice 1",
-        "country": "neutral",
+        "country": "russia",
         "userName": "Gryazin Nikolay - Aleksandrov K.",
         "realName": "",
         "group": "RC2",
@@ -5057,7 +5057,7 @@
     {
         "stageNumber": 6,
         "stageName": "Vlachovo Březí 2",
-        "country": "neutral",
+        "country": "russia",
         "userName": "Gryazin Nikolay - Aleksandrov K.",
         "realName": "",
         "group": "RC2",
@@ -5927,7 +5927,7 @@
     {
         "stageNumber": 7,
         "stageName": "Zvotoky 2",
-        "country": "neutral",
+        "country": "russia",
         "userName": "Gryazin Nikolay - Aleksandrov K.",
         "realName": "",
         "group": "RC2",
@@ -6767,7 +6767,7 @@
     {
         "stageNumber": 8,
         "stageName": "Šumavské Hoštice 2",
-        "country": "neutral",
+        "country": "russia",
         "userName": "Gryazin Nikolay - Aleksandrov K.",
         "realName": "",
         "group": "RC2",
@@ -7727,7 +7727,7 @@
     {
         "stageNumber": 9,
         "stageName": "Schärdinger Innviertel 1",
-        "country": "neutral",
+        "country": "russia",
         "userName": "Gryazin Nikolay - Aleksandrov K.",
         "realName": "",
         "group": "RC2",
@@ -8657,7 +8657,7 @@
     {
         "stageNumber": 10,
         "stageName": "Mühltal 1",
-        "country": "neutral",
+        "country": "russia",
         "userName": "Gryazin Nikolay - Aleksandrov K.",
         "realName": "",
         "group": "RC2",
@@ -9557,7 +9557,7 @@
     {
         "stageNumber": 11,
         "stageName": "Knaus Tabbert Bayerischer Wald 1",
-        "country": "neutral",
+        "country": "russia",
         "userName": "Gryazin Nikolay - Aleksandrov K.",
         "realName": "",
         "group": "RC2",
@@ -10397,7 +10397,7 @@
     {
         "stageNumber": 12,
         "stageName": "Schärdinger Innviertel 2",
-        "country": "neutral",
+        "country": "russia",
         "userName": "Gryazin Nikolay - Aleksandrov K.",
         "realName": "",
         "group": "RC2",
@@ -11282,7 +11282,7 @@
     {
         "stageNumber": 13,
         "stageName": "Mühltal 2",
-        "country": "neutral",
+        "country": "russia",
         "userName": "Gryazin Nikolay - Aleksandrov K.",
         "realName": "",
         "group": "RC2",
@@ -12677,7 +12677,7 @@
     {
         "stageNumber": 14,
         "stageName": "Knaus Tabbert Bayerischer Wald 2",
-        "country": "neutral",
+        "country": "russia",
         "userName": "Gryazin Nikolay - Aleksandrov K.",
         "realName": "",
         "group": "RC2",
@@ -13007,7 +13007,7 @@
     {
         "stageNumber": 15,
         "stageName": "Böhmerwald 1",
-        "country": "neutral",
+        "country": "russia",
         "userName": "Gryazin Nikolay - Aleksandrov K.",
         "realName": "",
         "group": "RC2",
@@ -13892,7 +13892,7 @@
     {
         "stageNumber": 16,
         "stageName": "Passauer Land 1",
-        "country": "neutral",
+        "country": "russia",
         "userName": "Gryazin Nikolay - Aleksandrov K.",
         "realName": "",
         "group": "RC2",
@@ -14657,7 +14657,7 @@
     {
         "stageNumber": 17,
         "stageName": "Böhmerwald 2",
-        "country": "neutral",
+        "country": "russia",
         "userName": "Gryazin Nikolay - Aleksandrov K.",
         "realName": "",
         "group": "RC2",
@@ -15346,7 +15346,7 @@
     },
     {
         "stageNumber": 18,
-        "stageName": "Wolf Powerstage Passauer Land 2",
+        "stageName": "Passauer Land 2",
         "country": "uk",
         "userName": "Evans Elfyn - Martin Scott",
         "realName": "",
@@ -15361,7 +15361,7 @@
     },
     {
         "stageNumber": 18,
-        "stageName": "Wolf Powerstage Passauer Land 2",
+        "stageName": "Passauer Land 2",
         "country": "belgium",
         "userName": "Neuville Thierry - Wydaeghe M.",
         "realName": "",
@@ -15376,7 +15376,7 @@
     },
     {
         "stageNumber": 18,
-        "stageName": "Wolf Powerstage Passauer Land 2",
+        "stageName": "Passauer Land 2",
         "country": "france",
         "userName": "Ogier Sébastien - Landais V.",
         "realName": "",
@@ -15391,7 +15391,7 @@
     },
     {
         "stageNumber": 18,
-        "stageName": "Wolf Powerstage Passauer Land 2",
+        "stageName": "Passauer Land 2",
         "country": "japan",
         "userName": "Katsuta Takamoto - Johnston Aaron",
         "realName": "",
@@ -15406,7 +15406,7 @@
     },
     {
         "stageNumber": 18,
-        "stageName": "Wolf Powerstage Passauer Land 2",
+        "stageName": "Passauer Land 2",
         "country": "estonia",
         "userName": "Tänak Ott - Järveoja Martin",
         "realName": "",
@@ -15421,7 +15421,7 @@
     },
     {
         "stageNumber": 18,
-        "stageName": "Wolf Powerstage Passauer Land 2",
+        "stageName": "Passauer Land 2",
         "country": "finland",
         "userName": "Suninen Teemu - Markkula Mikko",
         "realName": "",
@@ -15436,7 +15436,7 @@
     },
     {
         "stageNumber": 18,
-        "stageName": "Wolf Powerstage Passauer Land 2",
+        "stageName": "Passauer Land 2",
         "country": "luxembourg",
         "userName": "Munster Grégoire - Louka Louis",
         "realName": "",
@@ -15451,7 +15451,7 @@
     },
     {
         "stageNumber": 18,
-        "stageName": "Wolf Powerstage Passauer Land 2",
+        "stageName": "Passauer Land 2",
         "country": "finland",
         "userName": "Rovanperä Kalle - Halttunen J.",
         "realName": "",
@@ -15466,7 +15466,7 @@
     },
     {
         "stageNumber": 18,
-        "stageName": "Wolf Powerstage Passauer Land 2",
+        "stageName": "Passauer Land 2",
         "country": "norway",
         "userName": "Mikkelsen Andreas - Eriksen T.",
         "realName": "",
@@ -15481,8 +15481,8 @@
     },
     {
         "stageNumber": 18,
-        "stageName": "Wolf Powerstage Passauer Land 2",
-        "country": "neutral",
+        "stageName": "Passauer Land 2",
+        "country": "russia",
         "userName": "Gryazin Nikolay - Aleksandrov K.",
         "realName": "",
         "group": "RC2",
@@ -15496,7 +15496,7 @@
     },
     {
         "stageNumber": 18,
-        "stageName": "Wolf Powerstage Passauer Land 2",
+        "stageName": "Passauer Land 2",
         "country": "france",
         "userName": "Ciamin Nicolas - Roche Yannick",
         "realName": "",
@@ -15511,7 +15511,7 @@
     },
     {
         "stageNumber": 18,
-        "stageName": "Wolf Powerstage Passauer Land 2",
+        "stageName": "Passauer Land 2",
         "country": "spain",
         "userName": "Cachón A. - López Fernández A.",
         "realName": "",
@@ -15526,7 +15526,7 @@
     },
     {
         "stageNumber": 18,
-        "stageName": "Wolf Powerstage Passauer Land 2",
+        "stageName": "Passauer Land 2",
         "country": "czech",
         "userName": "Cais Erik - Trunkát Daniel",
         "realName": "",
@@ -15541,7 +15541,7 @@
     },
     {
         "stageNumber": 18,
-        "stageName": "Wolf Powerstage Passauer Land 2",
+        "stageName": "Passauer Land 2",
         "country": "austria2",
         "userName": "Wagner Simon - Winter Gerald",
         "realName": "",
@@ -15556,7 +15556,7 @@
     },
     {
         "stageNumber": 18,
-        "stageName": "Wolf Powerstage Passauer Land 2",
+        "stageName": "Passauer Land 2",
         "country": "france",
         "userName": "Fourmaux Adrien - Coria Alexandre",
         "realName": "",
@@ -15571,7 +15571,7 @@
     },
     {
         "stageNumber": 18,
-        "stageName": "Wolf Powerstage Passauer Land 2",
+        "stageName": "Passauer Land 2",
         "country": "finland",
         "userName": "Pajari Sami - Mälkönen Enni",
         "realName": "",
@@ -15586,7 +15586,7 @@
     },
     {
         "stageNumber": 18,
-        "stageName": "Wolf Powerstage Passauer Land 2",
+        "stageName": "Passauer Land 2",
         "country": "uk",
         "userName": "Greensmith Gus - Andersson Jonas",
         "realName": "",
@@ -15601,7 +15601,7 @@
     },
     {
         "stageNumber": 18,
-        "stageName": "Wolf Powerstage Passauer Land 2",
+        "stageName": "Passauer Land 2",
         "country": "ireland",
         "userName": "McErlean Josh - Fulton James",
         "realName": "",
@@ -15616,7 +15616,7 @@
     },
     {
         "stageNumber": 18,
-        "stageName": "Wolf Powerstage Passauer Land 2",
+        "stageName": "Passauer Land 2",
         "country": "czech",
         "userName": "Březík Adam - Krajča Ondřej",
         "realName": "",
@@ -15631,7 +15631,7 @@
     },
     {
         "stageNumber": 18,
-        "stageName": "Wolf Powerstage Passauer Land 2",
+        "stageName": "Passauer Land 2",
         "country": "poland",
         "userName": "Kajetanowicz K. - Szczepaniak M.",
         "realName": "",
@@ -15646,7 +15646,7 @@
     },
     {
         "stageNumber": 18,
-        "stageName": "Wolf Powerstage Passauer Land 2",
+        "stageName": "Passauer Land 2",
         "country": "poland",
         "userName": "Marczyk Mikołaj - Dymurski D.",
         "realName": "",
@@ -15661,7 +15661,7 @@
     },
     {
         "stageNumber": 18,
-        "stageName": "Wolf Powerstage Passauer Land 2",
+        "stageName": "Passauer Land 2",
         "country": "paraguay",
         "userName": "Zaldivar F. - Der Ohannesian M.",
         "realName": "",
@@ -15676,7 +15676,7 @@
     },
     {
         "stageNumber": 18,
-        "stageName": "Wolf Powerstage Passauer Land 2",
+        "stageName": "Passauer Land 2",
         "country": "germany",
         "userName": "von Thurn und Taxis A. - Hain J.",
         "realName": "",
@@ -15691,7 +15691,7 @@
     },
     {
         "stageNumber": 18,
-        "stageName": "Wolf Powerstage Passauer Land 2",
+        "stageName": "Passauer Land 2",
         "country": "austria2",
         "userName": "Roßgatterer Martin - Heigl J.",
         "realName": "",
@@ -15706,7 +15706,7 @@
     },
     {
         "stageNumber": 18,
-        "stageName": "Wolf Powerstage Passauer Land 2",
+        "stageName": "Passauer Land 2",
         "country": "germany",
         "userName": "Kremer Armin - Kremer Ella",
         "realName": "",
@@ -15721,7 +15721,7 @@
     },
     {
         "stageNumber": 18,
-        "stageName": "Wolf Powerstage Passauer Land 2",
+        "stageName": "Passauer Land 2",
         "country": "czech",
         "userName": "Vojtěch Štěpán - Ernst Michal",
         "realName": "",
@@ -15736,7 +15736,7 @@
     },
     {
         "stageNumber": 18,
-        "stageName": "Wolf Powerstage Passauer Land 2",
+        "stageName": "Passauer Land 2",
         "country": "france",
         "userName": "Loubet Pierre-Louis - Veillas B.",
         "realName": "",
@@ -15751,7 +15751,7 @@
     },
     {
         "stageNumber": 18,
-        "stageName": "Wolf Powerstage Passauer Land 2",
+        "stageName": "Passauer Land 2",
         "country": "germany",
         "userName": "Schwarz Fabio - Ettel Bernhard",
         "realName": "",
@@ -15766,7 +15766,7 @@
     },
     {
         "stageNumber": 18,
-        "stageName": "Wolf Powerstage Passauer Land 2",
+        "stageName": "Passauer Land 2",
         "country": "austria2",
         "userName": "Keferböck Johannes - Minor Ilka",
         "realName": "",
@@ -15781,7 +15781,7 @@
     },
     {
         "stageNumber": 18,
-        "stageName": "Wolf Powerstage Passauer Land 2",
+        "stageName": "Passauer Land 2",
         "country": "italy",
         "userName": "Fontana Matteo - Arnaboldi A.",
         "realName": "",
@@ -15796,7 +15796,7 @@
     },
     {
         "stageNumber": 18,
-        "stageName": "Wolf Powerstage Passauer Land 2",
+        "stageName": "Passauer Land 2",
         "country": "germany",
         "userName": "Schulz Timo - Wenzel Michael",
         "realName": "",
@@ -15811,7 +15811,7 @@
     },
     {
         "stageNumber": 18,
-        "stageName": "Wolf Powerstage Passauer Land 2",
+        "stageName": "Passauer Land 2",
         "country": "czech",
         "userName": "Kohn Filip - Woodburn Tom",
         "realName": "",
@@ -15826,7 +15826,7 @@
     },
     {
         "stageNumber": 18,
-        "stageName": "Wolf Powerstage Passauer Land 2",
+        "stageName": "Passauer Land 2",
         "country": "germany",
         "userName": "Mohe Carsten - Hirsch Alexander",
         "realName": "",
@@ -15841,7 +15841,7 @@
     },
     {
         "stageNumber": 18,
-        "stageName": "Wolf Powerstage Passauer Land 2",
+        "stageName": "Passauer Land 2",
         "country": "germany",
         "userName": "Allkofer C. - Götzenberger K.",
         "realName": "",
@@ -15856,7 +15856,7 @@
     },
     {
         "stageNumber": 18,
-        "stageName": "Wolf Powerstage Passauer Land 2",
+        "stageName": "Passauer Land 2",
         "country": "czech",
         "userName": "Kačírek Petr - Řiháková P.",
         "realName": "",
@@ -15871,7 +15871,7 @@
     },
     {
         "stageNumber": 18,
-        "stageName": "Wolf Powerstage Passauer Land 2",
+        "stageName": "Passauer Land 2",
         "country": "czech",
         "userName": "Horák Michal - Horák Ivan",
         "realName": "",
@@ -15886,7 +15886,7 @@
     },
     {
         "stageNumber": 18,
-        "stageName": "Wolf Powerstage Passauer Land 2",
+        "stageName": "Passauer Land 2",
         "country": "kazakhstan",
         "userName": "Borodin Petr - Cheprasov Roman",
         "realName": "",
@@ -15901,7 +15901,7 @@
     },
     {
         "stageNumber": 18,
-        "stageName": "Wolf Powerstage Passauer Land 2",
+        "stageName": "Passauer Land 2",
         "country": "croatia",
         "userName": "Ravenščak M. - Ravenščak D.",
         "realName": "",
@@ -15916,7 +15916,7 @@
     },
     {
         "stageNumber": 18,
-        "stageName": "Wolf Powerstage Passauer Land 2",
+        "stageName": "Passauer Land 2",
         "country": "czech",
         "userName": "Jirovec Jiří - Král Josef",
         "realName": "",
@@ -15931,7 +15931,7 @@
     },
     {
         "stageNumber": 18,
-        "stageName": "Wolf Powerstage Passauer Land 2",
+        "stageName": "Passauer Land 2",
         "country": "hungary",
         "userName": "László Zoltán - Zsiros Gábor",
         "realName": "",
@@ -15946,7 +15946,7 @@
     },
     {
         "stageNumber": 18,
-        "stageName": "Wolf Powerstage Passauer Land 2",
+        "stageName": "Passauer Land 2",
         "country": "italy",
         "userName": "Marchino Filippo - Ometto P.",
         "realName": "",
@@ -15961,7 +15961,7 @@
     },
     {
         "stageNumber": 18,
-        "stageName": "Wolf Powerstage Passauer Land 2",
+        "stageName": "Passauer Land 2",
         "country": "czech",
         "userName": "Rada Martin - Jugas Jaroslav",
         "realName": "",
@@ -15976,7 +15976,7 @@
     },
     {
         "stageNumber": 18,
-        "stageName": "Wolf Powerstage Passauer Land 2",
+        "stageName": "Passauer Land 2",
         "country": "czech",
         "userName": "Nešetřil Petr - Černoch Jiří",
         "realName": "",
@@ -15991,7 +15991,7 @@
     },
     {
         "stageNumber": 18,
-        "stageName": "Wolf Powerstage Passauer Land 2",
+        "stageName": "Passauer Land 2",
         "country": "italy",
         "userName": "Strabello Paolo - Bianchi Davide",
         "realName": "",
@@ -16006,7 +16006,7 @@
     },
     {
         "stageNumber": 18,
-        "stageName": "Wolf Powerstage Passauer Land 2",
+        "stageName": "Passauer Land 2",
         "country": "germany",
         "userName": "Irlacher Wolfgang - Irlacher Elke",
         "realName": "",
@@ -16021,7 +16021,7 @@
     },
     {
         "stageNumber": 18,
-        "stageName": "Wolf Powerstage Passauer Land 2",
+        "stageName": "Passauer Land 2",
         "country": "germany",
         "userName": "Wallner Christian - Konrad F.",
         "realName": "",
@@ -16036,7 +16036,7 @@
     },
     {
         "stageNumber": 18,
-        "stageName": "Wolf Powerstage Passauer Land 2",
+        "stageName": "Passauer Land 2",
         "country": "ireland",
         "userName": "Wilson Conor - Marsh Sean",
         "realName": "",
@@ -16051,7 +16051,7 @@
     },
     {
         "stageNumber": 18,
-        "stageName": "Wolf Powerstage Passauer Land 2",
+        "stageName": "Passauer Land 2",
         "country": "germany",
         "userName": "Weigert Timo - Weigert Jasmin",
         "realName": "",
@@ -16066,7 +16066,7 @@
     },
     {
         "stageNumber": 18,
-        "stageName": "Wolf Powerstage Passauer Land 2",
+        "stageName": "Passauer Land 2",
         "country": "belgium",
         "userName": "Fumal Armand - Escartefigue Jules",
         "realName": "",
@@ -16081,7 +16081,7 @@
     },
     {
         "stageNumber": 18,
-        "stageName": "Wolf Powerstage Passauer Land 2",
+        "stageName": "Passauer Land 2",
         "country": "nederland",
         "userName": "Vossen Henk - van Hoek Radboud",
         "realName": "",
@@ -16096,7 +16096,7 @@
     },
     {
         "stageNumber": 18,
-        "stageName": "Wolf Powerstage Passauer Land 2",
+        "stageName": "Passauer Land 2",
         "country": "germany",
         "userName": "Pahlitzsch Thomas - Grundmann S.",
         "realName": "",
@@ -16111,7 +16111,7 @@
     },
     {
         "stageNumber": 18,
-        "stageName": "Wolf Powerstage Passauer Land 2",
+        "stageName": "Passauer Land 2",
         "country": "spain",
         "userName": "Díaz-Aboitiz M. - Sanjuan de Eusebio R.",
         "realName": "",
@@ -16126,7 +16126,7 @@
     },
     {
         "stageNumber": 18,
-        "stageName": "Wolf Powerstage Passauer Land 2",
+        "stageName": "Passauer Land 2",
         "country": "czech",
         "userName": "Stejskal Václav sen. - Omelka Z.",
         "realName": "",
@@ -16141,7 +16141,7 @@
     },
     {
         "stageNumber": 18,
-        "stageName": "Wolf Powerstage Passauer Land 2",
+        "stageName": "Passauer Land 2",
         "country": "croatia",
         "userName": "Šekuljica Slaven - Petrović D.",
         "realName": "",

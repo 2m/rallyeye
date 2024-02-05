@@ -9,6 +9,9 @@ ThisBuild / licenses += ("Apache-2.0", url("http://www.apache.org/licenses/LICEN
 
 ThisBuild / dynverSeparator := "-"
 
+// invisible because used from dyn task
+Global / excludeLintKeys ++= Set(nativeImageJvm, nativeImageVersion)
+
 val MUnitFramework = new TestFramework("munit.Framework")
 val Integration = config("integration").extend(Test)
 
