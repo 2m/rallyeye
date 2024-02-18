@@ -102,7 +102,7 @@ lazy val backend = project
       "com.softwaremill.sttp.tapir" %% "tapir-http4s-client" % "1.9.9",
       "org.http4s"                  %% "http4s-ember-server" % "0.23.25",
       "org.http4s"                  %% "http4s-ember-client" % "0.23.25",
-      "ch.qos.logback"               % "logback-classic"     % "1.4.14",
+      "ch.qos.logback"               % "logback-classic"     % "1.5.0",
       "com.github.geirolz"          %% "fly4s-core"          % "1.0.0",
       "org.flywaydb"                 % "flyway-core"         % "10.8.1", // fixes logging
       "org.xerial"                   % "sqlite-jdbc"         % "3.45.1.0",
