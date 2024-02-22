@@ -17,6 +17,7 @@
 package rallyeye
 
 import java.time.Instant
+import java.time.LocalDate
 
 import com.softwaremill.diffx.Diff
 import com.softwaremill.diffx.munit.DiffxAssertions
@@ -124,7 +125,18 @@ class ResultsSuite extends munit.FunSuite with DiffxAssertions:
     assertEquals(obtained, expected)
 
   test("gives rally results"):
-    val rally = Rally(RallyKind.Rsf, "1", "rally", Instant.now)
+    val rally = Rally(
+      RallyKind.Rsf,
+      "1",
+      "rally",
+      Instant.now,
+      Some("championship"),
+      LocalDate.parse("2024-01-01"),
+      LocalDate.parse("2024-01-01"),
+      1000,
+      2,
+      1
+    )
     val obtained = rallyData(rally, entries)
     val expected = RallyData(
       rally.externalId,

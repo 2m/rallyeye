@@ -1,0 +1,11 @@
+{
+    "name": "Rallye Automobile Monte-Carlo 2020",
+    "championship": [
+        "WRC"
+    ],
+    "start": 1579651200,
+    "end": 1579996800,
+    "distanceMeters": 304280,
+    "started": 88,
+    "finished": 73
+}

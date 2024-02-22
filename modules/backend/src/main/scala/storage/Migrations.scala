@@ -17,6 +17,8 @@
 package rallyeye
 package storage
 
+import java.time.LocalDate
+
 import scala.io.Source
 
 import cats.effect.IO
@@ -25,6 +27,7 @@ import fly4s.data.Fly4sConfig
 import fly4s.data.Locations
 import fly4s.data.ValidatePattern
 import fly4s.implicits.*
+import io.github.iltotore.iron.*
 
 val migrations = Fly4s
   .make[IO](
@@ -42,13 +45,25 @@ val migrations = Fly4s
   )
   .evalMap(_.validateAndMigrate.result)
 
-def loadPressAutoResults(rallyId: String, name: String, filename: String) =
+def loadPressAutoResults(rallyId: String, rallyInfo: RallyInfo, filename: String) =
   for
     csv <- IO.pure(Source.fromResource(filename)(scala.io.Codec.UTF8).mkString)
     results <- IO.pure(PressAuto.parseResults(csv))
-    _ <- Repo.PressAuto.saveRallyName(rallyId, name)
+    _ <- Repo.PressAuto.saveRallyInfo(rallyId, rallyInfo)
     _ <- Repo.PressAuto.saveRallyResults(rallyId, results)
   yield ()
 
 val allMigrations = rallyeye.storage.migrations
-  .use(_ => IO(())) <* rallyeye.storage.loadPressAutoResults("2023", "Press Auto 2023", "pressauto2023.csv")
+  .use(_ => IO(())) <* rallyeye.storage.loadPressAutoResults(
+  "2023",
+  RallyInfo(
+    "Press Auto 2023",
+    Some("Press Auto"),
+    LocalDate.of(2023, 6, 16),
+    LocalDate.of(2023, 6, 17),
+    60000.refine,
+    68.refine,
+    63.refine
+  ),
+  "pressauto2023.csv"
+)

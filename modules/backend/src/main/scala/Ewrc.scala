@@ -16,6 +16,8 @@
 
 package rallyeye
 
+import java.time.LocalDate
+
 import scala.jdk.CollectionConverters.*
 import scala.util.Try
 
@@ -56,17 +58,80 @@ object Ewrc:
     Http4sClientInterpreter[IO]()
       .toRequestThrowDecodeFailures(finalEndpoint, Some(Ewrc))(rallyId)
 
-  def rallyName(client: Client[IO], rallyId: String): IO[Either[Error, String]] =
-    val (request, parseResponse) = resultsPage(rallyId, None)
-    for
-      response <- client
-        .run(request)
-        .use(parseResponse(_))
-        .map(_.left.map(_ => Error("Unable to parse Ewrc name response")))
-      rallyName = response.map { body =>
-        Scoup.parseHTML(body).select("html body main#main-section h3").first().text
-      }
-    yield rallyName
+  def rallyInfo(client: Client[IO], rallyId: String): EitherT[IO, Error, RallyInfo] =
+    val (request, parseResponse) = finalPage(rallyId)
+    for response <- EitherT(
+        client
+          .run(request)
+          .use(parseResponse(_))
+          .map(_.left.map(_ => Error("Unable to parse Ewrc final page response")))
+      )
+    yield parseRallyInfo(response)
+
+  def parseRallyInfo(finalPageBody: String): RallyInfo =
+    val parsedPage = Scoup.parseHTML(finalPageBody)
+
+    val nameWithPrefix = """(\d+)\. (.*)""".r
+    val name = parsedPage.select("html body main#main-section h3").first.text match
+      case nameWithPrefix(_, rallyName) => rallyName
+      case name                         => name
+
+    val topInfo = parsedPage.select("html body main#main-section div.top-info").first.text
+    val topInfoParts = topInfo.split("•").toList.map(_.trim)
+    val (start, end) = topInfoParts.head match
+      case s"$startDay. $startMonth. – $endDate. $endMonth. $year, $organizer" =>
+        (
+          LocalDate.of(year.toInt, startMonth.toInt, startDay.toInt),
+          LocalDate.of(year.toInt, endMonth.toInt, endDate.toInt)
+        )
+
+    val distanceRegexp = """[^\d]*(\d+)\.(\d+) km.*""".r
+    val distanceMeters = topInfoParts(2).split("cancelled").head match
+      case distanceRegexp(kilometers, decimeters) =>
+        kilometers.toInt * 1000 + (decimeters.toInt * 10)
+      case _ => throw Error(s"Unable to parse rally distance from [${topInfoParts(2)}]")
+
+    val topSections = parsedPage.select("html body main#main-section div.top-sections").first.text
+    val championship = topSections.split("•").toList.head.split("#").head.trim
+
+    val finishedElements = parsedPage
+      .select("html body main#main-section div.text-center.text-primary.font-weight-bold")
+      .iterator()
+      .asScala
+      .toList
+    val finished = finishedElements.find(_.text.contains("finished")) match
+      case Some(finishedElement) =>
+        val finishedRegexp = """finished: (\d+) .*""".r
+        finishedElement.text match
+          case finishedRegexp(finishedCount) => finishedCount.toInt
+          case _ => throw new Error(s"Unable to parse finished count from [${finishedElement.text}]")
+      case None => throw new Error(s"Unable to find finished element in [$finishedElements]")
+
+    val retirementsElements = parsedPage
+      .select("html body main#main-section div.final-results table.results tbody h4.text-center.mt-3")
+      .iterator()
+      .asScala
+      .toList
+    val retirements = retirementsElements.find(_.text.contains("Retirements")) match
+      case Some(retirementsElement) =>
+        val retirementsRegexp = """(\d+) .*""".r
+        retirementsElement.siblingElements.first.text match
+          case retirementsRegexp(retirementsCount) => retirementsCount.toInt
+          case _ =>
+            throw new Error(
+              s"Unable to parse retirements count from [${retirementsElement.siblingElements.first.text}]"
+            )
+      case None => throw new Error(s"Unable to find retirements element in [$retirementsElements]")
+
+    RallyInfo(
+      name,
+      Some(championship),
+      start,
+      end,
+      distanceMeters.refine,
+      (finished + retirements).refine,
+      finished.refine
+    )
 
   def retiredNumberGroup(client: Client[IO], rallyId: String): IO[Either[Error, Map[String, String]]] =
     val (request, parseResponse) = finalPage(rallyId)

@@ -17,6 +17,7 @@
 package rallyeye
 
 import java.time.Instant
+import java.time.LocalDate
 
 import scala.collection.MapView
 import scala.util.chaining.*
@@ -26,6 +27,16 @@ import io.github.iltotore.iron.constraint.numeric.*
 import rallyeye.shared.*
 import rallyeye.storage.Rally
 import rallyeye.storage.RallyKind
+
+case class RallyInfo(
+    name: String,
+    championship: Option[String],
+    start: LocalDate,
+    end: LocalDate,
+    distanceMeters: Int :| Greater[0],
+    started: Int :| GreaterEqual[0],
+    finished: Int :| GreaterEqual[0]
+)
 
 extension (kind: RallyKind)
   def link(rally: Rally) =

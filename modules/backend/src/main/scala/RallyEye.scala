@@ -52,11 +52,11 @@ object Logic:
         .build
         .use { client =>
           (for
-            name <- EitherT(rallyeye.Rsf.rallyName(client, rallyId))
+            info <- rallyeye.Rsf.rallyInfo(client, rallyId)
             results <- EitherT(rallyeye.Rsf.rallyResults(client, rallyId))
-            _ <- EitherT(Repo.Rsf.saveRallyName(rallyId, name))
+            _ <- EitherT(Repo.Rsf.saveRallyInfo(rallyId, info))
             _ <- EitherT(Repo.Rsf.saveRallyResults(rallyId, results))
-          yield name).value
+          yield ()).value
         }
 
     def data(rallyId: String) =
@@ -95,11 +95,11 @@ object Logic:
         .build
         .use { client =>
           (for
-            name <- EitherT(rallyeye.Ewrc.rallyName(client, rallyId))
+            info <- rallyeye.Ewrc.rallyInfo(client, rallyId)
             results <- rallyeye.Ewrc.rallyResults(client, rallyId)
-            _ <- EitherT(Repo.Ewrc.saveRallyName(rallyId, name))
+            _ <- EitherT(Repo.Ewrc.saveRallyInfo(rallyId, info))
             _ <- EitherT(Repo.Ewrc.saveRallyResults(rallyId, results))
-          yield name).value
+          yield ()).value
         }
 
     def data(rallyId: String) =
@@ -130,7 +130,7 @@ val httpServer =
   import cats.syntax.semigroupk.*
 
   for
-    refreshShardedStreamAndLogic <- shardedLogic(5)((Logic.Rsf.refresh _).andThen(_.value).andThen(handleErrors))
+    refreshShardedStreamAndLogic <- shardedLogic(5)(Logic.Rsf.refresh.andThen(_.value).andThen(handleErrors))
     (refreshShardedStream, refreshShardedLogic) = refreshShardedStreamAndLogic
     _ <- refreshShardedStream.compile.drain.start
     server = EmberServerBuilder
@@ -149,12 +149,12 @@ val httpServer =
                 val interp = Http4sServerInterpreter[IO]()
                 val endpoints =
                   List(
-                    Endpoints.Rsf.data.serverLogic((Logic.Rsf.data _).andThen(_.value).andThen(handleErrors)),
+                    Endpoints.Rsf.data.serverLogic(Logic.Rsf.data.andThen(_.value).andThen(handleErrors)),
                     Endpoints.Rsf.refresh.serverLogic(refreshShardedLogic),
                     Endpoints.PressAuto.data
-                      .serverLogic((Logic.PressAuto.data _).andThen(_.value).andThen(handleErrors)),
-                    Endpoints.Ewrc.data.serverLogic((Logic.Ewrc.data _).andThen(_.value).andThen(handleErrors)),
-                    Endpoints.Ewrc.refresh.serverLogic((Logic.Ewrc.refresh _).andThen(_.value).andThen(handleErrors))
+                      .serverLogic(Logic.PressAuto.data.andThen(_.value).andThen(handleErrors)),
+                    Endpoints.Ewrc.data.serverLogic(Logic.Ewrc.data.andThen(_.value).andThen(handleErrors)),
+                    Endpoints.Ewrc.refresh.serverLogic(Logic.Ewrc.refresh.andThen(_.value).andThen(handleErrors))
                   )
                 endpoints.map(interp.toRoutes).reduce(_ <+> _).orNotFound
               }

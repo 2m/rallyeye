@@ -17,13 +17,11 @@
 package rallyeye
 
 import cats.effect.IO
+import cats.effect.kernel.Resource
+import org.http4s.client.Client
 import org.http4s.ember.client.EmberClientBuilder
 
 class RsfSuite extends munit.FunSuite with SnapshotSupport:
-
-  val integration = new munit.Tag("integration")
-
-  import cats.effect.unsafe.implicits.global
 
   val httpClient = EmberClientBuilder
     .default[IO]
@@ -44,14 +42,13 @@ class RsfSuite extends munit.FunSuite with SnapshotSupport:
     val expected = snapshot(obtained, "rsv-csv")
     assertEquals(obtained, expected)
 
-  def checkRsfName[T](rally: String, expected: String)(using munit.Location): Unit =
-    test(s"get rsf $rally name".tag(integration)):
-      httpClient
-        .use(Rsf.rallyName(_, rally))
-        .unsafeRunSync() match
-        case Right(name) =>
-          assertEquals(name, expected)
-        case Left(error) => fail(s"Unable to get rsf rally name: $error")
+  given Resource[IO, Client[IO]] = EmberClientBuilder
+    .default[IO]
+    .withTimeout(Timeout)
+    .withIdleConnectionTime(IdleTimeout)
+    .build
 
-  checkRsfName("59862", "VRC #9 2023 - Barum Czech Rally Zlin")
-  checkRsfName("59247", "Barum Rally Zlin")
+  val checkRsfInfo = check(Rsf.rallyInfo, "rsf-info")
+  checkRsfInfo("59862")
+  checkRsfInfo("59247")
+  checkRsfInfo("66003")

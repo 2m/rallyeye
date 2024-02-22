@@ -17,10 +17,15 @@
 package rallyeye
 
 import java.time.Instant
+import java.time.LocalDate
 
+import scala.jdk.CollectionConverters.*
 import scala.util.Try
+import scala.util.matching.Regex
 
+import cats.data.EitherT
 import cats.effect.IO
+import com.themillhousegroup.scoup.Scoup
 import io.github.iltotore.iron.*
 import org.http4s.client.Client
 import org.http4s.implicits.*
@@ -44,26 +49,89 @@ object Rsf:
       .in(query[String]("rally_id"))
       .out(stringBody)
 
-  def rallyName(rallyId: String) =
+  def rallyDetails(rallyId: String) =
     Http4sClientInterpreter[IO]()
-      .toRequestThrowDecodeFailures(rallyEndpoint, Some(Rsf))("rally_results.php", rallyId)
+      .toRequestThrowDecodeFailures(rallyEndpoint, Some(Rsf))("rally_list_details.php", rallyId)
 
   def rallyResults(rallyId: String) =
     Http4sClientInterpreter[IO]()
       .toRequestThrowDecodeFailures(resultsEndpoint, Some(Rsf))(6, rallyId)
 
-  def rallyName(client: Client[IO], rallyId: String): IO[Either[Error, String]] =
-    val (request, parseResponse) = rallyName(rallyId)
-    for
-      response <- client
-        .run(request)
-        .use(parseResponse(_))
-        .map(_.left.map(_ => Error("Unable to parse RSF name response")))
-      rallyName = response.map { body =>
-        val regexp = "Final standings for: ([^>]*)<table".r
-        regexp.findFirstMatchIn(body).get.group(1).strip()
-      }
-    yield rallyName
+  def rallyInfo(client: Client[IO], rallyId: String): EitherT[IO, Error, RallyInfo] =
+    val (request, parseResponse) = rallyDetails(rallyId)
+    for response <- EitherT(
+        client
+          .run(request)
+          .use(parseResponse(_))
+          .map(_.left.map(_ => Error("Unable to parse RSF name response")))
+      )
+    yield parseRallyInfo(response)
+
+  def parseRallyInfo(detailsPageBody: String): RallyInfo =
+    val parsedPage = Scoup.parseHTML(detailsPageBody)
+
+    val name =
+      parsedPage.select("html body div#page-wrap table tbody table tbody table tbody tr.fejlec td > b").first.text
+
+    val championshipLinks = parsedPage
+      .select("html body div#page-wrap table tbody table tbody table tbody tr.fejlec td div.point")
+      .iterator()
+      .asScala
+      .toList
+    val championship = championshipLinks.find(_.attr("onclick").contains("b_rally_list_details")) match
+      case Some(championshipLink) => Some(championshipLink.text)
+      case None                   => None
+
+    val infoTable = parsedPage
+      .select("html body div#page-wrap table tbody table tbody table tbody tr.paros td")
+      .iterator()
+      .asScala
+      .toList
+
+    val distanceMeters = infoTable.find(_.text.contains("Total Distance Rally")) match
+      case Some(distanceElement) =>
+        distanceElement.siblingElements.first.text match
+          case s"$kilometers.$hectometers km" => kilometers.toInt * 1000 + (hectometers.toInt * 100)
+          case _ => throw new Error(s"Unable to parse distance from [${distanceElement.siblingElements.first.text}]")
+      case None => throw new Error(s"Unable to find distance element in [$infoTable]")
+
+    val (started, finished) = infoTable.find(_.text.contains("Started/Finished")) match
+      case Some(startedFinishedElement) =>
+        startedFinishedElement.siblingElements.first.text match
+          case s"$started / $finished" => (started.toInt, finished.toInt)
+          case _ =>
+            throw new Error(
+              s"Unable to parse started, finished from [${startedFinishedElement.siblingElements.first.text}]"
+            )
+      case None => throw new Error(s"Unable to find started, finished element in [$infoTable]")
+
+    val firstDateRegexp = """(\d+)-(\d+)-(\d+).*""".r
+    val lastDateRegexp = """.* (\d+)-(\d+)-(\d+) .*""".r
+    def parseDate(text: String, regexp: Regex) =
+      text match
+        case regexp(year, month, day) => LocalDate.of(year.toInt, month.toInt, day.toInt)
+        case _                        => throw new Error(s"Unable to parse start date from [$text]")
+
+    val (start, end) = infoTable.filter(_.text.contains("Leg ")) match
+      case first +: _ :+ last =>
+        (
+          parseDate(first.siblingElements.first.text, firstDateRegexp),
+          parseDate(last.siblingElements.first.text, lastDateRegexp)
+        )
+      case single :: Nil =>
+        val singleLeg = single.siblingElements.first.text
+        (parseDate(singleLeg, firstDateRegexp), parseDate(singleLeg, lastDateRegexp))
+      case _ => throw new Error(s"Unable to find leg elements in [$infoTable]")
+
+    RallyInfo(
+      name,
+      championship,
+      start,
+      end,
+      distanceMeters.refine,
+      started.refine,
+      finished.refine
+    )
 
   def rallyResults(client: Client[IO], rallyId: String): IO[Either[Error, List[Entry]]] =
     val (request, parseResponse) = rallyResults(rallyId)
