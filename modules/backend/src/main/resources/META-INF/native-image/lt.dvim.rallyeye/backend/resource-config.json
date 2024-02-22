@@ -29,6 +29,8 @@
   }, {
     "pattern":"\\Qdb/V002__add_penalty_columns.sql\\E"
   }, {
+    "pattern":"\\Qdb/V003__add_rally_info_columns.sql\\E"
+  }, {
     "pattern":"\\Qdb/callback\\E"
   }, {
     "pattern":"\\Qdb\\E"
