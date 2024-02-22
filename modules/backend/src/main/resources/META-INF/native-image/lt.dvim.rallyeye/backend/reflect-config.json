@@ -381,6 +381,10 @@
   "fields":[{"name":"Advanced$lzy1"}, {"name":"Basic$lzy1"}]
 },
 {
+  "name":"doobie.util.meta.TimeMeta$javatimedrivernative$",
+  "fields":[{"name":"Advanced$lzy2"}, {"name":"Basic$lzy2"}]
+},
+{
   "name":"fly4s.data.Fly4sConfig$",
   "fields":[{"name":"default$lzy1"}]
 },
@@ -586,6 +590,10 @@
 },
 {
   "name":"java.security.interfaces.RSAPublicKey"
+},
+{
+  "name":"java.sql.SQLException",
+  "fields":[{"name":"next"}]
 },
 {
   "name":"java.util.Date"
@@ -805,7 +813,7 @@
 },
 {
   "name":"rallyeye.shared.Codecs$",
-  "fields":[{"name":"given_Decoder_Instant$lzy1"}, {"name":"given_Encoder_Instant$lzy1"}]
+  "fields":[{"name":"given_Decoder_Instant$lzy1"}, {"name":"given_Decoder_LocalDate$lzy1"}, {"name":"given_Encoder_Instant$lzy1"}, {"name":"given_Encoder_LocalDate$lzy1"}]
 },
 {
   "name":"rallyeye.shared.Results$package$",

@@ -1,4 +1,4 @@
-ThisBuild / scalaVersion := "3.3.1"
+ThisBuild / scalaVersion := "3.4.0"
 //ThisBuild / scalacOptions ++= Seq("-Wunused:imports")
 ThisBuild / scalafmtOnCompile := true
 
@@ -106,12 +106,13 @@ lazy val backend = project
       "com.github.geirolz"          %% "fly4s-core"          % "1.0.0",
       "org.flywaydb"                 % "flyway-core"         % "10.8.1", // fixes logging
       "org.xerial"                   % "sqlite-jdbc"         % "3.45.1.0",
-      "org.tpolecat"                %% "doobie-core"         % "1.0.0-RC5",
+      "org.tpolecat"                %% "doobie-core"         % "1.0.0-RC4",
       "io.github.arainko"           %% "ducktape"            % "0.1.11",
       "com.monovore"                %% "decline-effect"      % "2.4.1",
       "io.github.iltotore"          %% "iron"                % "2.4.0",
+      "io.github.iltotore"          %% "iron-doobie"         % "2.4.0",
       "com.themillhousegroup"       %% "scoup"               % "1.0.0",
-      "org.tpolecat"                %% "doobie-munit"        % "1.0.0-RC5" % Test,
+      "org.tpolecat"                %% "doobie-munit"        % "1.0.0-RC4" % Test,
       "org.scalameta"               %% "munit"               % "1.0.0-M11" % Test,
       "org.scalameta"               %% "munit-scalacheck"    % "1.0.0-M11" % Test,
       "com.softwaremill.diffx"      %% "diffx-munit"         % "0.9.0"     % Test,

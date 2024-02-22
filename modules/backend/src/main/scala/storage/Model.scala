@@ -18,8 +18,8 @@ package rallyeye
 package storage
 
 import java.time.Instant
+import java.time.LocalDate
 
-import cats.Show
 import doobie.util.{Get, Put}
 import doobie.util.Read
 import doobie.util.Write
@@ -35,7 +35,18 @@ given Read[RallyKind] = Read[Int].map(RallyKind.fromOrdinal)
 given Write[Instant] = Write[Long].contramap(_.getEpochSecond)
 given Read[Instant] = Read[Long].map(Instant.ofEpochSecond)
 
-case class Rally(kind: RallyKind, externalId: String, name: String, retrievedAt: Instant)
+case class Rally(
+    kind: RallyKind,
+    externalId: String,
+    name: String,
+    retrievedAt: Instant,
+    championship: Option[String],
+    start: LocalDate,
+    end: LocalDate,
+    distanceMeters: Int :| Greater[0],
+    started: Int :| GreaterEqual[0],
+    finished: Int :| GreaterEqual[0]
+)
 
 case class Result(
     rallyKind: RallyKind,
@@ -58,17 +69,3 @@ case class Result(
     comment: Option[String],
     nominal: Boolean
 )
-
-// doobie suport for iron constraned types
-// remove after https://github.com/Iltotore/iron/pull/184 is released
-inline given [A, C](using inline get: Get[A])(using Constraint[A, C], Show[A]): Get[A :| C] =
-  get.temap[A :| C](_.refineEither)
-
-inline given [T](using m: RefinedTypeOps.Mirror[T], ev: Get[m.IronType]): Get[T] =
-  ev.asInstanceOf[Get[T]]
-
-inline given [A, C](using inline put: Put[A])(using Constraint[A, C], Show[A]): Put[A :| C] =
-  put.tcontramap(identity)
-
-inline given [T](using m: RefinedTypeOps.Mirror[T], ev: Put[m.IronType]): Put[T] =
-  ev.asInstanceOf[Put[T]]

@@ -17,6 +17,8 @@
 package rallyeye.shared
 
 import java.time.Instant
+import java.time.LocalDate
+import java.time.ZoneOffset
 
 import io.bullet.borer.Codec
 import io.bullet.borer.Decoder
@@ -48,3 +50,6 @@ object TapirJsonBorer:
 object Codecs:
   given Encoder[Instant] = Encoder[Long].contramap(_.getEpochSecond)
   given Decoder[Instant] = Decoder[Long].map(Instant.ofEpochSecond)
+
+  given Encoder[LocalDate] = Encoder[Long].contramap(_.atStartOfDay(ZoneOffset.UTC).toInstant.getEpochSecond)
+  given Decoder[LocalDate] = Decoder[Long].map(l => Instant.ofEpochSecond(l).atZone(ZoneOffset.UTC).toLocalDate)

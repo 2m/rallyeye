@@ -22,6 +22,8 @@ import cats.effect.*
 import cats.implicits.*
 import doobie.*
 import doobie.implicits.*
+import doobie.implicits.javatimedrivernative.*
+import io.github.iltotore.iron.doobie.given
 
 object Db:
   case class Config(
@@ -47,11 +49,33 @@ object Db:
     Transactor.before.modify(transactor, sql"PRAGMA foreign_keys = 1".update.run *> _)
 
   def insertRally(rally: Rally) =
-    sql"insert or replace into rally (kind, external_id, name, retrieved_at) values ($rally)".update.run.attemptSql
+    sql"""|insert or replace into rally (
+          |  kind,
+          |  external_id,
+          |  name,
+          |  retrieved_at,
+          |  championship,
+          |  start,
+          |  end,
+          |  distance_meters,
+          |  started,
+          |  finished
+          |) values ($rally)""".stripMargin.update.run.attemptSql
       .transact(xa)
 
   def selectRally(kind: RallyKind, externalId: String) =
-    sql"select kind, external_id, name, retrieved_at from rally where kind = $kind and external_id = $externalId"
+    sql"""|select
+          |  kind,
+          |  external_id,
+          |  name,
+          |  retrieved_at,
+          |  championship,
+          |  start,
+          |  end,
+          |  distance_meters,
+          |  started,
+          |  finished
+          |from rally where kind = $kind and external_id = $externalId""".stripMargin
       .query[Rally]
       .option
       .attemptSql

@@ -28,8 +28,15 @@ import io.github.iltotore.iron.*
 import io.github.iltotore.iron.constraint.numeric.*
 
 object Repo:
-  def saveRallyName(rallyKind: RallyKind)(rallyId: String, name: String) =
-    Db.insertRally(Rally(rallyKind, rallyId.toString, name, Instant.now))
+  def saveRallyInfo(rallyKind: RallyKind)(rallyId: String, info: RallyInfo) =
+    info
+      .into[Rally]
+      .transform(
+        Field.const(_.kind, rallyKind),
+        Field.const(_.externalId, rallyId.toString),
+        Field.const(_.retrievedAt, Instant.now)
+      )
+      .pipe(Db.insertRally)
 
   def getRally(rallyKind: RallyKind)(rallyId: String) =
     Db.selectRally(rallyKind, rallyId.toString)
@@ -66,19 +73,19 @@ object Repo:
     )).value
 
   object Rsf:
-    val saveRallyName = Repo.saveRallyName(RallyKind.Rsf)
+    val saveRallyInfo = Repo.saveRallyInfo(RallyKind.Rsf)
     val getRally = Repo.getRally(RallyKind.Rsf)
     val saveRallyResults = Repo.saveRsfRallyResults(RallyKind.Rsf)
     val getRallyResults = Repo.getRsfRallyResults(RallyKind.Rsf)
 
   object PressAuto:
-    val saveRallyName = Repo.saveRallyName(RallyKind.PressAuto)
+    val saveRallyInfo = Repo.saveRallyInfo(RallyKind.PressAuto)
     val getRally = Repo.getRally(RallyKind.PressAuto)
     val saveRallyResults = Repo.saveRsfRallyResults(RallyKind.PressAuto)
     val getRallyResults = Repo.getRsfRallyResults(RallyKind.PressAuto)
 
   object Ewrc:
-    val saveRallyName = Repo.saveRallyName(RallyKind.Ewrc)
+    val saveRallyInfo = Repo.saveRallyInfo(RallyKind.Ewrc)
     val getRally = Repo.getRally(RallyKind.Ewrc)
     val saveRallyResults = Repo.saveRsfRallyResults(RallyKind.Ewrc)
     val getRallyResults = Repo.getRsfRallyResults(RallyKind.Ewrc)

@@ -51,9 +51,9 @@ class DbSuite extends munit.ScalaCheckSuite with DiffxAssertions with IronDiffxS
   given Arbitrary[RallyKind] = Arbitrary:
     Gen.oneOf(ArraySeq.unsafeWrapArray(RallyKind.values))
   given Arbitrary[Rally] = Arbitrary:
-    Gen.resultOf(Rally.apply _)
+    Gen.resultOf(Rally.apply)
   given Arbitrary[Result] = Arbitrary:
-    Gen.resultOf(Result.apply _)
+    Gen.resultOf(Result.apply)
   given Arbitrary[RallyWithResults] = Arbitrary:
     for
       rally <- arbitrary[Rally]

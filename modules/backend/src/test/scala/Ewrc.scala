@@ -16,51 +16,28 @@
 
 package rallyeye
 
-import java.time.Instant
-
 import cats.effect.IO
-import com.softwaremill.diffx.Diff
-import com.softwaremill.diffx.munit.DiffxAssertions
-import io.github.iltotore.iron.*
+import cats.effect.kernel.Resource
+import io.bullet.borer.Decoder
+import io.bullet.borer.Encoder
+import org.http4s.client.Client
 import org.http4s.ember.client.EmberClientBuilder
 
-class EwrcSuite
-    extends munit.FunSuite
-    with DiffxAssertions
-    with IronBorerSupport
-    with IronDiffxSupport
-    with SnapshotSupport:
-  val integration = new munit.Tag("integration")
+class EwrcSuite extends munit.FunSuite with SnapshotSupport:
 
-  import cats.effect.unsafe.implicits.global
-
-  given Diff[Entry] = Diff.derived[Entry]
-
-  val httpClient = EmberClientBuilder
+  given Resource[IO, Client[IO]] = EmberClientBuilder
     .default[IO]
     .withTimeout(Timeout)
     .withIdleConnectionTime(IdleTimeout)
     .build
 
-  test("get rally name".tag(integration)):
-    httpClient
-      .use { client =>
-        Ewrc.rallyName(client, "80245-forum8-rally-japan-2023")
-      }
-      .unsafeRunSync() match
-      case Right(name) => assertEquals(name, "FORUM8 Rally Japan 2023")
-      case Left(error) => fail(s"Unable to get rally name: $error")
+  val checkEwrcInfo = check(Ewrc.rallyInfo, "ewrc-info")
+  checkEwrcInfo("80245-forum8-rally-japan-2023")
+  checkEwrcInfo("80244-central-european-rally-2023")
+  checkEwrcInfo("80239-safari-rally-kenya-2023")
+  checkEwrcInfo("59972-rallye-automobile-monte-carlo-2020")
 
-  def checkEwrcResult[T](rally: String)(using munit.Location): Unit =
-    test(s"get $rally results".tag(integration)):
-      httpClient
-        .use(Ewrc.rallyResults(_, rally).value)
-        .unsafeRunSync() match
-        case Right(results) =>
-          val expected = snapshot(results, s"ewrc-$rally")
-          assertEqual(results, expected)
-        case Left(error) => fail(s"Unable to get ewrc results: $error")
-
+  val checkEwrcResult = check(Ewrc.rallyResults, "ewrc-results")
   checkEwrcResult("80245-forum8-rally-japan-2023")
   checkEwrcResult("80244-central-european-rally-2023")
   checkEwrcResult("80239-safari-rally-kenya-2023")
