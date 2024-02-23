@@ -81,6 +81,16 @@ object Db:
       .attemptSql
       .transact(xa)
 
+  def selectRallies() =
+    sql"""|select
+          |  kind,
+          |  external_id
+          |from rally""".stripMargin
+      .query[(RallyKind, String)]
+      .to[List]
+      .attemptSql
+      .transact(xa)
+
   def insertManyResults(results: List[Result]) =
     val sql = """|insert or replace into results (
                  |  rally_kind,

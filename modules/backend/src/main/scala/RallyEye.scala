@@ -23,6 +23,7 @@ import scala.concurrent.duration.*
 import cats.data.EitherT
 import cats.effect.IO
 import cats.effect.LiftIO
+import cats.syntax.all.*
 import com.comcast.ip4s.*
 import org.http4s.CacheDirective
 import org.http4s.Method
@@ -31,9 +32,13 @@ import org.http4s.ember.server.EmberServerBuilder
 import org.http4s.server.middleware.Caching
 import org.http4s.server.middleware.CORS
 import org.http4s.server.middleware.GZip
+import org.typelevel.log4cats.slf4j.Slf4jLogger
 import rallyeye.shared.*
+import rallyeye.storage.Db
+import rallyeye.storage.RallyKind
 import rallyeye.storage.Repo
 import sttp.tapir.*
+import sttp.tapir.model.UsernamePassword
 import sttp.tapir.server.http4s.Http4sServerInterpreter
 
 val Timeout = 2.minutes
@@ -119,6 +124,29 @@ object Logic:
         storedData <- data(rallyId)
       yield storedData
 
+  object Admin:
+    def refresh(usernamePassword: UsernamePassword): EitherT[IO, Throwable, Unit] =
+      usernamePassword match
+        case UsernamePassword("admin", Some(password))
+            if password.sha256hash == sys.env.getOrElse("ADMIN_PASS_HASH", "") =>
+          for
+            storedRallies <- EitherT(Db.selectRallies())
+            logger <- EitherT.right(Slf4jLogger.create[IO])
+            results = storedRallies.map:
+              case (RallyKind.Rsf, id) =>
+                EitherT
+                  .right(logger.info(s"Refreshing Rsf rally $id")) *> Logic.Rsf.refresh(id).map(_ => ())
+              case (RallyKind.Ewrc, id) =>
+                EitherT
+                  .right(logger.info(s"Refreshing Ewrc rally $id")) *> Logic.Ewrc
+                  .refresh(id)
+                  .map(_ => ())
+              case (RallyKind.PressAuto, id) => EitherT.rightT[IO, Throwable](())
+            _ <- results.sequence
+            _ <- EitherT.right(logger.info("Refresh complete"))
+          yield ()
+        case _ => EitherT.leftT(new Error("Unauthorized"))
+
 def handleErrors[T](f: IO[Either[Throwable, T]]) =
   f.map(_.left.map {
     case Logic.RallyNotStored  => RallyNotStored()
@@ -156,7 +184,10 @@ val httpServer =
                     Endpoints.Ewrc.data.serverLogic(Logic.Ewrc.data.andThen(_.value).andThen(handleErrors)),
                     Endpoints.Ewrc.refresh.serverLogic(Logic.Ewrc.refresh.andThen(_.value).andThen(handleErrors))
                   )
-                endpoints.map(interp.toRoutes).reduce(_ <+> _).orNotFound
+                (endpoints.map(interp.toRoutes).reduce(_ <+> _) <+> interp.toRoutes(
+                  Endpoints.Admin.refresh
+                    .serverLogic(Logic.Admin.refresh.andThen(_.value).andThen(handleErrors))
+                )).orNotFound
               }
             )
           )

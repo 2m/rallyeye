@@ -26,19 +26,36 @@ import rallyeye.shared.ErrorInfo
 import rallyeye.shared.RallyData
 import sttp.tapir.Endpoint
 import sttp.tapir.client.http4s.Http4sClientInterpreter
+import sttp.tapir.model.UsernamePassword
 
 val Localhost = uri"http://localhost:8080"
 
-def runRequest(client: Client[IO], endpoint: Endpoint[Unit, String, ErrorInfo, RallyData, Any], req: String) =
+trait ResultValidator[A]:
+  extension (a: A) def validate(req: Request[IO]): Either[Throwable, String]
+
+given ResultValidator[RallyData] with
+  extension (rd: RallyData)
+    def validate(req: Request[IO]) =
+      if rd.allResults.size > 0 then Right(s"$req -> ${rd.allResults.size}")
+      else Left(Error("No results"))
+
+given ResultValidator[Unit] with
+  extension (unit: Unit)
+    def validate(req: Request[IO]) =
+      Right(s"$req -> ()")
+
+def runRequest[Req, Resp: ResultValidator](
+    client: Client[IO],
+    endpoint: Endpoint[Unit, Req, ErrorInfo, Resp, Any],
+    req: Req
+) =
   val (request, parseResponse) = Http4sClientInterpreter[IO]()
     .toRequestThrowDecodeFailures(endpoint, Some(Localhost))(req)
   client.run(request).use(parseResponse(_)).flatMap(printResults(request))
 
-def printResults(req: Request[IO])(resp: Either[ErrorInfo, RallyData]) =
+def printResults[Resp: ResultValidator](req: Request[IO])(resp: Either[ErrorInfo, Resp]) =
   resp
-    .flatMap: rd =>
-      if rd.allResults.size > 0 then Right(s"$req -> ${rd.allResults.size}")
-      else Left(Error("No results"))
+    .flatMap(_.validate(req))
     .fold(err => IO.raiseError(Error(err.toString)), IO.println)
 
 val smokeRun = for
@@ -57,6 +74,11 @@ val smokeRun = for
           _ <- runRequest(client, Endpoints.Rsf.data, "48272")
           _ <- runRequest(client, Endpoints.Ewrc.refresh, "80243-eko-acropolis-rally-greece-2023")
           _ <- runRequest(client, Endpoints.Ewrc.data, "80243-eko-acropolis-rally-greece-2023")
+          _ <- runRequest(
+            client,
+            Endpoints.Admin.refresh,
+            UsernamePassword("admin", Some(sys.env.getOrElse("ADMIN_PASS", "")))
+          )
         yield ()
       }
 yield ()

@@ -16,6 +16,9 @@
 
 package rallyeye
 
+import java.nio.charset.StandardCharsets
+import java.security.MessageDigest
+
 val Unicode = "&#[0-9]+".r
 
 extension (s: String)
@@ -29,3 +32,9 @@ extension (s: String)
       case s"$seconds" =>
         seconds.toInt * 1000
       case time => throw Error(s"Unable to parse milliseconds from [$s]")
+
+  def sha256hash: String =
+    val digest = MessageDigest.getInstance("SHA-256")
+    digest.update(s.getBytes(StandardCharsets.UTF_8))
+    val hashedBytes = digest.digest()
+    hashedBytes.map("%02x".format(_)).mkString
