@@ -138,3 +138,14 @@ class DbSuite extends munit.ScalaCheckSuite with DiffxAssertions with IronDiffxS
     val selected = Db.selectResults(rally.kind, rally.externalId).unsafeRunSync()
     assertEqual(selected, Right(List(result2)))
   }
+
+  db.test("should select all rallies") { _ =>
+    val rally1 = arbitrary[Rally].sample.get
+    Db.insertRally(rally1).unsafeRunSync()
+
+    val rally2 = arbitrary[Rally].sample.get
+    Db.insertRally(rally2).unsafeRunSync()
+
+    val selected = Db.selectRallies().unsafeRunSync()
+    assertEqual(selected, Right(List((rally1.kind, rally1.externalId), (rally2.kind, rally2.externalId))))
+  }

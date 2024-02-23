@@ -28,3 +28,8 @@ class UtilSuite extends munit.FunSuite:
       val (input, expected) = test
       val obtained = input.toMs
       assertEquals(obtained, expected)
+
+  test("calculates sha256 hash"):
+    val obtained = "hello".sha256hash
+    val expected = "2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824"
+    assertEquals(obtained, expected)

@@ -24,6 +24,7 @@ import io.bullet.borer.Codec
 import io.bullet.borer.derivation.MapBasedCodecs.*
 import sttp.tapir.*
 import sttp.tapir.generic.auto.*
+import sttp.tapir.model.UsernamePassword
 
 type Endpoint = sttp.tapir.Endpoint[Unit, String, ErrorInfo, RallyData, Any]
 
@@ -48,6 +49,10 @@ object Endpoints:
     private val base = endpoint.in("ewrc" / path[String]).errorOut(jsonBody[ErrorInfo])
     val data = base.out(jsonBody[RallyData])
     val refresh = base.post.in("refresh").out(jsonBody[RallyData])
+
+  object Admin:
+    private val base = endpoint.in("admin").in(auth.basic[UsernamePassword]()).errorOut(jsonBody[ErrorInfo])
+    val refresh = base.post.in("refresh")
 
 case class Stage(number: Int, name: String)
 

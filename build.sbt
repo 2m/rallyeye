@@ -112,6 +112,8 @@ lazy val backend = project
       "io.github.iltotore"          %% "iron"                % "2.4.0",
       "io.github.iltotore"          %% "iron-doobie"         % "2.4.0",
       "com.themillhousegroup"       %% "scoup"               % "1.0.0",
+      "org.typelevel"               %% "log4cats-core"       % "2.6.0",
+      "org.typelevel"               %% "log4cats-slf4j"      % "2.6.0",
       "org.tpolecat"                %% "doobie-munit"        % "1.0.0-RC4" % Test,
       "org.scalameta"               %% "munit"               % "1.0.0-M11" % Test,
       "org.scalameta"               %% "munit-scalacheck"    % "1.0.0-M11" % Test,
