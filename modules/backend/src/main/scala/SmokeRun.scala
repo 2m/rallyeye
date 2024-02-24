@@ -44,13 +44,14 @@ given ResultValidator[Unit] with
     def validate(req: Request[IO]) =
       Right(s"$req -> ()")
 
-def runRequest[Req, Resp: ResultValidator](
+def runRequest[Security, Req, Resp: ResultValidator](
     client: Client[IO],
-    endpoint: Endpoint[Unit, Req, ErrorInfo, Resp, Any],
+    endpoint: Endpoint[Security, Req, ErrorInfo, Resp, Any],
+    security: Security,
     req: Req
 ) =
   val (request, parseResponse) = Http4sClientInterpreter[IO]()
-    .toRequestThrowDecodeFailures(endpoint, Some(Localhost))(req)
+    .toSecureRequestThrowDecodeFailures(endpoint, Some(Localhost))(security)(req)
   client.run(request).use(parseResponse(_)).flatMap(printResults(request))
 
 def printResults[Resp: ResultValidator](req: Request[IO])(resp: Either[ErrorInfo, Resp]) =
@@ -61,6 +62,7 @@ def printResults[Resp: ResultValidator](req: Request[IO])(resp: Either[ErrorInfo
 val smokeRun = for
   _ <- rallyeye.storage.allMigrations
   server <- rallyeye.httpServer
+  creds = UsernamePassword("admin", Some(sys.env.getOrElse("ADMIN_PASS", "")))
   _ <- server.use: s =>
     EmberClientBuilder
       .default[IO]
@@ -69,16 +71,14 @@ val smokeRun = for
       .build
       .use { client =>
         for
-          _ <- runRequest(client, Endpoints.PressAuto.data, "2023")
-          _ <- runRequest(client, Endpoints.Rsf.refresh, "48272")
-          _ <- runRequest(client, Endpoints.Rsf.data, "48272")
-          _ <- runRequest(client, Endpoints.Ewrc.refresh, "80243-eko-acropolis-rally-greece-2023")
-          _ <- runRequest(client, Endpoints.Ewrc.data, "80243-eko-acropolis-rally-greece-2023")
-          _ <- runRequest(
-            client,
-            Endpoints.Admin.refresh,
-            UsernamePassword("admin", Some(sys.env.getOrElse("ADMIN_PASS", "")))
-          )
+          _ <- runRequest(client, Endpoints.PressAuto.data, (), "2023")
+          _ <- runRequest(client, Endpoints.Rsf.refresh, (), "48272")
+          _ <- runRequest(client, Endpoints.Rsf.data, (), "48272")
+          _ <- runRequest(client, Endpoints.Ewrc.refresh, (), "80243-eko-acropolis-rally-greece-2023")
+          _ <- runRequest(client, Endpoints.Ewrc.data, (), "80243-eko-acropolis-rally-greece-2023")
+          _ <- runRequest(client, Endpoints.Admin.refresh, creds, ())
+          _ <- runRequest(client, Endpoints.Admin.Rsf.delete, creds, "48272")
+          _ <- runRequest(client, Endpoints.Admin.Ewrc.delete, creds, "80243-eko-acropolis-rally-greece-2023")
         yield ()
       }
 yield ()

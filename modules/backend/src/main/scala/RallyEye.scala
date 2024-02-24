@@ -125,27 +125,38 @@ object Logic:
       yield storedData
 
   object Admin:
-    def refresh(usernamePassword: UsernamePassword): EitherT[IO, Throwable, Unit] =
+    def authLogic(usernamePassword: UsernamePassword): EitherT[IO, Throwable, Unit] =
       usernamePassword match
         case UsernamePassword("admin", Some(password))
             if password.sha256hash == sys.env.getOrElse("ADMIN_PASS_HASH", "") =>
-          for
-            storedRallies <- EitherT(Db.selectRallies())
-            logger <- EitherT.right(Slf4jLogger.create[IO])
-            results = storedRallies.map:
-              case (RallyKind.Rsf, id) =>
-                EitherT
-                  .right(logger.info(s"Refreshing Rsf rally $id")) *> Logic.Rsf.refresh(id).map(_ => ())
-              case (RallyKind.Ewrc, id) =>
-                EitherT
-                  .right(logger.info(s"Refreshing Ewrc rally $id")) *> Logic.Ewrc
-                  .refresh(id)
-                  .map(_ => ())
-              case (RallyKind.PressAuto, id) => EitherT.rightT[IO, Throwable](())
-            _ <- results.sequence
-            _ <- EitherT.right(logger.info("Refresh complete"))
-          yield ()
+          EitherT.rightT(())
         case _ => EitherT.leftT(new Error("Unauthorized"))
+
+    def refresh(): EitherT[IO, Throwable, Unit] =
+      for
+        storedRallies <- EitherT(Db.selectRallies())
+        logger <- EitherT.right(Slf4jLogger.create[IO])
+        results = storedRallies.map:
+          case (RallyKind.Rsf, id) =>
+            EitherT
+              .right(logger.info(s"Refreshing Rsf rally $id")) *> Logic.Rsf.refresh(id).map(_ => ())
+          case (RallyKind.Ewrc, id) =>
+            EitherT
+              .right(logger.info(s"Refreshing Ewrc rally $id")) *> Logic.Ewrc
+              .refresh(id)
+              .map(_ => ())
+          case (RallyKind.PressAuto, id) => EitherT.rightT[IO, Throwable](())
+        _ <- results.sequence
+        _ <- EitherT.right(logger.info("Refresh complete"))
+      yield ()
+
+    object Rsf:
+      def deleteResultsAndRally(rallyId: String): EitherT[IO, Throwable, Unit] =
+        EitherT(Repo.Rsf.deleteResultsAndRally(rallyId)).map(_ => ())
+
+    object Ewrc:
+      def deleteResultsAndRally(rallyId: String): EitherT[IO, Throwable, Unit] =
+        EitherT(Repo.Ewrc.deleteResultsAndRally(rallyId)).map(_ => ())
 
 def handleErrors[T](f: IO[Either[Throwable, T]]) =
   f.map(_.left.map {
@@ -184,9 +195,33 @@ val httpServer =
                     Endpoints.Ewrc.data.serverLogic(Logic.Ewrc.data.andThen(_.value).andThen(handleErrors)),
                     Endpoints.Ewrc.refresh.serverLogic(Logic.Ewrc.refresh.andThen(_.value).andThen(handleErrors))
                   )
-                (endpoints.map(interp.toRoutes).reduce(_ <+> _) <+> interp.toRoutes(
+
+                (endpoints
+                  .map(interp.toRoutes)
+                  .reduce(_ <+> _) <+> interp.toRoutes(
                   Endpoints.Admin.refresh
-                    .serverLogic(Logic.Admin.refresh.andThen(_.value).andThen(handleErrors))
+                    .serverSecurityLogic[Unit, IO](
+                      Logic.Admin.authLogic
+                        .andThen(_.value)
+                        .andThen(handleErrors)
+                    )
+                    .serverLogic(u => u => handleErrors(Logic.Admin.refresh().value))
+                ) <+> interp.toRoutes(
+                  Endpoints.Admin.Rsf.delete
+                    .serverSecurityLogic(
+                      Logic.Admin.authLogic
+                        .andThen(_.value)
+                        .andThen(handleErrors)
+                    )
+                    .serverLogic(u => rallyId => handleErrors(Logic.Admin.Rsf.deleteResultsAndRally(rallyId).value))
+                ) <+> interp.toRoutes(
+                  Endpoints.Admin.Ewrc.delete
+                    .serverSecurityLogic(
+                      Logic.Admin.authLogic
+                        .andThen(_.value)
+                        .andThen(handleErrors)
+                    )
+                    .serverLogic(u => rallyId => handleErrors(Logic.Admin.Ewrc.deleteResultsAndRally(rallyId).value))
                 )).orNotFound
               }
             )
