@@ -147,5 +147,25 @@ class DbSuite extends munit.ScalaCheckSuite with DiffxAssertions with IronDiffxS
     Db.insertRally(rally2).unsafeRunSync()
 
     val selected = Db.selectRallies().unsafeRunSync()
-    assertEqual(selected, Right(List((rally1.kind, rally1.externalId), (rally2.kind, rally2.externalId))))
+    assertEqual(selected.map(_.toSet), Right(Set((rally1.kind, rally1.externalId), (rally2.kind, rally2.externalId))))
+  }
+
+  db.test("should delete rally and results") { _ =>
+    val RallyWithResults(rally, results) = arbitrary[RallyWithResults].sample.get
+    Db.insertRally(rally).unsafeRunSync()
+    Db.insertManyResults(results).unsafeRunSync()
+
+    val selectedRally = Db.selectRally(rally.kind, rally.externalId).unsafeRunSync()
+    assertEqual(selectedRally, Right(Some(rally)))
+
+    val selectedResults = Db.selectResults(rally.kind, rally.externalId).unsafeRunSync()
+    assertEquals(selectedResults, Right(results))
+
+    Db.deleteResultsAndRally(rally.kind, rally.externalId).unsafeRunSync()
+
+    val deletedRally = Db.selectRally(rally.kind, rally.externalId).unsafeRunSync()
+    assertEqual(deletedRally, Right(None))
+
+    val deletedResults = Db.selectResults(rally.kind, rally.externalId).unsafeRunSync()
+    assertEquals(deletedResults, Right(Nil))
   }

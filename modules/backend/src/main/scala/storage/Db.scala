@@ -144,3 +144,18 @@ object Db:
       .to[List]
       .attemptSql
       .transact(xa)
+
+  def deleteResultsAndRally(kind: RallyKind, externalId: String) =
+    val deleteResults =
+      sql"""|delete from results
+            |where
+            |  rally_kind = $kind and
+            |  rally_external_id = $externalId""".stripMargin.update.run
+
+    val deleteRally =
+      sql"""|delete from rally
+            |where
+            |  kind = $kind and
+            |  external_id = $externalId""".stripMargin.update.run
+
+    (deleteResults, deleteRally).mapN(_ + _).attemptSql.transact(xa)

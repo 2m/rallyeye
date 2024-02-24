@@ -51,8 +51,14 @@ object Endpoints:
     val refresh = base.post.in("refresh").out(jsonBody[RallyData])
 
   object Admin:
-    private val base = endpoint.in("admin").in(auth.basic[UsernamePassword]()).errorOut(jsonBody[ErrorInfo])
+    private val base = endpoint.in("admin").securityIn(auth.basic[UsernamePassword]()).errorOut(jsonBody[ErrorInfo])
     val refresh = base.post.in("refresh")
+
+    object Rsf:
+      val delete = base.post.in("rsf" / path[String])
+
+    object Ewrc:
+      val delete = base.post.in("ewrc" / path[String])
 
 case class Stage(number: Int, name: String)
 

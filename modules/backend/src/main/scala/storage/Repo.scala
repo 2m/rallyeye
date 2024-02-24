@@ -72,11 +72,15 @@ object Repo:
       )
     )).value
 
+  def deleteResultsAndRally(rallyKind: RallyKind)(rallyId: String) =
+    Db.deleteResultsAndRally(rallyKind, rallyId)
+
   object Rsf:
     val saveRallyInfo = Repo.saveRallyInfo(RallyKind.Rsf)
     val getRally = Repo.getRally(RallyKind.Rsf)
     val saveRallyResults = Repo.saveRsfRallyResults(RallyKind.Rsf)
     val getRallyResults = Repo.getRsfRallyResults(RallyKind.Rsf)
+    val deleteResultsAndRally = Repo.deleteResultsAndRally(RallyKind.Rsf)
 
   object PressAuto:
     val saveRallyInfo = Repo.saveRallyInfo(RallyKind.PressAuto)
@@ -89,3 +93,4 @@ object Repo:
     val getRally = Repo.getRally(RallyKind.Ewrc)
     val saveRallyResults = Repo.saveRsfRallyResults(RallyKind.Ewrc)
     val getRallyResults = Repo.getRsfRallyResults(RallyKind.Ewrc)
+    val deleteResultsAndRally = Repo.deleteResultsAndRally(RallyKind.Ewrc)
