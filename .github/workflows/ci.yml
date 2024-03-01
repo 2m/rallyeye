@@ -13,7 +13,7 @@ jobs:
       fail-fast: false
     steps:
     - uses: actions/checkout@v4
-    - uses: extractions/setup-just@v1
+    - uses: extractions/setup-just@v2
 
     - name: yaml-lint
       uses: ibiqlik/action-yamllint@v3
