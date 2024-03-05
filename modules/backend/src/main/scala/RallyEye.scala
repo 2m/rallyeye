@@ -58,7 +58,7 @@ object Logic:
         .use { client =>
           (for
             info <- rallyeye.Rsf.rallyInfo(client, rallyId)
-            results <- EitherT(rallyeye.Rsf.rallyResults(client, rallyId))
+            results <- rallyeye.Rsf.rallyResults(client, rallyId)
             _ <- EitherT(Repo.Rsf.saveRallyInfo(rallyId, info))
             _ <- EitherT(Repo.Rsf.saveRallyResults(rallyId, results))
           yield ()).value

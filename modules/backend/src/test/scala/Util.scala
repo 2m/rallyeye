@@ -23,7 +23,7 @@ class UtilSuite extends munit.FunSuite:
     assertEquals(obtained, expected)
 
   test("decodes seconds to milliseconds"):
-    val testCases = Map("2.2345" -> 2234, "1.234" -> 1234, "1.23" -> 1230, "1.2" -> 1200, "1" -> 1000)
+    val testCases = Map("2.2345" -> 2234, "1.234" -> 1234, "1.23" -> 1230, "1.2" -> 1200, "1" -> 1000, "-45" -> -45000)
     for test <- testCases do
       val (input, expected) = test
       val obtained = input.toMs
