@@ -49,16 +49,16 @@ object Rsf:
       .in(query[String]("rally_id"))
       .out(stringBody)
 
-  def rallyDetails(rallyId: String) =
+  def rallyDetailsPage(rallyId: String) =
     Http4sClientInterpreter[IO]()
       .toRequestThrowDecodeFailures(rallyEndpoint, Some(Rsf))("rally_list_details.php", rallyId)
 
-  def rallyResults(rallyId: String) =
+  def rallyResultsCsv(rallyId: String) =
     Http4sClientInterpreter[IO]()
       .toRequestThrowDecodeFailures(resultsEndpoint, Some(Rsf))(6, rallyId)
 
   def rallyInfo(client: Client[IO], rallyId: String): EitherT[IO, Error, RallyInfo] =
-    val (request, parseResponse) = rallyDetails(rallyId)
+    val (request, parseResponse) = rallyDetailsPage(rallyId)
     for response <- EitherT(
         client
           .run(request)
@@ -133,15 +133,20 @@ object Rsf:
       finished.refine
     )
 
-  def rallyResults(client: Client[IO], rallyId: String): IO[Either[Error, List[Entry]]] =
-    val (request, parseResponse) = rallyResults(rallyId)
-    for response <- client
-        .run(request)
-        .use(parseResponse(_))
-        .map(_.left.map(_ => Error("Unable to parse RSF results response")))
-    yield response.flatMap:
-      case r if r.contains("The rally is not over yet.") => Left(Logic.RallyInProgress)
-      case r                                             => Right(parseResults(r))
+  def rallyResults(client: Client[IO], rallyId: String): EitherT[IO, Error, List[Entry]] =
+    val (request, parseResponse) = rallyResultsCsv(rallyId)
+    for
+      response <- EitherT(
+        client
+          .run(request)
+          .use(parseResponse(_))
+          .map(_.left.map(_ => Error("Unable to parse RSF results response")))
+      )
+      result <- EitherT.fromEither(response match
+        case r if r.contains("The rally is not over yet.") => Left(Logic.RallyInProgress)
+        case r                                             => Right(parseResults(r))
+      )
+    yield result
 
   def parseResults(csv: String) =
     val (header :: data) = csv.split('\n').toList: @unchecked
@@ -160,7 +165,7 @@ object Rsf:
           Try(BigDecimal(time2)).toOption,
           time3.toMs.refine,
           Try(Instant.parse(finishRealtime.replace(" ", "T") + "+02:00")).toOption,
-          penalty.toMs.refine,
+          penalty.toMs.abs.refine, // abs until https://discord.com/channels/@me/1176210913355898930/1210945143297810512 is fixed
           servicePenalty.toMs.refine,
           superRally == "1",
           finished == "F",
