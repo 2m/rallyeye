@@ -35,7 +35,7 @@ smoke:
   sbt --client backend/run smoke-run
 
 smoke-with-agent:
-  rm modules/backend/rallyeye.db
+  rm -f modules/backend/rallyeye.db
   sbt --client backend/nativeImageRunAgent \" smoke-run\"
 
 native-image:

@@ -24,6 +24,8 @@ import org.http4s.implicits.*
 import rallyeye.shared.Endpoints
 import rallyeye.shared.ErrorInfo
 import rallyeye.shared.RallyData
+import rallyeye.shared.RallyKind
+import rallyeye.shared.RallySummary
 import sttp.tapir.Endpoint
 import sttp.tapir.client.http4s.Http4sClientInterpreter
 import sttp.tapir.model.UsernamePassword
@@ -43,6 +45,12 @@ given ResultValidator[Unit] with
   extension (unit: Unit)
     def validate(req: Request[IO]) =
       Right(s"$req -> ()")
+
+given ResultValidator[List[RallySummary]] with
+  extension (rs: List[RallySummary])
+    def validate(req: Request[IO]) =
+      if rs.size > 0 then Right(s"$req -> $rs")
+      else Left(Error("No results"))
 
 def runRequest[Security, Req, Resp: ResultValidator](
     client: Client[IO],
@@ -76,6 +84,7 @@ val smokeRun = for
           _ <- runRequest(client, Endpoints.Rsf.data, (), "48272")
           _ <- runRequest(client, Endpoints.Ewrc.refresh, (), "80243-eko-acropolis-rally-greece-2023")
           _ <- runRequest(client, Endpoints.Ewrc.data, (), "80243-eko-acropolis-rally-greece-2023")
+          _ <- runRequest(client, Endpoints.find, (), (RallyKind.Ewrc, "WRC", None))
           _ <- runRequest(client, Endpoints.Admin.refresh, creds, ())
           _ <- runRequest(client, Endpoints.Admin.Rsf.delete, creds, "48272")
           _ <- runRequest(client, Endpoints.Admin.Ewrc.delete, creds, "80243-eko-acropolis-rally-greece-2023")

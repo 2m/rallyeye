@@ -17,12 +17,14 @@
 package rallyeye
 
 import scala.concurrent.Future
+import scala.util.chaining.*
 
 import com.raquo.airstream.core.{Observer, Signal}
 import com.raquo.airstream.state.Var
 import com.raquo.airstream.state.Var.apply
 import com.raquo.laminar.api.*
 import com.raquo.laminar.api.L.*
+import components.About
 import components.Alert
 import components.Header
 import components.RallyList
@@ -36,7 +38,7 @@ def main() =
   renderOnDomContentLoaded(dom.document.querySelector("#app"), App.app)
 
 object App:
-  case class DataAndRefresh(data: Endpoint, refresh: Option[Endpoint])
+  case class DataAndRefresh[Req, Resp](data: Endpoint[Req, Resp], refresh: Option[Endpoint[Req, Resp]])
   val RsfEndpoints = DataAndRefresh(Endpoints.Rsf.data, Some(Endpoints.Rsf.refresh))
   val PressAutoEndpoints = DataAndRefresh(Endpoints.PressAuto.data, None)
   val EwrcEndpoints = DataAndRefresh(Endpoints.Ewrc.data, Some(Endpoints.Ewrc.refresh))
@@ -78,18 +80,26 @@ object App:
         case Router.PressAuto(year, _)    => Some(year, PressAutoEndpoints)
         case Router.Ewrc(rallyId, _)      => Some(rallyId, EwrcEndpoints)
         case Router.IndexPage             => None
+        case Router.AboutPage             => None
+        case _: Router.FindPage           => None
 
       rallyIdAndEndpoint.foreach { (rallyId, endpoint) =>
         fetchData(rallyId, endpoint, true)
       }
   )
 
+  val rallyList = Var(List.empty[RallySummary])
+  val rallyListSignal = rallyList.signal
+
+  val rallyListFilter = Var(Option.empty[RallyList.Filter])
+  val rallyListFilterSignal = rallyListFilter.signal
+
   import Router.*
   val app = div(
     child <-- router.currentPageSignal.map(renderPage)
   )
 
-  def fetchData(rallyId: String, endpoints: DataAndRefresh, refresh: Boolean) =
+  def fetchData[Req, Resp](rallyId: Req, endpoints: DataAndRefresh[Req, Resp], refresh: Boolean) =
     import org.scalajs.macrotaskexecutor.MacrotaskExecutor.Implicits.global
     Var.set(
       App.loading -> true,
@@ -107,58 +117,62 @@ object App:
           case None          => Future.successful(response)
       case response => Future.successful(response)
     }
-    response.map {
-      case Right(rallyData) =>
-        Var.set(
-          App.loading -> false,
-          App.rallyData -> Some(rallyData)
-        )
-      case Left(error) =>
-        Var.set(
-          App.loading -> false,
-          App.errorInfo -> Some(error)
-        )
-    }
+    response.onComplete(_ => Var.set(App.loading -> false))
+    response
 
-    ()
+  def fetchRallyList(kind: RallyKind, championship: String, year: Option[Int]) =
+    fetch((kind, championship, year), Endpoints.find)
 
   def renderPage(page: Page) =
+    import org.scalajs.macrotaskexecutor.MacrotaskExecutor.Implicits.global
     page match
       case IndexPage =>
         Var.set(App.rallyData -> None, App.selectedDriver -> None, App.selectedResult -> None)
         indexPage()
-      case RallyPage(rallyId, results) =>
-        rallyData
-          .now()
-          .map(_.id)
-          .orElse(Some(""))
-          .filter(_ != rallyId)
-          .foreach(_ => fetchData(rallyId, RsfEndpoints, false))
-        Var.set(resultFilter -> results)
-        rallyPage()
-      case PressAuto(year, results) =>
-        rallyData
-          .now()
-          .map(_.id)
-          .orElse(Some(""))
-          .filter(_ != year)
-          .foreach(_ => fetchData(year, PressAutoEndpoints, false))
-        Var.set(resultFilter -> results)
-        rallyPage()
-      case Ewrc(rallyId, results) =>
-        rallyData
-          .now()
-          .map(_.id)
-          .orElse(Some(""))
-          .filter(_ != rallyId)
-          .foreach(_ => fetchData(rallyId, EwrcEndpoints, false))
-        Var.set(resultFilter -> results)
-        rallyPage()
+      case AboutPage =>
+        Var.set(App.rallyData -> None, App.selectedDriver -> None, App.selectedResult -> None)
+        aboutPage()
+      case FindPage(filter @ RallyList.Filter(kind, championship, year)) =>
+        Var.set(App.rallyData -> None, App.selectedDriver -> None, App.selectedResult -> None)
+        fetchRallyList(kind, championship, year).map {
+          case Right(rallyList) => Var.set(App.rallyList -> rallyList, App.rallyListFilter -> Some(filter))
+          case Left(error)      => Var.set(App.errorInfo -> Some(error))
+        }
+        findPage()
+      case RallyPage(rallyId, results) => renderRally(rallyId, results, RsfEndpoints)
+      case PressAuto(year, results)    => renderRally(year, results, PressAutoEndpoints)
+      case Ewrc(rallyId, results)      => renderRally(rallyId, results, EwrcEndpoints)
+
+  def renderRally[Req, Resp <: RallyData](rallyId: Req, resFilter: String, endpoints: DataAndRefresh[Req, Resp]) =
+    import org.scalajs.macrotaskexecutor.MacrotaskExecutor.Implicits.global
+    rallyData
+      .now()
+      .map(_.id)
+      .orElse(Some(""))
+      .filter(_ != rallyId)
+      .foreach(_ =>
+        fetchData(rallyId, endpoints, false).map {
+          case Right(rallyData) => Var.set(App.rallyData -> Some(rallyData))
+          case Left(error)      => Var.set(App.errorInfo -> Some(error))
+        }
+      )
+    Var.set(resultFilter -> resFilter)
+    rallyPage()
 
   def indexPage() =
+    rallyListFilter.now().getOrElse(RallyList.filters.head._2) pipe Router.FindPage.apply pipe router.replaceState
+    div()
+
+  def findPage() =
     div(
       Header(rallyDataSignal, resultFilter.signal, refreshData, loadingSignal).render(),
-      RallyList.render()
+      RallyList(rallyListSignal, rallyListFilterSignal).render()
+    )
+
+  def aboutPage() =
+    div(
+      Header(rallyDataSignal, resultFilter.signal, refreshData, loadingSignal).render(),
+      About.render()
     )
 
   def rallyPage() =

@@ -20,18 +20,20 @@ import java.time.Instant
 
 import Codecs.given
 import TapirJsonBorer.*
-import io.bullet.borer.Codec
-import io.bullet.borer.derivation.MapBasedCodecs.*
 import sttp.tapir.*
+import sttp.tapir.Codec as TapirCodec
 import sttp.tapir.generic.auto.*
 import sttp.tapir.model.UsernamePassword
 
-type Endpoint = sttp.tapir.Endpoint[Unit, String, ErrorInfo, RallyData, Any]
+type Endpoint[Req, Resp] = sttp.tapir.Endpoint[Unit, Req, ErrorInfo, Resp, Any]
 
 sealed trait ErrorInfo
 case class GenericError(message: String) extends ErrorInfo
 case class RallyNotStored() extends ErrorInfo
 case class RallyInProgress() extends ErrorInfo
+
+given TapirCodec.PlainCodec[RallyKind] =
+  TapirCodec.derivedEnumeration[String, RallyKind].defaultStringBased
 
 object Endpoints:
   object Rsf:
@@ -49,6 +51,12 @@ object Endpoints:
     private val base = endpoint.in("ewrc" / path[String]).errorOut(jsonBody[ErrorInfo])
     val data = base.out(jsonBody[RallyData])
     val refresh = base.post.in("refresh").out(jsonBody[RallyData])
+
+  val find = endpoint
+    .in("find")
+    .in(query[RallyKind]("kind").and(query[String]("championship")).and(query[Option[Int]]("year")))
+    .out(jsonBody[List[RallySummary]])
+    .errorOut(jsonBody[ErrorInfo])
 
   object Admin:
     private val base = endpoint.in("admin").securityIn(auth.basic[UsernamePassword]()).errorOut(jsonBody[ErrorInfo])
@@ -101,16 +109,3 @@ case class RallyData(
     groupResults: List[GroupResults],
     carResults: List[CarResults]
 )
-
-given Codec[Stage] = deriveCodec[Stage]
-given Codec[Driver] = deriveCodec[Driver]
-given Codec[DriverResult] = deriveCodec[DriverResult]
-given Codec[DriverResults] = deriveCodec[DriverResults]
-given Codec[GroupResults] = deriveCodec[GroupResults]
-given Codec[CarResults] = deriveCodec[CarResults]
-given Codec[RallyData] = deriveCodec[RallyData]
-
-given Codec[GenericError] = deriveCodec[GenericError]
-given Codec[RallyNotStored] = deriveCodec[RallyNotStored]
-given Codec[RallyInProgress] = deriveCodec[RallyInProgress]
-given Codec[ErrorInfo] = deriveCodec[ErrorInfo]

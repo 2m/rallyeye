@@ -24,13 +24,13 @@ import sttp.client3.*
 import sttp.tapir.DecodeResult
 import sttp.tapir.client.sttp.SttpClientInterpreter
 
-def fetch(rallyId: String, endpoint: Endpoint) =
+def fetch[Req, Resp](req: Req, endpoint: Endpoint[Req, Resp]) =
   val baseUri =
     if BuildInfo.isSnapshot then uri"http://${dom.window.location.hostname}:8080"
     else uri"https://rallyeye-data.fly.dev"
 
   val client = SttpClientInterpreter().toClient(endpoint, Some(baseUri), FetchBackend())
-  val response = client(rallyId)
+  val response = client(req)
 
   import org.scalajs.macrotaskexecutor.MacrotaskExecutor.Implicits.global
   response.map {

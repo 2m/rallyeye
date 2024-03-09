@@ -31,6 +31,7 @@ import io.bullet.borer.Json
 import io.bullet.borer.derivation.MapBasedCodecs.*
 import org.http4s.client.Client
 import rallyeye.shared.Codecs.given
+import rallyeye.shared.IronBorerSupport
 
 trait SnapshotSupport extends IronBorerSupport, IronDiffxSupport, DiffxAssertions:
   this: munit.FunSuite =>

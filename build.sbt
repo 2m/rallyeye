@@ -22,7 +22,8 @@ lazy val shared = crossProject(JSPlatform, JVMPlatform)
     name := "shared",
     libraryDependencies ++= Seq(
       "com.softwaremill.sttp.tapir" %% "tapir-core"       % "1.9.10",
-      "io.bullet"                   %% "borer-derivation" % "1.14.0"
+      "io.bullet"                   %% "borer-derivation" % "1.14.0",
+      "io.github.iltotore"          %% "iron"             % "2.4.0"
     ),
     // for borer semi-automatic derivation
     scalacOptions ++= Seq("-Xmax-inlines", "64")

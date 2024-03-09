@@ -24,7 +24,6 @@ import com.softwaremill.diffx.munit.DiffxAssertions
 import io.github.iltotore.iron.*
 import rallyeye.shared.*
 import rallyeye.storage.Rally
-import rallyeye.storage.RallyKind
 
 class ResultsSuite extends munit.FunSuite with DiffxAssertions:
   given Diff[CarResults] = Diff.derived[CarResults]

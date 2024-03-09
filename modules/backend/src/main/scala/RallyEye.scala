@@ -35,7 +35,6 @@ import org.http4s.server.middleware.GZip
 import org.typelevel.log4cats.slf4j.Slf4jLogger
 import rallyeye.shared.*
 import rallyeye.storage.Db
-import rallyeye.storage.RallyKind
 import rallyeye.storage.Repo
 import sttp.tapir.*
 import sttp.tapir.model.UsernamePassword
@@ -124,6 +123,10 @@ object Logic:
         storedData <- data(rallyId)
       yield storedData
 
+  def find(rallykind: RallyKind, championship: String, year: Option[Int]) =
+    given RallyKind = rallykind
+    Repo.findRallies(championship, year)
+
   object Admin:
     def authLogic(usernamePassword: UsernamePassword): EitherT[IO, Throwable, Unit] =
       usernamePassword match
@@ -177,56 +180,64 @@ val httpServer =
       .withHost(ipv4"0.0.0.0")
       .withPort(Port.fromString(sys.env.getOrElse("RALLYEYE_SERVER_PORT", "8080")).get)
       .withIdleTimeout(Timeout)
-      .withHttpApp(
+      .withHttpApp {
+        val interp = Http4sServerInterpreter[IO]()
+        val rally = Caching.cache(
+          3.hours,
+          isPublic = Left(CacheDirective.public),
+          methodToSetOn = _ == Method.GET,
+          statusToSetOn = _.isSuccess, {
+            val endpoints =
+              List(
+                Endpoints.Rsf.data.serverLogic(Logic.Rsf.data.andThen(_.value).andThen(handleErrors)),
+                Endpoints.Rsf.refresh.serverLogic(refreshShardedLogic),
+                Endpoints.PressAuto.data
+                  .serverLogic(Logic.PressAuto.data.andThen(_.value).andThen(handleErrors)),
+                Endpoints.Ewrc.data.serverLogic(Logic.Ewrc.data.andThen(_.value).andThen(handleErrors)),
+                Endpoints.Ewrc.refresh.serverLogic(Logic.Ewrc.refresh.andThen(_.value).andThen(handleErrors))
+              )
+
+            endpoints
+              .map(interp.toRoutes)
+              .reduce(_ <+> _)
+          }
+        )
+
+        val admin = interp.toRoutes(
+          Endpoints.Admin.refresh
+            .serverSecurityLogic[Unit, IO](
+              Logic.Admin.authLogic
+                .andThen(_.value)
+                .andThen(handleErrors)
+            )
+            .serverLogic(u => u => handleErrors(Logic.Admin.refresh().value))
+        ) <+> interp.toRoutes(
+          Endpoints.Admin.Rsf.delete
+            .serverSecurityLogic(
+              Logic.Admin.authLogic
+                .andThen(_.value)
+                .andThen(handleErrors)
+            )
+            .serverLogic(u => rallyId => handleErrors(Logic.Admin.Rsf.deleteResultsAndRally(rallyId).value))
+        ) <+> interp.toRoutes(
+          Endpoints.Admin.Ewrc.delete
+            .serverSecurityLogic(
+              Logic.Admin.authLogic
+                .andThen(_.value)
+                .andThen(handleErrors)
+            )
+            .serverLogic(u => rallyId => handleErrors(Logic.Admin.Ewrc.deleteResultsAndRally(rallyId).value))
+        )
+
+        val find = interp.toRoutes(
+          Endpoints.find.serverLogic(Logic.find.tupled.andThen(_.value).andThen(handleErrors))
+        )
+
         GZip(
           CORS.policy.withAllowOriginAll(
-            Caching.cache(
-              3.hours,
-              isPublic = Left(CacheDirective.public),
-              methodToSetOn = _ == Method.GET,
-              statusToSetOn = _.isSuccess, {
-                val interp = Http4sServerInterpreter[IO]()
-                val endpoints =
-                  List(
-                    Endpoints.Rsf.data.serverLogic(Logic.Rsf.data.andThen(_.value).andThen(handleErrors)),
-                    Endpoints.Rsf.refresh.serverLogic(refreshShardedLogic),
-                    Endpoints.PressAuto.data
-                      .serverLogic(Logic.PressAuto.data.andThen(_.value).andThen(handleErrors)),
-                    Endpoints.Ewrc.data.serverLogic(Logic.Ewrc.data.andThen(_.value).andThen(handleErrors)),
-                    Endpoints.Ewrc.refresh.serverLogic(Logic.Ewrc.refresh.andThen(_.value).andThen(handleErrors))
-                  )
-
-                (endpoints
-                  .map(interp.toRoutes)
-                  .reduce(_ <+> _) <+> interp.toRoutes(
-                  Endpoints.Admin.refresh
-                    .serverSecurityLogic[Unit, IO](
-                      Logic.Admin.authLogic
-                        .andThen(_.value)
-                        .andThen(handleErrors)
-                    )
-                    .serverLogic(u => u => handleErrors(Logic.Admin.refresh().value))
-                ) <+> interp.toRoutes(
-                  Endpoints.Admin.Rsf.delete
-                    .serverSecurityLogic(
-                      Logic.Admin.authLogic
-                        .andThen(_.value)
-                        .andThen(handleErrors)
-                    )
-                    .serverLogic(u => rallyId => handleErrors(Logic.Admin.Rsf.deleteResultsAndRally(rallyId).value))
-                ) <+> interp.toRoutes(
-                  Endpoints.Admin.Ewrc.delete
-                    .serverSecurityLogic(
-                      Logic.Admin.authLogic
-                        .andThen(_.value)
-                        .andThen(handleErrors)
-                    )
-                    .serverLogic(u => rallyId => handleErrors(Logic.Admin.Ewrc.deleteResultsAndRally(rallyId).value))
-                )).orNotFound
-              }
-            )
+            (rally <+> admin <+> find).orNotFound
           )
         )
-      )
+      }
       .build
   yield server
