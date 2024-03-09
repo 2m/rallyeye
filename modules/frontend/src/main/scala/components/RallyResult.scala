@@ -111,13 +111,12 @@ case class RallyResult(
     )
 
   private def renderCountryAndName(driver: Driver) =
-    val (flag, countryName) =
-      if driver.country == "RU" then ("🌻", "Slava Ukraini!")
-      else
-        (
-          countryEmoji.mod.flag(driver.country).toOption.getOrElse("🏴"),
-          countryEmoji.mod.name(driver.country).toOption.getOrElse("???")
-        )
+    val (flag, countryName) = driver.country.toLowerCase match
+      case "ru" | "russia" => ("🌻", "Slava Ukraini!")
+      case country =>
+        val flag = countryEmoji.mod.flag(country).toOption.getOrElse("🏴")
+        val name = countryEmoji.mod.name(flag).toOption.getOrElse(country)
+        (flag, name)
     Seq(
       span(
         cls := "tooltip-toggle",

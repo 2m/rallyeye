@@ -16,6 +16,8 @@
 
 package rallyeye
 
+import scala.concurrent.duration.*
+
 import cats.effect.IO
 import cats.effect.kernel.Resource
 import io.bullet.borer.Decoder
@@ -24,6 +26,8 @@ import org.http4s.client.Client
 import org.http4s.ember.client.EmberClientBuilder
 
 class EwrcSuite extends munit.FunSuite with SnapshotSupport:
+
+  override val munitTimeout = 2.minutes
 
   given Resource[IO, Client[IO]] = EmberClientBuilder
     .default[IO]
