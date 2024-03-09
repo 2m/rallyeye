@@ -52,3 +52,9 @@ test-integration:
 
 docker-login:
   cd modules/backend; flyctl auth token | docker login registry.fly.io --username=x --password-stdin
+
+clone region:
+  cd modules/backend; fly machine clone --select --region {{region}}
+
+ssh:
+  fly ssh console --select
