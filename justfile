@@ -58,3 +58,6 @@ clone region:
 
 ssh:
   fly ssh console --select
+
+litefs-export:
+  cd modules/backend; flyctl litefs-cloud export --cluster rallyeye --database rallyeye.db --output ./rallyeye.db

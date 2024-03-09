@@ -187,7 +187,12 @@ object Ewrc:
 
   def stageResults(client: Client[IO], rallyId: String, retiredDrivers: Map[String, String])(stageId: Int) =
     def getCountry(element: Element) =
-      element.select("td img.flag-s").attr("src").split("/").last.split("\\.").head
+      element.select("td img.flag-s").attr("src").split("/").last.split("\\.").head match
+        case "uk"           => "united kingdom"
+        case "saudi_arabia" => "saudi arabia"
+        case "nederland"    => "netherlands"
+        case "jar"          => "south africa"
+        case c              => c
 
     def getDurationMs(s: String) =
       s.split(":").toList match

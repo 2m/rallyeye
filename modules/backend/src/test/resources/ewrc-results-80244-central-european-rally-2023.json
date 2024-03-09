@@ -122,7 +122,7 @@
     {
         "stageNumber": 1,
         "stageName": "Velká Chuchle",
-        "country": "uk",
+        "country": "united kingdom",
         "userName": "Evans Elfyn - Martin Scott",
         "realName": "",
         "group": "RC1",
@@ -272,7 +272,7 @@
     {
         "stageNumber": 1,
         "stageName": "Velká Chuchle",
-        "country": "uk",
+        "country": "united kingdom",
         "userName": "Greensmith Gus - Andersson Jonas",
         "realName": "",
         "group": "RC2",
@@ -557,7 +557,7 @@
     {
         "stageNumber": 1,
         "stageName": "Velká Chuchle",
-        "country": "nederland",
+        "country": "netherlands",
         "userName": "van den Brink M. - van Heun B.",
         "realName": "",
         "group": "RC3",
@@ -947,7 +947,7 @@
     {
         "stageNumber": 1,
         "stageName": "Velká Chuchle",
-        "country": "nederland",
+        "country": "netherlands",
         "userName": "Vossen Henk - van Hoek Radboud",
         "realName": "",
         "group": "RC2",
@@ -1127,7 +1127,7 @@
     {
         "stageNumber": 2,
         "stageName": "Klatovy",
-        "country": "uk",
+        "country": "united kingdom",
         "userName": "Evans Elfyn - Martin Scott",
         "realName": "",
         "group": "RC1",
@@ -1202,7 +1202,7 @@
     {
         "stageNumber": 2,
         "stageName": "Klatovy",
-        "country": "uk",
+        "country": "united kingdom",
         "userName": "Greensmith Gus - Andersson Jonas",
         "realName": "",
         "group": "RC2",
@@ -1592,7 +1592,7 @@
     {
         "stageNumber": 2,
         "stageName": "Klatovy",
-        "country": "nederland",
+        "country": "netherlands",
         "userName": "van den Brink M. - van Heun B.",
         "realName": "",
         "group": "RC3",
@@ -1862,7 +1862,7 @@
     {
         "stageNumber": 2,
         "stageName": "Klatovy",
-        "country": "nederland",
+        "country": "netherlands",
         "userName": "Vossen Henk - van Hoek Radboud",
         "realName": "",
         "group": "RC2",
@@ -2117,7 +2117,7 @@
     {
         "stageNumber": 3,
         "stageName": "Vlachovo Březí 1",
-        "country": "uk",
+        "country": "united kingdom",
         "userName": "Evans Elfyn - Martin Scott",
         "realName": "",
         "group": "RC1",
@@ -2477,7 +2477,7 @@
     {
         "stageNumber": 3,
         "stageName": "Vlachovo Březí 1",
-        "country": "uk",
+        "country": "united kingdom",
         "userName": "Greensmith Gus - Andersson Jonas",
         "realName": "",
         "group": "RC2",
@@ -2597,7 +2597,7 @@
     {
         "stageNumber": 3,
         "stageName": "Vlachovo Březí 1",
-        "country": "nederland",
+        "country": "netherlands",
         "userName": "van den Brink M. - van Heun B.",
         "realName": "",
         "group": "RC3",
@@ -2942,7 +2942,7 @@
     {
         "stageNumber": 3,
         "stageName": "Vlachovo Březí 1",
-        "country": "nederland",
+        "country": "netherlands",
         "userName": "Vossen Henk - van Hoek Radboud",
         "realName": "",
         "group": "RC2",
@@ -3062,7 +3062,7 @@
     {
         "stageNumber": 4,
         "stageName": "Zvotoky 1",
-        "country": "uk",
+        "country": "united kingdom",
         "userName": "Evans Elfyn - Martin Scott",
         "realName": "",
         "group": "RC1",
@@ -3407,7 +3407,7 @@
     {
         "stageNumber": 4,
         "stageName": "Zvotoky 1",
-        "country": "uk",
+        "country": "united kingdom",
         "userName": "Greensmith Gus - Andersson Jonas",
         "realName": "",
         "group": "RC2",
@@ -3557,7 +3557,7 @@
     {
         "stageNumber": 4,
         "stageName": "Zvotoky 1",
-        "country": "nederland",
+        "country": "netherlands",
         "userName": "van den Brink M. - van Heun B.",
         "realName": "",
         "group": "RC3",
@@ -3857,7 +3857,7 @@
     {
         "stageNumber": 4,
         "stageName": "Zvotoky 1",
-        "country": "nederland",
+        "country": "netherlands",
         "userName": "Vossen Henk - van Hoek Radboud",
         "realName": "",
         "group": "RC2",
@@ -3977,7 +3977,7 @@
     {
         "stageNumber": 5,
         "stageName": "Šumavské Hoštice 1",
-        "country": "uk",
+        "country": "united kingdom",
         "userName": "Evans Elfyn - Martin Scott",
         "realName": "",
         "group": "RC1",
@@ -4127,7 +4127,7 @@
     {
         "stageNumber": 5,
         "stageName": "Šumavské Hoštice 1",
-        "country": "uk",
+        "country": "united kingdom",
         "userName": "Greensmith Gus - Andersson Jonas",
         "realName": "",
         "group": "RC2",
@@ -4487,7 +4487,7 @@
     {
         "stageNumber": 5,
         "stageName": "Šumavské Hoštice 1",
-        "country": "nederland",
+        "country": "netherlands",
         "userName": "van den Brink M. - van Heun B.",
         "realName": "",
         "group": "RC3",
@@ -4742,7 +4742,7 @@
     {
         "stageNumber": 5,
         "stageName": "Šumavské Hoštice 1",
-        "country": "nederland",
+        "country": "netherlands",
         "userName": "Vossen Henk - van Hoek Radboud",
         "realName": "",
         "group": "RC2",
@@ -4862,7 +4862,7 @@
     {
         "stageNumber": 6,
         "stageName": "Vlachovo Březí 2",
-        "country": "uk",
+        "country": "united kingdom",
         "userName": "Evans Elfyn - Martin Scott",
         "realName": "",
         "group": "RC1",
@@ -5012,7 +5012,7 @@
     {
         "stageNumber": 6,
         "stageName": "Vlachovo Březí 2",
-        "country": "uk",
+        "country": "united kingdom",
         "userName": "Greensmith Gus - Andersson Jonas",
         "realName": "",
         "group": "RC2",
@@ -5357,7 +5357,7 @@
     {
         "stageNumber": 6,
         "stageName": "Vlachovo Březí 2",
-        "country": "nederland",
+        "country": "netherlands",
         "userName": "Vossen Henk - van Hoek Radboud",
         "realName": "",
         "group": "RC2",
@@ -5432,7 +5432,7 @@
     {
         "stageNumber": 6,
         "stageName": "Vlachovo Březí 2",
-        "country": "nederland",
+        "country": "netherlands",
         "userName": "van den Brink M. - van Heun B.",
         "realName": "",
         "group": "RC3",
@@ -5792,7 +5792,7 @@
     {
         "stageNumber": 7,
         "stageName": "Zvotoky 2",
-        "country": "uk",
+        "country": "united kingdom",
         "userName": "Evans Elfyn - Martin Scott",
         "realName": "",
         "group": "RC1",
@@ -5972,7 +5972,7 @@
     {
         "stageNumber": 7,
         "stageName": "Zvotoky 2",
-        "country": "uk",
+        "country": "united kingdom",
         "userName": "Greensmith Gus - Andersson Jonas",
         "realName": "",
         "group": "RC2",
@@ -6257,7 +6257,7 @@
     {
         "stageNumber": 7,
         "stageName": "Zvotoky 2",
-        "country": "nederland",
+        "country": "netherlands",
         "userName": "van den Brink M. - van Heun B.",
         "realName": "",
         "group": "RC3",
@@ -6512,7 +6512,7 @@
     {
         "stageNumber": 7,
         "stageName": "Zvotoky 2",
-        "country": "nederland",
+        "country": "netherlands",
         "userName": "Vossen Henk - van Hoek Radboud",
         "realName": "",
         "group": "RC2",
@@ -6692,7 +6692,7 @@
     {
         "stageNumber": 8,
         "stageName": "Šumavské Hoštice 2",
-        "country": "uk",
+        "country": "united kingdom",
         "userName": "Evans Elfyn - Martin Scott",
         "realName": "",
         "group": "RC1",
@@ -6827,7 +6827,7 @@
     {
         "stageNumber": 8,
         "stageName": "Šumavské Hoštice 2",
-        "country": "uk",
+        "country": "united kingdom",
         "userName": "Greensmith Gus - Andersson Jonas",
         "realName": "",
         "group": "RC2",
@@ -7112,7 +7112,7 @@
     {
         "stageNumber": 8,
         "stageName": "Šumavské Hoštice 2",
-        "country": "nederland",
+        "country": "netherlands",
         "userName": "van den Brink M. - van Heun B.",
         "realName": "",
         "group": "RC3",
@@ -7412,7 +7412,7 @@
     {
         "stageNumber": 8,
         "stageName": "Šumavské Hoštice 2",
-        "country": "nederland",
+        "country": "netherlands",
         "userName": "Vossen Henk - van Hoek Radboud",
         "realName": "",
         "group": "RC2",
@@ -7562,7 +7562,7 @@
     {
         "stageNumber": 9,
         "stageName": "Schärdinger Innviertel 1",
-        "country": "uk",
+        "country": "united kingdom",
         "userName": "Evans Elfyn - Martin Scott",
         "realName": "",
         "group": "RC1",
@@ -7877,7 +7877,7 @@
     {
         "stageNumber": 9,
         "stageName": "Schärdinger Innviertel 1",
-        "country": "uk",
+        "country": "united kingdom",
         "userName": "Greensmith Gus - Andersson Jonas",
         "realName": "",
         "group": "RC2",
@@ -8042,7 +8042,7 @@
     {
         "stageNumber": 9,
         "stageName": "Schärdinger Innviertel 1",
-        "country": "nederland",
+        "country": "netherlands",
         "userName": "van den Brink M. - van Heun B.",
         "realName": "",
         "group": "RC3",
@@ -8357,7 +8357,7 @@
     {
         "stageNumber": 9,
         "stageName": "Schärdinger Innviertel 1",
-        "country": "nederland",
+        "country": "netherlands",
         "userName": "Vossen Henk - van Hoek Radboud",
         "realName": "",
         "group": "RC2",
@@ -8492,7 +8492,7 @@
     {
         "stageNumber": 10,
         "stageName": "Mühltal 1",
-        "country": "uk",
+        "country": "united kingdom",
         "userName": "Evans Elfyn - Martin Scott",
         "realName": "",
         "group": "RC1",
@@ -8777,7 +8777,7 @@
     {
         "stageNumber": 10,
         "stageName": "Mühltal 1",
-        "country": "uk",
+        "country": "united kingdom",
         "userName": "Greensmith Gus - Andersson Jonas",
         "realName": "",
         "group": "RC2",
@@ -8927,7 +8927,7 @@
     {
         "stageNumber": 10,
         "stageName": "Mühltal 1",
-        "country": "nederland",
+        "country": "netherlands",
         "userName": "van den Brink M. - van Heun B.",
         "realName": "",
         "group": "RC3",
@@ -9257,7 +9257,7 @@
     {
         "stageNumber": 10,
         "stageName": "Mühltal 1",
-        "country": "nederland",
+        "country": "netherlands",
         "userName": "Vossen Henk - van Hoek Radboud",
         "realName": "",
         "group": "RC2",
@@ -9362,7 +9362,7 @@
     {
         "stageNumber": 11,
         "stageName": "Knaus Tabbert Bayerischer Wald 1",
-        "country": "nederland",
+        "country": "netherlands",
         "userName": "van den Brink M. - van Heun B.",
         "realName": "",
         "group": "RC3",
@@ -9602,7 +9602,7 @@
     {
         "stageNumber": 11,
         "stageName": "Knaus Tabbert Bayerischer Wald 1",
-        "country": "uk",
+        "country": "united kingdom",
         "userName": "Greensmith Gus - Andersson Jonas",
         "realName": "",
         "group": "RC2",
@@ -9962,7 +9962,7 @@
     {
         "stageNumber": 11,
         "stageName": "Knaus Tabbert Bayerischer Wald 1",
-        "country": "nederland",
+        "country": "netherlands",
         "userName": "Vossen Henk - van Hoek Radboud",
         "realName": "",
         "group": "RC2",
@@ -10157,7 +10157,7 @@
     {
         "stageNumber": 11,
         "stageName": "Knaus Tabbert Bayerischer Wald 1",
-        "country": "uk",
+        "country": "united kingdom",
         "userName": "Evans Elfyn - Martin Scott",
         "realName": "",
         "group": "RC1",
@@ -10382,7 +10382,7 @@
     {
         "stageNumber": 12,
         "stageName": "Schärdinger Innviertel 2",
-        "country": "uk",
+        "country": "united kingdom",
         "userName": "Greensmith Gus - Andersson Jonas",
         "realName": "",
         "group": "RC2",
@@ -10952,7 +10952,7 @@
     {
         "stageNumber": 12,
         "stageName": "Schärdinger Innviertel 2",
-        "country": "nederland",
+        "country": "netherlands",
         "userName": "Vossen Henk - van Hoek Radboud",
         "realName": "",
         "group": "RC2",
@@ -11027,7 +11027,7 @@
     {
         "stageNumber": 12,
         "stageName": "Schärdinger Innviertel 2",
-        "country": "uk",
+        "country": "united kingdom",
         "userName": "Evans Elfyn - Martin Scott",
         "realName": "",
         "group": "RC1",
@@ -11342,7 +11342,7 @@
     {
         "stageNumber": 13,
         "stageName": "Mühltal 2",
-        "country": "uk",
+        "country": "united kingdom",
         "userName": "Greensmith Gus - Andersson Jonas",
         "realName": "",
         "group": "RC2",
@@ -11852,7 +11852,7 @@
     {
         "stageNumber": 13,
         "stageName": "Mühltal 2",
-        "country": "nederland",
+        "country": "netherlands",
         "userName": "Vossen Henk - van Hoek Radboud",
         "realName": "",
         "group": "RC2",
@@ -11912,7 +11912,7 @@
     {
         "stageNumber": 13,
         "stageName": "Mühltal 2",
-        "country": "uk",
+        "country": "united kingdom",
         "userName": "Evans Elfyn - Martin Scott",
         "realName": "",
         "group": "RC1",
@@ -12107,7 +12107,7 @@
     {
         "stageNumber": 14,
         "stageName": "Knaus Tabbert Bayerischer Wald 2",
-        "country": "uk",
+        "country": "united kingdom",
         "userName": "Greensmith Gus - Andersson Jonas",
         "realName": "",
         "group": "RC2",
@@ -12662,7 +12662,7 @@
     {
         "stageNumber": 14,
         "stageName": "Knaus Tabbert Bayerischer Wald 2",
-        "country": "nederland",
+        "country": "netherlands",
         "userName": "Vossen Henk - van Hoek Radboud",
         "realName": "",
         "group": "RC2",
@@ -12752,7 +12752,7 @@
     {
         "stageNumber": 14,
         "stageName": "Knaus Tabbert Bayerischer Wald 2",
-        "country": "uk",
+        "country": "united kingdom",
         "userName": "Evans Elfyn - Martin Scott",
         "realName": "",
         "group": "RC1",
@@ -12872,7 +12872,7 @@
     {
         "stageNumber": 15,
         "stageName": "Böhmerwald 1",
-        "country": "uk",
+        "country": "united kingdom",
         "userName": "Evans Elfyn - Martin Scott",
         "realName": "",
         "group": "RC1",
@@ -13112,7 +13112,7 @@
     {
         "stageNumber": 15,
         "stageName": "Böhmerwald 1",
-        "country": "uk",
+        "country": "united kingdom",
         "userName": "Greensmith Gus - Andersson Jonas",
         "realName": "",
         "group": "RC2",
@@ -13652,7 +13652,7 @@
     {
         "stageNumber": 15,
         "stageName": "Böhmerwald 1",
-        "country": "nederland",
+        "country": "netherlands",
         "userName": "Vossen Henk - van Hoek Radboud",
         "realName": "",
         "group": "RC2",
@@ -13727,7 +13727,7 @@
     {
         "stageNumber": 16,
         "stageName": "Passauer Land 1",
-        "country": "uk",
+        "country": "united kingdom",
         "userName": "Evans Elfyn - Martin Scott",
         "realName": "",
         "group": "RC1",
@@ -13982,7 +13982,7 @@
     {
         "stageNumber": 16,
         "stageName": "Passauer Land 1",
-        "country": "uk",
+        "country": "united kingdom",
         "userName": "Greensmith Gus - Andersson Jonas",
         "realName": "",
         "group": "RC2",
@@ -14477,7 +14477,7 @@
     {
         "stageNumber": 16,
         "stageName": "Passauer Land 1",
-        "country": "nederland",
+        "country": "netherlands",
         "userName": "Vossen Henk - van Hoek Radboud",
         "realName": "",
         "group": "RC2",
@@ -14612,7 +14612,7 @@
     {
         "stageNumber": 17,
         "stageName": "Böhmerwald 2",
-        "country": "uk",
+        "country": "united kingdom",
         "userName": "Evans Elfyn - Martin Scott",
         "realName": "",
         "group": "RC1",
@@ -14822,7 +14822,7 @@
     {
         "stageNumber": 17,
         "stageName": "Böhmerwald 2",
-        "country": "uk",
+        "country": "united kingdom",
         "userName": "Greensmith Gus - Andersson Jonas",
         "realName": "",
         "group": "RC2",
@@ -15287,7 +15287,7 @@
     {
         "stageNumber": 17,
         "stageName": "Böhmerwald 2",
-        "country": "nederland",
+        "country": "netherlands",
         "userName": "Vossen Henk - van Hoek Radboud",
         "realName": "",
         "group": "RC2",
@@ -15347,7 +15347,7 @@
     {
         "stageNumber": 18,
         "stageName": "Passauer Land 2",
-        "country": "uk",
+        "country": "united kingdom",
         "userName": "Evans Elfyn - Martin Scott",
         "realName": "",
         "group": "RC1",
@@ -15587,7 +15587,7 @@
     {
         "stageNumber": 18,
         "stageName": "Passauer Land 2",
-        "country": "uk",
+        "country": "united kingdom",
         "userName": "Greensmith Gus - Andersson Jonas",
         "realName": "",
         "group": "RC2",
@@ -16082,7 +16082,7 @@
     {
         "stageNumber": 18,
         "stageName": "Passauer Land 2",
-        "country": "nederland",
+        "country": "netherlands",
         "userName": "Vossen Henk - van Hoek Radboud",
         "realName": "",
         "group": "RC2",
