@@ -23,7 +23,13 @@ import cats.implicits.*
 import doobie.*
 import doobie.implicits.*
 import doobie.implicits.javatimedrivernative.*
+import doobie.util.fragments.whereAndOpt
 import io.github.iltotore.iron.doobie.given
+import rallyeye.shared.RallyKind
+
+extension (kind: RallyKind)
+  def cond: Fragment =
+    fr"kind = $kind"
 
 object Db:
   case class Config(
@@ -87,6 +93,16 @@ object Db:
           |  external_id
           |from rally""".stripMargin
       .query[(RallyKind, String)]
+      .to[List]
+      .attemptSql
+      .transact(xa)
+
+  def findRallies(championship: String, year: Option[Int])(using kind: RallyKind) =
+    val query = fr"select * from rally"
+    val championshipCond = fr"championship = $championship"
+    val yearCond = year.map(y => fr"strftime('%Y', start) = ${y.toString}")
+    (query ++ whereAndOpt(Some(kind.cond), Some(championshipCond), yearCond))
+      .query[Rally]
       .to[List]
       .attemptSql
       .transact(xa)

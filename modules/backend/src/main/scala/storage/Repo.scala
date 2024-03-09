@@ -26,6 +26,8 @@ import cats.effect.IO
 import io.github.arainko.ducktape.*
 import io.github.iltotore.iron.*
 import io.github.iltotore.iron.constraint.numeric.*
+import rallyeye.shared.RallyKind
+import rallyeye.shared.RallySummary
 
 object Repo:
   def saveRallyInfo(rallyKind: RallyKind)(rallyId: String, info: RallyInfo) =
@@ -71,6 +73,12 @@ object Repo:
         Field.computed(_.comment, r => r.comment.getOrElse("")) // FIXME: comment should be Option
       )
     )).value
+
+  def findRallies(championship: String, year: Option[Int])(using kind: RallyKind) =
+    for results <- EitherT(Db.findRallies(championship, year))
+    yield results.map(
+      _.into[RallySummary].transform()
+    )
 
   def deleteResultsAndRally(rallyKind: RallyKind)(rallyId: String) =
     Db.deleteResultsAndRally(rallyKind, rallyId)

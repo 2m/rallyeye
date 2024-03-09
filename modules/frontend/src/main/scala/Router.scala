@@ -22,22 +22,37 @@ import com.raquo.laminar.api.*
 import com.raquo.laminar.api.L.*
 import com.raquo.laminar.modifiers.Binder
 import com.raquo.waypoint.*
+import components.RallyList
 import components.ResultFilter
 import io.bullet.borer.Codec
 import io.bullet.borer.Json
 import io.bullet.borer.derivation.MapBasedCodecs.*
 import org.scalajs.dom
+import rallyeye.shared.Codecs.given
+import rallyeye.shared.RallyKind
+import urldsl.errors.DummyError
+import urldsl.vocabulary.FromString
+import urldsl.vocabulary.Printer
 
 object Router:
   sealed trait Page
   case object IndexPage extends Page
+  case object AboutPage extends Page
   case class RallyPage(rallyId: String, results: String) extends Page
   case class PressAuto(year: String, results: String) extends Page
   case class Ewrc(rallyId: String, results: String) extends Page
+  case class FindPage(filter: RallyList.Filter) extends Page
 
+  given Codec[RallyList.Filter] = deriveCodec[RallyList.Filter]
   given Codec[Page] = deriveAllCodecs[Page]
+  given FromString[RallyKind, DummyError] = new FromString[RallyKind, DummyError]:
+    def fromString(kind: String) =
+      RallyKind.values.find(_.toString.toLowerCase == kind).toRight(DummyError.dummyError)
+  given Printer[RallyKind] = new Printer[RallyKind]:
+    def print(kind: RallyKind) = kind.toString.toLowerCase
 
   val indexRoute = Route.static(IndexPage, root / endOfSegments)
+  val aboutRoute = Route.static(AboutPage, root / "about" / endOfSegments)
 
   val rsfRoute = Route[RallyPage, (String, String)](
     encode = Tuple.fromProductTyped,
@@ -81,6 +96,14 @@ object Router:
     basePath = Route.fragmentBasePath
   )
 
+  val findRoute = Route[FindPage, (RallyKind, String, Int)](
+    encode = f => (f.filter.kind, f.filter.championship, f.filter.year.getOrElse(0)),
+    decode = (kind, championship, year) =>
+      FindPage(RallyList.Filter(kind, championship, if year == 0 then None else Some(year))),
+    pattern = root / "find" / segment[RallyKind] / segment[String] / segment[Int] / endOfSegments,
+    basePath = Route.fragmentBasePath
+  )
+
   val router = new Router[Page](
     routes = List(
       rsfRoute,
@@ -89,6 +112,8 @@ object Router:
       pressAutoRouteAllResults,
       ewrcRoute,
       ewrcRouteAllResults,
+      aboutRoute,
+      findRoute,
       indexRoute
     ),
     getPageTitle = _ => "RallyEye",
@@ -120,3 +145,5 @@ object Router:
     case p: PressAuto      => p.copy(results = filter)
     case p: Ewrc           => p.copy(results = filter)
     case p: IndexPage.type => p
+    case p: AboutPage.type => p
+    case p: FindPage       => p

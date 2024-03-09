@@ -14,26 +14,18 @@
  * limitations under the License.
  */
 
-package rallyeye
-package storage
+package rallyeye.shared
 
 import java.time.Instant
 import java.time.LocalDate
 
-import doobie.util.{Get, Put}
-import doobie.util.Read
-import doobie.util.Write
 import io.github.iltotore.iron.*
 import io.github.iltotore.iron.constraint.numeric.*
-import rallyeye.shared.RallyKind
 
-given Write[RallyKind] = Write[Int].contramap(_.ordinal)
-given Read[RallyKind] = Read[Int].map(RallyKind.fromOrdinal)
+enum RallyKind:
+  case Rsf, PressAuto, Ewrc
 
-given Write[Instant] = Write[Long].contramap(_.getEpochSecond)
-given Read[Instant] = Read[Long].map(Instant.ofEpochSecond)
-
-case class Rally(
+case class RallySummary(
     kind: RallyKind,
     externalId: String,
     name: String,
@@ -44,26 +36,4 @@ case class Rally(
     distanceMeters: Int :| Greater[0],
     started: Int :| GreaterEqual[0],
     finished: Int :| GreaterEqual[0]
-)
-
-case class Result(
-    rallyKind: RallyKind,
-    externalId: String,
-    stageNumber: Int :| Greater[0],
-    stageName: String,
-    driverCountry: String,
-    driverPrimaryName: String,
-    driverSecondaryName: Option[String],
-    codriverCountry: Option[String],
-    codriverPrimaryName: Option[String],
-    codriverSecondaryName: Option[String],
-    group: String,
-    car: String,
-    stageTimeMs: Int :| GreaterEqual[0],
-    penaltyInsideStageMs: Int :| GreaterEqual[0],
-    penaltyOutsideStageMs: Int :| GreaterEqual[0],
-    superRally: Boolean,
-    finished: Boolean,
-    comment: Option[String],
-    nominal: Boolean
 )

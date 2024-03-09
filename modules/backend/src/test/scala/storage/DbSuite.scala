@@ -21,6 +21,7 @@ import java.nio.file.Files
 import java.nio.file.Paths
 import java.sql.SQLException
 import java.time.Instant
+import java.time.LocalDate
 
 import scala.collection.immutable.ArraySeq
 
@@ -36,6 +37,7 @@ import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.Gen
 import org.scalacheck.Prop
 import org.scalacheck.ops.*
+import rallyeye.shared.RallyKind
 
 class DbSuite extends munit.ScalaCheckSuite with DiffxAssertions with IronDiffxSupport:
   import cats.effect.unsafe.implicits.global
@@ -168,4 +170,38 @@ class DbSuite extends munit.ScalaCheckSuite with DiffxAssertions with IronDiffxS
 
     val deletedResults = Db.selectResults(rally.kind, rally.externalId).unsafeRunSync()
     assertEquals(deletedResults, Right(Nil))
+  }
+
+  db.test("should find rallies by championship") { _ =>
+    val rally1 = arbitrary[Rally].sample.get.copy(championship = Some("champ1"))
+    Db.insertRally(rally1).unsafeRunSync()
+
+    val rally2 = arbitrary[Rally].sample.get.copy(championship = Some("champ2"))
+    Db.insertRally(rally2).unsafeRunSync()
+
+    given kind: RallyKind = rally1.kind
+    val selected = Db.findRallies("champ1", None).unsafeRunSync()
+    assertEqual(selected, Right(List(rally1)))
+  }
+
+  db.test("should not find rallies of different kind") { _ =>
+    val rally1 = arbitrary[Rally].sample.get.copy(championship = Some("champ1"))
+    Db.insertRally(rally1).unsafeRunSync()
+
+    given kind: RallyKind = RallyKind.values.find(_ != rally1.kind).get
+    val selected = Db.findRallies("champ1", None).unsafeRunSync()
+    assertEqual(selected, Right(List.empty))
+  }
+
+  db.test("should find rallies by championship and year") { _ =>
+    val rally1 =
+      arbitrary[Rally].sample.get.copy(championship = Some("champ1"), start = LocalDate.parse("2022-01-01"))
+    Db.insertRally(rally1).unsafeRunSync()
+
+    val rally2 = arbitrary[Rally].sample.get.copy(championship = Some("champ1"), start = LocalDate.parse("2023-01-01"))
+    Db.insertRally(rally2).unsafeRunSync()
+
+    given kind: RallyKind = rally1.kind
+    val selected = Db.findRallies("champ1", Some(2022)).unsafeRunSync()
+    assertEqual(selected, Right(List(rally1)))
   }
