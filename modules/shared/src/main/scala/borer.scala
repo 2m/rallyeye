@@ -24,6 +24,7 @@ import io.bullet.borer.Codec
 import io.bullet.borer.Decoder
 import io.bullet.borer.Encoder
 import io.bullet.borer.derivation.MapBasedCodecs.*
+import io.github.iltotore.iron.borer.given
 import sttp.tapir.*
 import sttp.tapir.Codec.JsonCodec
 import sttp.tapir.DecodeResult.{Error, Value}
@@ -48,7 +49,7 @@ object TapirJsonBorer:
           )
     }(t => io.bullet.borer.Json.encode(t).toUtf8String)
 
-object Codecs extends IronBorerSupport, IronTapirSupport:
+object Codecs extends IronTapirSupport:
   given Encoder[Instant] = Encoder[Long].contramap(_.getEpochSecond)
   given Decoder[Instant] = Decoder[Long].map(Instant.ofEpochSecond)
 

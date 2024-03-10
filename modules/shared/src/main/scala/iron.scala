@@ -16,17 +16,10 @@
 
 package rallyeye.shared
 
-import io.bullet.borer.Codec
-import io.bullet.borer.Decoder
-import io.bullet.borer.Encoder
 import io.github.iltotore.iron.*
 import sttp.tapir.Schema
 import sttp.tapir.ValidationResult
 import sttp.tapir.Validator
-
-trait IronBorerSupport:
-  inline given [T: Encoder: Decoder, P](using Constraint[T, P]): Codec[T :| P] =
-    Codec.bimap[T, T :| P](identity, _.refine)
 
 // https://github.com/Iltotore/iron/discussions/119#discussioncomment-5860453
 trait IronTapirSupport:
