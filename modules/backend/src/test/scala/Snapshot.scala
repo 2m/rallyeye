@@ -29,11 +29,11 @@ import io.bullet.borer.Decoder
 import io.bullet.borer.Encoder
 import io.bullet.borer.Json
 import io.bullet.borer.derivation.MapBasedCodecs.*
+import io.github.iltotore.iron.borer.given
 import org.http4s.client.Client
 import rallyeye.shared.Codecs.given
-import rallyeye.shared.IronBorerSupport
 
-trait SnapshotSupport extends IronBorerSupport, IronDiffxSupport, DiffxAssertions:
+trait SnapshotSupport extends IronDiffxSupport, DiffxAssertions:
   this: munit.FunSuite =>
 
   val integration = new munit.Tag("integration")

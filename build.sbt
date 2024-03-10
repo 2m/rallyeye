@@ -23,7 +23,8 @@ lazy val shared = crossProject(JSPlatform, JVMPlatform)
     libraryDependencies ++= Seq(
       "com.softwaremill.sttp.tapir" %% "tapir-core"       % "1.9.11",
       "io.bullet"                   %% "borer-derivation" % "1.14.0",
-      "io.github.iltotore"          %% "iron"             % "2.4.0"
+      "io.github.iltotore"          %% "iron"             % "2.5.0",
+      "io.github.iltotore"          %% "iron-borer"       % "2.5.0"
     ),
     // for borer semi-automatic derivation
     scalacOptions ++= Seq("-Xmax-inlines", "64")
@@ -107,19 +108,19 @@ lazy val backend = project
       "com.github.geirolz"          %% "fly4s-core"          % "1.0.0",
       "org.flywaydb"                 % "flyway-core"         % "10.9.1", // fixes logging
       "org.xerial"                   % "sqlite-jdbc"         % "3.45.1.0",
-      "org.tpolecat"                %% "doobie-core"         % "1.0.0-RC4",
+      "org.tpolecat"                %% "doobie-core"         % "1.0.0-RC5",
       "io.github.arainko"           %% "ducktape"            % "0.1.11",
       "com.monovore"                %% "decline-effect"      % "2.4.1",
-      "io.github.iltotore"          %% "iron"                % "2.4.0",
-      "io.github.iltotore"          %% "iron-doobie"         % "2.4.0",
+      "io.github.iltotore"          %% "iron"                % "2.5.0",
+      "io.github.iltotore"          %% "iron-doobie"         % "2.5.0",
       "com.themillhousegroup"       %% "scoup"               % "1.0.0",
       "org.typelevel"               %% "log4cats-core"       % "2.6.0",
       "org.typelevel"               %% "log4cats-slf4j"      % "2.6.0",
-      "org.tpolecat"                %% "doobie-munit"        % "1.0.0-RC4" % Test,
+      "org.tpolecat"                %% "doobie-munit"        % "1.0.0-RC5" % Test,
       "org.scalameta"               %% "munit"               % "1.0.0-M11" % Test,
       "org.scalameta"               %% "munit-scalacheck"    % "1.0.0-M11" % Test,
       "com.softwaremill.diffx"      %% "diffx-munit"         % "0.9.0"     % Test,
-      "io.github.iltotore"          %% "iron-scalacheck"     % "2.4.0"     % Test,
+      "io.github.iltotore"          %% "iron-scalacheck"     % "2.5.0"     % Test,
       "com.rallyhealth"             %% "scalacheck-ops_1"    % "2.12.0"    % Test
     ),
 
