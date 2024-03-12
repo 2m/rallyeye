@@ -133,7 +133,9 @@ object Ewrc:
       finished.refine
     )
 
-  def retiredNumberGroup(client: Client[IO], rallyId: String): IO[Either[Error, Map[String, String]]] =
+  case class Retired(group: String, stageNumber: Int)
+
+  def retiredNumberGroup(client: Client[IO], rallyId: String): IO[Either[Error, Map[String, Retired]]] =
     val (request, parseResponse) = finalPage(rallyId)
     for
       response <- client
@@ -151,7 +153,8 @@ object Ewrc:
           .map: retiredRow =>
             val number = retiredRow.select(".final-results-number").text
             val group = retiredRow.select(".final-results-cat").text
-            number -> group
+            val stageNumber = retiredRow.select(".final-results-stage").text.trim.drop(2).toInt
+            number -> Retired(group, stageNumber)
           .toMap
       }
     yield retiredDrivers
@@ -185,7 +188,7 @@ object Ewrc:
       )
     yield results
 
-  def stageResults(client: Client[IO], rallyId: String, retiredDrivers: Map[String, String])(stageId: Int) =
+  def stageResults(client: Client[IO], rallyId: String, retiredDrivers: Map[String, Retired])(stageId: Int) =
     def getCountry(element: Element) =
       element.select("td img.flag-s").attr("src").split("/").last.split("\\.").head match
         case "uk"           => "united kingdom"
@@ -243,7 +246,7 @@ object Ewrc:
               country,
               driverCodriverName,
               "",
-              retiredDrivers(entryNumber),
+              retiredDrivers(entryNumber).group,
               car,
               None,
               None,
@@ -295,41 +298,52 @@ object Ewrc:
           }
           .toMap
 
-        retired ++ stageResultTable.select("tr").iterator().asScala.toList.map { result =>
-          val country = getCountry(result)
+        retired ++ stageResultTable
+          .select("tr")
+          .iterator()
+          .asScala
+          .toList
+          .filterNot { result =>
+            val entryNumber = result.select("td.text-left span.font-weight-bold.text-primary").text
+            retiredDrivers.get(entryNumber) match
+              case Some(Retired(_, retiredStageNumber)) => stageNumber > retiredStageNumber
+              case _                                    => false
+          }
+          .map { result =>
+            val country = getCountry(result)
 
-          val driverCodriverName = result.select("td.position-relative > a").text
-          val car = result.select("td.position-relative > span").first.text
+            val driverCodriverName = result.select("td.position-relative > a").text
+            val car = result.select("td.position-relative > span").first.text
 
-          val groupElement = result.select("td.px-1")
-          groupElement.select("span").remove
-          val group = groupElement.text
+            val groupElement = result.select("td.px-1")
+            groupElement.select("span").remove
+            val group = groupElement.text
 
-          val stageTimeElement = result.select("td.font-weight-bold.text-right").first
-          stageTimeElement.select("span").remove
-          val stageTime = getDurationMs(stageTimeElement.text)
+            val stageTimeElement = result.select("td.font-weight-bold.text-right").first
+            stageTimeElement.select("span").remove
+            val stageTime = getDurationMs(stageTimeElement.text)
 
-          val superRally = result.select("td.position-relative > span").text.contains("[SR]")
+            val superRally = result.select("td.position-relative > span").text.contains("[SR]")
 
-          Entry(
-            stageNumber.refine,
-            stageName,
-            country,
-            driverCodriverName,
-            "",
-            group,
-            car,
-            None,
-            None,
-            (if !stageCancelled then stageTime else 0).refine,
-            None,
-            0,
-            penalties.getOrElse(driverCodriverName, 0).refine,
-            superRally,
-            true,
-            comments.getOrElse(driverCodriverName, ""),
-            stageCancelled
-          )
-        }
+            Entry(
+              stageNumber.refine,
+              stageName,
+              country,
+              driverCodriverName,
+              "",
+              group,
+              car,
+              None,
+              None,
+              (if !stageCancelled then stageTime else 0).refine,
+              None,
+              0,
+              penalties.getOrElse(driverCodriverName, 0).refine,
+              superRally,
+              true,
+              comments.getOrElse(driverCodriverName, ""),
+              stageCancelled
+            )
+          }
       }
     yield entries
