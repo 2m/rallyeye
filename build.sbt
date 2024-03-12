@@ -1,5 +1,4 @@
 ThisBuild / scalaVersion := "3.4.0"
-//ThisBuild / scalacOptions ++= Seq("-Wunused:imports")
 ThisBuild / scalafmtOnCompile := true
 
 ThisBuild / organization := "lt.dvim.rallyeye"

@@ -77,7 +77,7 @@ case class ResultLines(
       )
 
   def getYScale(drivers: js.Array[DriverResults]) = scaleLinear()
-    .domain(js.Array(1, drivers.flatMap(_.results.map(_.overallPosition)).max))
+    .domain(js.Array(1, drivers.flatMap(_.results.map(_.overallPosition)).maxOption.getOrElse(1)))
     .range(js.Array(ResultLines.margin.top, ResultLines.margin.top + drivers.size * ResultLines.rowHeight))
 
   def getColorScale(drivers: js.Array[DriverResults]) =

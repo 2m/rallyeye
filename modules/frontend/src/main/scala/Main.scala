@@ -38,10 +38,10 @@ def main() =
   renderOnDomContentLoaded(dom.document.querySelector("#app"), App.app)
 
 object App:
-  case class DataAndRefresh[Req, Resp](data: Endpoint[Req, Resp], refresh: Option[Endpoint[Req, Resp]])
-  val RsfEndpoints = DataAndRefresh(Endpoints.Rsf.data, Some(Endpoints.Rsf.refresh))
-  val PressAutoEndpoints = DataAndRefresh(Endpoints.PressAuto.data, None)
-  val EwrcEndpoints = DataAndRefresh(Endpoints.Ewrc.data, Some(Endpoints.Ewrc.refresh))
+  case class DataAndRefresh[Req, Resp](data: Endpoint[Req, Resp], refresh: Endpoint[Req, Resp])
+  val RsfEndpoints = DataAndRefresh(Endpoints.Rsf.data, Endpoints.Rsf.refresh)
+  val PressAutoEndpoints = DataAndRefresh(Endpoints.PressAuto.data, Endpoints.PressAuto.data)
+  val EwrcEndpoints = DataAndRefresh(Endpoints.Ewrc.data, Endpoints.Ewrc.refresh)
 
   val loading = Var(false)
   val loadingSignal = loading.signal
@@ -83,9 +83,7 @@ object App:
         case Router.AboutPage             => None
         case _: Router.FindPage           => None
 
-      rallyIdAndEndpoint.foreach { (rallyId, endpoint) =>
-        fetchData(rallyId, endpoint, true)
-      }
+      rallyIdAndEndpoint.foreach(fetchAndSetData(refresh = true))
   )
 
   val rallyList = Var(List.empty[RallySummary])
@@ -109,13 +107,10 @@ object App:
       App.selectedResult -> None
     )
 
-    val endpoint = if refresh && endpoints.refresh.isDefined then endpoints.refresh.get else endpoints.data
+    val endpoint = if refresh then endpoints.refresh else endpoints.data
     val response = fetch(rallyId, endpoint).flatMap {
-      case response @ Left(RallyNotStored()) =>
-        endpoints.refresh match
-          case Some(refresh) => fetch(rallyId, refresh)
-          case None          => Future.successful(response)
-      case response => Future.successful(response)
+      case response @ Left(RallyNotStored()) => fetch(rallyId, endpoints.refresh)
+      case response                          => Future.successful(response)
     }
     response.onComplete(_ => Var.set(App.loading -> false))
     response
@@ -144,20 +139,21 @@ object App:
       case Ewrc(rallyId, results)      => renderRally(rallyId, results, EwrcEndpoints)
 
   def renderRally[Req, Resp <: RallyData](rallyId: Req, resFilter: String, endpoints: DataAndRefresh[Req, Resp]) =
-    import org.scalajs.macrotaskexecutor.MacrotaskExecutor.Implicits.global
     rallyData
       .now()
       .map(_.id)
       .orElse(Some(""))
       .filter(_ != rallyId)
-      .foreach(_ =>
-        fetchData(rallyId, endpoints, false).map {
-          case Right(rallyData) => Var.set(App.rallyData -> Some(rallyData))
-          case Left(error)      => Var.set(App.errorInfo -> Some(error))
-        }
-      )
+      .foreach(_ => fetchAndSetData(refresh = false)(rallyId, endpoints))
     Var.set(resultFilter -> resFilter)
     rallyPage()
+
+  def fetchAndSetData[Req, Resp <: RallyData](refresh: Boolean)(rallyId: Req, endpoints: DataAndRefresh[Req, Resp]) =
+    import org.scalajs.macrotaskexecutor.MacrotaskExecutor.Implicits.global
+    fetchData(rallyId, endpoints, refresh).map {
+      case Right(rallyData) => Var.set(App.rallyData -> Some(rallyData))
+      case Left(error)      => Var.set(App.errorInfo -> Some(error))
+    }
 
   def indexPage() =
     rallyListFilter.now().getOrElse(RallyList.filters.head._2) pipe Router.FindPage.apply pipe router.replaceState
