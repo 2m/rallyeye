@@ -1,5 +1,4 @@
 node_modules
-rallyeye.db
-rallyeye.db.bak
+rallyeye.db*
 *.new.json
 .env
