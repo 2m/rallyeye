@@ -41,7 +41,9 @@ case class RallyList(
         ),
         div(
           cls := "col-span-3 flex flex-col",
-          children <-- rallyListSignal.map(_.sortBy(_.start).reverse.map(renderRally))
+          children <-- Signal
+            .combine(rallyListSignal, rallyListFilterSignal)
+            .mapN((rallyList, rallyFilter) => rallyList.sortBy(_.start).reverse.map(renderRally(rallyFilter)))
         )
       )
     )
@@ -59,7 +61,7 @@ case class RallyList(
       )
     )
 
-  private def renderRally(r: RallySummary) =
+  private def renderRally(rallyFilter: Option[RallyList.Filter])(r: RallySummary) =
     a(
       cls := "block mb-4 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100",
       Seq(
@@ -71,7 +73,7 @@ case class RallyList(
             div(cls := "text-xl font-semibold text-gray-900", r.name),
             div(
               cls := "text-sm text-gray-500",
-              span(r.championship),
+              rallyFilter.fold(emptyNode)(f => span(f.championship)),
               span(cls := "pl-2 text-xs text-gray-400", "data retrieved ", r.retrievedAt.prettyAgo, " ")
             ),
             div(cls := "mt-2 text-sm text-gray-500", s"${r.start.toString} - ${r.end.toString}"),

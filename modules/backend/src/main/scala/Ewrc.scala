@@ -92,7 +92,7 @@ object Ewrc:
       case _ => throw Error(s"Unable to parse rally distance from [${topInfoParts(2)}]")
 
     val topSections = parsedPage.select("html body main#main-section div.top-sections").first.text
-    val championship = topSections.split("•").toList.head.split("#").head.trim
+    val championship = topSections.split("•").toList.map(_.split("#").head.trim)
 
     val finishedElements = parsedPage
       .select("html body main#main-section div.text-center.text-primary.font-weight-bold")
@@ -125,7 +125,7 @@ object Ewrc:
 
     RallyInfo(
       name,
-      Some(championship),
+      championship,
       start,
       end,
       distanceMeters.refine,

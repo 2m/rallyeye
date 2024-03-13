@@ -173,10 +173,10 @@ class DbSuite extends munit.ScalaCheckSuite with DiffxAssertions with IronDiffxS
   }
 
   db.test("should find rallies by championship") { _ =>
-    val rally1 = arbitrary[Rally].sample.get.copy(championship = Some("champ1"))
+    val rally1 = arbitrary[Rally].sample.get.copy(championship = List("champ1", "champ2"))
     Db.insertRally(rally1).unsafeRunSync()
 
-    val rally2 = arbitrary[Rally].sample.get.copy(championship = Some("champ2"))
+    val rally2 = arbitrary[Rally].sample.get.copy(championship = List("champ2"))
     Db.insertRally(rally2).unsafeRunSync()
 
     given kind: RallyKind = rally1.kind
@@ -185,7 +185,7 @@ class DbSuite extends munit.ScalaCheckSuite with DiffxAssertions with IronDiffxS
   }
 
   db.test("should not find rallies of different kind") { _ =>
-    val rally1 = arbitrary[Rally].sample.get.copy(championship = Some("champ1"))
+    val rally1 = arbitrary[Rally].sample.get.copy(championship = List("champ1"))
     Db.insertRally(rally1).unsafeRunSync()
 
     given kind: RallyKind = RallyKind.values.find(_ != rally1.kind).get
@@ -195,10 +195,10 @@ class DbSuite extends munit.ScalaCheckSuite with DiffxAssertions with IronDiffxS
 
   db.test("should find rallies by championship and year") { _ =>
     val rally1 =
-      arbitrary[Rally].sample.get.copy(championship = Some("champ1"), start = LocalDate.parse("2022-01-01"))
+      arbitrary[Rally].sample.get.copy(championship = List("champ1"), start = LocalDate.parse("2022-01-01"))
     Db.insertRally(rally1).unsafeRunSync()
 
-    val rally2 = arbitrary[Rally].sample.get.copy(championship = Some("champ1"), start = LocalDate.parse("2023-01-01"))
+    val rally2 = arbitrary[Rally].sample.get.copy(championship = List("champ1"), start = LocalDate.parse("2023-01-01"))
     Db.insertRally(rally2).unsafeRunSync()
 
     given kind: RallyKind = rally1.kind

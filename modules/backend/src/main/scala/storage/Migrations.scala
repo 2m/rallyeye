@@ -58,7 +58,7 @@ val allMigrations = rallyeye.storage.migrations
   "2023",
   RallyInfo(
     "Press Auto 2023",
-    Some("Press Auto"),
+    List("Press Auto"),
     LocalDate.of(2023, 6, 16),
     LocalDate.of(2023, 6, 17),
     60000.refine,

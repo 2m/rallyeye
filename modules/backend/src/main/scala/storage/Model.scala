@@ -38,7 +38,7 @@ case class Rally(
     externalId: String,
     name: String,
     retrievedAt: Instant,
-    championship: Option[String],
+    championship: List[String],
     start: LocalDate,
     end: LocalDate,
     distanceMeters: Int :| Greater[0],

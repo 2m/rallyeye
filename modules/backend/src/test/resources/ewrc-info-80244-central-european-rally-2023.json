@@ -1,7 +1,11 @@
 {
     "name": "Central European Rally 2023",
     "championship": [
-        "WRC"
+        "WRC",
+        "WRC2",
+        "WRC2 Challenger",
+        "WRC3",
+        "WRC Masters Cup"
     ],
     "start": 1698192000,
     "end": 1698537600,
