@@ -58,6 +58,7 @@ object Logic:
           (for
             info <- rallyeye.Rsf.rallyInfo(client, rallyId)
             results <- rallyeye.Rsf.rallyResults(client, rallyId)
+            _ <- EitherT(Repo.Rsf.deleteResultsAndRally(rallyId))
             _ <- EitherT(Repo.Rsf.saveRallyInfo(rallyId, info))
             _ <- EitherT(Repo.Rsf.saveRallyResults(rallyId, results))
           yield ()).value
@@ -101,6 +102,7 @@ object Logic:
           (for
             info <- rallyeye.Ewrc.rallyInfo(client, rallyId)
             results <- rallyeye.Ewrc.rallyResults(client, rallyId)
+            _ <- EitherT(Repo.Ewrc.deleteResultsAndRally(rallyId))
             _ <- EitherT(Repo.Ewrc.saveRallyInfo(rallyId, info))
             _ <- EitherT(Repo.Ewrc.saveRallyResults(rallyId, results))
           yield ()).value
