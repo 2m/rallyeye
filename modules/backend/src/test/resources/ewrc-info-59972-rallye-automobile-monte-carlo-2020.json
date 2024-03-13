@@ -1,7 +1,10 @@
 {
     "name": "Rallye Automobile Monte-Carlo 2020",
     "championship": [
-        "WRC"
+        "WRC",
+        "WRC2",
+        "WRC3",
+        "RGT Cup"
     ],
     "start": 1579651200,
     "end": 1579996800,

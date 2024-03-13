@@ -31,6 +31,8 @@
   }, {
     "pattern":"\\Qdb/V003__add_rally_info_columns.sql\\E"
   }, {
+    "pattern":"\\Qdb/V004__convert_championship_to_array.sql\\E"
+  }, {
     "pattern":"\\Qdb/callback\\E"
   }, {
     "pattern":"\\Qdb\\E"

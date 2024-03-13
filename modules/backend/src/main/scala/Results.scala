@@ -29,7 +29,7 @@ import rallyeye.storage.Rally
 
 case class RallyInfo(
     name: String,
-    championship: Option[String],
+    championship: List[String],
     start: LocalDate,
     end: LocalDate,
     distanceMeters: Int :| Greater[0],

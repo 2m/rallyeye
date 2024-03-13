@@ -1,7 +1,11 @@
 {
     "name": "FORUM8 Rally Japan 2023",
     "championship": [
-        "WRC"
+        "WRC",
+        "WRC2",
+        "WRC2 Challenger",
+        "WRC3",
+        "WRC Masters Cup"
     ],
     "start": 1700092800,
     "end": 1700352000,

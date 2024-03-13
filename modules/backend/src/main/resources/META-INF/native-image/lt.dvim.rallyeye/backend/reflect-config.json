@@ -54,16 +54,10 @@
   "name":"[Lscala.Function2;"
 },
 {
-  "name":"[Lscala.Option;"
-},
-{
   "name":"[Lscala.Tuple2;"
 },
 {
   "name":"[Lscala.util.Either;"
-},
-{
-  "name":"[Lsttp.model.UriInterpolator$Token;"
 },
 {
   "name":"[Lsttp.tapir.SchemaType$SProductField;"
@@ -837,11 +831,15 @@
 },
 {
   "name":"sttp.model.MediaType",
-  "fields":[{"name":"hashCode$lzy1"}]
+  "fields":[{"name":"hashCode$lzy1"}, {"name":"toStringCache$lzy1"}]
 },
 {
   "name":"sttp.tapir.Codec$",
   "fields":[{"name":"path$lzy1"}]
+},
+{
+  "name":"sttp.tapir.Endpoint",
+  "fields":[{"name":"method$lzy1"}, {"name":"show$lzy1"}, {"name":"showDetail$lzy1"}, {"name":"showShort$lzy1"}]
 },
 {
   "name":"sttp.tapir.internal.package$ParamsAsAny",
@@ -856,8 +854,16 @@
   "fields":[{"name":"filesGetEndpoint$lzy1"}, {"name":"resourcesGetEndpoint$lzy1"}, {"name":"sttp$tapir$static$TapirStaticContentEndpoints$$staticHeadEndpoint$lzy1"}]
 },
 {
+  "name":"sttp.tapir.server.PartialServerEndpoint",
+  "fields":[{"name":"method$lzy1"}, {"name":"show$lzy1"}, {"name":"showDetail$lzy1"}, {"name":"showShort$lzy1"}]
+},
+{
+  "name":"sttp.tapir.server.ServerEndpoint",
+  "fields":[{"name":"method$lzy1"}, {"name":"show$lzy1"}, {"name":"showDetail$lzy1"}, {"name":"showShort$lzy1"}]
+},
+{
   "name":"sttp.tapir.server.http4s.Http4sServerRequest",
-  "fields":[{"name":"acceptsContentTypes$lzy1"}, {"name":"connectionInfo$lzy1"}, {"name":"contentTypeParsed$lzy1"}, {"name":"headers$lzy1"}, {"name":"pathSegments$lzy1"}, {"name":"queryParameters$lzy1"}]
+  "fields":[{"name":"acceptsContentTypes$lzy1"}, {"name":"connectionInfo$lzy1"}, {"name":"contentTypeParsed$lzy1"}, {"name":"headers$lzy1"}, {"name":"pathSegments$lzy1"}, {"name":"queryParameters$lzy1"}, {"name":"uri$lzy1"}]
 },
 {
   "name":"sun.management.ClassLoadingImpl",

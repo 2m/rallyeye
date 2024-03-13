@@ -79,8 +79,8 @@ object Rsf:
       .asScala
       .toList
     val championship = championshipLinks.find(_.attr("onclick").contains("b_rally_list_details")) match
-      case Some(championshipLink) => Some(championshipLink.text)
-      case None                   => None
+      case Some(championshipLink) => List(championshipLink.text)
+      case None                   => List.empty
 
     val infoTable = parsedPage
       .select("html body div#page-wrap table tbody table tbody table tbody tr.paros td")

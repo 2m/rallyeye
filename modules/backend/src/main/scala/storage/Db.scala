@@ -24,6 +24,8 @@ import doobie.*
 import doobie.implicits.*
 import doobie.implicits.javatimedrivernative.*
 import doobie.util.fragments.whereAndOpt
+import io.bullet.borer.Decoder
+import io.bullet.borer.Encoder
 import io.github.iltotore.iron.doobie.given
 import rallyeye.shared.RallyKind
 
@@ -53,6 +55,12 @@ object Db:
       logHandler = None
     )
     Transactor.before.modify(transactor, sql"PRAGMA foreign_keys = 1".update.run *> _)
+
+  given [A](using Encoder[A]): Put[List[A]] =
+    Put[String].tcontramap(io.bullet.borer.Json.encode(_).toUtf8String)
+
+  given [A](using Decoder[A]): Get[List[A]] =
+    Get[String].tmap(s => io.bullet.borer.Json.decode(s.getBytes("UTF8")).to[List[A]].value)
 
   def insertRally(rally: Rally) =
     sql"""|insert or replace into rally (
@@ -99,7 +107,7 @@ object Db:
 
   def findRallies(championship: String, year: Option[Int])(using kind: RallyKind) =
     val query = fr"select * from rally"
-    val championshipCond = fr"championship = $championship"
+    val championshipCond = fr"exists (select 1 from json_each(championship) where value = $championship)"
     val yearCond = year.map(y => fr"strftime('%Y', start) = ${y.toString}")
     (query ++ whereAndOpt(Some(kind.cond), Some(championshipCond), yearCond))
       .query[Rally]

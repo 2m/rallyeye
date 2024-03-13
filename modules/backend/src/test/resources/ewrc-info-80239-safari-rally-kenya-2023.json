@@ -1,7 +1,11 @@
 {
     "name": "Safari Rally Kenya 2023",
     "championship": [
-        "WRC"
+        "WRC",
+        "WRC2",
+        "WRC2 Challenger",
+        "WRC3",
+        "WRC Masters Cup"
     ],
     "start": 1687305600,
     "end": 1687651200,

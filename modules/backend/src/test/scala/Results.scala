@@ -129,7 +129,7 @@ class ResultsSuite extends munit.FunSuite with DiffxAssertions:
       "1",
       "rally",
       Instant.now,
-      Some("championship"),
+      List("championship"),
       LocalDate.parse("2024-01-01"),
       LocalDate.parse("2024-01-01"),
       1000,
