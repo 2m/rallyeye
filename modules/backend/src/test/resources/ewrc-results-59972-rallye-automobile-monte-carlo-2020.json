@@ -1017,7 +1017,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 1,
@@ -1032,7 +1033,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 1,
@@ -1047,7 +1049,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 1,
@@ -1062,7 +1065,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 1,
@@ -1077,7 +1081,8 @@
         "penaltyOutsideStageMs": 10000,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 1,
@@ -1092,7 +1097,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 1,
@@ -1107,7 +1113,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 1,
@@ -1122,7 +1129,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 1,
@@ -1137,7 +1145,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 1,
@@ -1152,7 +1161,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 1,
@@ -1167,7 +1177,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 1,
@@ -1182,7 +1193,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 1,
@@ -1197,7 +1209,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 1,
@@ -1212,7 +1225,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 1,
@@ -1227,7 +1241,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 1,
@@ -1242,7 +1257,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 1,
@@ -1257,7 +1273,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 1,
@@ -1272,7 +1289,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 1,
@@ -1287,7 +1305,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 1,
@@ -1302,7 +1321,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 1,
@@ -1317,7 +1337,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 2,
@@ -2577,7 +2598,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 2,
@@ -2592,7 +2614,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 2,
@@ -3162,7 +3185,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 3,
@@ -3177,7 +3201,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 3,
@@ -3192,7 +3217,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 3,
@@ -3207,7 +3233,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 3,
@@ -3222,7 +3249,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 3,
@@ -3237,7 +3265,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 3,
@@ -3252,7 +3281,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 3,
@@ -3267,7 +3297,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 3,
@@ -3282,7 +3313,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 3,
@@ -3297,7 +3329,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 3,
@@ -3312,7 +3345,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 3,
@@ -3342,7 +3376,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 3,
@@ -3357,7 +3392,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 3,
@@ -3372,7 +3408,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 3,
@@ -3387,7 +3424,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 3,
@@ -3402,7 +3440,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 3,
@@ -3417,7 +3456,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 3,
@@ -3432,7 +3472,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 3,
@@ -3447,7 +3488,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 3,
@@ -3462,7 +3504,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 3,
@@ -3477,7 +3520,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 3,
@@ -3492,7 +3536,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 3,
@@ -3507,7 +3552,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 3,
@@ -3522,7 +3568,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 3,
@@ -3537,7 +3584,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 3,
@@ -3552,7 +3600,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 3,
@@ -3567,7 +3616,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 3,
@@ -3582,7 +3632,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 3,
@@ -3597,7 +3648,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 3,
@@ -3612,7 +3664,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 3,
@@ -3627,7 +3680,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 3,
@@ -3642,7 +3696,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 3,
@@ -3657,7 +3712,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 3,
@@ -3672,7 +3728,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 3,
@@ -3687,7 +3744,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 3,
@@ -3702,7 +3760,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 3,
@@ -3717,7 +3776,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 3,
@@ -3732,7 +3792,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 3,
@@ -3747,7 +3808,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 3,
@@ -3762,7 +3824,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 3,
@@ -3777,7 +3840,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 3,
@@ -3792,7 +3856,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 3,
@@ -3822,7 +3887,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 3,
@@ -3837,7 +3903,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 3,
@@ -3852,7 +3919,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 3,
@@ -3867,7 +3935,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 3,
@@ -3882,7 +3951,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 3,
@@ -3897,7 +3967,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 4,
@@ -5082,7 +5153,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 4,
@@ -5112,7 +5184,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 4,
@@ -5127,7 +5200,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 4,
@@ -5142,7 +5216,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 4,
@@ -5157,7 +5232,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 4,
@@ -5172,7 +5248,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 4,
@@ -5187,7 +5264,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 5,
@@ -5367,7 +5445,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 5,
@@ -6342,7 +6421,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 5,
@@ -6357,7 +6437,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 5,
@@ -6372,7 +6453,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 5,
@@ -6387,7 +6469,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 5,
@@ -6402,7 +6485,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 5,
@@ -6417,7 +6501,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 5,
@@ -6432,7 +6517,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 5,
@@ -6447,7 +6533,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 6,
@@ -7572,7 +7659,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 6,
@@ -7587,7 +7675,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 6,
@@ -7602,7 +7691,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 6,
@@ -7617,7 +7707,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 6,
@@ -7632,7 +7723,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 6,
@@ -7647,7 +7739,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 6,
@@ -7662,7 +7755,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 6,
@@ -7677,7 +7771,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 6,
@@ -7692,7 +7787,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 6,
@@ -8787,7 +8883,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 7,
@@ -8832,7 +8929,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 7,
@@ -8847,7 +8945,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 7,
@@ -8862,7 +8961,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 7,
@@ -8877,7 +8977,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 7,
@@ -8892,7 +8993,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 7,
@@ -8907,7 +9009,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 7,
@@ -8922,7 +9025,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 7,
@@ -8937,7 +9041,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 7,
@@ -8952,7 +9057,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 8,
@@ -10062,7 +10168,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 8,
@@ -10077,7 +10184,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 8,
@@ -10092,7 +10200,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 8,
@@ -10107,7 +10216,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 8,
@@ -10122,7 +10232,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 8,
@@ -10137,7 +10248,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 8,
@@ -10152,7 +10264,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 8,
@@ -10167,7 +10280,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 8,
@@ -10182,7 +10296,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 8,
@@ -10197,7 +10312,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 9,
@@ -16017,7 +16133,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 13,
@@ -16032,7 +16149,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 13,
@@ -16047,7 +16165,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 13,
@@ -16062,7 +16181,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 13,
@@ -16077,7 +16197,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 13,
@@ -16092,7 +16213,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 13,
@@ -16107,7 +16229,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 13,
@@ -16122,7 +16245,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 13,
@@ -16137,7 +16261,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 13,
@@ -16152,7 +16277,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 13,
@@ -16167,7 +16293,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 13,
@@ -16182,7 +16309,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 13,
@@ -16197,7 +16325,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 13,
@@ -16212,7 +16341,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 13,
@@ -16227,7 +16357,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 13,
@@ -16242,7 +16373,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 14,
@@ -16407,7 +16539,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 14,
@@ -16422,7 +16555,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 14,
@@ -16437,7 +16571,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 14,
@@ -16452,7 +16587,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 14,
@@ -16482,7 +16618,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 14,
@@ -16497,7 +16634,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 14,
@@ -16512,7 +16650,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 14,
@@ -16527,7 +16666,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 14,
@@ -16542,7 +16682,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 14,
@@ -16557,7 +16698,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 14,
@@ -16572,7 +16714,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 14,
@@ -16587,7 +16730,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 14,
@@ -16602,7 +16746,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 14,
@@ -16617,7 +16762,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 14,
@@ -16632,7 +16778,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 14,
@@ -16647,7 +16794,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 14,
@@ -16662,7 +16810,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 14,
@@ -16677,7 +16826,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 14,
@@ -16692,7 +16842,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 14,
@@ -16707,7 +16858,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 14,
@@ -16722,7 +16874,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 14,
@@ -16737,7 +16890,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 14,
@@ -16752,7 +16906,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 14,
@@ -16767,7 +16922,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 14,
@@ -16782,7 +16938,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 14,
@@ -16797,7 +16954,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 14,
@@ -16812,7 +16970,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 14,
@@ -16827,7 +16986,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 14,
@@ -16842,7 +17002,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 14,
@@ -16857,7 +17018,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 14,
@@ -16872,7 +17034,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 14,
@@ -16887,7 +17050,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 14,
@@ -16902,7 +17066,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 14,
@@ -16917,7 +17082,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 14,
@@ -16932,7 +17098,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 14,
@@ -16947,7 +17114,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 14,
@@ -16962,7 +17130,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 14,
@@ -16977,7 +17146,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 14,
@@ -16992,7 +17162,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 14,
@@ -17007,7 +17178,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 14,
@@ -17022,7 +17194,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 14,
@@ -17037,7 +17210,8 @@
         "penaltyOutsideStageMs": 80000,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 14,
@@ -17052,7 +17226,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 14,
@@ -17067,7 +17242,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 14,
@@ -17082,7 +17258,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 14,
@@ -17097,7 +17274,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 14,
@@ -17112,7 +17290,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 14,
@@ -17157,7 +17336,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 14,
@@ -17172,7 +17352,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 14,
@@ -17187,7 +17368,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 14,
@@ -17202,7 +17384,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 14,
@@ -17217,7 +17400,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 14,
@@ -17232,7 +17416,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 14,
@@ -17247,7 +17432,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 14,
@@ -17262,7 +17448,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 14,
@@ -17277,7 +17464,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 14,
@@ -17292,7 +17480,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 14,
@@ -17307,7 +17496,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 14,
@@ -17322,7 +17512,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 14,
@@ -17337,7 +17528,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 14,
@@ -17352,7 +17544,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 14,
@@ -17367,7 +17560,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 14,
@@ -17382,7 +17576,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 15,
@@ -18282,7 +18477,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 15,
@@ -18297,7 +18493,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 15,
@@ -18312,7 +18509,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 15,
@@ -18327,7 +18525,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 15,
@@ -18342,7 +18541,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 15,
@@ -18357,7 +18557,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 15,
@@ -18372,7 +18573,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 15,
@@ -18387,7 +18589,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 15,
@@ -18402,7 +18605,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 15,
@@ -18417,7 +18621,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 15,
@@ -18432,7 +18637,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 15,
@@ -18447,7 +18653,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 15,
@@ -18462,7 +18669,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 15,
@@ -18477,7 +18685,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 15,
@@ -18492,7 +18701,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 15,
@@ -18507,7 +18717,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 16,
@@ -19377,7 +19588,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 16,
@@ -19392,7 +19604,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 16,
@@ -19407,7 +19620,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 16,
@@ -19422,7 +19636,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 16,
@@ -19437,7 +19652,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 16,
@@ -19452,7 +19668,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 16,
@@ -19467,7 +19684,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 16,
@@ -19482,7 +19700,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 16,
@@ -19497,7 +19716,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 16,
@@ -19512,7 +19732,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 16,
@@ -19527,7 +19748,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 16,
@@ -19542,7 +19764,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 16,
@@ -19557,7 +19780,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 16,
@@ -19572,7 +19796,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 16,
@@ -19587,7 +19812,8 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     },
     {
         "stageNumber": 16,
@@ -19602,6 +19828,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": "",
+        "nominal": true
     }
 ]

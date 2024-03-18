@@ -193,6 +193,7 @@ object Ewrc:
       element.select("td img.flag-s").attr("src").split("/").last.split("\\.").head match
         case "uk"           => "united kingdom"
         case "saudi_arabia" => "saudi arabia"
+        case "costa_rica"   => "costa rica"
         case "nederland"    => "netherlands"
         case "jar"          => "south africa"
         case c              => c
@@ -320,6 +321,7 @@ object Ewrc:
             val group = groupElement.text
 
             val stageTimeElement = result.select("td.font-weight-bold.text-right").first
+            val nominalTime = stageTimeElement.text.contains("[N]")
             stageTimeElement.select("span").remove
             val stageTime = getDurationMs(stageTimeElement.text)
 
@@ -342,7 +344,7 @@ object Ewrc:
               superRally,
               true,
               comments.getOrElse(driverCodriverName, ""),
-              stageCancelled
+              nominalTime || stageCancelled
             )
           }
       }

@@ -63,6 +63,7 @@ case class ResultLines(
   val positionColorScale = scaleOrdinal(js.Array(1, 2, 3), js.Array("#af9500", "#b4b4b4", "#6a3805"))
     .unknown("#000000")
     .asInstanceOf[ScaleOrdinal_[Int, String, Nothing]]
+  val nominalColor = "#075985"
 
   val resultSelectionBus = EventBus[DriverResult]()
 
@@ -161,11 +162,9 @@ case class ResultLines(
         },
         circle(
           stroke := "white",
-          fill := positionColorScale(result.stagePosition),
+          fill := (if result.nominal then nominalColor else positionColorScale(result.stagePosition)),
           r := "12",
-          // #TODO: Combine these two into a single  `L.onClick --> { _ => EventBus.emit(...) }` once Airstream fixes that method's type signature
-          L.onClick.map(_ => driverResults.driver) --> driverSelectionBus.writer,
-          L.onClick.map(_ => result) --> resultSelectionBus.writer
+          L.onClick --> { _ => EventBus.emit(driverSelectionBus -> driverResults.driver, resultSelectionBus -> result) }
         ),
         if result.comment.nonEmpty then
           circle(
