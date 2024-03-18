@@ -121,6 +121,7 @@ object RallyList:
     "🖥️ Sim Rally Masters 2023" -> Filter(RallyKind.Rsf, "Sim Rally Masters 2023"),
     "🖥️ Virtual Rally Championship 2024" -> Filter(RallyKind.Rsf, "Virtual Rally Championship 2024"),
     "🖥️ Virtual Rally Championship 2023" -> Filter(RallyKind.Rsf, "Virtual Rally Championship 2023"),
+    "🇺🇸 ARA Championship 2024" -> Filter(RallyKind.Ewrc, "ARA", Some(2024)),
     "🇱🇹 Lithuania 2023" -> Filter(RallyKind.Ewrc, "Lithuania", Some(2023)),
     "🇱🇹 Press Auto" -> Filter(RallyKind.PressAuto, "Press Auto")
   )
