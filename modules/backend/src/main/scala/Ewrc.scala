@@ -320,6 +320,7 @@ object Ewrc:
             val group = groupElement.text
 
             val stageTimeElement = result.select("td.font-weight-bold.text-right").first
+            val nominalTime = stageTimeElement.text.contains("[N]")
             stageTimeElement.select("span").remove
             val stageTime = getDurationMs(stageTimeElement.text)
 
@@ -342,7 +343,7 @@ object Ewrc:
               superRally,
               true,
               comments.getOrElse(driverCodriverName, ""),
-              stageCancelled
+              nominalTime || stageCancelled
             )
           }
       }
