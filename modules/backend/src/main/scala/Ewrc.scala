@@ -193,6 +193,7 @@ object Ewrc:
       element.select("td img.flag-s").attr("src").split("/").last.split("\\.").head match
         case "uk"           => "united kingdom"
         case "saudi_arabia" => "saudi arabia"
+        case "costa_rica"   => "costa rica"
         case "nederland"    => "netherlands"
         case "jar"          => "south africa"
         case c              => c
