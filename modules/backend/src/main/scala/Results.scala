@@ -22,8 +22,13 @@ import java.time.LocalDate
 import scala.collection.MapView
 import scala.util.chaining.*
 
+import cats.data.EitherT
+import cats.effect.kernel.Async
+import cats.syntax.all.*
 import io.github.iltotore.iron.*
 import io.github.iltotore.iron.constraint.numeric.*
+import org.http4s.client.Client
+import rallyeye.Logic.RefreshNotSupported
 import rallyeye.shared.*
 import rallyeye.storage.Rally
 
@@ -46,6 +51,18 @@ extension (kind: RallyKind)
         s"https://raceadmin.eu/pr${rally.externalId}/pr${rally.externalId}/results/overall/all"
       case RallyKind.Ewrc =>
         s"https://www.ewrc-results.com/results/${rally.externalId}/"
+
+  def rallyInfo[F[_]: Async](client: Client[F], rallyId: String) =
+    kind match
+      case RallyKind.Rsf       => rallyeye.Rsf.rallyInfo(client, rallyId)
+      case RallyKind.Ewrc      => rallyeye.Ewrc.rallyInfo(client, rallyId)
+      case RallyKind.PressAuto => EitherT(RefreshNotSupported.asLeft.pure[F])
+
+  def rallyResults[F[_]: Async](client: Client[F], rallyId: String) =
+    kind match
+      case RallyKind.Rsf       => rallyeye.Rsf.rallyResults(client, rallyId)
+      case RallyKind.Ewrc      => rallyeye.Ewrc.rallyResults(client, rallyId)
+      case RallyKind.PressAuto => EitherT(RefreshNotSupported.asLeft.pure[F])
 
 case class Entry(
     stageNumber: Int :| Greater[0],

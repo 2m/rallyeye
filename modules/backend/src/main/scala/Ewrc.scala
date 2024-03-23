@@ -22,7 +22,7 @@ import scala.jdk.CollectionConverters.*
 import scala.util.Try
 
 import cats.data.EitherT
-import cats.effect.IO
+import cats.effect.kernel.Async
 import cats.syntax.all.*
 import com.themillhousegroup.scoup.Scoup
 import io.github.iltotore.iron.*
@@ -50,23 +50,25 @@ object Ewrc:
       .in("")
       .out(stringBody)
 
-  def resultsPage(rallyId: String, stage: Option[Int]) =
-    Http4sClientInterpreter[IO]()
+  def resultsPage[F[_]: Async](rallyId: String, stage: Option[Int]) =
+    Http4sClientInterpreter[F]()
       .toRequestThrowDecodeFailures(resultsEndpoint, Some(Ewrc))(rallyId, stage)
 
-  def finalPage(rallyId: String) =
-    Http4sClientInterpreter[IO]()
+  def finalPage[F[_]: Async](rallyId: String) =
+    Http4sClientInterpreter[F]()
       .toRequestThrowDecodeFailures(finalEndpoint, Some(Ewrc))(rallyId)
 
-  def rallyInfo(client: Client[IO], rallyId: String): EitherT[IO, Error, RallyInfo] =
+  def rallyInfo[F[_]: Async](client: Client[F], rallyId: String): EitherT[F, Throwable, RallyInfo] =
     val (request, parseResponse) = finalPage(rallyId)
-    for response <- EitherT(
+    for
+      response <- EitherT(
         client
           .run(request)
           .use(parseResponse(_))
           .map(_.left.map(_ => Error("Unable to parse Ewrc final page response")))
       )
-    yield parseRallyInfo(response)
+      info <- EitherT.fromEither(Try(parseRallyInfo(response)).toEither)
+    yield info
 
   def parseRallyInfo(finalPageBody: String): RallyInfo =
     val parsedPage = Scoup.parseHTML(finalPageBody)
@@ -135,7 +137,7 @@ object Ewrc:
 
   case class Retired(group: String, stageNumber: Int)
 
-  def retiredNumberGroup(client: Client[IO], rallyId: String): IO[Either[Error, Map[String, Retired]]] =
+  def retiredNumberGroup[F[_]: Async](client: Client[F], rallyId: String): F[Either[Error, Map[String, Retired]]] =
     val (request, parseResponse) = finalPage(rallyId)
     for
       response <- client
@@ -159,7 +161,7 @@ object Ewrc:
       }
     yield retiredDrivers
 
-  def rallyResults(client: Client[IO], rallyId: String) =
+  def rallyResults[F[_]: Async](client: Client[F], rallyId: String): EitherT[F, Throwable, List[Entry]] =
     val (request, parseResponse) = resultsPage(rallyId, None)
     for
       response <- EitherT(
@@ -188,7 +190,9 @@ object Ewrc:
       )
     yield results
 
-  def stageResults(client: Client[IO], rallyId: String, retiredDrivers: Map[String, Retired])(stageId: Int) =
+  def stageResults[F[_]: Async](client: Client[F], rallyId: String, retiredDrivers: Map[String, Retired])(
+      stageId: Int
+  ) =
     def getCountry(element: Element) =
       element.select("td img.flag-s").attr("src").split("/").last.split("\\.").head match
         case "uk"           => "united kingdom"

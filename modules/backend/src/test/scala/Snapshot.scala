@@ -45,7 +45,7 @@ trait SnapshotSupport extends IronDiffxSupport, DiffxAssertions:
   given Diff[Entry] = Diff.derived[Entry]
 
   def check[T](
-      fun: (Client[IO], String) => EitherT[IO, Error, T],
+      fun: (Client[IO], String) => EitherT[IO, Throwable, T],
       tag: String
   )(rally: String)(using munit.Location, Encoder[T], Decoder[T], Diff[T], Resource[IO, Client[IO]]): Unit =
     import cats.effect.unsafe.implicits.global

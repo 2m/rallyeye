@@ -20,34 +20,46 @@ import scala.concurrent.duration.*
 
 import cats.effect.*
 import cats.syntax.all.*
+import munit.CatsEffectSuite
+import org.typelevel.otel4s.trace.Tracer
 
-class ShardedSuite extends munit.FunSuite:
-  import cats.effect.unsafe.implicits.global
+class ShardedSuite extends CatsEffectSuite:
+  given Shardable[String] with
+    extension (s: String) def shard(shard: Int): Int = s.hashCode % shard
 
-  test("shards requests"):
-    val requestDelay = 100.millis
-    val startupDelay = 500.millis
-    val numShards = 5
-    val numRequests = 20
+  val traced = ResourceFunFixture: options =>
+    Tracing
+      .tracer("test")
+      .map: tracer =>
+        (test: Tracer[IO] => IO[Any]) => tracer.rootSpan(options.name).surround(test(tracer))
 
-    def delay(req: String) = Temporal[IO].sleep(requestDelay) >> IO.pure(Right(req))
+  traced.test("shards requests"):
+    _.apply:
+      implicit tracer =>
+        val requestDelay = 100.millis
+        val startupDelay = 500.millis
+        val numShards = 5
+        val numRequests = 20
 
-    val result = for
-      shardedStreamAndLogic <- shardedLogic(numShards)(delay)
-      (shardedStream, logic) = shardedStreamAndLogic
-      shardedStreamFiber <- shardedStream.compile.drain.start
-      _ <- Temporal[IO].sleep(startupDelay)
-      fibers <- (0 until numRequests).map(_.toString).toList.map(logic).traverse(_.start)
-      results <- fibers.traverse(_.join)
-      _ <- shardedStreamFiber.cancel
-    yield results.filter(_.isSuccess).size
+        def delay(req: String) = Temporal[IO].sleep(requestDelay) >> IO.pure(Right(req))
 
-    val start = System.nanoTime()
-    val responses = result.unsafeRunSync()
-    val end = System.nanoTime()
-    val millisTaken = Duration.fromNanos(end - start)
+        val result = for
+          shardedStreamAndLogic <- shardedLogic(numShards)(delay)
+          (shardedStream, logic) = shardedStreamAndLogic
+          shardedStreamFiber <- shardedStream.compile.drain.start
+          _ <- Temporal[IO].sleep(startupDelay)
+          fibers <- (0 until numRequests).map(_.toString).toList.map(logic).traverse(_.start)
+          results <- fibers.traverse(_.join)
+          _ <- shardedStreamFiber.cancel
+        yield results.filter(_.isSuccess).size
 
-    assertEquals(responses, numRequests)
+        for
+          (taken, responses) <- Temporal[IO].timed(result)
+          _ = assertEquals(responses, numRequests)
 
-    val worstCaseTaken = requestDelay * numRequests + startupDelay
-    assert(millisTaken < worstCaseTaken, s"Expected < ${worstCaseTaken.toMillis}ms, actual ${millisTaken.toMillis}ms")
+          worstCaseTaken = requestDelay * numRequests + startupDelay
+          _ = assert(
+            taken < worstCaseTaken,
+            s"Expected < ${worstCaseTaken.toMillis}ms, actual ${taken.toMillis}ms"
+          )
+        yield ()

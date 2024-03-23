@@ -16,8 +16,12 @@
 
 import cats.effect.ExitCode
 import cats.effect.IO
+import cats.effect.kernel.Resource
+import cats.implicits.*
 import com.monovore.decline.Opts
 import com.monovore.decline.effect.CommandIOApp
+import org.typelevel.otel4s.trace.Tracer
+import rallyeye.Tracing
 
 object Main
     extends CommandIOApp(
@@ -45,8 +49,24 @@ object Main
     }
 
   override def main: Opts[IO[ExitCode]] =
-    (httpServer orElse migrateDb orElse smokeRun).map {
-      case HttpServer() => rallyeye.httpServer.flatMap(_.use(_ => IO.never))
-      case MigrateDb()  => rallyeye.storage.allMigrations.map(_ => ExitCode.Success)
-      case SmokeRun()   => rallyeye.smokeRun.map(_ => ExitCode.Success)
-    }
+    (httpServer orElse migrateDb orElse smokeRun)
+      .map {
+        case HttpServer() =>
+          Tracing
+            .trace { implicit T: Tracer[IO] =>
+              rallyeye.httpServer[IO]
+            }
+            .use(_ => IO.never)
+        case MigrateDb() =>
+          Tracing
+            .trace { implicit T: Tracer[IO] =>
+              Resource.eval(T.rootSpan("migrate-db").surround(rallyeye.storage.allMigrations[IO].use(_.pure[IO])))
+            }
+            .use(_ => ExitCode.Success.pure[IO])
+        case SmokeRun() =>
+          Tracing
+            .trace { implicit T: Tracer[IO] =>
+              Resource.eval(T.rootSpan("smoke-run").surround(rallyeye.smokeRun[IO].use(_.pure[IO])))
+            }
+            .use(_ => ExitCode.Success.pure[IO])
+      }

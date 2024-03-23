@@ -37,3 +37,9 @@ case class RallySummary(
     started: Int :| GreaterEqual[0],
     finished: Int :| GreaterEqual[0]
 )
+
+case class RefreshResult(
+    kind: RallyKind,
+    externalId: String,
+    error: Option[ErrorInfo]
+)

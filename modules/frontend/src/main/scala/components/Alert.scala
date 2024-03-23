@@ -22,6 +22,7 @@ import rallyeye.shared.ErrorInfo
 import rallyeye.shared.GenericError
 import rallyeye.shared.RallyInProgress
 import rallyeye.shared.RallyNotStored
+import rallyeye.shared.RefreshNotSupported
 
 case class Alert(errorInfoSignal: Signal[Option[ErrorInfo]]):
   def render() = div(child <-- errorInfoSignal.map:
@@ -39,9 +40,11 @@ case class Alert(errorInfoSignal: Signal[Option[ErrorInfo]]):
     case GenericError(message) => "Error"
     case RallyNotStored()      => ""
     case RallyInProgress()     => "Rally still in progress"
+    case RefreshNotSupported() => "Refresh not available"
 
   private def errorMessage(errorInfo: ErrorInfo) = errorInfo match
     case GenericError(message) => message
     case RallyNotStored()      => ""
     case RallyInProgress() =>
       "We are waiting for the rally to finish. Currently it is not possible to get the results from RallySimFans.hu while the rally is still in progress."
+    case RefreshNotSupported() => "PressAuto rally results are static and refreshing is not supported."

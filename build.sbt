@@ -56,7 +56,7 @@ lazy val frontend = project
       "io.github.cquiroz"           %%% "scala-java-time"             % "2.5.0",
       "io.bullet"                   %%% "borer-core"                  % "1.14.0",
       "io.bullet"                   %%% "borer-derivation"            % "1.14.0",
-      "com.lihaoyi"                 %%% "utest"                       % "0.8.2" % "test"
+      "com.lihaoyi"                 %%% "utest"                       % "0.8.2" % Test
     ),
     // Tell Scala.js that this is an application with a main method
     scalaJSUseMainModuleInitializer := true,
@@ -99,28 +99,35 @@ lazy val backend = project
   .settings(
     inConfig(Integration)(Defaults.testTasks),
     libraryDependencies ++= Seq(
-      "com.softwaremill.sttp.tapir" %% "tapir-http4s-server" % "1.10.3",
-      "com.softwaremill.sttp.tapir" %% "tapir-http4s-client" % "1.10.3",
-      "org.http4s"                  %% "http4s-ember-server" % "0.23.26",
-      "org.http4s"                  %% "http4s-ember-client" % "0.23.26",
-      "ch.qos.logback"               % "logback-classic"     % "1.5.3",
-      "com.github.geirolz"          %% "fly4s-core"          % "1.0.0",
-      "org.flywaydb"                 % "flyway-core"         % "10.10.0", // fixes logging
-      "org.xerial"                   % "sqlite-jdbc"         % "3.45.2.0",
-      "org.tpolecat"                %% "doobie-core"         % "1.0.0-RC5",
-      "io.github.arainko"           %% "ducktape"            % "0.2.0",
-      "com.monovore"                %% "decline-effect"      % "2.4.1",
-      "io.github.iltotore"          %% "iron"                % "2.5.0",
-      "io.github.iltotore"          %% "iron-doobie"         % "2.5.0",
-      "com.themillhousegroup"       %% "scoup"               % "1.0.0",
-      "org.typelevel"               %% "log4cats-core"       % "2.6.0",
-      "org.typelevel"               %% "log4cats-slf4j"      % "2.6.0",
-      "org.tpolecat"                %% "doobie-munit"        % "1.0.0-RC5" % Test,
-      "org.scalameta"               %% "munit"               % "1.0.0-M11" % Test,
-      "org.scalameta"               %% "munit-scalacheck"    % "1.0.0-M11" % Test,
-      "com.softwaremill.diffx"      %% "diffx-munit"         % "0.9.0"     % Test,
-      "io.github.iltotore"          %% "iron-scalacheck"     % "2.5.0"     % Test,
-      "com.rallyhealth"             %% "scalacheck-ops_1"    % "2.12.0"    % Test
+      "com.softwaremill.sttp.tapir" %% "tapir-http4s-server"                       % "1.10.3",
+      "com.softwaremill.sttp.tapir" %% "tapir-http4s-client"                       % "1.10.3",
+      "org.http4s"                  %% "http4s-ember-server"                       % "0.23.26",
+      "org.http4s"                  %% "http4s-ember-client"                       % "0.23.26",
+      "org.http4s"                  %% "http4s-otel4s-middleware"                  % "0.4-772589f-SNAPSHOT",
+      "ch.qos.logback"               % "logback-classic"                           % "1.5.3",
+      "com.github.geirolz"          %% "fly4s-core"                                % "1.0.0",
+      "org.flywaydb"                 % "flyway-core"                               % "10.10.1", // fixes logging
+      "org.xerial"                   % "sqlite-jdbc"                               % "3.45.2.0",
+      "org.tpolecat"                %% "doobie-core"                               % "1.0.0-RC5",
+      "io.github.arainko"           %% "ducktape"                                  % "0.2.0",
+      "com.monovore"                %% "decline-effect"                            % "2.4.1",
+      "io.github.iltotore"          %% "iron"                                      % "2.5.0",
+      "io.github.iltotore"          %% "iron-doobie"                               % "2.5.0",
+      "com.themillhousegroup"       %% "scoup"                                     % "1.0.0",
+      "org.typelevel"               %% "log4cats-core"                             % "2.6.0",
+      "org.typelevel"               %% "log4cats-slf4j"                            % "2.6.0",
+      "com.ovoenergy"               %% "natchez-extras-doobie"                     % "8.0.1",
+      "org.typelevel"               %% "otel4s-oteljava"                           % "0.5.0-RC3",
+      "io.opentelemetry"             % "opentelemetry-exporter-otlp"               % "1.36.0"    % Runtime,
+      "io.opentelemetry"             % "opentelemetry-sdk-extension-autoconfigure" % "1.36.0"    % Runtime,
+      "org.tpolecat"                %% "doobie-munit"                              % "1.0.0-RC5" % Test,
+      "org.scalameta"               %% "munit"                                     % "1.0.0-M11" % Test,
+      "org.typelevel"               %% "munit-cats-effect"                         % "2.0.0-M4"  % Test,
+      "org.typelevel"               %% "scalacheck-effect-munit"                   % "2.0.0-M2"  % Test,
+      "org.scalameta"               %% "munit-scalacheck"                          % "1.0.0-M11" % Test,
+      "com.softwaremill.diffx"      %% "diffx-munit"                               % "0.9.0"     % Test,
+      "io.github.iltotore"          %% "iron-scalacheck"                           % "2.5.0"     % Test,
+      "com.rallyhealth"             %% "scalacheck-ops_1"                          % "2.12.0"    % Test
     ),
 
     // for correct IOApp resource cleanup
@@ -133,8 +140,11 @@ lazy val backend = project
     Test / testOptions += Tests.Argument(MUnitFramework, "--exclude-tags=integration"),
     Integration / testOptions := Seq(Tests.Argument(MUnitFramework, "--include-tags=integration")),
 
-    // for integration test snapshots
-    buildInfoKeys := Seq[BuildInfoKey](Test / resourceDirectory),
+    // include some build settings into module code
+    buildInfoKeys := Seq[BuildInfoKey](
+      isSnapshot, // for determining which backend URL to use
+      Test / resourceDirectory // for integration test snapshots
+    ),
     buildInfoPackage := "rallyeye",
 
     // native image
