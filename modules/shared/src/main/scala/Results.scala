@@ -41,6 +41,7 @@ given TapirCodec.PlainCodec[RallyKind] = TapirCodec.derivedEnumeration[String, R
 
 object Endpoints:
   val data = endpoint.in("data" / path[RallyKind] / path[String]).out(jsonBody[RallyData]).errorOut(jsonBody[ErrorInfo])
+
   val refresh =
     endpoint.post.in("refresh" / path[RallyKind] / path[String]).out(jsonBody[RallyData]).errorOut(jsonBody[ErrorInfo])
 
@@ -49,6 +50,8 @@ object Endpoints:
     .in(query[String]("championship").and(query[Option[Int]]("year")))
     .out(jsonBody[List[RallySummary]])
     .errorOut(jsonBody[ErrorInfo])
+
+  val fresh = endpoint.in("fresh").out(jsonBody[List[RallySummary]]).errorOut(jsonBody[ErrorInfo])
 
   object Admin:
     private val base = endpoint.in("admin").securityIn(auth.basic[UsernamePassword]()).errorOut(jsonBody[ErrorInfo])

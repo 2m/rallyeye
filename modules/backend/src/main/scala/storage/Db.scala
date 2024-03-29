@@ -123,6 +123,18 @@ object Db:
       .transact(tracedTransactor[F])
       .map(_.left.map(ex => ex: Throwable))
 
+  def freshRallies[F[_]: Async: Tracer]() =
+    sql"""|select *
+          |from rally
+          |where kind != ${RallyKind.PressAuto}
+          |order by retrieved_at desc
+          |limit 10""".stripMargin
+      .query[Rally]
+      .to[List]
+      .attemptSql
+      .transact(tracedTransactor[F])
+      .map(_.left.map(ex => ex: Throwable))
+
   def insertManyResults[F[_]: Async: Tracer](results: List[Result]) =
     val sql = """|insert or replace into results (
                  |  rally_kind,

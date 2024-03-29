@@ -56,7 +56,10 @@ case class RallyList(
           case Some(f) if f == filter => "bg-gray-500 text-white"
           case _                      => "bg-gray-200 text-gray"
         },
-        Router.navigateTo(Router.FindPage(RallyList.Filter(filter.kind, filter.championship, filter.year))),
+        Router.navigateTo(filter match
+          case c: Championship => Router.FindPage(c)
+          case Fresh           => Router.FreshRallyPage
+        ),
         group
       )
     )
@@ -73,8 +76,13 @@ case class RallyList(
             div(cls := "text-xl font-semibold text-gray-900", r.name),
             div(
               cls := "text-sm text-gray-500",
-              rallyFilter.fold(emptyNode)(f => span(f.championship)),
-              span(cls := "pl-2 text-xs text-gray-400", "data retrieved ", r.retrievedAt.prettyAgo, " ")
+              rallyFilter
+                .flatMap:
+                  case c: Championship                  => Some(c.championship)
+                  case Fresh if r.championship.nonEmpty => Some(r.championship.mkString(", "))
+                  case Fresh                            => None
+                .fold(emptyNode)(span(cls := "pr-2", _)),
+              span(cls := "text-xs text-gray-400", "data retrieved ", r.retrievedAt.prettyAgo, " ")
             ),
             div(cls := "mt-2 text-sm text-gray-500", s"${r.start.toString} - ${r.end.toString}"),
             div(
@@ -113,15 +121,18 @@ case class RallyList(
       case RallyKind.Ewrc      => "bg-amber-600"
 
 object RallyList:
-  case class Filter(kind: RallyKind, championship: String, year: Option[Int] = None)
+  sealed trait Filter
+  case object Fresh extends Filter
+  case class Championship(kind: RallyKind, championship: String, year: Option[Int] = None) extends Filter
   val filters = List(
-    "🌎 WRC 2024" -> Filter(RallyKind.Ewrc, "WRC", Some(2024)),
-    "🌎 WRC 2023" -> Filter(RallyKind.Ewrc, "WRC", Some(2023)),
-    "🖥️ Sim Rally Masters 2024" -> Filter(RallyKind.Rsf, "Sim Rally Masters 2024"),
-    "🖥️ Sim Rally Masters 2023" -> Filter(RallyKind.Rsf, "Sim Rally Masters 2023"),
-    "🖥️ Virtual Rally Championship 2024" -> Filter(RallyKind.Rsf, "Virtual Rally Championship 2024"),
-    "🖥️ Virtual Rally Championship 2023" -> Filter(RallyKind.Rsf, "Virtual Rally Championship 2023"),
-    "🇺🇸 ARA Championship 2024" -> Filter(RallyKind.Ewrc, "ARA", Some(2024)),
-    "🇱🇹 Lithuania 2023" -> Filter(RallyKind.Ewrc, "Lithuania", Some(2023)),
-    "🇱🇹 Press Auto" -> Filter(RallyKind.PressAuto, "Press Auto")
+    "🔄 Recently loaded rallies" -> Fresh,
+    "🌎 WRC 2024" -> Championship(RallyKind.Ewrc, "WRC", Some(2024)),
+    "🌎 WRC 2023" -> Championship(RallyKind.Ewrc, "WRC", Some(2023)),
+    "🖥️ Sim Rally Masters 2024" -> Championship(RallyKind.Rsf, "Sim Rally Masters 2024"),
+    "🖥️ Sim Rally Masters 2023" -> Championship(RallyKind.Rsf, "Sim Rally Masters 2023"),
+    "🖥️ Virtual Rally Championship 2024" -> Championship(RallyKind.Rsf, "Virtual Rally Championship 2024"),
+    "🖥️ Virtual Rally Championship 2023" -> Championship(RallyKind.Rsf, "Virtual Rally Championship 2023"),
+    "🇺🇸 ARA Championship 2024" -> Championship(RallyKind.Ewrc, "ARA", Some(2024)),
+    "🇱🇹 Lithuania 2023" -> Championship(RallyKind.Ewrc, "Lithuania", Some(2023)),
+    "🇱🇹 Press Auto" -> Championship(RallyKind.PressAuto, "Press Auto")
   )

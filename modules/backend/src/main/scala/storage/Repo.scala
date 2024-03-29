@@ -79,5 +79,11 @@ object Repo:
       transformed <- EitherT.rightT(results.map(_.into[RallySummary].transform()))
     yield transformed
 
+  def freshRallies[F[_]: Async: Tracer]() =
+    for
+      results <- EitherT(Db.freshRallies[F]())
+      transformed <- EitherT.rightT(results.map(_.into[RallySummary].transform()))
+    yield transformed
+
   def deleteResultsAndRally[F[_]: Async: Tracer](rallyId: String)(using kind: RallyKind) =
     Db.deleteResultsAndRally(rallyId)
