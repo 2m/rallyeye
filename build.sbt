@@ -108,7 +108,7 @@ lazy val backend = project
       "org.flywaydb"                 % "flyway-core"         % "10.10.0", // fixes logging
       "org.xerial"                   % "sqlite-jdbc"         % "3.45.2.0",
       "org.tpolecat"                %% "doobie-core"         % "1.0.0-RC5",
-      "io.github.arainko"           %% "ducktape"            % "0.1.11",
+      "io.github.arainko"           %% "ducktape"            % "0.2.0",
       "com.monovore"                %% "decline-effect"      % "2.4.1",
       "io.github.iltotore"          %% "iron"                % "2.5.0",
       "io.github.iltotore"          %% "iron-doobie"         % "2.5.0",
