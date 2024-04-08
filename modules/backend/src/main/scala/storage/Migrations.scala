@@ -20,17 +20,21 @@ package storage
 import java.time.LocalDate
 
 import scala.io.Source
+import scala.util.chaining.*
 
-import cats.effect.IO
+import cats.effect.kernel.Async
+import cats.syntax.all.*
 import fly4s.Fly4s
 import fly4s.data.Fly4sConfig
 import fly4s.data.Locations
 import fly4s.data.ValidatePattern
 import fly4s.implicits.*
 import io.github.iltotore.iron.*
+import org.typelevel.otel4s.trace.Tracer
+import rallyeye.shared.RallyKind
 
-val migrations = Fly4s
-  .make[IO](
+def migrations[F[_]: Async: Tracer] = Fly4s
+  .make[F](
     url = Db.config.url,
     config = Fly4sConfig(
       table = Db.config.migrationsTable,
@@ -43,27 +47,32 @@ val migrations = Fly4s
       ).map(_ => new GraalVMResourceProvider(Locations(Db.config.migrationsLocations)))
     )
   )
-  .evalMap(_.validateAndMigrate.result)
+  .evalMap(_.validateAndMigrate.result.traced("fly4s-migration"))
 
-def loadPressAutoResults(rallyId: String, rallyInfo: RallyInfo, filename: String) =
+def loadPressAutoResults[F[_]: Async: Tracer](rallyId: String, rallyInfo: RallyInfo, filename: String) =
+  given RallyKind = RallyKind.PressAuto
+  (for
+    csv <- Source.fromResource(filename)(scala.io.Codec.UTF8).mkString.pure[F]
+    results <- PressAuto.parseResults(csv).pure[F]
+    _ <- Repo.saveRallyInfo(rallyId, rallyInfo)
+    _ <- Repo.saveRallyResults(rallyId, results)
+  yield ()).tracedR("load-press-auto")
+
+def allMigrations[F[_]: Async: Tracer] =
   for
-    csv <- IO.pure(Source.fromResource(filename)(scala.io.Codec.UTF8).mkString)
-    results <- IO.pure(PressAuto.parseResults(csv))
-    _ <- Repo.PressAuto.saveRallyInfo(rallyId, rallyInfo)
-    _ <- Repo.PressAuto.saveRallyResults(rallyId, results)
+    _ <- rallyeye.storage.migrations
+    _ <- rallyeye.storage
+      .loadPressAutoResults(
+        "2023",
+        RallyInfo(
+          "Press Auto 2023",
+          List("Press Auto"),
+          LocalDate.of(2023, 6, 16),
+          LocalDate.of(2023, 6, 17),
+          60000.refine,
+          68.refine,
+          63.refine
+        ),
+        "pressauto2023.csv"
+      )
   yield ()
-
-val allMigrations = rallyeye.storage.migrations
-  .use(_ => IO(())) <* rallyeye.storage.loadPressAutoResults(
-  "2023",
-  RallyInfo(
-    "Press Auto 2023",
-    List("Press Auto"),
-    LocalDate.of(2023, 6, 16),
-    LocalDate.of(2023, 6, 17),
-    60000.refine,
-    68.refine,
-    63.refine
-  ),
-  "pressauto2023.csv"
-)

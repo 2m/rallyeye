@@ -61,3 +61,6 @@ ssh:
 
 litefs-export:
   cd modules/backend; flyctl litefs-cloud export --cluster rallyeye --database rallyeye.db --output ./rallyeye.db.$(date "+%Y-%m-%d")
+
+telemetry:
+  cd telemetry; docker-compose up

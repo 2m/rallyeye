@@ -24,7 +24,8 @@ import scala.util.Try
 import scala.util.matching.Regex
 
 import cats.data.EitherT
-import cats.effect.IO
+import cats.effect.kernel.Async
+import cats.implicits.*
 import com.themillhousegroup.scoup.Scoup
 import io.github.iltotore.iron.*
 import org.http4s.client.Client
@@ -49,15 +50,15 @@ object Rsf:
       .in(query[String]("rally_id"))
       .out(stringBody)
 
-  def rallyDetailsPage(rallyId: String) =
-    Http4sClientInterpreter[IO]()
+  def rallyDetailsPage[F[_]: Async](rallyId: String) =
+    Http4sClientInterpreter[F]()
       .toRequestThrowDecodeFailures(rallyEndpoint, Some(Rsf))("rally_list_details.php", rallyId)
 
-  def rallyResultsCsv(rallyId: String) =
-    Http4sClientInterpreter[IO]()
+  def rallyResultsCsv[F[_]: Async](rallyId: String) =
+    Http4sClientInterpreter[F]()
       .toRequestThrowDecodeFailures(resultsEndpoint, Some(Rsf))(6, rallyId)
 
-  def rallyInfo(client: Client[IO], rallyId: String): EitherT[IO, Error, RallyInfo] =
+  def rallyInfo[F[_]: Async](client: Client[F], rallyId: String): EitherT[F, Throwable, RallyInfo] =
     val (request, parseResponse) = rallyDetailsPage(rallyId)
     for response <- EitherT(
         client
@@ -133,7 +134,7 @@ object Rsf:
       finished.refine
     )
 
-  def rallyResults(client: Client[IO], rallyId: String): EitherT[IO, Error, List[Entry]] =
+  def rallyResults[F[_]: Async](client: Client[F], rallyId: String): EitherT[F, Throwable, List[Entry]] =
     val (request, parseResponse) = rallyResultsCsv(rallyId)
     for
       response <- EitherT(

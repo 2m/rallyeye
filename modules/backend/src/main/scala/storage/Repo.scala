@@ -22,31 +22,32 @@ import java.time.Instant
 import scala.util.chaining.*
 
 import cats.data.EitherT
-import cats.effect.IO
+import cats.effect.kernel.Async
 import io.github.arainko.ducktape.*
+import org.typelevel.otel4s.trace.Tracer
 import rallyeye.shared.RallyKind
 import rallyeye.shared.RallySummary
 
 object Repo:
-  def saveRallyInfo(rallyKind: RallyKind)(rallyId: String, info: RallyInfo) =
+  def saveRallyInfo[F[_]: Async: Tracer](rallyId: String, info: RallyInfo)(using kind: RallyKind) =
     info
       .into[Rally]
       .transform(
-        Field.const(_.kind, rallyKind),
+        Field.const(_.kind, kind),
         Field.const(_.externalId, rallyId.toString),
         Field.const(_.retrievedAt, Instant.now)
       )
       .pipe(Db.insertRally)
 
-  def getRally(rallyKind: RallyKind)(rallyId: String) =
-    Db.selectRally(rallyKind, rallyId.toString)
+  def getRally[F[_]: Async: Tracer](rallyId: String)(using kind: RallyKind) =
+    Db.selectRally(rallyId.toString)
 
-  def saveRsfRallyResults(rallyKind: RallyKind)(rallyId: String, results: List[Entry]) =
+  def saveRallyResults[F[_]: Async: Tracer](rallyId: String, results: List[Entry])(using kind: RallyKind) =
     results
       .map(
         _.into[Result]
           .transform(
-            Field.const(_.rallyKind, rallyKind),
+            Field.const(_.rallyKind, kind),
             Field.const(_.externalId, rallyId.toString),
             Field.renamed(_.driverCountry, _.country),
             Field.renamed(_.driverPrimaryName, _.userName),
@@ -58,8 +59,8 @@ object Repo:
       )
       .pipe(Db.insertManyResults)
 
-  def getRsfRallyResults(rallyKind: RallyKind)(rallyId: String) =
-    (for results <- EitherT(Db.selectResults(rallyKind, rallyId))
+  def getRallyResults[F[_]: Async: Tracer](rallyId: String)(using kind: RallyKind) =
+    (for results <- EitherT(Db.selectResults(rallyId))
     yield results.map(
       _.into[Entry].transform(
         Field.renamed(_.country, _.driverCountry),
@@ -72,31 +73,11 @@ object Repo:
       )
     )).value
 
-  def findRallies(championship: String, year: Option[Int])(using kind: RallyKind) =
-    for results <- EitherT(Db.findRallies(championship, year))
-    yield results.map(
-      _.into[RallySummary].transform()
-    )
+  def findRallies[F[_]: Async: Tracer](championship: String, year: Option[Int])(using kind: RallyKind) =
+    for
+      results <- EitherT(Db.findRallies[F](championship, year))
+      transformed <- EitherT.rightT(results.map(_.into[RallySummary].transform()))
+    yield transformed
 
-  def deleteResultsAndRally(rallyKind: RallyKind)(rallyId: String) =
-    Db.deleteResultsAndRally(rallyKind, rallyId)
-
-  object Rsf:
-    val saveRallyInfo = Repo.saveRallyInfo(RallyKind.Rsf)
-    val getRally = Repo.getRally(RallyKind.Rsf)
-    val saveRallyResults = Repo.saveRsfRallyResults(RallyKind.Rsf)
-    val getRallyResults = Repo.getRsfRallyResults(RallyKind.Rsf)
-    val deleteResultsAndRally = Repo.deleteResultsAndRally(RallyKind.Rsf)
-
-  object PressAuto:
-    val saveRallyInfo = Repo.saveRallyInfo(RallyKind.PressAuto)
-    val getRally = Repo.getRally(RallyKind.PressAuto)
-    val saveRallyResults = Repo.saveRsfRallyResults(RallyKind.PressAuto)
-    val getRallyResults = Repo.getRsfRallyResults(RallyKind.PressAuto)
-
-  object Ewrc:
-    val saveRallyInfo = Repo.saveRallyInfo(RallyKind.Ewrc)
-    val getRally = Repo.getRally(RallyKind.Ewrc)
-    val saveRallyResults = Repo.saveRsfRallyResults(RallyKind.Ewrc)
-    val getRallyResults = Repo.getRsfRallyResults(RallyKind.Ewrc)
-    val deleteResultsAndRally = Repo.deleteResultsAndRally(RallyKind.Ewrc)
+  def deleteResultsAndRally[F[_]: Async: Tracer](rallyId: String)(using kind: RallyKind) =
+    Db.deleteResultsAndRally(rallyId)

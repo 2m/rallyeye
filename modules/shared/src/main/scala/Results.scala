@@ -31,42 +31,29 @@ sealed trait ErrorInfo
 case class GenericError(message: String) extends ErrorInfo
 case class RallyNotStored() extends ErrorInfo
 case class RallyInProgress() extends ErrorInfo
+case class RefreshNotSupported() extends ErrorInfo
 
-given TapirCodec.PlainCodec[RallyKind] =
-  TapirCodec.derivedEnumeration[String, RallyKind].defaultStringBased
+given TapirCodec.PlainCodec[RallyKind] = TapirCodec.derivedEnumeration[String, RallyKind](
+  s => RallyKind.values.find(k => k.toString.toLowerCase == s),
+  _.toString.toLowerCase,
+  None
+)
 
 object Endpoints:
-  object Rsf:
-    private val base = endpoint.in("rsf" / path[String]).errorOut(jsonBody[ErrorInfo])
-    val data = base.out(jsonBody[RallyData])
-    val refresh = base.post.in("refresh").out(jsonBody[RallyData])
-
-  object PressAuto:
-    val data = endpoint
-      .in("pressauto" / path[String])
-      .out(jsonBody[RallyData])
-      .errorOut(jsonBody[ErrorInfo])
-
-  object Ewrc:
-    private val base = endpoint.in("ewrc" / path[String]).errorOut(jsonBody[ErrorInfo])
-    val data = base.out(jsonBody[RallyData])
-    val refresh = base.post.in("refresh").out(jsonBody[RallyData])
+  val data = endpoint.in("data" / path[RallyKind] / path[String]).out(jsonBody[RallyData]).errorOut(jsonBody[ErrorInfo])
+  val refresh =
+    endpoint.post.in("refresh" / path[RallyKind] / path[String]).out(jsonBody[RallyData]).errorOut(jsonBody[ErrorInfo])
 
   val find = endpoint
-    .in("find")
-    .in(query[RallyKind]("kind").and(query[String]("championship")).and(query[Option[Int]]("year")))
+    .in("find" / path[RallyKind])
+    .in(query[String]("championship").and(query[Option[Int]]("year")))
     .out(jsonBody[List[RallySummary]])
     .errorOut(jsonBody[ErrorInfo])
 
   object Admin:
     private val base = endpoint.in("admin").securityIn(auth.basic[UsernamePassword]()).errorOut(jsonBody[ErrorInfo])
-    val refresh = base.post.in("refresh")
-
-    object Rsf:
-      val delete = base.post.in("rsf" / path[String])
-
-    object Ewrc:
-      val delete = base.post.in("ewrc" / path[String])
+    val refresh = base.post.in("refresh").out(jsonBody[List[RefreshResult]])
+    val delete = base.post.in("delete" / path[RallyKind] / path[String])
 
 case class Stage(number: Int, name: String)
 

@@ -20,19 +20,27 @@ import java.time.Instant
 
 import scala.concurrent.duration.*
 
+import cats.Monad
 import cats.data.EitherT
-import cats.effect.IO
-import cats.effect.LiftIO
+import cats.data.Kleisli
+import cats.effect.Spawn
+import cats.effect.kernel.Async
+import cats.effect.syntax.all.*
 import cats.syntax.all.*
 import com.comcast.ip4s.*
+import fs2.compression.Compression
+import fs2.io.net.Network
 import org.http4s.CacheDirective
 import org.http4s.Method
 import org.http4s.ember.client.EmberClientBuilder
 import org.http4s.ember.server.EmberServerBuilder
+import org.http4s.implicits.*
 import org.http4s.server.middleware.Caching
 import org.http4s.server.middleware.CORS
 import org.http4s.server.middleware.GZip
-import org.typelevel.log4cats.slf4j.Slf4jLogger
+import org.typelevel.otel4s.metrics.Meter
+import org.typelevel.otel4s.trace.StatusCode
+import org.typelevel.otel4s.trace.Tracer
 import rallyeye.shared.*
 import rallyeye.storage.Db
 import rallyeye.storage.Repo
@@ -44,146 +52,112 @@ val Timeout = 2.minutes
 val IdleTimeout = 3.minutes
 
 object Logic:
-  val RallyNotStored = Error("Rally not stored")
-  val RallyInProgress = Error("Rally in progress")
+  sealed trait LogicError
+  case object RallyNotStored extends Error("Rally not stored") with LogicError
+  case object RallyInProgress extends Error("Rally in progress") with LogicError
+  case object RefreshNotSupported extends Error("Refresh is not supported for PressAuto rallies") with LogicError
 
-  object Rsf:
-    private def fetchAndStore(rallyId: String) =
-      EmberClientBuilder
-        .default[IO]
-        .withTimeout(Timeout)
-        .withIdleConnectionTime(IdleTimeout)
-        .build
-        .use { client =>
-          (for
-            info <- rallyeye.Rsf.rallyInfo(client, rallyId)
-            results <- rallyeye.Rsf.rallyResults(client, rallyId)
-            _ <- EitherT(Repo.Rsf.deleteResultsAndRally(rallyId))
-            _ <- EitherT(Repo.Rsf.saveRallyInfo(rallyId, info))
-            _ <- EitherT(Repo.Rsf.saveRallyResults(rallyId, results))
-          yield ()).value
-        }
+  private def fetchAndStore[F[_]: Async: Tracer: Network](rallyId: String)(using kind: RallyKind) =
+    EmberClientBuilder
+      .default[F]
+      .withTimeout(Timeout)
+      .withIdleConnectionTime(IdleTimeout)
+      .build
+      .map(Telemetry.tracedClient)
+      .use { client =>
+        (for
+          info <- kind.rallyInfo(client, rallyId)
+          results <- kind.rallyResults(client, rallyId)
+          _ <- EitherT(Repo.deleteResultsAndRally(rallyId))
+          _ <- EitherT(Repo.saveRallyInfo(rallyId, info))
+          _ <- EitherT(Repo.saveRallyResults(rallyId, results))
+        yield ()).value
+      }
 
-    def data(rallyId: String) =
-      for
-        maybeRally <- EitherT(Repo.Rsf.getRally(rallyId))
-        rally <- EitherT(
-          maybeRally.fold(IO.pure(Left(RallyNotStored)))(rally => IO.pure(Right(rally)))
-        )
-        rallyResults <- EitherT(Repo.Rsf.getRallyResults(rallyId))
-      yield rallyData(rally, rallyResults)
+  def data[F[_]: Async: Tracer](kind: RallyKind, rallyId: String) =
+    given RallyKind = kind
+    for
+      maybeRally <- EitherT(Repo.getRally(rallyId))
+      rally <- EitherT.fromEither(maybeRally.fold(RallyNotStored.asLeft)(_.asRight))
+      rallyResults <- EitherT(Repo.getRallyResults(rallyId))
+    yield rallyData(rally, rallyResults)
 
-    def refresh(rallyId: String) =
-      for
-        maybeRally <- EitherT(Repo.Rsf.getRally(rallyId))
-        needToFetch = maybeRally.fold(true)(_.retrievedAt.plusSeconds(60).isBefore(Instant.now))
-        _ <- EitherT(if needToFetch then fetchAndStore(rallyId) else IO.pure(Right("")))
-        storedData <- data(rallyId)
-      yield storedData
+  def refresh[F[_]: Async: Tracer: Network](kind: RallyKind, rallyId: String) =
+    given RallyKind = kind
+    for
+      maybeRally <- EitherT(Repo.getRally(rallyId))
+      needToFetch = maybeRally.fold(true)(_.retrievedAt.plusSeconds(60).isBefore(Instant.now))
+      _ <- EitherT(if needToFetch then fetchAndStore(rallyId) else ().asRight.pure[F])
+      storedData <- data(kind, rallyId)
+    yield storedData
 
-  object PressAuto:
-    def data(year: String) =
-      for
-        maybeRallyName <- EitherT(Repo.PressAuto.getRally(year))
-        rally <- EitherT(
-          maybeRallyName.fold(IO.pure(Left(RallyNotStored)))(rally => IO.pure(Right(rally)))
-        )
-        rallyResults <- EitherT(Repo.PressAuto.getRallyResults(year))
-      yield rallyData(rally, rallyResults)
-
-  object Ewrc:
-    private def fetchAndStore(rallyId: String) =
-      EmberClientBuilder
-        .default[IO]
-        .withTimeout(Timeout)
-        .withIdleConnectionTime(IdleTimeout)
-        .build
-        .use { client =>
-          (for
-            info <- rallyeye.Ewrc.rallyInfo(client, rallyId)
-            results <- rallyeye.Ewrc.rallyResults(client, rallyId)
-            _ <- EitherT(Repo.Ewrc.deleteResultsAndRally(rallyId))
-            _ <- EitherT(Repo.Ewrc.saveRallyInfo(rallyId, info))
-            _ <- EitherT(Repo.Ewrc.saveRallyResults(rallyId, results))
-          yield ()).value
-        }
-
-    def data(rallyId: String) =
-      for
-        maybeRally <- EitherT(Repo.Ewrc.getRally(rallyId))
-        rally <- EitherT(
-          maybeRally.fold(IO.pure(Left(RallyNotStored)))(rally => IO.pure(Right(rally)))
-        )
-        rallyResults <- EitherT(Repo.Ewrc.getRallyResults(rallyId))
-      yield rallyData(rally, rallyResults)
-
-    def refresh(rallyId: String) =
-      for
-        maybeRally <- EitherT(Repo.Ewrc.getRally(rallyId))
-        needToFetch = maybeRally.fold(true)(_.retrievedAt.plusSeconds(60).isBefore(Instant.now))
-        _ <- EitherT(if needToFetch then fetchAndStore(rallyId) else IO.pure(Right("")))
-        storedData <- data(rallyId)
-      yield storedData
-
-  def find(rallykind: RallyKind, championship: String, year: Option[Int]) =
-    given RallyKind = rallykind
-    Repo.findRallies(championship, year)
+  def find[F[_]: Async: Tracer](
+      kind: RallyKind,
+      championship: String,
+      year: Option[Int]
+  ) =
+    given RallyKind = kind
+    for rallies <- Repo.findRallies[F](championship, year)
+    yield rallies
 
   object Admin:
-    def authLogic(usernamePassword: UsernamePassword): EitherT[IO, Throwable, Unit] =
+    def authLogic[F[_]: Async: Tracer](usernamePassword: UsernamePassword): EitherT[F, Throwable, Unit] =
       usernamePassword match
         case UsernamePassword("admin", Some(password))
             if password.sha256hash == sys.env.getOrElse("ADMIN_PASS_HASH", "") =>
           EitherT.rightT(())
         case _ => EitherT.leftT(new Error("Unauthorized"))
 
-    def refresh(): EitherT[IO, Throwable, Unit] =
+    def refreshAll[F[_]: Async: Tracer: Network](): EitherT[F, Throwable, List[RefreshResult]] =
       for
         storedRallies <- EitherT(Db.selectRallies())
-        logger <- EitherT.right(Slf4jLogger.create[IO])
-        results = storedRallies.map:
-          case (RallyKind.Rsf, id) =>
-            EitherT
-              .right(logger.info(s"Refreshing Rsf rally $id")) *> Logic.Rsf.refresh(id).map(_ => ())
-          case (RallyKind.Ewrc, id) =>
-            EitherT
-              .right(logger.info(s"Refreshing Ewrc rally $id")) *> Logic.Ewrc
-              .refresh(id)
-              .map(_ => ())
-          case (RallyKind.PressAuto, id) => EitherT.rightT[IO, Throwable](())
-        _ <- results.sequence
-        _ <- EitherT.right(logger.info("Refresh complete"))
-      yield ()
+        refreshResults <- EitherT(
+          storedRallies
+            .map: (kind, rallyId) =>
+              handleErrors(Logic.refresh(kind, rallyId).value)
+                .map(rr => rr.fold(Some(_), _ => None))
+                .map(RefreshResult(kind, rallyId, _))
+            .sequence
+            .map(_.asRight[Throwable])
+        )
+      yield refreshResults
 
-    object Rsf:
-      def deleteResultsAndRally(rallyId: String): EitherT[IO, Throwable, Unit] =
-        EitherT(Repo.Rsf.deleteResultsAndRally(rallyId)).map(_ => ())
+    def deleteResultsAndRally[F[_]: Async: Tracer](kind: RallyKind, rallyId: String): EitherT[F, Throwable, Unit] =
+      given RallyKind = kind
+      EitherT(Repo.deleteResultsAndRally(rallyId)).map(_ => ())
 
-    object Ewrc:
-      def deleteResultsAndRally(rallyId: String): EitherT[IO, Throwable, Unit] =
-        EitherT(Repo.Ewrc.deleteResultsAndRally(rallyId)).map(_ => ())
+def handleErrors[F[_]: Monad: Tracer, T](f: F[Either[Throwable, T]]) =
+  for
+    result <- f
+    errorInfo <- result match
+      case Left(error: Logic.LogicError) =>
+        (error match
+          case Logic.RallyNotStored      => RallyNotStored()
+          case Logic.RallyInProgress     => RallyInProgress()
+          case Logic.RefreshNotSupported => RefreshNotSupported()
+        ).asLeft.pure[F]
+      case Left(t) =>
+        Tracer[F].currentSpanOrNoop.flatMap: span =>
+          span.recordException(t) >> span.setStatus(StatusCode.Error) >> GenericError(t.getMessage).asLeft.pure[F]
+      case Right(value) => value.asRight.pure[F]
+  yield errorInfo
 
-def handleErrors[T](f: IO[Either[Throwable, T]]) =
-  f.map(_.left.map {
-    case Logic.RallyNotStored  => RallyNotStored()
-    case Logic.RallyInProgress => RallyInProgress()
-    case t                     => GenericError(t.getMessage)
-  })
-
-val httpServer =
+def httpServer[F[_]: Async: Network: Tracer: Meter: Spawn: Compression] =
   import cats.syntax.semigroupk.*
 
   for
-    refreshShardedStreamAndLogic <- shardedLogic(5)(Logic.Rsf.refresh.andThen(_.value).andThen(handleErrors))
+    refreshShardedStreamAndLogic <- shardedLogic(5)(
+      Logic.refresh.tupled.andThen(_.value).andThen(handleErrors)
+    ).toResource
     (refreshShardedStream, refreshShardedLogic) = refreshShardedStreamAndLogic
-    _ <- refreshShardedStream.compile.drain.start
-    server = EmberServerBuilder
-      .default[IO]
+    _ <- refreshShardedStream.compile.drain.start.toResource
+    server <- EmberServerBuilder
+      .default[F]
       .withHost(ipv4"0.0.0.0")
       .withPort(Port.fromString(sys.env.getOrElse("RALLYEYE_SERVER_PORT", "8080")).get)
       .withIdleTimeout(Timeout)
       .withHttpApp {
-        val interp = Http4sServerInterpreter[IO]()
+        val interp = Http4sServerInterpreter[F]()
         val rally = Caching.cache(
           3.hours,
           isPublic = Left(CacheDirective.public),
@@ -191,12 +165,8 @@ val httpServer =
           statusToSetOn = _.isSuccess, {
             val endpoints =
               List(
-                Endpoints.Rsf.data.serverLogic(Logic.Rsf.data.andThen(_.value).andThen(handleErrors)),
-                Endpoints.Rsf.refresh.serverLogic(refreshShardedLogic),
-                Endpoints.PressAuto.data
-                  .serverLogic(Logic.PressAuto.data.andThen(_.value).andThen(handleErrors)),
-                Endpoints.Ewrc.data.serverLogic(Logic.Ewrc.data.andThen(_.value).andThen(handleErrors)),
-                Endpoints.Ewrc.refresh.serverLogic(Logic.Ewrc.refresh.andThen(_.value).andThen(handleErrors))
+                Endpoints.data.serverLogic(Logic.data.tupled.andThen(_.value).andThen(handleErrors)),
+                Endpoints.refresh.serverLogic(refreshShardedLogic)
               )
 
             endpoints
@@ -207,37 +177,32 @@ val httpServer =
 
         val admin = interp.toRoutes(
           Endpoints.Admin.refresh
-            .serverSecurityLogic[Unit, IO](
+            .serverSecurityLogic[Unit, F](
               Logic.Admin.authLogic
                 .andThen(_.value)
                 .andThen(handleErrors)
             )
-            .serverLogic(u => u => handleErrors(Logic.Admin.refresh().value))
+            .serverLogic(u => u => handleErrors(Logic.Admin.refreshAll().value))
         ) <+> interp.toRoutes(
-          Endpoints.Admin.Rsf.delete
+          Endpoints.Admin.delete
             .serverSecurityLogic(
               Logic.Admin.authLogic
                 .andThen(_.value)
                 .andThen(handleErrors)
             )
-            .serverLogic(u => rallyId => handleErrors(Logic.Admin.Rsf.deleteResultsAndRally(rallyId).value))
-        ) <+> interp.toRoutes(
-          Endpoints.Admin.Ewrc.delete
-            .serverSecurityLogic(
-              Logic.Admin.authLogic
-                .andThen(_.value)
-                .andThen(handleErrors)
+            .serverLogic(u =>
+              (rallyKind, rallyId) => handleErrors(Logic.Admin.deleteResultsAndRally(rallyKind, rallyId).value)
             )
-            .serverLogic(u => rallyId => handleErrors(Logic.Admin.Ewrc.deleteResultsAndRally(rallyId).value))
         )
 
-        val find = interp.toRoutes(
-          Endpoints.find.serverLogic(Logic.find.tupled.andThen(_.value).andThen(handleErrors))
-        )
+        val find =
+          interp.toRoutes(Endpoints.find.serverLogic(Logic.find.tupled.andThen(_.value).andThen(handleErrors)))
 
-        GZip(
-          CORS.policy.withAllowOriginAll(
-            (rally <+> admin <+> find).orNotFound
+        Telemetry.tracedServer(
+          GZip(
+            CORS.policy.withAllowOriginAll(
+              (rally <+> admin <+> find).orNotFound
+            )
           )
         )
       }

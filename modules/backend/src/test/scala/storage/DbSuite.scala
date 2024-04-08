@@ -32,20 +32,24 @@ import doobie.implicits.*
 import io.github.iltotore.iron.*
 import io.github.iltotore.iron.constraint.numeric.*
 import io.github.iltotore.iron.scalacheck.numeric.given
+import munit.CatsEffectSuite
+import munit.ScalaCheckEffectSuite
 import org.scalacheck.Arbitrary
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.Gen
-import org.scalacheck.Prop
+import org.scalacheck.effect.PropF
 import org.scalacheck.ops.*
+import org.typelevel.otel4s.trace.Tracer
 import rallyeye.shared.RallyKind
 
-class DbSuite extends munit.ScalaCheckSuite with DiffxAssertions with IronDiffxSupport:
-  import cats.effect.unsafe.implicits.global
+class DbSuite extends CatsEffectSuite with ScalaCheckEffectSuite with DiffxAssertions with IronDiffxSupport:
+  import Tracer.Implicits.noop
 
   given Diff[Instant] = Diff[Long].contramap(_.getEpochSecond)
   given Diff[RallyKind] = Diff.derived[RallyKind]
   given Diff[Rally] = Diff.derived[Rally]
   given Diff[Result] = Diff.derived[Result]
+  given Diff[Throwable] = Diff[String].contramap(_.getMessage)
   given Diff[SQLException] = Diff[String].contramap(_.getMessage)
 
   case class RallyWithResults(rally: Rally, results: List[Result])
@@ -76,132 +80,140 @@ class DbSuite extends munit.ScalaCheckSuite with DiffxAssertions with IronDiffxS
         )
       RallyWithResults(rally, results.toList)
 
-  val db = FunFixture[Unit](
-    setup = test =>
-      Files.deleteIfExists(Paths.get(Db.file))
-      migrations.use(_ => IO.unit).unsafeRunSync()
-    ,
-    teardown = _ => ()
-  )
+  val db = ResourceFunFixture:
+    for
+      _ <- IO.blocking(Files.deleteIfExists(Paths.get(Db.file))).toResource
+      _ <- migrations[IO]
+    yield ()
 
-  db.test("should insert and select rally") { _ =>
-    Prop.forAll { (rally: Rally) =>
-      val inserted = Db.insertRally(rally).unsafeRunSync()
-      assertEqual(inserted, Right(1))
+  db.test("should insert and select rally"): _ =>
+    PropF.forAllF: (rally: Rally) =>
+      for
+        inserted <- Db.insertRally[IO](rally)
+        _ = assertEqual(inserted, Right(1))
 
-      val selected = Db.selectRally(rally.kind, rally.externalId).unsafeRunSync()
-      assertEqual(selected, Right(Some(rally)))
-    }
-  }
+        given RallyKind = rally.kind
+        selected <- Db.selectRally[IO](rally.externalId)
+        _ = assertEqual(selected, Right(Some(rally)))
+      yield ()
 
-  db.test("should insert and select results") { _ =>
-    Prop.forAll { (rallyWithResults: RallyWithResults) =>
-      sql"delete from results".update.run.attemptSql.transact(Db.xa).unsafeRunSync()
+  db.test("should insert and select results"): _ =>
+    PropF.forAllF: (rs: RallyWithResults) =>
+      for
+        _ <- sql"delete from results".update.run.attemptSql.transact(Db.tracedTransactor[IO])
+        RallyWithResults(rally, results) = rs
 
-      val RallyWithResults(rally, results) = rallyWithResults
-      Db.insertRally(rally).unsafeRunSync()
+        _ <- Db.insertRally[IO](rally)
+        inserted <- Db.insertManyResults[IO](results)
+        _ = assertEqual(inserted, Right(results.size))
 
-      val inserted = Db
-        .insertManyResults(results)
-        .unsafeRunSync()
-      assertEqual(inserted, Right(results.size))
+        given RallyKind = rs.rally.kind
+        selected <- Db.selectResults[IO](rally.externalId)
+        _ = assertEqual(selected, Right(results))
+      yield ()
 
-      val selected = Db.selectResults(rally.kind, rally.externalId).unsafeRunSync()
-      assertEquals(selected, Right(results))
-    }
-  }
+  db.test("should insert or update rally"): _ =>
+    for
+      rally <- arbitrary[Rally]
+      inserted <- Db.insertRally[IO](rally)
+      _ = assertEqual(inserted, Right(1))
 
-  db.test("should insert or update rally") { _ =>
-    val rally = arbitrary[Rally].sample.get
-    val inserted = Db.insertRally(rally).unsafeRunSync()
-    assertEqual(inserted, Right(1))
+      rally2 = rally.copy(name = rally.name + " changed")
+      inserted2 <- Db.insertRally[IO](rally2)
+      _ = assertEqual(inserted2, Right(1))
 
-    val rally2 = rally.copy(name = rally.name + " changed")
-    val inserted2 = Db.insertRally(rally2).unsafeRunSync()
-    assertEqual(inserted2, Right(1))
+      given RallyKind = rally.kind
+      selected <- Db.selectRally[IO](rally.externalId)
+      _ = assertEqual(selected, Right(Some(rally2)))
+    yield ()
 
-    val selected = Db.selectRally(rally.kind, rally.externalId).unsafeRunSync()
-    assertEqual(selected, Right(Some(rally2)))
-  }
+  db.test("should insert or update results"): _ =>
+    for
+      RallyWithResults(rally, results) <- arbitrary[RallyWithResults]
+      result = results.head
 
-  db.test("should insert or update results") { _ =>
-    val RallyWithResults(rally, results) = arbitrary[RallyWithResults].sample.get
-    val result = results.head
+      _ <- Db.insertRally[IO](rally)
+      inserted <- Db.insertManyResults[IO](List(result))
+      _ = assertEqual(inserted, Right(1))
 
-    Db.insertRally(rally).unsafeRunSync()
+      result2 = result.copy(stageName = result.stageName + " changed")
+      inserted2 <- Db.insertManyResults[IO](List(result2))
+      _ = assertEqual(inserted2, Right(1))
 
-    val inserted = Db.insertManyResults(List(result)).unsafeRunSync()
-    assertEqual(inserted, Right(1))
+      given RallyKind = rally.kind
+      selected <- Db.selectResults[IO](rally.externalId)
+      _ = assertEqual(selected, Right(List(result2)))
+    yield ()
 
-    val result2 = result.copy(stageName = result.stageName + " changed")
-    val inserted2 = Db.insertManyResults(List(result2)).unsafeRunSync()
-    assertEqual(inserted2, Right(1))
+  db.test("should select all rallies"): _ =>
+    for
+      rally1 <- arbitrary[Rally]
+      rally2 <- arbitrary[Rally]
 
-    val selected = Db.selectResults(rally.kind, rally.externalId).unsafeRunSync()
-    assertEqual(selected, Right(List(result2)))
-  }
+      _ <- Db.insertRally[IO](rally1)
+      _ <- Db.insertRally[IO](rally2)
 
-  db.test("should select all rallies") { _ =>
-    val rally1 = arbitrary[Rally].sample.get
-    Db.insertRally(rally1).unsafeRunSync()
+      selected <- Db.selectRallies[IO]()
+      _ = assertEqual(
+        selected.map(_.toSet),
+        Right(Set((rally1.kind, rally1.externalId), (rally2.kind, rally2.externalId)))
+      )
+    yield ()
 
-    val rally2 = arbitrary[Rally].sample.get
-    Db.insertRally(rally2).unsafeRunSync()
+  db.test("should delete rally and results"): _ =>
+    for
+      RallyWithResults(rally, results) <- arbitrary[RallyWithResults]
+      _ <- Db.insertRally[IO](rally)
+      _ <- Db.insertManyResults[IO](results)
 
-    val selected = Db.selectRallies().unsafeRunSync()
-    assertEqual(selected.map(_.toSet), Right(Set((rally1.kind, rally1.externalId), (rally2.kind, rally2.externalId))))
-  }
+      given RallyKind = rally.kind
+      selectedRally <- Db.selectRally[IO](rally.externalId)
+      _ = assertEqual(selectedRally, Right(Some(rally)))
 
-  db.test("should delete rally and results") { _ =>
-    val RallyWithResults(rally, results) = arbitrary[RallyWithResults].sample.get
-    Db.insertRally(rally).unsafeRunSync()
-    Db.insertManyResults(results).unsafeRunSync()
+      selectedResults <- Db.selectResults[IO](rally.externalId)
+      _ = assertEquals(selectedResults, Right(results))
 
-    val selectedRally = Db.selectRally(rally.kind, rally.externalId).unsafeRunSync()
-    assertEqual(selectedRally, Right(Some(rally)))
+      _ <- Db.deleteResultsAndRally[IO](rally.externalId)
 
-    val selectedResults = Db.selectResults(rally.kind, rally.externalId).unsafeRunSync()
-    assertEquals(selectedResults, Right(results))
+      deletedRally <- Db.selectRally[IO](rally.externalId)
+      _ = assertEqual(deletedRally, Right(None))
 
-    Db.deleteResultsAndRally(rally.kind, rally.externalId).unsafeRunSync()
+      deletedResults <- Db.selectResults[IO](rally.externalId)
+      _ = assertEquals(deletedResults, Right(Nil))
+    yield ()
 
-    val deletedRally = Db.selectRally(rally.kind, rally.externalId).unsafeRunSync()
-    assertEqual(deletedRally, Right(None))
+  db.test("should find rallies by championship"): _ =>
+    for
+      rally1 <- arbitrary[Rally].map(_.copy(championship = List("champ1", "champ2")))
+      rally2 <- arbitrary[Rally].map(_.copy(championship = List("champ2")))
 
-    val deletedResults = Db.selectResults(rally.kind, rally.externalId).unsafeRunSync()
-    assertEquals(deletedResults, Right(Nil))
-  }
+      _ <- Db.insertRally[IO](rally1)
+      _ <- Db.insertRally[IO](rally2)
 
-  db.test("should find rallies by championship") { _ =>
-    val rally1 = arbitrary[Rally].sample.get.copy(championship = List("champ1", "champ2"))
-    Db.insertRally(rally1).unsafeRunSync()
+      given RallyKind = rally1.kind
+      selected <- Db.findRallies[IO]("champ1", None)
+      _ = assertEqual(selected, Right(List(rally1)))
+    yield ()
 
-    val rally2 = arbitrary[Rally].sample.get.copy(championship = List("champ2"))
-    Db.insertRally(rally2).unsafeRunSync()
+  db.test("should not find rallies of different kind"): _ =>
+    for
+      rally1 <- arbitrary[Rally].map(_.copy(championship = List("champ1")))
+      _ <- Db.insertRally[IO](rally1)
 
-    given kind: RallyKind = rally1.kind
-    val selected = Db.findRallies("champ1", None).unsafeRunSync()
-    assertEqual(selected, Right(List(rally1)))
-  }
+      given RallyKind = RallyKind.values.find(_ != rally1.kind).get
+      selected <- Db.findRallies[IO]("champ1", None)
+      _ = assertEqual(selected, Right(List.empty))
+    yield ()
 
-  db.test("should not find rallies of different kind") { _ =>
-    val rally1 = arbitrary[Rally].sample.get.copy(championship = List("champ1"))
-    Db.insertRally(rally1).unsafeRunSync()
+  db.test("should find rallies by championship and year"): _ =>
+    for
+      rally1 <- arbitrary[Rally].map(_.copy(championship = List("champ1"), start = LocalDate.parse("2022-01-01")))
+      rally2 <- arbitrary[Rally].map(_.copy(championship = List("champ1"), start = LocalDate.parse("2023-01-01")))
 
-    given kind: RallyKind = RallyKind.values.find(_ != rally1.kind).get
-    val selected = Db.findRallies("champ1", None).unsafeRunSync()
-    assertEqual(selected, Right(List.empty))
-  }
+      _ <- Db.insertRally[IO](rally1)
+      _ <- Db.insertRally[IO](rally2)
 
-  db.test("should find rallies by championship and year") { _ =>
-    val rally1 =
-      arbitrary[Rally].sample.get.copy(championship = List("champ1"), start = LocalDate.parse("2022-01-01"))
-    Db.insertRally(rally1).unsafeRunSync()
-
-    val rally2 = arbitrary[Rally].sample.get.copy(championship = List("champ1"), start = LocalDate.parse("2023-01-01"))
-    Db.insertRally(rally2).unsafeRunSync()
-
-    given kind: RallyKind = rally1.kind
-    val selected = Db.findRallies("champ1", Some(2022)).unsafeRunSync()
-    assertEqual(selected, Right(List(rally1)))
-  }
+      given RallyKind = rally1.kind
+      selected <- Db.findRallies[IO]("champ1", Some(2022))
+      _ = assertEqual(selected, Right(List(rally1)))
+    yield ()

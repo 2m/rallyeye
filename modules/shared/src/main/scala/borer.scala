@@ -67,7 +67,9 @@ object Codecs extends IronTapirSupport:
   given Codec[GenericError] = deriveCodec[GenericError]
   given Codec[RallyNotStored] = deriveCodec[RallyNotStored]
   given Codec[RallyInProgress] = deriveCodec[RallyInProgress]
+  given Codec[RefreshNotSupported] = deriveCodec[RefreshNotSupported]
   given Codec[ErrorInfo] = deriveCodec[ErrorInfo]
 
   given Codec[RallyKind] = deriveCodec[RallyKind]
   given Codec[RallySummary] = deriveCodec[RallySummary]
+  given Codec[RefreshResult] = deriveCodec[RefreshResult]

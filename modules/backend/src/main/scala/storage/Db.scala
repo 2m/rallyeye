@@ -20,6 +20,7 @@ package storage
 import cats.*
 import cats.effect.*
 import cats.implicits.*
+import com.ovoenergy.natchez.extras.doobie.TracedTransactor
 import doobie.*
 import doobie.implicits.*
 import doobie.implicits.javatimedrivernative.*
@@ -27,6 +28,7 @@ import doobie.util.fragments.whereAndOpt
 import io.bullet.borer.Decoder
 import io.bullet.borer.Encoder
 import io.github.iltotore.iron.doobie.given
+import org.typelevel.otel4s.trace.Tracer
 import rallyeye.shared.RallyKind
 
 extension (kind: RallyKind)
@@ -48,13 +50,17 @@ object Db:
     migrationsLocations = List("classpath:db")
   )
 
-  val xa =
-    val transactor = Transactor.fromDriverManager[IO](
+  def xa[F[_]: Async] =
+    val transactor = Transactor.fromDriverManager[F](
       driver = "org.sqlite.JDBC",
       url = config.url,
       logHandler = None
     )
     Transactor.before.modify(transactor, sql"PRAGMA foreign_keys = 1".update.run *> _)
+
+  def tracedTransactor[F[_]: Async: Tracer] =
+    given natchez.Trace[F] = rallyeye.NatchezOtel4s.fromOtel4s[F](summon[Tracer[F]])
+    TracedTransactor.trace(com.ovoenergy.natchez.extras.core.Config.UseExistingNames, xa, LogHandler.noop[F])
 
   given [A](using Encoder[A]): Put[List[A]] =
     Put[String].tcontramap(io.bullet.borer.Json.encode(_).toUtf8String)
@@ -62,7 +68,7 @@ object Db:
   given [A](using Decoder[A]): Get[List[A]] =
     Get[String].tmap(s => io.bullet.borer.Json.decode(s.getBytes("UTF8")).to[List[A]].value)
 
-  def insertRally(rally: Rally) =
+  def insertRally[F[_]: Async: Tracer](rally: Rally) =
     sql"""|insert or replace into rally (
           |  kind,
           |  external_id,
@@ -75,9 +81,10 @@ object Db:
           |  started,
           |  finished
           |) values ($rally)""".stripMargin.update.run.attemptSql
-      .transact(xa)
+      .transact(tracedTransactor[F])
+      .map(_.left.map(ex => ex: Throwable))
 
-  def selectRally(kind: RallyKind, externalId: String) =
+  def selectRally[F[_]: Async: Tracer](externalId: String)(using kind: RallyKind) =
     sql"""|select
           |  kind,
           |  external_id,
@@ -93,9 +100,9 @@ object Db:
       .query[Rally]
       .option
       .attemptSql
-      .transact(xa)
+      .transact(tracedTransactor[F])
 
-  def selectRallies() =
+  def selectRallies[F[_]: Async: Tracer]() =
     sql"""|select
           |  kind,
           |  external_id
@@ -103,9 +110,9 @@ object Db:
       .query[(RallyKind, String)]
       .to[List]
       .attemptSql
-      .transact(xa)
+      .transact(tracedTransactor[F])
 
-  def findRallies(championship: String, year: Option[Int])(using kind: RallyKind) =
+  def findRallies[F[_]: Async: Tracer](championship: String, year: Option[Int])(using kind: RallyKind) =
     val query = fr"select * from rally"
     val championshipCond = fr"exists (select 1 from json_each(championship) where value = $championship)"
     val yearCond = year.map(y => fr"strftime('%Y', start) = ${y.toString}")
@@ -113,9 +120,10 @@ object Db:
       .query[Rally]
       .to[List]
       .attemptSql
-      .transact(xa)
+      .transact(tracedTransactor[F])
+      .map(_.left.map(ex => ex: Throwable))
 
-  def insertManyResults(results: List[Result]) =
+  def insertManyResults[F[_]: Async: Tracer](results: List[Result]) =
     val sql = """|insert or replace into results (
                  |  rally_kind,
                  |  rally_external_id,
@@ -140,9 +148,10 @@ object Db:
     Update[Result](sql)
       .updateMany(results)
       .attemptSql
-      .transact(xa)
+      .transact(tracedTransactor[F])
+      .map(_.left.map(ex => ex: Throwable))
 
-  def selectResults(kind: RallyKind, externalId: String) =
+  def selectResults[F[_]: Async: Tracer](externalId: String)(using kind: RallyKind) =
     sql"""|select
           |  rally_kind,
           |  rally_external_id,
@@ -167,9 +176,10 @@ object Db:
       .query[Result]
       .to[List]
       .attemptSql
-      .transact(xa)
+      .transact(tracedTransactor[F])
+      .map(_.left.map(ex => ex: Throwable))
 
-  def deleteResultsAndRally(kind: RallyKind, externalId: String) =
+  def deleteResultsAndRally[F[_]: Async: Tracer](externalId: String)(using kind: RallyKind) =
     val deleteResults =
       sql"""|delete from results
             |where
@@ -182,4 +192,8 @@ object Db:
             |  kind = $kind and
             |  external_id = $externalId""".stripMargin.update.run
 
-    (deleteResults, deleteRally).mapN(_ + _).attemptSql.transact(xa)
+    (deleteResults, deleteRally)
+      .mapN(_ + _)
+      .attemptSql
+      .transact(tracedTransactor[F])
+      .map(_.left.map(ex => ex: Throwable))

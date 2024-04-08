@@ -16,16 +16,28 @@
 
 package rallyeye
 
-import cats.effect.IO
+import java.nio.file.Files
+import java.nio.file.Paths
+
+import cats.effect.kernel.Async
+import cats.effect.syntax.all.*
+import cats.syntax.all.*
+import fs2.compression.Compression
+import fs2.io.net.Network
 import org.http4s.Request
 import org.http4s.client.Client
 import org.http4s.ember.client.EmberClientBuilder
 import org.http4s.implicits.*
+import org.typelevel.otel4s.metrics.Meter
+import org.typelevel.otel4s.trace.Tracer
 import rallyeye.shared.Endpoints
 import rallyeye.shared.ErrorInfo
+import rallyeye.shared.GenericError
 import rallyeye.shared.RallyData
 import rallyeye.shared.RallyKind
 import rallyeye.shared.RallySummary
+import rallyeye.shared.RefreshResult
+import rallyeye.storage.Db
 import sttp.tapir.Endpoint
 import sttp.tapir.client.http4s.Http4sClientInterpreter
 import sttp.tapir.model.UsernamePassword
@@ -33,61 +45,79 @@ import sttp.tapir.model.UsernamePassword
 val Localhost = uri"http://localhost:8080"
 
 trait ResultValidator[A]:
-  extension (a: A) def validate(req: Request[IO]): Either[Throwable, String]
+  extension (a: A) def validate[F[_]](req: Request[F]): Either[Throwable, String]
 
 given ResultValidator[RallyData] with
   extension (rd: RallyData)
-    def validate(req: Request[IO]) =
+    def validate[F[_]](req: Request[F]) =
       if rd.allResults.size > 0 then Right(s"$req -> ${rd.allResults.size}")
       else Left(Error("No results"))
 
 given ResultValidator[Unit] with
   extension (unit: Unit)
-    def validate(req: Request[IO]) =
+    def validate[F[_]](req: Request[F]) =
       Right(s"$req -> ()")
 
 given ResultValidator[List[RallySummary]] with
   extension (rs: List[RallySummary])
-    def validate(req: Request[IO]) =
+    def validate[F[_]](req: Request[F]) =
       if rs.size > 0 then Right(s"$req -> $rs")
       else Left(Error("No results"))
 
-def runRequest[Security, Req, Resp: ResultValidator](
-    client: Client[IO],
+given refreshResultValidator: ResultValidator[List[RefreshResult]] with
+  extension (rs: List[RefreshResult])
+    def validate[F[_]](req: Request[F]) =
+      Right(s"$req -> $rs")
+
+def runRequest[F[_]: Async, Security, Req, Resp: ResultValidator](
+    client: Client[F],
     endpoint: Endpoint[Security, Req, ErrorInfo, Resp, Any],
     security: Security,
     req: Req
 ) =
-  val (request, parseResponse) = Http4sClientInterpreter[IO]()
+  val (request, parseResponse) = Http4sClientInterpreter[F]()
     .toSecureRequestThrowDecodeFailures(endpoint, Some(Localhost))(security)(req)
-  client.run(request).use(parseResponse(_)).flatMap(printResults(request))
+  client.run(request).use(parseResponse(_)).map(validateResults(request))
 
-def printResults[Resp: ResultValidator](req: Request[IO])(resp: Either[ErrorInfo, Resp]) =
+def validateResults[F[_], Resp: ResultValidator](
+    req: Request[F]
+)(resp: Either[ErrorInfo, Resp]) =
   resp
     .flatMap(_.validate(req))
-    .fold(err => IO.raiseError(Error(err.toString)), IO.println)
+    .left
+    .map:
+      case t: Throwable => GenericError(t.getMessage)
+      case e: ErrorInfo => e
+    .map: e =>
+      println(e); e
 
-val smokeRun = for
-  _ <- rallyeye.storage.allMigrations
-  server <- rallyeye.httpServer
-  creds = UsernamePassword("admin", Some(sys.env.getOrElse("ADMIN_PASS", "")))
-  _ <- server.use: s =>
-    EmberClientBuilder
-      .default[IO]
+def smokeRun[F[_]: Async: Tracer: Meter: Network: Compression] =
+  for
+    _ <- Files.deleteIfExists(Paths.get(Db.file)).pure[F].toResource
+    _ <- rallyeye.storage.allMigrations
+    _ <- rallyeye.httpServer
+    smokeTest = EmberClientBuilder
+      .default[F]
       .withTimeout(Timeout)
       .withIdleConnectionTime(IdleTimeout)
       .build
+      .map(Telemetry.tracedClient)
       .use { client =>
+        val pressauto = (RallyKind.PressAuto, "2023")
+        val rsf = (RallyKind.Rsf, "48272")
+        val ewrc = (RallyKind.Ewrc, "80243-eko-acropolis-rally-greece-2023")
+        val creds = UsernamePassword("admin", Some(sys.env.getOrElse("ADMIN_PASS", "")))
         for
-          _ <- runRequest(client, Endpoints.PressAuto.data, (), "2023")
-          _ <- runRequest(client, Endpoints.Rsf.refresh, (), "48272")
-          _ <- runRequest(client, Endpoints.Rsf.data, (), "48272")
-          _ <- runRequest(client, Endpoints.Ewrc.refresh, (), "80243-eko-acropolis-rally-greece-2023")
-          _ <- runRequest(client, Endpoints.Ewrc.data, (), "80243-eko-acropolis-rally-greece-2023")
+          _ <- runRequest(client, Endpoints.data, (), pressauto)
+          _ <- runRequest(client, Endpoints.refresh, (), rsf)
+          _ <- runRequest(client, Endpoints.data, (), rsf)
+          _ <- runRequest(client, Endpoints.refresh, (), ewrc)
+          _ <- runRequest(client, Endpoints.data, (), ewrc)
           _ <- runRequest(client, Endpoints.find, (), (RallyKind.Ewrc, "WRC", None))
           _ <- runRequest(client, Endpoints.Admin.refresh, creds, ())
-          _ <- runRequest(client, Endpoints.Admin.Rsf.delete, creds, "48272")
-          _ <- runRequest(client, Endpoints.Admin.Ewrc.delete, creds, "80243-eko-acropolis-rally-greece-2023")
+          _ <- runRequest(client, Endpoints.Admin.delete, creds, rsf)
+          _ <- runRequest(client, Endpoints.Admin.delete, creds, ewrc)
         yield ()
       }
-yield ()
+    _ <- smokeTest.toResource
+  yield ()
