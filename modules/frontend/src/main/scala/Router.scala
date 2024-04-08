@@ -41,8 +41,11 @@ object Router:
   case class RallyPage(rallyId: String, results: String) extends Page
   case class PressAuto(year: String, results: String) extends Page
   case class Ewrc(rallyId: String, results: String) extends Page
-  case class FindPage(filter: RallyList.Filter) extends Page
+  case class FindPage(filter: RallyList.Championship) extends Page
+  case object FreshRallyPage extends Page
 
+  given Codec[RallyList.Championship] = deriveCodec[RallyList.Championship]
+  given Codec[RallyList.Fresh.type] = deriveCodec[RallyList.Fresh.type]
   given Codec[RallyList.Filter] = deriveCodec[RallyList.Filter]
   given Codec[Page] = deriveAllCodecs[Page]
   given FromString[RallyKind, DummyError] = new FromString[RallyKind, DummyError]:
@@ -52,7 +55,7 @@ object Router:
     def print(kind: RallyKind) = kind.toString.toLowerCase
 
   val indexRoute = Route.static(IndexPage, root / endOfSegments)
-  val aboutRoute = Route.static(AboutPage, root / "about" / endOfSegments)
+  val aboutRoute = Route.static(AboutPage, root / "about" / endOfSegments, Route.fragmentBasePath)
 
   val rsfRoute = Route[RallyPage, (String, String)](
     encode = Tuple.fromProductTyped,
@@ -99,10 +102,12 @@ object Router:
   val findRoute = Route[FindPage, (RallyKind, String, Int)](
     encode = f => (f.filter.kind, f.filter.championship, f.filter.year.getOrElse(0)),
     decode = (kind, championship, year) =>
-      FindPage(RallyList.Filter(kind, championship, if year == 0 then None else Some(year))),
+      FindPage(RallyList.Championship(kind, championship, if year == 0 then None else Some(year))),
     pattern = root / "find" / segment[RallyKind] / segment[String] / segment[Int] / endOfSegments,
     basePath = Route.fragmentBasePath
   )
+
+  val freshRallyRoute = Route.static(FreshRallyPage, root / "fresh" / endOfSegments, Route.fragmentBasePath)
 
   val router = new Router[Page](
     routes = List(
@@ -114,6 +119,7 @@ object Router:
       ewrcRouteAllResults,
       aboutRoute,
       findRoute,
+      freshRallyRoute,
       indexRoute
     ),
     getPageTitle = _ => "RallyEye",
@@ -141,9 +147,10 @@ object Router:
   }
 
   def withFilter(filter: String) = router.currentPageSignal.now() match
-    case p: RallyPage      => p.copy(results = filter)
-    case p: PressAuto      => p.copy(results = filter)
-    case p: Ewrc           => p.copy(results = filter)
-    case p: IndexPage.type => p
-    case p: AboutPage.type => p
-    case p: FindPage       => p
+    case p: RallyPage           => p.copy(results = filter)
+    case p: PressAuto           => p.copy(results = filter)
+    case p: Ewrc                => p.copy(results = filter)
+    case p: IndexPage.type      => p
+    case p: AboutPage.type      => p
+    case p: FindPage            => p
+    case p: FreshRallyPage.type => p

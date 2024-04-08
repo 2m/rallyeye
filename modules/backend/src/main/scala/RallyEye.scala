@@ -97,8 +97,10 @@ object Logic:
       year: Option[Int]
   ) =
     given RallyKind = kind
-    for rallies <- Repo.findRallies[F](championship, year)
-    yield rallies
+    Repo.findRallies[F](championship, year)
+
+  def fresh[F[_]: Async: Tracer](u: Unit) =
+    Repo.freshRallies[F]()
 
   object Admin:
     def authLogic[F[_]: Async: Tracer](usernamePassword: UsernamePassword): EitherT[F, Throwable, Unit] =
@@ -197,11 +199,13 @@ def httpServer[F[_]: Async: Network: Tracer: Meter: Spawn: Compression] =
 
         val find =
           interp.toRoutes(Endpoints.find.serverLogic(Logic.find.tupled.andThen(_.value).andThen(handleErrors)))
+        val fresh =
+          interp.toRoutes(Endpoints.fresh.serverLogic(Logic.fresh.andThen(_.value).andThen(handleErrors)))
 
         Telemetry.tracedServer(
           GZip(
             CORS.policy.withAllowOriginAll(
-              (rally <+> admin <+> find).orNotFound
+              (rally <+> admin <+> find <+> fresh).orNotFound
             )
           )
         )

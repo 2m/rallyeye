@@ -217,3 +217,15 @@ class DbSuite extends CatsEffectSuite with ScalaCheckEffectSuite with DiffxAsser
       selected <- Db.findRallies[IO]("champ1", Some(2022))
       _ = assertEqual(selected, Right(List(rally1)))
     yield ()
+
+  db.test("should not return pressauto rallies in fresh list"): _ =>
+    for
+      rally1 <- arbitrary[Rally].map(_.copy(kind = RallyKind.PressAuto))
+      rally2 <- arbitrary[Rally].map(_.copy(kind = RallyKind.Rsf))
+
+      _ <- Db.insertRally[IO](rally1)
+      _ <- Db.insertRally[IO](rally2)
+
+      fresh <- Db.freshRallies[IO]()
+      _ = assertEqual(fresh, Right(List(rally2)))
+    yield ()
