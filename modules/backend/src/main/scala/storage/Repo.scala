@@ -24,8 +24,6 @@ import scala.util.chaining.*
 import cats.data.EitherT
 import cats.effect.kernel.Async
 import io.github.arainko.ducktape.*
-import io.github.iltotore.iron.*
-import io.github.iltotore.iron.constraint.numeric.*
 import org.typelevel.otel4s.trace.Tracer
 import rallyeye.shared.RallyKind
 import rallyeye.shared.RallySummary
