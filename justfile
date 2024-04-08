@@ -41,6 +41,9 @@ smoke-with-agent:
 native-image:
   sbt --client backend/nativeImage
 
+run-native-image:
+  eval $(cat .env) modules/backend/target/native-image/backend http-server
+
 rm-db:
   rm modules/backend/rallyeye.db
 

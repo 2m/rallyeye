@@ -1,4 +1,4 @@
-ThisBuild / scalaVersion := "3.4.0"
+ThisBuild / scalaVersion := "3.4.1"
 ThisBuild / scalafmtOnCompile := true
 
 ThisBuild / organization := "lt.dvim.rallyeye"
@@ -156,7 +156,8 @@ lazy val backend = project
       "--no-fallback", // show the underlying problem due to unsupported features instead of building a fallback image
       "-H:IncludeResources=db/V.*sql$",
       "-march=compatibility", // Use most compatible instructions, 'native' fails to start on flyio
-      s"-Dorg.sqlite.lib.exportPath=${nativeImageOutput.value.getParent}" // https://github.com/xerial/sqlite-jdbc#graalvm-native-image-support
+      s"-Dorg.sqlite.lib.exportPath=${nativeImageOutput.value.getParent}", // https://github.com/xerial/sqlite-jdbc#graalvm-native-image-support
+      "--enable-url-protocols=https" // for OpenTelemetry export to honeycomb
     ),
 
     // docker image build
