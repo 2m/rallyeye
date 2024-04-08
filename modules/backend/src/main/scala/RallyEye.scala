@@ -25,7 +25,6 @@ import cats.data.EitherT
 import cats.data.Kleisli
 import cats.effect.Spawn
 import cats.effect.kernel.Async
-import cats.effect.kernel.Resource
 import cats.effect.syntax.all.*
 import cats.syntax.all.*
 import com.comcast.ip4s.*
@@ -39,6 +38,7 @@ import org.http4s.implicits.*
 import org.http4s.server.middleware.Caching
 import org.http4s.server.middleware.CORS
 import org.http4s.server.middleware.GZip
+import org.typelevel.otel4s.metrics.Meter
 import org.typelevel.otel4s.trace.StatusCode
 import org.typelevel.otel4s.trace.Tracer
 import rallyeye.shared.*
@@ -63,7 +63,7 @@ object Logic:
       .withTimeout(Timeout)
       .withIdleConnectionTime(IdleTimeout)
       .build
-      .map(Tracing.client)
+      .map(Telemetry.tracedClient)
       .use { client =>
         (for
           info <- kind.rallyInfo(client, rallyId)
@@ -142,15 +142,15 @@ def handleErrors[F[_]: Monad: Tracer, T](f: F[Either[Throwable, T]]) =
       case Right(value) => value.asRight.pure[F]
   yield errorInfo
 
-def httpServer[F[_]: Async: Network: Tracer: Spawn: Compression] =
+def httpServer[F[_]: Async: Network: Tracer: Meter: Spawn: Compression] =
   import cats.syntax.semigroupk.*
 
   for
-    refreshShardedStreamAndLogic <- Resource.eval(
-      shardedLogic(5)(Logic.refresh.tupled.andThen(_.value).andThen(handleErrors))
-    )
+    refreshShardedStreamAndLogic <- shardedLogic(5)(
+      Logic.refresh.tupled.andThen(_.value).andThen(handleErrors)
+    ).toResource
     (refreshShardedStream, refreshShardedLogic) = refreshShardedStreamAndLogic
-    _ <- Resource.eval(refreshShardedStream.compile.drain.start)
+    _ <- refreshShardedStream.compile.drain.start.toResource
     server <- EmberServerBuilder
       .default[F]
       .withHost(ipv4"0.0.0.0")
@@ -198,7 +198,7 @@ def httpServer[F[_]: Async: Network: Tracer: Spawn: Compression] =
         val find =
           interp.toRoutes(Endpoints.find.serverLogic(Logic.find.tupled.andThen(_.value).andThen(handleErrors)))
 
-        Tracing.server(
+        Telemetry.tracedServer(
           GZip(
             CORS.policy.withAllowOriginAll(
               (rally <+> admin <+> find).orNotFound

@@ -5,6 +5,26 @@
   }, {
     "pattern":"\\QMETA-INF/services/ch.qos.logback.classic.spi.Configurator\\E"
   }, {
+    "pattern":"\\QMETA-INF/services/io.opentelemetry.context.ContextStorageProvider\\E"
+  }, {
+    "pattern":"\\QMETA-INF/services/io.opentelemetry.exporter.internal.grpc.GrpcSenderProvider\\E"
+  }, {
+    "pattern":"\\QMETA-INF/services/io.opentelemetry.sdk.autoconfigure.spi.AutoConfigurationCustomizerProvider\\E"
+  }, {
+    "pattern":"\\QMETA-INF/services/io.opentelemetry.sdk.autoconfigure.spi.ConfigurablePropagatorProvider\\E"
+  }, {
+    "pattern":"\\QMETA-INF/services/io.opentelemetry.sdk.autoconfigure.spi.ResourceProvider\\E"
+  }, {
+    "pattern":"\\QMETA-INF/services/io.opentelemetry.sdk.autoconfigure.spi.logs.ConfigurableLogRecordExporterProvider\\E"
+  }, {
+    "pattern":"\\QMETA-INF/services/io.opentelemetry.sdk.autoconfigure.spi.metrics.ConfigurableMetricExporterProvider\\E"
+  }, {
+    "pattern":"\\QMETA-INF/services/io.opentelemetry.sdk.autoconfigure.spi.traces.ConfigurableSamplerProvider\\E"
+  }, {
+    "pattern":"\\QMETA-INF/services/io.opentelemetry.sdk.autoconfigure.spi.traces.ConfigurableSpanExporterProvider\\E"
+  }, {
+    "pattern":"\\QMETA-INF/services/io.opentelemetry.sdk.autoconfigure.spi.traces.SdkTracerProviderConfigurer\\E"
+  }, {
     "pattern":"\\QMETA-INF/services/java.lang.System$LoggerFinder\\E"
   }, {
     "pattern":"\\QMETA-INF/services/java.net.spi.InetAddressResolverProvider\\E"

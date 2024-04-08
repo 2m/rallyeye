@@ -16,12 +16,12 @@
 
 import cats.effect.ExitCode
 import cats.effect.IO
-import cats.effect.kernel.Resource
 import cats.implicits.*
 import com.monovore.decline.Opts
 import com.monovore.decline.effect.CommandIOApp
+import org.typelevel.otel4s.metrics.Meter
 import org.typelevel.otel4s.trace.Tracer
-import rallyeye.Tracing
+import rallyeye.Telemetry
 
 object Main
     extends CommandIOApp(
@@ -51,22 +51,7 @@ object Main
   override def main: Opts[IO[ExitCode]] =
     (httpServer orElse migrateDb orElse smokeRun)
       .map {
-        case HttpServer() =>
-          Tracing
-            .trace { implicit T: Tracer[IO] =>
-              rallyeye.httpServer[IO]
-            }
-            .use(_ => IO.never)
-        case MigrateDb() =>
-          Tracing
-            .trace { implicit T: Tracer[IO] =>
-              Resource.eval(T.rootSpan("migrate-db").surround(rallyeye.storage.allMigrations[IO].use(_.pure[IO])))
-            }
-            .use(_ => ExitCode.Success.pure[IO])
-        case SmokeRun() =>
-          Tracing
-            .trace { implicit T: Tracer[IO] =>
-              Resource.eval(T.rootSpan("smoke-run").surround(rallyeye.smokeRun[IO].use(_.pure[IO])))
-            }
-            .use(_ => ExitCode.Success.pure[IO])
+        case HttpServer() => Telemetry.instrument(rallyeye.httpServer[IO]).use(_ => IO.never)
+        case MigrateDb() => Telemetry.instrument(rallyeye.storage.allMigrations[IO]).use(_ => ExitCode.Success.pure[IO])
+        case SmokeRun()  => Telemetry.instrument(rallyeye.smokeRun[IO]).use(_ => ExitCode.Success.pure[IO])
       }

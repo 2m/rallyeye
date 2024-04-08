@@ -21,6 +21,7 @@ import scala.concurrent.duration.*
 import cats.effect.*
 import cats.syntax.all.*
 import munit.CatsEffectSuite
+import org.typelevel.otel4s.metrics.Meter
 import org.typelevel.otel4s.trace.Tracer
 
 class ShardedSuite extends CatsEffectSuite:
@@ -28,38 +29,38 @@ class ShardedSuite extends CatsEffectSuite:
     extension (s: String) def shard(shard: Int): Int = s.hashCode % shard
 
   val traced = ResourceFunFixture: options =>
-    Tracing
-      .tracer("test")
-      .map: tracer =>
-        (test: Tracer[IO] => IO[Any]) => tracer.rootSpan(options.name).surround(test(tracer))
+    Telemetry
+      .instruments("test")
+      .map:
+        case (given Tracer[IO], given Meter[IO]) =>
+          (test: (Tracer[IO], Meter[IO]) ?=> IO[Any]) => summon[Tracer[IO]].rootSpan(options.name).surround(test)
 
   traced.test("shards requests"):
     _.apply:
-      implicit tracer =>
-        val requestDelay = 100.millis
-        val startupDelay = 500.millis
-        val numShards = 5
-        val numRequests = 20
+      val requestDelay = 100.millis
+      val startupDelay = 500.millis
+      val numShards = 5
+      val numRequests = 20
 
-        def delay(req: String) = Temporal[IO].sleep(requestDelay) >> IO.pure(Right(req))
+      def delay(req: String) = Temporal[IO].sleep(requestDelay) >> IO.pure(Right(req))
 
-        val result = for
-          shardedStreamAndLogic <- shardedLogic(numShards)(delay)
-          (shardedStream, logic) = shardedStreamAndLogic
-          shardedStreamFiber <- shardedStream.compile.drain.start
-          _ <- Temporal[IO].sleep(startupDelay)
-          fibers <- (0 until numRequests).map(_.toString).toList.map(logic).traverse(_.start)
-          results <- fibers.traverse(_.join)
-          _ <- shardedStreamFiber.cancel
-        yield results.filter(_.isSuccess).size
+      val result = for
+        shardedStreamAndLogic <- shardedLogic(numShards)(delay)
+        (shardedStream, logic) = shardedStreamAndLogic
+        shardedStreamFiber <- shardedStream.compile.drain.start
+        _ <- Temporal[IO].sleep(startupDelay)
+        fibers <- (0 until numRequests).map(_.toString).toList.map(logic).traverse(_.start)
+        results <- fibers.traverse(_.join)
+        _ <- shardedStreamFiber.cancel
+      yield results.filter(_.isSuccess).size
 
-        for
-          (taken, responses) <- Temporal[IO].timed(result)
-          _ = assertEquals(responses, numRequests)
+      for
+        (taken, responses) <- Temporal[IO].timed(result)
+        _ = assertEquals(responses, numRequests)
 
-          worstCaseTaken = requestDelay * numRequests + startupDelay
-          _ = assert(
-            taken < worstCaseTaken,
-            s"Expected < ${worstCaseTaken.toMillis}ms, actual ${taken.toMillis}ms"
-          )
-        yield ()
+        worstCaseTaken = requestDelay * numRequests + startupDelay
+        _ = assert(
+          taken < worstCaseTaken,
+          s"Expected < ${worstCaseTaken.toMillis}ms, actual ${taken.toMillis}ms"
+        )
+      yield ()

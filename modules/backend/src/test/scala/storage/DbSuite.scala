@@ -26,7 +26,6 @@ import java.time.LocalDate
 import scala.collection.immutable.ArraySeq
 
 import cats.effect.IO
-import cats.effect.kernel.Resource
 import com.softwaremill.diffx.Diff
 import com.softwaremill.diffx.munit.DiffxAssertions
 import doobie.implicits.*
@@ -83,7 +82,7 @@ class DbSuite extends CatsEffectSuite with ScalaCheckEffectSuite with DiffxAsser
 
   val db = ResourceFunFixture:
     for
-      _ <- Resource.eval(IO.blocking(Files.deleteIfExists(Paths.get(Db.file))))
+      _ <- IO.blocking(Files.deleteIfExists(Paths.get(Db.file))).toResource
       _ <- migrations[IO]
     yield ()
 

@@ -20,7 +20,7 @@ import java.nio.file.Files
 import java.nio.file.Paths
 
 import cats.effect.kernel.Async
-import cats.effect.kernel.Resource
+import cats.effect.syntax.all.*
 import cats.syntax.all.*
 import fs2.compression.Compression
 import fs2.io.net.Network
@@ -28,6 +28,7 @@ import org.http4s.Request
 import org.http4s.client.Client
 import org.http4s.ember.client.EmberClientBuilder
 import org.http4s.implicits.*
+import org.typelevel.otel4s.metrics.Meter
 import org.typelevel.otel4s.trace.Tracer
 import rallyeye.shared.Endpoints
 import rallyeye.shared.ErrorInfo
@@ -90,32 +91,33 @@ def validateResults[F[_], Resp: ResultValidator](
     .map: e =>
       println(e); e
 
-def smokeRun[F[_]: Async: Tracer: Network: Compression] = for
-  _ <- Resource.eval(Files.deleteIfExists(Paths.get(Db.file)).pure[F])
-  _ <- rallyeye.storage.allMigrations
-  _ <- rallyeye.httpServer
-  smokeTest = EmberClientBuilder
-    .default[F]
-    .withTimeout(Timeout)
-    .withIdleConnectionTime(IdleTimeout)
-    .build
-    .map(Tracing.client)
-    .use { client =>
-      val pressauto = (RallyKind.PressAuto, "2023")
-      val rsf = (RallyKind.Rsf, "48272")
-      val ewrc = (RallyKind.Ewrc, "80243-eko-acropolis-rally-greece-2023")
-      val creds = UsernamePassword("admin", Some(sys.env.getOrElse("ADMIN_PASS", "")))
-      for
-        _ <- runRequest(client, Endpoints.data, (), pressauto)
-        _ <- runRequest(client, Endpoints.refresh, (), rsf)
-        _ <- runRequest(client, Endpoints.data, (), rsf)
-        _ <- runRequest(client, Endpoints.refresh, (), ewrc)
-        _ <- runRequest(client, Endpoints.data, (), ewrc)
-        _ <- runRequest(client, Endpoints.find, (), (RallyKind.Ewrc, "WRC", None))
-        _ <- runRequest(client, Endpoints.Admin.refresh, creds, ())
-        _ <- runRequest(client, Endpoints.Admin.delete, creds, rsf)
-        _ <- runRequest(client, Endpoints.Admin.delete, creds, ewrc)
-      yield ()
-    }
-  _ <- Resource.eval(smokeTest)
-yield ()
+def smokeRun[F[_]: Async: Tracer: Meter: Network: Compression] =
+  for
+    _ <- Files.deleteIfExists(Paths.get(Db.file)).pure[F].toResource
+    _ <- rallyeye.storage.allMigrations
+    _ <- rallyeye.httpServer
+    smokeTest = EmberClientBuilder
+      .default[F]
+      .withTimeout(Timeout)
+      .withIdleConnectionTime(IdleTimeout)
+      .build
+      .map(Telemetry.tracedClient)
+      .use { client =>
+        val pressauto = (RallyKind.PressAuto, "2023")
+        val rsf = (RallyKind.Rsf, "48272")
+        val ewrc = (RallyKind.Ewrc, "80243-eko-acropolis-rally-greece-2023")
+        val creds = UsernamePassword("admin", Some(sys.env.getOrElse("ADMIN_PASS", "")))
+        for
+          _ <- runRequest(client, Endpoints.data, (), pressauto)
+          _ <- runRequest(client, Endpoints.refresh, (), rsf)
+          _ <- runRequest(client, Endpoints.data, (), rsf)
+          _ <- runRequest(client, Endpoints.refresh, (), ewrc)
+          _ <- runRequest(client, Endpoints.data, (), ewrc)
+          _ <- runRequest(client, Endpoints.find, (), (RallyKind.Ewrc, "WRC", None))
+          _ <- runRequest(client, Endpoints.Admin.refresh, creds, ())
+          _ <- runRequest(client, Endpoints.Admin.delete, creds, rsf)
+          _ <- runRequest(client, Endpoints.Admin.delete, creds, ewrc)
+        yield ()
+      }
+    _ <- smokeTest.toResource
+  yield ()

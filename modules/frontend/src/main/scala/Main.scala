@@ -124,7 +124,7 @@ object App:
         aboutPage()
       case FindPage(filter @ RallyList.Filter(kind, championship, year)) =>
         Var.set(App.rallyData -> None, App.selectedDriver -> None, App.selectedResult -> None)
-        fetchRallyList(kind, championship, year).map {
+        val _ = fetchRallyList(kind, championship, year).map {
           case Right(rallyList) => Var.set(App.rallyList -> rallyList, App.rallyListFilter -> Some(filter))
           case Left(error)      => Var.set(App.errorInfo -> Some(error))
         }
