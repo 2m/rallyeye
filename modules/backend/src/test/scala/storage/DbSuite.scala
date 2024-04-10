@@ -23,26 +23,26 @@ import java.sql.SQLException
 import java.time.Instant
 import java.time.LocalDate
 
-import scala.collection.immutable.ArraySeq
-
 import cats.effect.IO
 import com.softwaremill.diffx.Diff
 import com.softwaremill.diffx.munit.DiffxAssertions
 import doobie.implicits.*
-import io.github.iltotore.iron.*
-import io.github.iltotore.iron.constraint.numeric.*
-import io.github.iltotore.iron.scalacheck.numeric.given
 import munit.CatsEffectSuite
 import munit.ScalaCheckEffectSuite
 import org.scalacheck.Arbitrary
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.Gen
 import org.scalacheck.effect.PropF
-import org.scalacheck.ops.*
 import org.typelevel.otel4s.trace.Tracer
 import rallyeye.shared.RallyKind
 
-class DbSuite extends CatsEffectSuite with ScalaCheckEffectSuite with DiffxAssertions with IronDiffxSupport:
+class DbSuite
+    extends CatsEffectSuite
+    with ScalaCheckEffectSuite
+    with DiffxAssertions
+    with IronDiffxSupport
+    with Arbitraries:
+
   import Tracer.Implicits.noop
 
   given Diff[Instant] = Diff[Long].contramap(_.getEpochSecond)
@@ -51,34 +51,6 @@ class DbSuite extends CatsEffectSuite with ScalaCheckEffectSuite with DiffxAsser
   given Diff[Result] = Diff.derived[Result]
   given Diff[Throwable] = Diff[String].contramap(_.getMessage)
   given Diff[SQLException] = Diff[String].contramap(_.getMessage)
-
-  case class RallyWithResults(rally: Rally, results: List[Result])
-
-  given Arbitrary[RallyKind] = Arbitrary:
-    Gen.oneOf(ArraySeq.unsafeWrapArray(RallyKind.values))
-  given Arbitrary[Rally] = Arbitrary:
-    Gen.resultOf(Rally.apply)
-  given Arbitrary[Result] = Arbitrary:
-    Gen.resultOf(Result.apply)
-  given Arbitrary[RallyWithResults] = Arbitrary:
-    for
-      rally <- arbitrary[Rally]
-      stageCount <- Gen.oneOf(1 to 10)
-      stageNumbers <- Gen.setOfN(stageCount, arbitrary[Int :| Greater[0]])
-      driverCount <- Gen.oneOf(1 to 10)
-      driverNames <- Gen.setOfN(driverCount, arbitrary[String])
-    yield
-      val results =
-        for
-          stageNumber <- stageNumbers
-          driverName <- driverNames
-        yield arbitrary[Result].sample.get.copy(
-          rallyKind = rally.kind,
-          externalId = rally.externalId,
-          stageNumber = stageNumber,
-          driverPrimaryName = driverName
-        )
-      RallyWithResults(rally, results.toList)
 
   val db = ResourceFunFixture:
     for
