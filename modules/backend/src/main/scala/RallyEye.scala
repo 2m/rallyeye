@@ -50,6 +50,7 @@ import sttp.tapir.server.http4s.Http4sServerInterpreter
 
 val Timeout = 2.minutes
 val IdleTimeout = 3.minutes
+val NumRefreshShards = 5
 
 object Logic:
   sealed trait LogicError
@@ -148,7 +149,7 @@ def httpServer[F[_]: Async: Network: Tracer: Meter: Spawn: Compression] =
   import cats.syntax.semigroupk.*
 
   for
-    refreshShardedStreamAndLogic <- shardedLogic(5)(
+    refreshShardedStreamAndLogic <- shardedLogic(NumRefreshShards)(
       Logic.refresh.tupled.andThen(_.value).andThen(handleErrors)
     ).toResource
     (refreshShardedStream, refreshShardedLogic) = refreshShardedStreamAndLogic

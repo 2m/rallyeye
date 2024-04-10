@@ -21,12 +21,15 @@ import scala.concurrent.duration.*
 import cats.effect.*
 import cats.syntax.all.*
 import munit.CatsEffectSuite
+import munit.ScalaCheckEffectSuite
+import org.scalacheck.effect.PropF
 import org.typelevel.otel4s.metrics.Meter
 import org.typelevel.otel4s.trace.Tracer
+import rallyeye.shared.RallyKind
 
 class ShardedSuite extends CatsEffectSuite:
   given Shardable[String] with
-    extension (s: String) def shard(shard: Int): Int = s.hashCode % shard
+    extension (s: String) def shard(shard: Int): Int = s.hashCode.abs % shard
 
   val traced = ResourceFunFixture: options =>
     Telemetry
@@ -64,3 +67,13 @@ class ShardedSuite extends CatsEffectSuite:
           s"Expected < ${worstCaseTaken.toMillis}ms, actual ${taken.toMillis}ms"
         )
       yield ()
+
+class ShardableSuite extends CatsEffectSuite with ScalaCheckEffectSuite with Arbitraries:
+
+  test("should generate correct shard number"):
+    PropF.forAllF: (kind: RallyKind, name: String) =>
+      val shards = 0 until NumRefreshShards
+      val req = (kind, name)
+      IO(req.shard(NumRefreshShards)).map(shard =>
+        assert(shards.contains(shard), s"Expected one of $shards, actual $shard")
+      )

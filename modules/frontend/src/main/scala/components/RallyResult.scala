@@ -98,11 +98,13 @@ case class RallyResult(
               case (Some(result), Some(driver), Some(stages)) =>
                 Seq(
                   div(s"SS${result.stageNumber} ${stages(result.stageNumber - 1).name}"),
-                  div(renderCountryAndName(driver)),
+                  div(cls := "truncate", renderCountryAndName(driver)),
                   div(
-                    s"Stage: ${result.stageTimeMs.prettyDurationAllParts} (${ResultLines.renderStagePosition(result)})"
+                    s"S: ${result.stageTimeMs.prettyDurationAllParts} (${ResultLines.renderStagePosition(result)})"
                   ),
-                  div(s"Rally: ${result.overallTimeMs.prettyDurationAllParts} (${result.overallPosition})"),
+                  div(
+                    s"R: ${result.overallTimeMs.prettyDurationAllParts} (${result.overallPosition})"
+                  ),
                   if result.comment.nonEmpty then div(s"“${result.comment}”") else emptyNode
                 )
               case _ => Seq(emptyNode)

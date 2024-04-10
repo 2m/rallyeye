@@ -37,7 +37,7 @@ trait Shardable[A]:
   extension (a: A) def shard(s: Int): Int
 
 given Shardable[(RallyKind, String)] with
-  extension (s: (RallyKind, String)) def shard(shard: Int): Int = s._2.hashCode % shard
+  extension (s: (RallyKind, String)) def shard(shard: Int): Int = s._2.hashCode.abs % shard
 
 case class ShardedEntry[F[_], Req, Resp](
     req: Req,
