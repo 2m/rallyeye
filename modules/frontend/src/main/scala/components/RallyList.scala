@@ -43,7 +43,9 @@ case class RallyList(
           cls := "col-span-3 flex flex-col",
           children <-- Signal
             .combine(rallyListSignal, rallyListFilterSignal)
-            .mapN((rallyList, rallyFilter) => rallyList.sortBy(_.start).reverse.map(renderRally(rallyFilter)))
+            .mapN: (rallyList, rallyFilter) =>
+              given Ordering[RallySummary] = summaryOrdering(rallyFilter)
+              rallyList.sorted.map(renderRally(rallyFilter))
         )
       )
     )
@@ -82,7 +84,7 @@ case class RallyList(
                   case Fresh if r.championship.nonEmpty => Some(r.championship.mkString(", "))
                   case Fresh                            => None
                 .fold(emptyNode)(span(cls := "pr-2", _)),
-              span(cls := "text-xs text-gray-400", "data retrieved ", r.retrievedAt.prettyAgo, " ")
+              span(cls := "text-xs text-gray-400 whitespace-nowrap", "data retrieved ", r.retrievedAt.prettyAgo, " ")
             ),
             div(cls := "mt-2 text-sm text-gray-500", s"${r.start.toString} - ${r.end.toString}"),
             div(
@@ -120,6 +122,11 @@ case class RallyList(
       case RallyKind.PressAuto => "bg-lime-600"
       case RallyKind.Ewrc      => "bg-amber-600"
 
+  private def summaryOrdering(rallyFilter: Option[RallyList.Filter]) =
+    rallyFilter match
+      case Some(Fresh) => Ordering.by((rs: RallySummary) => rs.retrievedAt).reverse
+      case _           => Ordering.by((rs: RallySummary) => rs.start).reverse
+
 object RallyList:
   sealed trait Filter
   case object Fresh extends Filter
@@ -128,6 +135,7 @@ object RallyList:
     "🔄 Recently loaded rallies" -> Fresh,
     "🌎 WRC 2024" -> Championship(RallyKind.Ewrc, "WRC", Some(2024)),
     "🌎 WRC 2023" -> Championship(RallyKind.Ewrc, "WRC", Some(2023)),
+    "🇪🇺 ERC 2023" -> Championship(RallyKind.Ewrc, "ERC", Some(2023)),
     "🖥️ Sim Rally Masters 2024" -> Championship(RallyKind.Rsf, "Sim Rally Masters 2024"),
     "🖥️ Sim Rally Masters 2023" -> Championship(RallyKind.Rsf, "Sim Rally Masters 2023"),
     "🖥️ Virtual Rally Championship 2024" -> Championship(RallyKind.Rsf, "Virtual Rally Championship 2024"),
