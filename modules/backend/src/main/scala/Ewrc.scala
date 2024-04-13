@@ -20,6 +20,7 @@ import java.time.LocalDate
 
 import scala.jdk.CollectionConverters.*
 import scala.util.Try
+import scala.util.chaining.*
 
 import cats.data.EitherT
 import cats.effect.kernel.Async
@@ -107,7 +108,7 @@ object Ewrc:
         finishedElement.text match
           case finishedRegexp(finishedCount) => finishedCount.toInt
           case _ => throw new Error(s"Unable to parse finished count from [${finishedElement.text}]")
-      case None => throw new Error(s"Unable to find finished element in [$finishedElements]")
+      case None => 0 // rally still in progress
 
     val retirementsElements = parsedPage
       .select("html body main#main-section div.final-results table.results tbody h4.text-center.mt-3")
@@ -200,6 +201,7 @@ object Ewrc:
         case "costa_rica"   => "costa rica"
         case "nederland"    => "netherlands"
         case "jar"          => "south africa"
+        case "newzealand"   => "new zealand"
         case c              => c
 
     def getDurationMs(s: String) =
@@ -234,6 +236,14 @@ object Ewrc:
         val stageResultTable = document
           .select("main#main-section div#stage-results table.results")
           .first()
+          .pipe(Option.apply)
+          .toList
+          .flatMap: table =>
+            table
+              .select("tr")
+              .iterator()
+              .asScala
+              .toList
 
         val stageCancelled =
           document.select("main#main-section div#stage-results span.badge-danger").text.contains("Stage cancelled")
@@ -304,10 +314,6 @@ object Ewrc:
           .toMap
 
         retired ++ stageResultTable
-          .select("tr")
-          .iterator()
-          .asScala
-          .toList
           .filterNot { result =>
             val entryNumber = result.select("td.text-left span.font-weight-bold.text-primary").text
             retiredDrivers.get(entryNumber) match
