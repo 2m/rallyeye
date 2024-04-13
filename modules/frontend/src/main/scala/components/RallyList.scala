@@ -135,6 +135,7 @@ object RallyList:
     "🔄 Recently loaded rallies" -> Fresh,
     "🌎 WRC 2024" -> Championship(RallyKind.Ewrc, "WRC", Some(2024)),
     "🌎 WRC 2023" -> Championship(RallyKind.Ewrc, "WRC", Some(2023)),
+    "🇪🇺 ERC 2024" -> Championship(RallyKind.Ewrc, "ERC", Some(2024)),
     "🇪🇺 ERC 2023" -> Championship(RallyKind.Ewrc, "ERC", Some(2023)),
     "🖥️ Sim Rally Masters 2024" -> Championship(RallyKind.Rsf, "Sim Rally Masters 2024"),
     "🖥️ Sim Rally Masters 2023" -> Championship(RallyKind.Rsf, "Sim Rally Masters 2023"),
