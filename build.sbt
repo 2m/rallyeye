@@ -115,7 +115,7 @@ lazy val backend = project
       "com.themillhousegroup"       %% "scoup"                                     % "1.0.0",
       "org.typelevel"               %% "log4cats-core"                             % "2.6.0",
       "org.typelevel"               %% "log4cats-slf4j"                            % "2.6.0",
-      "com.ovoenergy"               %% "natchez-extras-doobie"                     % "8.0.1",
+      "com.ovoenergy"               %% "natchez-extras-doobie"                     % "8.1.1",
       "org.typelevel"               %% "otel4s-oteljava"                           % "0.5.0",
       "io.opentelemetry"             % "opentelemetry-exporter-otlp"               % "1.36.0",
       "io.opentelemetry"             % "opentelemetry-sdk-extension-autoconfigure" % "1.36.0",
