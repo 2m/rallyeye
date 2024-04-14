@@ -138,29 +138,43 @@ object Ewrc:
 
   case class Retired(group: String, stageNumber: Int)
 
-  def retiredNumberGroup[F[_]: Async](client: Client[F], rallyId: String): F[Either[Error, Map[String, Retired]]] =
+  def retiredNumberGroup[F[_]: Async](client: Client[F], rallyId: String): EitherT[F, Throwable, Map[String, Retired]] =
     val (request, parseResponse) = finalPage(rallyId)
     for
-      response <- client
-        .run(request)
-        .use(parseResponse(_))
-        .map(_.left.map(_ => Error("Unable to parse Ewrc final response")))
-      retiredDrivers = response.map { body =>
-        Scoup
-          .parseHTML(body)
-          .select(".final-results-stage")
-          .iterator()
-          .asScala
-          .toList
-          .map(_.parent)
-          .map: retiredRow =>
-            val number = retiredRow.select(".final-results-number").text
-            val group = retiredRow.select(".final-results-cat").text
-            val stageNumber = retiredRow.select(".final-results-stage").text.trim.drop(2).toInt
-            number -> Retired(group, stageNumber)
-          .toMap
-      }
+      response <- EitherT(
+        client
+          .run(request)
+          .use(parseResponse(_))
+          .map(_.left.map(_ => Error("Unable to parse Ewrc final response")))
+      )
+      retiredDrivers <- EitherT.fromEither(Try(parseRetiredNumberGroup(response)).toEither)
     yield retiredDrivers
+
+  private def parseRetiredNumberGroup(finalPageBody: String) =
+    Scoup
+      .parseHTML(finalPageBody)
+      .select(".final-results-stage")
+      .iterator()
+      .asScala
+      .toList
+      .map(_.parent)
+      .map: retiredRow =>
+        val number = retiredRow.select(".final-results-number").text
+        val group = retiredRow.select(".final-results-cat").text
+        val stageNumber = retiredRow.select(".final-results-stage").text.trim.drop(2).toInt
+        number -> Retired(group, stageNumber)
+      .toMap
+
+  private def parseStageIds(finalPageBody: String, rallyId: String) =
+    Scoup
+      .parseHTML(finalPageBody)
+      .select(
+        s"main#main-section div a.badge[href^=/results/$rallyId/?s][title^=SS]"
+      )
+      .iterator()
+      .asScala
+      .toList
+      .map(_.attr("href").split("=").last.toInt)
 
   def rallyResults[F[_]: Async](client: Client[F], rallyId: String): EitherT[F, Throwable, List[Entry]] =
     val (request, parseResponse) = resultsPage(rallyId, None)
@@ -171,29 +185,29 @@ object Ewrc:
           .use(parseResponse(_))
           .map(_.left.map(_ => Error("Unable to parse Ewrc results response")))
       )
-      stageIds = Scoup
-        .parseHTML(response)
-        .select(
-          s"main#main-section div a.badge[href^=/results/$rallyId/?s][title^=SS]"
-        )
-        .iterator()
-        .asScala
-        .toList
-        .map(_.attr("href").split("=").last.toInt)
-      retiredDrivers <- EitherT(retiredNumberGroup(client, rallyId))
-      results <- EitherT(
+      retiredDrivers <- retiredNumberGroup(client, rallyId)
+      stageIds <- EitherT.fromEither(Try(parseStageIds(response, rallyId)).toEither)
+      results <-
         stageIds
           .traverse(stageResults(client, rallyId, retiredDrivers))
-          .map(_.partitionMap(identity) match
-            case (Nil, results) => Right(results.flatten)
-            case (errors, _)    => Left(errors.head)
-          )
-      )
+          .map(_.flatten)
     yield results
 
   def stageResults[F[_]: Async](client: Client[F], rallyId: String, retiredDrivers: Map[String, Retired])(
       stageId: Int
   ) =
+    val (request, parseResponse) = resultsPage(rallyId, Some(stageId))
+    for
+      response <- EitherT(
+        client
+          .run(request)
+          .use(parseResponse(_))
+          .map(_.left.map(_ => Error("Unable to parse Ewrc stage results response")))
+      )
+      entries <- EitherT.fromEither(Try(parseStageResults(response, retiredDrivers)).toEither)
+    yield entries
+
+  private def parseStageResults(resultsPageBody: String, retiredDrivers: Map[String, Retired]) =
     def getCountry(element: Element) =
       element.select("td img.flag-s").attr("src").split("/").last.split("\\.").head match
         case "uk"           => "united kingdom"
@@ -221,141 +235,132 @@ object Ewrc:
           case s"SS$stageNumber $stageName"         => (stageNumber.toInt, stageName)
       .fold(_ => throw Error(s"Unable to parse stage number and name from [$s]"), identity)
 
-    val (request, parseResponse) = resultsPage(rallyId, Some(stageId))
-    for
-      response <- client
-        .run(request)
-        .use(parseResponse(_))
-        .map(_.left.map(_ => Error("Unable to parse Ewrc stage results response")))
-      entries = response.map { body =>
-        val document = Scoup.parseHTML(body)
+    val document = Scoup.parseHTML(resultsPageBody)
 
-        val (stageNumber, stageName) =
-          getStageNumberAndName(document.select("main#main-section h5").first.textNodes.get(0).text)
+    val (stageNumber, stageName) =
+      getStageNumberAndName(document.select("main#main-section h5").first.textNodes.get(0).text)
 
-        val stageResultTable = document
-          .select("main#main-section div#stage-results table.results")
-          .first()
-          .pipe(Option.apply)
+    val stageResultTable = document
+      .select("main#main-section div#stage-results table.results")
+      .first()
+      .pipe(Option.apply)
+      .toList
+      .flatMap: table =>
+        table
+          .select("tr")
+          .iterator()
+          .asScala
           .toList
-          .flatMap: table =>
-            table
-              .select("tr")
-              .iterator()
-              .asScala
-              .toList
 
-        val stageCancelled =
-          document.select("main#main-section div#stage-results span.badge-danger").text.contains("Stage cancelled")
+    val stageCancelled =
+      document.select("main#main-section div#stage-results span.badge-danger").text.contains("Stage cancelled")
 
-        val infoPanels = document.select("main#main-section div.mt-3").iterator().asScala.toList
-        val retired = infoPanels.find(_.text.contains("Retirement")).toList.flatMap { panel =>
-          panel.select("tr").iterator().asScala.toList.map { retiredEntry =>
-            val country = getCountry(retiredEntry)
-            val driverCodriverName = retiredEntry.select("a").text
-            val car = retiredEntry.select("td.retired-car").text
-            val entryNumber = retiredEntry.select("td.font-weight-bold.text-primary").text
-            Entry(
-              stageNumber.refine,
-              stageName,
-              country,
-              driverCodriverName,
-              "",
-              retiredDrivers(entryNumber).group,
-              car,
-              None,
-              None,
-              0,
-              None,
-              0,
-              0,
-              false,
-              false,
-              ""
-            )
-          }
-        }
+    val infoPanels = document.select("main#main-section div.mt-3").iterator().asScala.toList
+    val retired = infoPanels.find(_.text.contains("Retirement")).toList.flatMap { panel =>
+      panel.select("tr").iterator().asScala.toList.map { retiredEntry =>
+        val country = getCountry(retiredEntry)
+        val driverCodriverName = retiredEntry.select("a").text
+        val car = retiredEntry.select("td.retired-car").text
+        val entryNumber = retiredEntry.select("td.font-weight-bold.text-primary").text
+        Entry(
+          stageNumber.refine,
+          stageName,
+          country,
+          driverCodriverName,
+          "",
+          retiredDrivers(entryNumber).group,
+          car,
+          None,
+          None,
+          0,
+          None,
+          0,
+          0,
+          false,
+          false,
+          ""
+        )
+      }
+    }
 
-        val comments = infoPanels
-          .find(_.select("h6").text.contains("Info"))
+    val comments = infoPanels
+      .find(_.select("h6").text.contains("Info"))
+      .toList
+      .flatMap { panel =>
+        panel
+          .select("div.info-inc-info.mt-1")
+          .iterator()
+          .asScala
           .toList
-          .flatMap { panel =>
-            panel
-              .select("div.info-inc-info.mt-1")
-              .iterator()
-              .asScala
-              .toList
-              .map { infoRow =>
-                infoRow.select("i.fa-comment-lines").iterator().asScala.toList.headOption.fold(None) { _ =>
-                  val driverCodriverName = infoRow.select("a").text
-                  val comment = infoRow.select("div.lh-130.p-1").text.drop(1).dropRight(1)
-                  Some(driverCodriverName -> comment)
-                }
-              }
-              .flatten
+          .map { infoRow =>
+            infoRow.select("i.fa-comment-lines").iterator().asScala.toList.headOption.fold(None) { _ =>
+              val driverCodriverName = infoRow.select("a").text
+              val comment = infoRow.select("div.lh-130.p-1").text.drop(1).dropRight(1)
+              Some(driverCodriverName -> comment)
+            }
           }
-          .toMap
+          .flatten
+      }
+      .toMap
 
-        val penalties = infoPanels
-          .find(_.select("h6").text.contains("Penalty"))
+    val penalties = infoPanels
+      .find(_.select("h6").text.contains("Penalty"))
+      .toList
+      .flatMap { panel =>
+        panel
+          .select("tr")
+          .iterator()
+          .asScala
           .toList
-          .flatMap { panel =>
-            panel
-              .select("tr")
-              .iterator()
-              .asScala
-              .toList
-              .map { penaltyRow =>
-                val driverCodriverName = penaltyRow.select("a").text
-                val penalty = getDurationMs(penaltyRow.select("td.text-danger.font-weight-bold").text.split(" ").head)
-                driverCodriverName -> penalty
-              }
-          }
-          .toMap
-
-        retired ++ stageResultTable
-          .filterNot { result =>
-            val entryNumber = result.select("td.text-left span.font-weight-bold.text-primary").text
-            retiredDrivers.get(entryNumber) match
-              case Some(Retired(_, retiredStageNumber)) => stageNumber > retiredStageNumber
-              case _                                    => false
-          }
-          .map { result =>
-            val country = getCountry(result)
-
-            val driverCodriverName = result.select("td.position-relative > a").text
-            val car = result.select("td.position-relative > span").first.text
-
-            val groupElement = result.select("td.px-1")
-            groupElement.select("span").remove
-            val group = groupElement.text
-
-            val stageTimeElement = result.select("td.font-weight-bold.text-right").first
-            val nominalTime = stageTimeElement.text.contains("[N]")
-            stageTimeElement.select("span").remove
-            val stageTime = getDurationMs(stageTimeElement.text)
-
-            val superRally = result.select("td.position-relative > span").text.contains("[SR]")
-
-            Entry(
-              stageNumber.refine,
-              stageName,
-              country,
-              driverCodriverName,
-              "",
-              group,
-              car,
-              None,
-              None,
-              (if !stageCancelled then stageTime else 0).refine,
-              None,
-              0,
-              penalties.getOrElse(driverCodriverName, 0).refine,
-              superRally,
-              true,
-              comments.getOrElse(driverCodriverName, ""),
-              nominalTime || stageCancelled
-            )
+          .map { penaltyRow =>
+            val driverCodriverName = penaltyRow.select("a").text
+            val penalty = getDurationMs(penaltyRow.select("td.text-danger.font-weight-bold").text.split(" ").head)
+            driverCodriverName -> penalty
           }
       }
-    yield entries
+      .toMap
+
+    retired ++ stageResultTable
+      .filterNot { result =>
+        val entryNumber = result.select("td.text-left span.font-weight-bold.text-primary").text
+        retiredDrivers.get(entryNumber) match
+          case Some(Retired(_, retiredStageNumber)) => stageNumber > retiredStageNumber
+          case _                                    => false
+      }
+      .map { result =>
+        val country = getCountry(result)
+
+        val driverCodriverName = result.select("td.position-relative > a").text
+        val car = result.select("td.position-relative > span").first.text
+
+        val groupElement = result.select("td.px-1")
+        groupElement.select("span").remove
+        val group = groupElement.text
+
+        val stageTimeElement = result.select("td.font-weight-bold.text-right").first
+        val nominalTime = stageTimeElement.text.contains("[N]")
+        stageTimeElement.select("span").remove
+        val stageTime = getDurationMs(stageTimeElement.text)
+
+        val superRally = result.select("td.position-relative > span").text.contains("[SR]")
+
+        Entry(
+          stageNumber.refine,
+          stageName,
+          country,
+          driverCodriverName,
+          "",
+          group,
+          car,
+          None,
+          None,
+          (if !stageCancelled then stageTime else 0).refine,
+          None,
+          0,
+          penalties.getOrElse(driverCodriverName, 0).refine,
+          superRally,
+          true,
+          comments.getOrElse(driverCodriverName, ""),
+          nominalTime || stageCancelled
+        )
+      }

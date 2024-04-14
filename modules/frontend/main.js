@@ -1,4 +1,5 @@
-import './style.css'
+import './style/main.css'
+import './style/tooltip.css'
 import '@linkOutputDir/main.js'
 import 'flowbite';
 import { polyfillCountryFlagEmojis } from "country-flag-emoji-polyfill";
