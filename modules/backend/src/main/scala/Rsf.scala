@@ -60,13 +60,15 @@ object Rsf:
 
   def rallyInfo[F[_]: Async](client: Client[F], rallyId: String): EitherT[F, Throwable, RallyInfo] =
     val (request, parseResponse) = rallyDetailsPage(rallyId)
-    for response <- EitherT(
+    for
+      response <- EitherT(
         client
           .run(request)
           .use(parseResponse(_))
           .map(_.left.map(_ => Error("Unable to parse RSF name response")))
       )
-    yield parseRallyInfo(response)
+      info <- EitherT.fromEither(Try(parseRallyInfo(response)).toEither)
+    yield info
 
   def parseRallyInfo(detailsPageBody: String): RallyInfo =
     val parsedPage = Scoup.parseHTML(detailsPageBody)
@@ -145,7 +147,7 @@ object Rsf:
       )
       result <- EitherT.fromEither(response match
         case r if r.contains("The rally is not over yet.") => Left(Logic.RallyInProgress)
-        case r                                             => Right(parseResults(r))
+        case r                                             => Try(parseResults(r)).toEither
       )
     yield result
 

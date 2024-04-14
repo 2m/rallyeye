@@ -10,17 +10,17 @@ dev-scala-js:
 dev-scala:
   sbt --client ~backend/reStart http-server
 
-build-scala:
+build-scala-js:
   sbt --client publicProd
 
-build:
+build-js:
   cd modules/frontend; npm run build
 
 install:
   cd modules/frontend; npm install
 
 serve:
-  cd dist; webfsd -p 8001 -F -f index.html
+  cd modules/frontend/dist; caddy file-server --listen :8001
 
 build-backend:
   sbt --client backend/dockerBuildAndPush
