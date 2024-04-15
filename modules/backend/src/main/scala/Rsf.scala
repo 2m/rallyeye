@@ -157,7 +157,7 @@ object Rsf:
       case stageNumber :: stageName :: country :: userName :: realName :: group :: car :: time1 :: time2 :: time3 :: finishRealtime :: penalty :: servicePenalty :: superRally :: finished :: comment :: Nil =>
         Entry(
           stageNumber.toInt.refine,
-          stageName,
+          stageName.decodeHtmlUnicode,
           country,
           userName,
           realName.decodeHtmlUnicode,
