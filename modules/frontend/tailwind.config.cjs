@@ -3,7 +3,6 @@ module.exports = {
   content: [
     "./index.html",
     "./target/scala-*/frontend-*/*.js",
-    "./node_modules/flowbite/**/*.js"
   ],
   theme: {
     fontFamily: {
@@ -11,5 +10,5 @@ module.exports = {
     },
     extend: {},
   },
-  plugins: [require('flowbite/plugin')],
+  plugins: [],
 }
