@@ -30,6 +30,7 @@ import components.Header
 import components.RallyList
 import components.RallyResult
 import components.ResultFilter
+import components.Sidebar
 import org.scalajs.dom
 import rallyeye.shared.*
 
@@ -88,6 +89,8 @@ object App:
   val rallyListFilter = Var(Option.empty[RallyList.Filter])
   val rallyListFilterSignal = rallyListFilter.signal
 
+  val sidebarVisible = Var(false)
+
   import Router.*
   val app = div(
     child <-- router.currentPageSignal.map(renderPage)
@@ -138,12 +141,12 @@ object App:
       .orElse(Some(""))
       .filter(_ != rallyId)
       .foreach(_ => fetchAndSetData(refresh = false)(kind, rallyId))
-    Var.set(resultFilter -> resFilter)
+    Var.set(resultFilter -> resFilter, sidebarVisible -> false)
     rallyPage()
 
   def renderFindPage(filter: RallyList.Filter) =
     import org.scalajs.macrotaskexecutor.MacrotaskExecutor.Implicits.global
-    Var.set(App.rallyData -> None, App.selectedDriver -> None, App.selectedResult -> None)
+    Var.set(App.rallyData -> None, App.selectedDriver -> None, App.selectedResult -> None, sidebarVisible -> false)
 
     val data = filter match
       case RallyList.Championship(kind, championship, year) => fetchRallyList(kind, championship, year)
@@ -174,26 +177,30 @@ object App:
 
   def findPage() =
     div(
-      Header(rallyDataSignal, resultFilter.signal, refreshData, loadingSignal).render(),
+      Header(rallyDataSignal, resultFilter.signal, refreshData, loadingSignal, sidebarVisible).render(),
       RallyList(rallyListSignal, rallyListFilterSignal).render()
     )
 
   def aboutPage() =
     div(
-      Header(rallyDataSignal, resultFilter.signal, refreshData, loadingSignal).render(),
+      Header(rallyDataSignal, resultFilter.signal, refreshData, loadingSignal, sidebarVisible).render(),
       About.render()
     )
 
   def rallyPage() =
     div(
-      Header(rallyDataSignal, resultFilter.signal, refreshData, loadingSignal).render(),
-      Alert(errorInfoSignal).render(),
-      RallyResult(
-        stagesSignal,
-        driversSignal,
-        selectedDriverSignal,
-        selectDriver,
-        selectResult,
-        selectedResultSignal
-      ).render()
+      Sidebar(rallyDataSignal, resultFilter.signal, sidebarVisible).render(),
+      div(
+        cls := "sm:ml-64",
+        Header(rallyDataSignal, resultFilter.signal, refreshData, loadingSignal, sidebarVisible).render(),
+        Alert(errorInfoSignal).render(),
+        RallyResult(
+          stagesSignal,
+          driversSignal,
+          selectedDriverSignal,
+          selectDriver,
+          selectResult,
+          selectedResultSignal
+        ).render()
+      )
     )

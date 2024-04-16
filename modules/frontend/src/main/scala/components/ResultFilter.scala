@@ -16,20 +16,18 @@
 
 package components
 
-import typings.flowbite.mod.initDropdowns
-
 import com.raquo.laminar.api.L.*
 import rallyeye.Router
 import rallyeye.shared.RallyData
 
 object ResultFilter:
-  val AllResults = "All Results"
+  val AllResults = "All Drivers"
   val AllResultsId = filterId(AllResults)
 
   case class ResultFilter(name: String, group: String, isGroup: Boolean = false, isCar: Boolean = false):
     def id = filterId(name)
 
-  def filters(rallyData: RallyData) =
+  private def filters(rallyData: RallyData) =
     (List(ResultFilter(AllResults, AllResults)) :++ rallyData.groupResults
       .map(r => ResultFilter(r.group, r.group, isGroup = true))
       :++ rallyData.carResults
@@ -46,33 +44,16 @@ object ResultFilter:
     name.toLowerCase.replaceAll("[^a-z0-9]", "-")
 
   def render(rallyData: RallyData, filter: String) =
-    val selected = filters(rallyData)(filter)
-    Seq(
-      button(
-        cls := "text-white bg-gray-600 rounded-lg text-sm px-4 py-2.5 w-30 text-center inline-flex items-center",
-        dataAttr("dropdown-toggle") := "dropdown",
-        s"${selected.name} ▼"
-      ),
-      div(
-        idAttr := "dropdown",
-        cls := "hidden bg-white divide-y divide-gray-100 shadow w-30 z-50",
-        ul(
-          filters(rallyData).values.toSeq
-            .sortBy(rf => (rf.group, rf.isCar))
-            .map(rf =>
-              li(
-                a(
-                  cls := "block px-4 py-2 hover:text-white hover:bg-gray-600",
-                  if rf.id == filter then cls := "text-white bg-gray-600"
-                  else if rf.isGroup then cls := "bg-gray-200"
-                  else if rf.isCar then cls := "text-sm"
-                  else emptyMod,
-                  Router.navigateTo(Router.withFilter(rf.id)),
-                  rf.name
-                )
-              )
-            )
-        ),
-        onMountCallback(ctx => initDropdowns())
-      )
-    )
+    filters(rallyData).values.toSeq
+      .sortBy(rf => (rf.group, rf.isCar, rf.name))
+      .map: rf =>
+        li(
+          a(
+            cls := "rounded-lg block mx-2 px-2 py-2 hover:text-white hover:bg-gray-600",
+            cls.toggle("text-white bg-gray-600") := rf.id == filter,
+            cls.toggle("bg-gray-200") := rf.isGroup,
+            cls.toggle("text-sm") := rf.isCar,
+            Router.navigateTo(Router.withFilter(rf.id)),
+            rf.name
+          )
+        )
