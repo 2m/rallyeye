@@ -141,7 +141,7 @@ def handleErrors[F[_]: Monad: Tracer, T](f: F[Either[Throwable, T]]) =
         ).asLeft.pure[F]
       case Left(t) =>
         Tracer[F].currentSpanOrNoop.flatMap: span =>
-          span.recordException(t) >> span.setStatus(StatusCode.Error) >> GenericError(t.getMessage).asLeft.pure[F]
+          span.recordException(t) >> span.setStatus(StatusCode.Error) >> GenericError(t.toString).asLeft.pure[F]
       case Right(value) => value.asRight.pure[F]
   yield errorInfo
 
