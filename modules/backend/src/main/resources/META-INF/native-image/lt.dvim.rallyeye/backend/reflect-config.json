@@ -72,6 +72,9 @@
   "name":"[Z"
 },
 {
+  "name":"[[Ljava.lang.Object;"
+},
+{
   "name":"apple.security.AppleProvider",
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
@@ -400,6 +403,10 @@
 {
   "name":"fs2.compression.CompressionCompanionPlatform$$anon$1",
   "fields":[{"name":"gzipCompressionMethod$lzy1"}, {"name":"gzipExtraFlag$lzy1"}, {"name":"gzipFlag$lzy1"}, {"name":"gzipOperatingSystem$lzy1"}]
+},
+{
+  "name":"fs2.data.csv.RowF",
+  "fields":[{"name":"byHeader$lzy1"}]
 },
 {
   "name":"fs2.internal.ScopedResource$$anon$1",
@@ -868,7 +875,7 @@
 },
 {
   "name":"sttp.model.Header$",
-  "fields":[{"name":"GMT$lzy1"}, {"name":"Rfc850DatetimeFormat$lzy1"}, {"name":"Rfc850DatetimePattern$lzy1"}]
+  "fields":[{"name":"GMT$lzy1"}, {"name":"Rfc850DatetimeFormat$lzy1"}]
 },
 {
   "name":"sttp.model.MediaType",
@@ -904,7 +911,7 @@
 },
 {
   "name":"sttp.tapir.server.http4s.Http4sServerRequest",
-  "fields":[{"name":"acceptsContentTypes$lzy1"}, {"name":"connectionInfo$lzy1"}, {"name":"contentTypeParsed$lzy1"}, {"name":"headers$lzy1"}, {"name":"pathSegments$lzy1"}, {"name":"queryParameters$lzy1"}, {"name":"uri$lzy1"}]
+  "fields":[{"name":"acceptsContentTypes$lzy1"}, {"name":"connectionInfo$lzy1"}, {"name":"contentTypeParsed$lzy1"}, {"name":"headers$lzy1"}, {"name":"pathSegments$lzy1"}, {"name":"queryParameters$lzy1"}, {"name":"showShort$lzy1"}, {"name":"uri$lzy1"}]
 },
 {
   "name":"sun.management.ClassLoadingImpl",
