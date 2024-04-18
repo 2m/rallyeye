@@ -16,6 +16,7 @@
 
 package rallyeye
 
+import java.nio.charset.StandardCharsets
 import java.time.Instant
 import java.time.LocalDate
 
@@ -27,14 +28,25 @@ import cats.data.EitherT
 import cats.effect.kernel.Async
 import cats.implicits.*
 import com.themillhousegroup.scoup.Scoup
+import fs2.Chunk
+import fs2.Pipe
+import fs2.Stream
+import fs2.data.csv
+import fs2.data.csv.QuoteHandling
+import fs2.data.csv.Row
 import io.github.iltotore.iron.*
 import org.http4s.client.Client
 import org.http4s.implicits.*
+import sttp.capabilities.fs2.Fs2Streams
+import sttp.model.MediaType
 import sttp.tapir.*
 import sttp.tapir.client.http4s.Http4sClientInterpreter
 
 object Rsf:
   val Rsf = uri"https://www.rallysimfans.hu"
+
+  val ApplicationCsv = new CodecFormat:
+    override val mediaType: MediaType = MediaType.unsafeApply(mainType = "application", subType = "csv")
 
   val rallyEndpoint =
     endpoint
@@ -43,12 +55,12 @@ object Rsf:
       .in(query[String]("rally_id"))
       .out(stringBody)
 
-  val resultsEndpoint =
+  def resultsEndpoint[F[_]] =
     endpoint
       .in("rbr" / "csv_export_beta.php")
       .in(query[Int]("ngp_enable"))
       .in(query[String]("rally_id"))
-      .out(stringBody)
+      .out(streamTextBody(Fs2Streams[F])(ApplicationCsv, Some(StandardCharsets.UTF_8)))
 
   def rallyDetailsPage[F[_]: Async](rallyId: String) =
     Http4sClientInterpreter[F]()
@@ -56,7 +68,7 @@ object Rsf:
 
   def rallyResultsCsv[F[_]: Async](rallyId: String) =
     Http4sClientInterpreter[F]()
-      .toRequestThrowDecodeFailures(resultsEndpoint, Some(Rsf))(6, rallyId)
+      .toRequestThrowDecodeFailures(resultsEndpoint[F], Some(Rsf))(6, rallyId)
 
   def rallyInfo[F[_]: Async](client: Client[F], rallyId: String): EitherT[F, Throwable, RallyInfo] =
     val (request, parseResponse) = rallyDetailsPage(rallyId)
@@ -137,42 +149,82 @@ object Rsf:
     )
 
   def rallyResults[F[_]: Async](client: Client[F], rallyId: String): EitherT[F, Throwable, List[Entry]] =
-    val (request, parseResponse) = rallyResultsCsv(rallyId)
+    val (request, parseResponse) = rallyResultsCsv[F](rallyId)
     for
-      response <- EitherT(
-        client
-          .run(request)
-          .use(parseResponse(_))
-          .map(_.left.map(_ => Error("Unable to parse RSF results response")))
-      )
-      result <- EitherT.fromEither(response match
-        case r if r.contains("The rally is not over yet.") => Left(Logic.RallyInProgress)
-        case r                                             => Try(parseResults(r)).toEither
-      )
-    yield result
+      response <- EitherT.rightT(client.stream(request))
+      byteStream = response
+        .evalMap(parseResponse)
+        .flatMap(_.fold(_ => Stream.raiseError[F](Error("Unable to parse RSF results response")), identity))
+      entryStream = byteStream.broadcastThrough(rallyInProgressPrefix[F], rallyResults[F])
+      entryList <- EitherT(entryStream.compile.toList.map(_.asRight[Throwable]).handleError(_.asLeft[List[Entry]]))
+    yield entryList
 
-  def parseResults(csv: String) =
-    val (header :: data) = csv.split('\n').toList: @unchecked
-    data.map(_.split(";", -1).toList).map {
-      case stageNumber :: stageName :: country :: userName :: realName :: group :: car :: time1 :: time2 :: time3 :: finishRealtime :: penalty :: servicePenalty :: superRally :: finished :: comment :: Nil =>
+  def rallyInProgressPrefix[F[_]: Async]: Pipe[F, Byte, Entry] =
+    val prefix = "The rally is not over yet."
+    in =>
+      in.take(prefix.length)
+        .through(fs2.text.utf8.decode)
+        .fold("")(_ + _)
+        .flatMap:
+          case `prefix` => Stream.raiseError[F](Logic.RallyInProgress)
+          case _        => Stream.empty
+
+  def rallyResults[F[_]: Async]: Pipe[F, Byte, Entry] =
+    import fs2.data.text.utf8.*
+    in =>
+      in.through(csv.lowlevel.rows[F, Byte](separator = ';', quoteHandling = QuoteHandling.Literal))
+        .through(csv.lowlevel.skipHeaders[F])
+        .through(parseEntries[F])
+        .through(trimAfterNotFinish[F])
+        .through(trimAfterMissingStage[F])
+
+  def parseEntries[F[_]]: Pipe[F, Row, Entry] =
+    in =>
+      in.map: row =>
         Entry(
-          stageNumber.toInt.refine,
-          stageName.decodeHtmlUnicode,
-          country,
-          userName,
-          realName.decodeHtmlUnicode,
+          stageNumber = row.at(0).get.toInt.refine,
+          stageName = row.at(1).get.decodeHtmlUnicode,
+          country = row.at(2).get,
+          userName = row.at(3).get,
+          realName = row.at(4).get.decodeHtmlUnicode,
           // until https://discord.com/channels/723091638951608320/792825986055798825/1114861057035489341 is fixed
-          if group.isEmpty then "Rally 3" else group,
-          car,
-          Try(BigDecimal(time1)).toOption,
-          Try(BigDecimal(time2)).toOption,
-          time3.toMs.refine,
-          Try(Instant.parse(finishRealtime.replace(" ", "T") + "+02:00")).toOption,
-          penalty.toMs.abs.refine, // abs until https://discord.com/channels/@me/1176210913355898930/1210945143297810512 is fixed
-          servicePenalty.toMs.refine,
-          superRally == "1",
-          finished == "F",
-          comment
+          group = row.at(5).map(g => if g.isEmpty then "Rally 3" else g).get,
+          car = row.at(6).get,
+          split1Time = Try(BigDecimal(row.at(7).get)).toOption,
+          split2Time = Try(BigDecimal(row.at(8).get)).toOption,
+          stageTimeMs = row.at(9).get.toMs.refine,
+          finishRealtime = Try(Instant.parse(row.at(10).get.replace(" ", "T") + "+02:00")).toOption,
+          // abs until https://discord.com/channels/@me/1176210913355898930/1210945143297810512 is fixed
+          penaltyInsideStageMs = row.at(11).get.toMs.abs.refine,
+          penaltyOutsideStageMs = row.at(12).get.toMs.refine,
+          superRally = row.at(13).get == "1",
+          finished = row.at(14).get == "F",
+          comment = row.at(15).get
         )
-      case _ => ???
-    }
+
+  def trimAfterNotFinish[F[_]]: Pipe[F, Entry, Entry] =
+    _.scanChunks(List.empty[String]): (notFinised, chunk) =>
+      chunk
+        .foldLeft((notFinised, Chunk.empty[Entry])):
+          case ((notFinished, entries), entry) =>
+            // in some cases (when driver disconnects) it could continue a rally even after not
+            // finishing a stage, so we need to filter out those entries
+            (
+              if !entry.finished then notFinished :+ entry.userName else notFinished,
+              if notFinished.contains(entry.userName) then entries else entries ++ Chunk(entry)
+            )
+
+  def trimAfterMissingStage[F[_]]: Pipe[F, Entry, Entry] =
+    _.scanChunks(Map.empty[String, Int]): (lastStages, chunk) =>
+      chunk
+        .foldLeft((lastStages, Chunk.empty[Entry])):
+          case ((lastStages, entries), entry) =>
+            // in some cases (when driver disconnects) it could continue a rally even after not
+            // sending stage results at all, so we need to filter out those entries
+            val lastStage = lastStages.get(entry.userName)
+            val currentStage = entry.stageNumber
+            val missingStage = lastStage.exists(_ + 1 != currentStage)
+            (
+              if missingStage then lastStages else lastStages.updated(entry.userName, currentStage),
+              if missingStage then entries else entries ++ Chunk(entry)
+            )
