@@ -30,6 +30,7 @@ import cats.implicits.*
 import org.http4s.HttpApp
 import org.http4s.otel4s.middleware.ClientMiddleware
 import org.http4s.otel4s.middleware.ServerMiddleware
+import org.typelevel.otel4s.Attribute
 import org.typelevel.otel4s.metrics.Meter
 import org.typelevel.otel4s.oteljava.OtelJava
 import org.typelevel.otel4s.oteljava.context.Context
@@ -46,7 +47,7 @@ object Telemetry:
         .fold(Map())(key =>
           Map(
             "otel.exporter.otlp.endpoint" -> "https://api.honeycomb.io/",
-            "otel.exporter.otlp.headers" -> s"x-honeycomb-team=$key,x-honeycomb-dataset=rallyeye-$environment"
+            "otel.exporter.otlp.headers" -> s"x-honeycomb-team=$key,x-honeycomb-dataset=otel-metrics"
           )
         )).asJava
     )
@@ -81,7 +82,7 @@ object Telemetry:
     .buildHttpApp(f)
 
 extension [A, F[_]: Tracer](f: F[A])
-  def traced(name: String): F[A] = Tracer[F].span(name).surround(f)
+  def traced(name: String, attributes: Attribute[?]*): F[A] = Tracer[F].span(name, attributes).surround(f)
   def tracedR(name: String): Resource[F, A] = traced(name).toResource
 
 extension [A, F[_]: Tracer: Sync](r: Resource[F, A])

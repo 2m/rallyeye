@@ -25,9 +25,8 @@ import cats.effect.kernel.Deferred
 import cats.implicits.*
 import fs2.Stream
 import fs2.concurrent.Topic
-import org.typelevel.otel4s.metrics.Histogram
+import org.typelevel.otel4s.Attribute
 import org.typelevel.otel4s.metrics.Meter
-import org.typelevel.otel4s.metrics.UpDownCounter
 import org.typelevel.otel4s.trace.SpanContext
 import org.typelevel.otel4s.trace.Tracer
 import rallyeye.shared.ErrorInfo
@@ -49,31 +48,26 @@ case class ShardedEntry[F[_], Req, Resp](
 def shardedLogic[F[_]: Monad: Concurrent: Tracer: Meter: Clock, Req: Shardable, Resp](shards: Int)(
     logic: Req => F[Either[ErrorInfo, Resp]]
 ) =
-  def logicPipe(shard: Int)(delayHistogram: Histogram[F, Long], queueSizeCounter: UpDownCounter[F, Long])(
-      stream: Stream[F, ShardedEntry[F, Req, Resp]]
-  ) =
+  def logicPipe(shard: Int)(stream: Stream[F, ShardedEntry[F, Req, Resp]]) =
     stream
       .filter(_.req.shard(shards) == shard)
       .evalMap: entry =>
         for
-          _ <- queueSizeCounter.dec()
-          resp <- Tracer[F].childScope(entry.ctx):
-            logic(entry.req).traced(s"sharded-worker-$shard")
           timestamp <- Clock[F].realTime
-          _ <- delayHistogram.record((timestamp - entry.timestamp).toMillis)
+          resp <- Tracer[F].childScope(entry.ctx):
+            logic(entry.req)
+              .traced(s"sharded-worker-$shard", Attribute("sharded.delay.ms", (timestamp - entry.timestamp).toMillis))
           _ <- entry.resp.complete(resp)
         yield ()
 
   val ShardQueueLength = 50
   for
     topic <- Topic[F, ShardedEntry[F, Req, Resp]]
-    delayHistogram <- Meter[F].histogram[Long]("sharded.delay").create
-    queueSizeCounter <- Meter[F].upDownCounter[Long]("sharded.queue").create
     shardStreams = Stream
       .emits(
         List
           .range(0, shards)
-          .map(shard => topic.subscribe(ShardQueueLength).through(logicPipe(shard)(delayHistogram, queueSizeCounter)))
+          .map(shard => topic.subscribe(ShardQueueLength).through(logicPipe(shard)))
       )
       .parJoin(shards)
   yield (
@@ -85,7 +79,6 @@ def shardedLogic[F[_]: Monad: Concurrent: Tracer: Meter: Clock, Req: Shardable, 
         _ <- span.addEvent("Adding request to sharded queue")
         timestamp <- Clock[F].realTime
         _ <- topic.publish1(ShardedEntry(request, span.context, timestamp, deferredResponse))
-        _ <- queueSizeCounter.inc()
         response <- deferredResponse.get
       yield response
   )

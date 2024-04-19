@@ -124,7 +124,7 @@ object Ewrc:
             throw new Error(
               s"Unable to parse retirements count from [${retirementsElement.siblingElements.first.text}]"
             )
-      case None => throw new Error(s"Unable to find retirements element in [$retirementsElements]")
+      case None => 0 // no retirements yet in the rally
 
     RallyInfo(
       name,
