@@ -17,6 +17,10 @@
 package rallyeye
 
 import scala.concurrent.duration.FiniteDuration
+import scala.util.Failure
+import scala.util.Success
+import scala.util.Try
+import scala.util.control.NonFatal
 
 import cats.Monad
 import cats.effect.kernel.Clock
@@ -42,7 +46,7 @@ case class ShardedEntry[F[_], Req, Resp](
     req: Req,
     ctx: SpanContext,
     timestamp: FiniteDuration,
-    resp: Deferred[F, Either[ErrorInfo, Resp]]
+    resp: Deferred[F, Try[Either[ErrorInfo, Resp]]]
 )
 
 def shardedLogic[F[_]: Monad: Concurrent: Tracer: Meter: Clock, Req: Shardable, Resp](shards: Int)(
@@ -55,8 +59,19 @@ def shardedLogic[F[_]: Monad: Concurrent: Tracer: Meter: Clock, Req: Shardable, 
         for
           timestamp <- Clock[F].realTime
           resp <- Tracer[F].childScope(entry.ctx):
-            logic(entry.req)
+            val response =
+              try
+                logic(entry.req)
+                  .map(Success.apply)
+                  // recovers from raised exceptions like timeouts
+                  .recoverWith(Failure(_).pure[F])
+              // recovers from thrown exceptions
+              // should not happen in a well-behaved program, but 🤷
+              catch case NonFatal(t) => Failure(t).pure[F]
+
+            response
               .traced(s"sharded-worker-$shard", Attribute("sharded.delay.ms", (timestamp - entry.timestamp).toMillis))
+
           _ <- entry.resp.complete(resp)
         yield ()
 
@@ -74,11 +89,13 @@ def shardedLogic[F[_]: Monad: Concurrent: Tracer: Meter: Clock, Req: Shardable, 
     shardStreams,
     (request: Req) =>
       for
-        deferredResponse <- Deferred[F, Either[ErrorInfo, Resp]]
+        deferredResponse <- Deferred[F, Try[Either[ErrorInfo, Resp]]]
         span <- Tracer[F].currentSpanOrNoop
         _ <- span.addEvent("Adding request to sharded queue")
         timestamp <- Clock[F].realTime
         _ <- topic.publish1(ShardedEntry(request, span.context, timestamp, deferredResponse))
         response <- deferredResponse.get
-      yield response
+      yield response match
+        case Success(value) => value
+        case Failure(t)     => throw t
   )
