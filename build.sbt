@@ -121,10 +121,10 @@ lazy val backend = project
       "io.opentelemetry"             % "opentelemetry-exporter-otlp"               % "1.37.0",
       "io.opentelemetry"             % "opentelemetry-sdk-extension-autoconfigure" % "1.37.0",
       "org.tpolecat"                %% "doobie-munit"                              % "1.0.0-RC5" % Test,
-      "org.scalameta"               %% "munit"                                     % "1.0.0-M11" % Test,
+      "org.scalameta"               %% "munit"                                     % "1.0.0-M12" % Test,
       "org.typelevel"               %% "munit-cats-effect"                         % "2.0.0-M5"  % Test,
       "org.typelevel"               %% "scalacheck-effect-munit"                   % "2.0.0-M2"  % Test,
-      "org.scalameta"               %% "munit-scalacheck"                          % "1.0.0-M11" % Test,
+      "org.scalameta"               %% "munit-scalacheck"                          % "1.0.0-M12" % Test,
       "com.softwaremill.diffx"      %% "diffx-munit"                               % "0.9.0"     % Test,
       "io.github.iltotore"          %% "iron-scalacheck"                           % "2.5.0"     % Test,
       "com.rallyhealth"             %% "scalacheck-ops_1"                          % "2.12.0"    % Test
