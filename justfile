@@ -54,16 +54,16 @@ test-integration:
   sbt --client Integration/test
 
 docker-login:
-  cd modules/backend; flyctl auth token | docker login registry.fly.io --username=x --password-stdin
+  cd modules/backend; fly auth token | docker login registry.fly.io --username=x --password-stdin
 
 clone region:
   cd modules/backend; fly machine clone --select --region {{region}}
 
 ssh:
-  fly ssh console --select
+  cd modules/backend; fly ssh console --select
 
 litefs-export:
-  cd modules/backend; flyctl litefs-cloud export --cluster rallyeye --database rallyeye.db --output ./rallyeye.db.$(date "+%Y-%m-%d")
+  cd modules/backend; fly litefs-cloud export --cluster rallyeye --database rallyeye.db --output ./rallyeye.db.$(date "+%Y-%m-%d")
 
 telemetry:
   cd telemetry; docker-compose up

@@ -17,6 +17,9 @@
 package rallyeye
 
 import scala.concurrent.duration.*
+import scala.util.Failure
+import scala.util.Success
+import scala.util.Try
 
 import cats.effect.*
 import cats.syntax.all.*
@@ -25,6 +28,7 @@ import munit.ScalaCheckEffectSuite
 import org.scalacheck.effect.PropF
 import org.typelevel.otel4s.metrics.Meter
 import org.typelevel.otel4s.trace.Tracer
+import rallyeye.shared.ErrorInfo
 import rallyeye.shared.RallyKind
 
 class ShardedSuite extends CatsEffectSuite:
@@ -67,6 +71,44 @@ class ShardedSuite extends CatsEffectSuite:
           s"Expected < ${worstCaseTaken.toMillis}ms, actual ${taken.toMillis}ms"
         )
       yield ()
+
+  traced.test("propagates thrown exceptions"):
+    _.apply:
+      val startupDelay = 500.millis
+      val numShards = 1
+
+      def exception(req: String): IO[Either[ErrorInfo, String]] = throw Error(req)
+
+      for
+        shardedStreamAndLogic <- shardedLogic(numShards)(exception)
+        (shardedStream, logic) = shardedStreamAndLogic
+        shardedStreamFiber <- shardedStream.compile.drain.start
+        _ <- Temporal[IO].sleep(startupDelay)
+        result1 <- logic("error1").map(Success.apply).recoverWith(t => IO.pure(Failure(t)))
+        result2 <- logic("error2").map(Success.apply).recoverWith(t => IO.pure(Failure(t)))
+        _ <- shardedStreamFiber.cancel
+      yield
+        assertEquals(result1.toString, Failure(Error("error1")).toString)
+        assertEquals(result2.toString, Failure(Error("error2")).toString)
+
+  traced.test("propagates raised exceptions"):
+    _.apply:
+      val startupDelay = 500.millis
+      val numShards = 1
+
+      def exception(req: String): IO[Either[ErrorInfo, String]] = IO.raiseError(Error(req))
+
+      for
+        shardedStreamAndLogic <- shardedLogic(numShards)(exception)
+        (shardedStream, logic) = shardedStreamAndLogic
+        shardedStreamFiber <- shardedStream.compile.drain.start
+        _ <- Temporal[IO].sleep(startupDelay)
+        result1 <- logic("error1").map(Success.apply).recoverWith(t => IO.pure(Failure(t)))
+        result2 <- logic("error2").map(Success.apply).recoverWith(t => IO.pure(Failure(t)))
+        _ <- shardedStreamFiber.cancel
+      yield
+        assertEquals(result1.toString, Failure(Error("error1")).toString)
+        assertEquals(result2.toString, Failure(Error("error2")).toString)
 
 class ShardableSuite extends CatsEffectSuite with ScalaCheckEffectSuite with Arbitraries:
 
