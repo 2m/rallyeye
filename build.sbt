@@ -20,7 +20,7 @@ lazy val shared = crossProject(JSPlatform, JVMPlatform)
   .settings(
     name := "shared",
     libraryDependencies ++= Seq(
-      "com.softwaremill.sttp.tapir" %% "tapir-core"       % "1.10.5",
+      "com.softwaremill.sttp.tapir" %% "tapir-core"       % "1.10.6",
       "io.bullet"                   %% "borer-derivation" % "1.14.0",
       "io.github.iltotore"          %% "iron"             % "2.5.0",
       "io.github.iltotore"          %% "iron-borer"       % "2.5.0"
@@ -50,7 +50,7 @@ lazy val frontend = project
     libraryDependencies ++= Seq(
       "org.scala-js"                %%% "scalajs-dom"                 % "2.8.0",
       "org.scala-js"                %%% "scala-js-macrotask-executor" % "1.1.1",
-      "com.softwaremill.sttp.tapir" %%% "tapir-sttp-client"           % "1.10.5",
+      "com.softwaremill.sttp.tapir" %%% "tapir-sttp-client"           % "1.10.6",
       "com.raquo"                   %%% "laminar"                     % "16.0.0",
       "com.raquo"                   %%% "waypoint"                    % "7.0.0",
       "io.github.cquiroz"           %%% "scala-java-time"             % "2.5.0",
@@ -99,8 +99,8 @@ lazy val backend = project
   .settings(
     inConfig(Integration)(Defaults.testTasks),
     libraryDependencies ++= Seq(
-      "com.softwaremill.sttp.tapir" %% "tapir-http4s-server"                       % "1.10.5",
-      "com.softwaremill.sttp.tapir" %% "tapir-http4s-client"                       % "1.10.5",
+      "com.softwaremill.sttp.tapir" %% "tapir-http4s-server"                       % "1.10.6",
+      "com.softwaremill.sttp.tapir" %% "tapir-http4s-client"                       % "1.10.6",
       "org.http4s"                  %% "http4s-ember-server"                       % "0.23.26",
       "org.http4s"                  %% "http4s-ember-client"                       % "0.23.26",
       "org.http4s"                  %% "http4s-otel4s-middleware"                  % "0.4.0-beta.1",
