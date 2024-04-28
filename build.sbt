@@ -117,7 +117,7 @@ lazy val backend = project
       "org.typelevel"               %% "log4cats-core"                             % "2.6.0",
       "org.typelevel"               %% "log4cats-slf4j"                            % "2.6.0",
       "com.ovoenergy"               %% "natchez-extras-doobie"                     % "8.1.1",
-      "org.typelevel"               %% "otel4s-oteljava"                           % "0.5.0",
+      "org.typelevel"               %% "otel4s-oteljava"                           % "0.6.0",
       "io.opentelemetry"             % "opentelemetry-exporter-otlp"               % "1.37.0",
       "io.opentelemetry"             % "opentelemetry-sdk-extension-autoconfigure" % "1.37.0",
       "org.tpolecat"                %% "doobie-munit"                              % "1.0.0-RC5" % Test,
@@ -128,6 +128,12 @@ lazy val backend = project
       "com.softwaremill.diffx"      %% "diffx-munit"                               % "0.9.0"     % Test,
       "io.github.iltotore"          %% "iron-scalacheck"                           % "2.5.0"     % Test,
       "com.rallyhealth"             %% "scalacheck-ops_1"                          % "2.12.0"    % Test
+    ),
+
+    // while http4s-otel4s-middleware depends on older otel4s version
+    libraryDependencySchemes ++= Seq(
+      "org.typelevel" %% "otel4s-core-trace"  % VersionScheme.Always,
+      "org.typelevel" %% "otel4s-core-common" % VersionScheme.Always
     ),
 
     // for correct IOApp resource cleanup
