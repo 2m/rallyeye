@@ -130,6 +130,12 @@ lazy val backend = project
       "com.rallyhealth"             %% "scalacheck-ops_1"                          % "2.12.0"    % Test
     ),
 
+    // while http4s-otel4s-middleware depends on older otel4s version
+    libraryDependencySchemes ++= Seq(
+      "org.typelevel" %% "otel4s-core-trace"  % VersionScheme.Always,
+      "org.typelevel" %% "otel4s-core-common" % VersionScheme.Always
+    ),
+
     // for correct IOApp resource cleanup
     Compile / run / fork := true,
 
