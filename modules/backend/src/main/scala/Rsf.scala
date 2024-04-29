@@ -199,7 +199,7 @@ object Rsf:
           penaltyOutsideStageMs = row.at(12).get.toMs.refine,
           superRally = row.at(13).get == "1",
           finished = row.at(14).get == "F",
-          comment = row.at(15).get
+          comment = row.at(15).filter(_.nonEmpty)
         )
 
   def trimAfterNotFinish[F[_]]: Pipe[F, Entry, Entry] =

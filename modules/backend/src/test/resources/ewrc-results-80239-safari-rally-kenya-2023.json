@@ -6,13 +6,15 @@
         "userName": "Tänak Ott - Järveoja Martin",
         "realName": "",
         "group": "RC1",
-        "car": "Ford Puma Rally1",
+        "car": "Ford Puma Rally1 Hybrid",
         "stageTimeMs": 194300,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "Safari Rally Kenya is a demanding one. Let's see after Saturday. I would say this day will tell us a lot."
+        "comment": [
+            "Safari Rally Kenya is a demanding one. Let's see after Saturday. I would say this day will tell us a lot."
+        ]
     },
     {
         "stageNumber": 1,
@@ -21,13 +23,15 @@
         "userName": "Ogier Sébastien - Landais V.",
         "realName": "",
         "group": "RC1",
-        "car": "Toyota GR Yaris Rally1",
+        "car": "Toyota GR Yaris Rally1 Hybrid",
         "stageTimeMs": 194400,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "Similar stages to the previous two years, but different conditions. A bit more rough from what we have some seen in recce. I need some Kenyan gods this weekend to help me. Luck will be needed!"
+        "comment": [
+            "Similar stages to the previous two years, but different conditions. A bit more rough from what we have some seen in recce. I need some Kenyan gods this weekend to help me. Luck will be needed!"
+        ]
     },
     {
         "stageNumber": 1,
@@ -36,13 +40,15 @@
         "userName": "Rovanperä Kalle - Halttunen J.",
         "realName": "",
         "group": "RC1",
-        "car": "Toyota GR Yaris Rally1",
+        "car": "Toyota GR Yaris Rally1 Hybrid",
         "stageTimeMs": 196700,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "It's gonna be a new challenge this year. Different from last year. Definitely more rough. Let's try to do the same as last year. We just need to be steady and keep a good pace. At least the start was better."
+        "comment": [
+            "It's gonna be a new challenge this year. Different from last year. Definitely more rough. Let's try to do the same as last year. We just need to be steady and keep a good pace. At least the start was better."
+        ]
     },
     {
         "stageNumber": 1,
@@ -51,13 +57,15 @@
         "userName": "Neuville Thierry - Wydaeghe M.",
         "realName": "",
         "group": "RC1",
-        "car": "Hyundai i20 N Rally1",
+        "car": "Hyundai i20 N Rally1 Hybrid",
         "stageTimeMs": 197000,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "It's a tough event. Nobody knows what is going to happen. It will be a big surprise. There is going to be ups and downs for all of us during the weekend but hopefully more ups than downs."
+        "comment": [
+            "It's a tough event. Nobody knows what is going to happen. It will be a big surprise. There is going to be ups and downs for all of us during the weekend but hopefully more ups than downs."
+        ]
     },
     {
         "stageNumber": 1,
@@ -66,13 +74,13 @@
         "userName": "Evans Elfyn - Martin Scott",
         "realName": "",
         "group": "RC1",
-        "car": "Toyota GR Yaris Rally1",
+        "car": "Toyota GR Yaris Rally1 Hybrid",
         "stageTimeMs": 197600,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 1,
@@ -81,13 +89,13 @@
         "userName": "Lappi Esapekka - Ferm Janne",
         "realName": "",
         "group": "RC1",
-        "car": "Hyundai i20 N Rally1",
+        "car": "Hyundai i20 N Rally1 Hybrid",
         "stageTimeMs": 198300,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 1,
@@ -96,13 +104,15 @@
         "userName": "Katsuta Takamoto - Johnston Aaron",
         "realName": "",
         "group": "RC1",
-        "car": "Toyota GR Yaris Rally1",
+        "car": "Toyota GR Yaris Rally1 Hybrid",
         "stageTimeMs": 199400,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "Thanks to the team - they fixed the car perfectly and I had a very good feeling. This stage is one that you can really enjoy and it was very slippy. I will try to enjoy tomorrow."
+        "comment": [
+            "Thanks to the team - they fixed the car perfectly and I had a very good feeling. This stage is one that you can really enjoy and it was very slippy. I will try to enjoy tomorrow."
+        ]
     },
     {
         "stageNumber": 1,
@@ -111,13 +121,13 @@
         "userName": "Sordo Dani - Carrera Cándido",
         "realName": "",
         "group": "RC1",
-        "car": "Hyundai i20 N Rally1",
+        "car": "Hyundai i20 N Rally1 Hybrid",
         "stageTimeMs": 200200,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 10000,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 1,
@@ -126,13 +136,15 @@
         "userName": "Loubet Pierre-Louis - Gilsoul N.",
         "realName": "",
         "group": "RC1",
-        "car": "Ford Puma Rally1",
+        "car": "Ford Puma Rally1 Hybrid",
         "stageTimeMs": 202300,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "It will be a big, big challenge. Hopefully we can do a good rally and nothing breaks with the car and the same with us."
+        "comment": [
+            "It will be a big, big challenge. Hopefully we can do a good rally and nothing breaks with the car and the same with us."
+        ]
     },
     {
         "stageNumber": 1,
@@ -147,7 +159,9 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "I think it will be a lot different. It's great to start here with all the fans and the people. The car looks like a proper Safari car but it's going to be a tough, long week."
+        "comment": [
+            "I think it will be a lot different. It's great to start here with all the fans and the people. The car looks like a proper Safari car but it's going to be a tough, long week."
+        ]
     },
     {
         "stageNumber": 1,
@@ -156,13 +170,13 @@
         "userName": "Serderidis Jourdan - Malfoy Andy",
         "realName": "",
         "group": "RC1",
-        "car": "Ford Puma Rally1",
+        "car": "Ford Puma Rally1 Hybrid",
         "stageTimeMs": 205600,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 1,
@@ -177,7 +191,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 1,
@@ -192,7 +206,9 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "We are really looking forward to it. This one is all about the show and having fun, but there was more grip than I expected."
+        "comment": [
+            "We are really looking forward to it. This one is all about the show and having fun, but there was more grip than I expected."
+        ]
     },
     {
         "stageNumber": 1,
@@ -207,7 +223,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 1,
@@ -222,7 +238,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 1,
@@ -237,7 +253,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 1,
@@ -252,7 +268,9 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "It's been a long road getting here. I've just switched over to rally mode, and this is a lot easier!"
+        "comment": [
+            "It's been a long road getting here. I've just switched over to rally mode, and this is a lot easier!"
+        ]
     },
     {
         "stageNumber": 1,
@@ -267,7 +285,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 1,
@@ -282,7 +300,9 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "I think this year is going to be tougher than last year so we are just going to try and keep it steady, and try to finish this time."
+        "comment": [
+            "I think this year is going to be tougher than last year so we are just going to try and keep it steady, and try to finish this time."
+        ]
     },
     {
         "stageNumber": 1,
@@ -297,7 +317,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 1,
@@ -312,7 +332,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 1,
@@ -327,7 +347,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 1,
@@ -342,7 +362,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 1,
@@ -357,7 +377,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 1,
@@ -372,7 +392,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 1,
@@ -387,7 +407,9 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "We are really looking forward to it. So far, not the best start, but it's alright. It's early days yet."
+        "comment": [
+            "We are really looking forward to it. So far, not the best start, but it's alright. It's early days yet."
+        ]
     },
     {
         "stageNumber": 1,
@@ -402,7 +424,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 1,
@@ -417,7 +439,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 1,
@@ -432,7 +454,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 1,
@@ -447,7 +469,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 1,
@@ -462,7 +484,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 2,
@@ -471,13 +493,15 @@
         "userName": "Ogier Sébastien - Landais V.",
         "realName": "",
         "group": "RC1",
-        "car": "Toyota GR Yaris Rally1",
+        "car": "Toyota GR Yaris Rally1 Hybrid",
         "stageTimeMs": 830300,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "I tried to have a decent speed but nothing crazy because there's a long weekend ahead."
+        "comment": [
+            "I tried to have a decent speed but nothing crazy because there's a long weekend ahead."
+        ]
     },
     {
         "stageNumber": 2,
@@ -486,13 +510,15 @@
         "userName": "Rovanperä Kalle - Halttunen J.",
         "realName": "",
         "group": "RC1",
-        "car": "Toyota GR Yaris Rally1",
+        "car": "Toyota GR Yaris Rally1 Hybrid",
         "stageTimeMs": 837800,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "This one downhill section which is really narrow with lots of loose stuff was tricky and I'm sure it will clean. I was even struggling to make the hairpins there, but otherwise safe and clean run through!"
+        "comment": [
+            "This one downhill section which is really narrow with lots of loose stuff was tricky and I'm sure it will clean. I was even struggling to make the hairpins there, but otherwise safe and clean run through!"
+        ]
     },
     {
         "stageNumber": 2,
@@ -501,13 +527,15 @@
         "userName": "Evans Elfyn - Martin Scott",
         "realName": "",
         "group": "RC1",
-        "car": "Toyota GR Yaris Rally1",
+        "car": "Toyota GR Yaris Rally1 Hybrid",
         "stageTimeMs": 838700,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "It's not so rough in terms of loose stones but there's a lot of bad bumps. It's tricky to judge the pace."
+        "comment": [
+            "It's not so rough in terms of loose stones but there's a lot of bad bumps. It's tricky to judge the pace."
+        ]
     },
     {
         "stageNumber": 2,
@@ -516,13 +544,15 @@
         "userName": "Neuville Thierry - Wydaeghe M.",
         "realName": "",
         "group": "RC1",
-        "car": "Hyundai i20 N Rally1",
+        "car": "Hyundai i20 N Rally1 Hybrid",
         "stageTimeMs": 839000,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "It's very shaky in there and we got kicked off the line and we had a big bee in the car"
+        "comment": [
+            "It's very shaky in there and we got kicked off the line and we had a big bee in the car"
+        ]
     },
     {
         "stageNumber": 2,
@@ -531,13 +561,15 @@
         "userName": "Katsuta Takamoto - Johnston Aaron",
         "realName": "",
         "group": "RC1",
-        "car": "Toyota GR Yaris Rally1",
+        "car": "Toyota GR Yaris Rally1 Hybrid",
         "stageTimeMs": 839900,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "I don't know if it's cleaning or not but I was quite careful. We will see - step by step moving forward and we will see how it's going."
+        "comment": [
+            "I don't know if it's cleaning or not but I was quite careful. We will see - step by step moving forward and we will see how it's going."
+        ]
     },
     {
         "stageNumber": 2,
@@ -546,13 +578,15 @@
         "userName": "Sordo Dani - Carrera Cándido",
         "realName": "",
         "group": "RC1",
-        "car": "Hyundai i20 N Rally1",
+        "car": "Hyundai i20 N Rally1 Hybrid",
         "stageTimeMs": 842000,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "We saw some zebras in the middle of the stage and we were stuck behind them."
+        "comment": [
+            "We saw some zebras in the middle of the stage and we were stuck behind them."
+        ]
     },
     {
         "stageNumber": 2,
@@ -561,13 +595,15 @@
         "userName": "Tänak Ott - Järveoja Martin",
         "realName": "",
         "group": "RC1",
-        "car": "Ford Puma Rally1",
+        "car": "Ford Puma Rally1 Hybrid",
         "stageTimeMs": 845500,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "We had a group of zebras so we had to stop for them a few times."
+        "comment": [
+            "We had a group of zebras so we had to stop for them a few times."
+        ]
     },
     {
         "stageNumber": 2,
@@ -576,13 +612,15 @@
         "userName": "Lappi Esapekka - Ferm Janne",
         "realName": "",
         "group": "RC1",
-        "car": "Hyundai i20 N Rally1",
+        "car": "Hyundai i20 N Rally1 Hybrid",
         "stageTimeMs": 847800,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "We stayed on the road the whole time, so this is a good start! I didn't use all the open space where I saw some lines and I used the wrong side of the trees sometimes."
+        "comment": [
+            "We stayed on the road the whole time, so this is a good start! I didn't use all the open space where I saw some lines and I used the wrong side of the trees sometimes."
+        ]
     },
     {
         "stageNumber": 2,
@@ -591,13 +629,15 @@
         "userName": "Loubet Pierre-Louis - Gilsoul N.",
         "realName": "",
         "group": "RC1",
-        "car": "Ford Puma Rally1",
+        "car": "Ford Puma Rally1 Hybrid",
         "stageTimeMs": 864500,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "We have no power."
+        "comment": [
+            "We have no power."
+        ]
     },
     {
         "stageNumber": 2,
@@ -612,7 +652,9 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "I was pushing at the start, but this is my first time here in a Rally2 car so quickly realised I had to take it calmer than in a WRC car, good stage though!"
+        "comment": [
+            "I was pushing at the start, but this is my first time here in a Rally2 car so quickly realised I had to take it calmer than in a WRC car, good stage though!"
+        ]
     },
     {
         "stageNumber": 2,
@@ -627,7 +669,9 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "At the beginning of the rally, my mum was calling to me. She said: 'Let Solberg go,' and I did it!"
+        "comment": [
+            "At the beginning of the rally, my mum was calling to me. She said: 'Let Solberg go,' and I did it!"
+        ]
     },
     {
         "stageNumber": 2,
@@ -642,7 +686,9 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "I tried to push a bit. I thought I had a front-left puncture but I didn't."
+        "comment": [
+            "I tried to push a bit. I thought I had a front-left puncture but I didn't."
+        ]
     },
     {
         "stageNumber": 2,
@@ -651,13 +697,15 @@
         "userName": "Serderidis Jourdan - Malfoy Andy",
         "realName": "",
         "group": "RC1",
-        "car": "Ford Puma Rally1",
+        "car": "Ford Puma Rally1 Hybrid",
         "stageTimeMs": 917900,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "Of course, we like the difficulty here - we like the challenge! We lost a little bit of the brakes in the downhill, but the rest was not so bad. Let's see."
+        "comment": [
+            "Of course, we like the difficulty here - we like the challenge! We lost a little bit of the brakes in the downhill, but the rest was not so bad. Let's see."
+        ]
     },
     {
         "stageNumber": 2,
@@ -672,7 +720,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 2,
@@ -687,7 +735,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 2,
@@ -702,7 +750,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 2,
@@ -717,7 +765,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 2,
@@ -732,7 +780,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 2,
@@ -747,7 +795,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 2,
@@ -762,7 +810,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 2,
@@ -777,7 +825,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 2,
@@ -792,7 +840,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 2,
@@ -807,7 +855,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 2,
@@ -822,7 +870,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 2,
@@ -837,7 +885,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 2,
@@ -852,7 +900,7 @@
         "penaltyOutsideStageMs": 10000,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 2,
@@ -867,7 +915,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 2,
@@ -882,7 +930,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 2,
@@ -897,7 +945,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 2,
@@ -912,7 +960,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 2,
@@ -927,7 +975,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 3,
@@ -936,13 +984,15 @@
         "userName": "Lappi Esapekka - Ferm Janne",
         "realName": "",
         "group": "RC1",
-        "car": "Hyundai i20 N Rally1",
+        "car": "Hyundai i20 N Rally1 Hybrid",
         "stageTimeMs": 409700,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "Okay. For sure over here it's clear, it's more Finland style with the cuts. In the last stage I didn't take cuts others did because of the penalty last year. Next stages are not so simple."
+        "comment": [
+            "Okay. For sure over here it's clear, it's more Finland style with the cuts. In the last stage I didn't take cuts others did because of the penalty last year. Next stages are not so simple."
+        ]
     },
     {
         "stageNumber": 3,
@@ -951,13 +1001,15 @@
         "userName": "Ogier Sébastien - Landais V.",
         "realName": "",
         "group": "RC1",
-        "car": "Toyota GR Yaris Rally1",
+        "car": "Toyota GR Yaris Rally1 Hybrid",
         "stageTimeMs": 410900,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "I think in this one there was some cleaning, but already last year Kalle did a good job there first on the road, good time from me. These stages were not the roughest, hardest part of the loop coming now."
+        "comment": [
+            "I think in this one there was some cleaning, but already last year Kalle did a good job there first on the road, good time from me. These stages were not the roughest, hardest part of the loop coming now."
+        ]
     },
     {
         "stageNumber": 3,
@@ -966,13 +1018,15 @@
         "userName": "Katsuta Takamoto - Johnston Aaron",
         "realName": "",
         "group": "RC1",
-        "car": "Toyota GR Yaris Rally1",
+        "car": "Toyota GR Yaris Rally1 Hybrid",
         "stageTimeMs": 412000,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "Step by step I need to get back the feeling, the car is working good. This rally is not flat out everywhere."
+        "comment": [
+            "Step by step I need to get back the feeling, the car is working good. This rally is not flat out everywhere."
+        ]
     },
     {
         "stageNumber": 3,
@@ -981,13 +1035,15 @@
         "userName": "Rovanperä Kalle - Halttunen J.",
         "realName": "",
         "group": "RC1",
-        "car": "Toyota GR Yaris Rally1",
+        "car": "Toyota GR Yaris Rally1 Hybrid",
         "stageTimeMs": 413000,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "It's a totally different stage profile, faster and wider. There is more cleaning on this one, but it's so fast it doesn't matter."
+        "comment": [
+            "It's a totally different stage profile, faster and wider. There is more cleaning on this one, but it's so fast it doesn't matter."
+        ]
     },
     {
         "stageNumber": 3,
@@ -996,13 +1052,15 @@
         "userName": "Evans Elfyn - Martin Scott",
         "realName": "",
         "group": "RC1",
-        "car": "Toyota GR Yaris Rally1",
+        "car": "Toyota GR Yaris Rally1 Hybrid",
         "stageTimeMs": 414100,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "It was a clean run through the stage. Should have been quicker compared to Kalle. A clean and tidy run."
+        "comment": [
+            "It was a clean run through the stage. Should have been quicker compared to Kalle. A clean and tidy run."
+        ]
     },
     {
         "stageNumber": 3,
@@ -1011,13 +1069,15 @@
         "userName": "Sordo Dani - Carrera Cándido",
         "realName": "",
         "group": "RC1",
-        "car": "Hyundai i20 N Rally1",
+        "car": "Hyundai i20 N Rally1 Hybrid",
         "stageTimeMs": 416700,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "I was driving a bit too careful in some places, the pacenotes were nice but I changed some corners with videos. I'm sad because I was enjoying the stage."
+        "comment": [
+            "I was driving a bit too careful in some places, the pacenotes were nice but I changed some corners with videos. I'm sad because I was enjoying the stage."
+        ]
     },
     {
         "stageNumber": 3,
@@ -1026,13 +1086,15 @@
         "userName": "Loubet Pierre-Louis - Gilsoul N.",
         "realName": "",
         "group": "RC1",
-        "car": "Ford Puma Rally1",
+        "car": "Ford Puma Rally1 Hybrid",
         "stageTimeMs": 417500,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "Nothing big, just setting issue. I was a bit cautious in some places, very high speed."
+        "comment": [
+            "Nothing big, just setting issue. I was a bit cautious in some places, very high speed."
+        ]
     },
     {
         "stageNumber": 3,
@@ -1041,13 +1103,15 @@
         "userName": "Tänak Ott - Järveoja Martin",
         "realName": "",
         "group": "RC1",
-        "car": "Ford Puma Rally1",
+        "car": "Ford Puma Rally1 Hybrid",
         "stageTimeMs": 419000,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "It's the same as previous rally, at speed I struggle a lot. Trying to get it through."
+        "comment": [
+            "It's the same as previous rally, at speed I struggle a lot. Trying to get it through."
+        ]
     },
     {
         "stageNumber": 3,
@@ -1056,13 +1120,13 @@
         "userName": "Neuville Thierry - Wydaeghe M.",
         "realName": "",
         "group": "RC1",
-        "car": "Hyundai i20 N Rally1",
+        "car": "Hyundai i20 N Rally1 Hybrid",
         "stageTimeMs": 422200,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 3,
@@ -1077,7 +1141,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 3,
@@ -1092,7 +1156,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 3,
@@ -1107,7 +1171,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 3,
@@ -1116,13 +1180,15 @@
         "userName": "Serderidis Jourdan - Malfoy Andy",
         "realName": "",
         "group": "RC1",
-        "car": "Ford Puma Rally1",
+        "car": "Ford Puma Rally1 Hybrid",
         "stageTimeMs": 468000,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "This stage was much better and I enjoyed. We don't have the hybrid anymore, so we need to sort this issue."
+        "comment": [
+            "This stage was much better and I enjoyed. We don't have the hybrid anymore, so we need to sort this issue."
+        ]
     },
     {
         "stageNumber": 3,
@@ -1137,7 +1203,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 3,
@@ -1152,7 +1218,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 3,
@@ -1167,7 +1233,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 3,
@@ -1182,7 +1248,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 3,
@@ -1197,7 +1263,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 3,
@@ -1212,7 +1278,7 @@
         "penaltyOutsideStageMs": 10000,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 3,
@@ -1227,7 +1293,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 3,
@@ -1242,7 +1308,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 3,
@@ -1257,7 +1323,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 3,
@@ -1272,7 +1338,7 @@
         "penaltyOutsideStageMs": 10000,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 3,
@@ -1287,7 +1353,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 3,
@@ -1302,7 +1368,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 3,
@@ -1317,7 +1383,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 3,
@@ -1332,7 +1398,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 3,
@@ -1347,7 +1413,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 3,
@@ -1362,7 +1428,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 3,
@@ -1377,7 +1443,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 3,
@@ -1392,7 +1458,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 4,
@@ -1401,13 +1467,15 @@
         "userName": "Rovanperä Kalle - Halttunen J.",
         "realName": "",
         "group": "RC1",
-        "car": "Toyota GR Yaris Rally1",
+        "car": "Toyota GR Yaris Rally1 Hybrid",
         "stageTimeMs": 892400,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "It was a proper cleaning morning, but we did a good job, no mistakes. I could be quite happy."
+        "comment": [
+            "It was a proper cleaning morning, but we did a good job, no mistakes. I could be quite happy."
+        ]
     },
     {
         "stageNumber": 4,
@@ -1416,13 +1484,15 @@
         "userName": "Neuville Thierry - Wydaeghe M.",
         "realName": "",
         "group": "RC1",
-        "car": "Hyundai i20 N Rally1",
+        "car": "Hyundai i20 N Rally1 Hybrid",
         "stageTimeMs": 900400,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "(Time loss) It's a lot."
+        "comment": [
+            "(Time loss) It's a lot."
+        ]
     },
     {
         "stageNumber": 4,
@@ -1431,13 +1501,15 @@
         "userName": "Ogier Sébastien - Landais V.",
         "realName": "",
         "group": "RC1",
-        "car": "Toyota GR Yaris Rally1",
+        "car": "Toyota GR Yaris Rally1 Hybrid",
         "stageTimeMs": 901800,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "I had no hybrid all stage so it didn't help."
+        "comment": [
+            "I had no hybrid all stage so it didn't help."
+        ]
     },
     {
         "stageNumber": 4,
@@ -1446,13 +1518,15 @@
         "userName": "Evans Elfyn - Martin Scott",
         "realName": "",
         "group": "RC1",
-        "car": "Toyota GR Yaris Rally1",
+        "car": "Toyota GR Yaris Rally1 Hybrid",
         "stageTimeMs": 906500,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "A bit of bad dust at the end there, but that wasn't the timeloss. Had to avoid big stones being pulled out, felt so soft at places. I wasn't taking enough risks."
+        "comment": [
+            "A bit of bad dust at the end there, but that wasn't the timeloss. Had to avoid big stones being pulled out, felt so soft at places. I wasn't taking enough risks."
+        ]
     },
     {
         "stageNumber": 4,
@@ -1461,13 +1535,15 @@
         "userName": "Sordo Dani - Carrera Cándido",
         "realName": "",
         "group": "RC1",
-        "car": "Hyundai i20 N Rally1",
+        "car": "Hyundai i20 N Rally1 Hybrid",
         "stageTimeMs": 914400,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "I tried to do my best with no mistakes, a lot of ruts. In the fast places the car moves quite a lot, many stones in the sides of the road. Not easy, nice stage but difficiult to feel the speed."
+        "comment": [
+            "I tried to do my best with no mistakes, a lot of ruts. In the fast places the car moves quite a lot, many stones in the sides of the road. Not easy, nice stage but difficiult to feel the speed."
+        ]
     },
     {
         "stageNumber": 4,
@@ -1476,13 +1552,15 @@
         "userName": "Katsuta Takamoto - Johnston Aaron",
         "realName": "",
         "group": "RC1",
-        "car": "Toyota GR Yaris Rally1",
+        "car": "Toyota GR Yaris Rally1 Hybrid",
         "stageTimeMs": 915200,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "I'm not happy, I had big damage at the front and had to repair before the stage. But i'm here."
+        "comment": [
+            "I'm not happy, I had big damage at the front and had to repair before the stage. But i'm here."
+        ]
     },
     {
         "stageNumber": 4,
@@ -1491,13 +1569,15 @@
         "userName": "Lappi Esapekka - Ferm Janne",
         "realName": "",
         "group": "RC1",
-        "car": "Hyundai i20 N Rally1",
+        "car": "Hyundai i20 N Rally1 Hybrid",
         "stageTimeMs": 922700,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "I don't know. Suddenly it went empty and that's it, like 13km before the finish."
+        "comment": [
+            "I don't know. Suddenly it went empty and that's it, like 13km before the finish."
+        ]
     },
     {
         "stageNumber": 4,
@@ -1506,13 +1586,13 @@
         "userName": "Loubet Pierre-Louis - Gilsoul N.",
         "realName": "",
         "group": "RC1",
-        "car": "Ford Puma Rally1",
+        "car": "Ford Puma Rally1 Hybrid",
         "stageTimeMs": 930400,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 4,
@@ -1527,7 +1607,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 4,
@@ -1536,13 +1616,15 @@
         "userName": "Tänak Ott - Järveoja Martin",
         "realName": "",
         "group": "RC1",
-        "car": "Ford Puma Rally1",
+        "car": "Ford Puma Rally1 Hybrid",
         "stageTimeMs": 1025000,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "It just came off the rim quite early in the ruts. Simple. We had some engine troubles and we didn't get power any more."
+        "comment": [
+            "It just came off the rim quite early in the ruts. Simple. We had some engine troubles and we didn't get power any more."
+        ]
     },
     {
         "stageNumber": 4,
@@ -1557,7 +1639,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 4,
@@ -1566,13 +1648,13 @@
         "userName": "Serderidis Jourdan - Malfoy Andy",
         "realName": "",
         "group": "RC1",
-        "car": "Ford Puma Rally1",
+        "car": "Ford Puma Rally1 Hybrid",
         "stageTimeMs": 1039900,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 4,
@@ -1587,7 +1669,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 4,
@@ -1602,7 +1684,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 4,
@@ -1617,7 +1699,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 4,
@@ -1632,7 +1714,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 4,
@@ -1647,7 +1729,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 4,
@@ -1662,7 +1744,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 4,
@@ -1677,7 +1759,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 4,
@@ -1692,7 +1774,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 4,
@@ -1707,7 +1789,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 4,
@@ -1722,7 +1804,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 4,
@@ -1737,7 +1819,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 4,
@@ -1752,7 +1834,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 4,
@@ -1767,7 +1849,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 4,
@@ -1782,7 +1864,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 4,
@@ -1797,7 +1879,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 4,
@@ -1812,7 +1894,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 4,
@@ -1827,7 +1909,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 4,
@@ -1842,7 +1924,7 @@
         "penaltyOutsideStageMs": 60000,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 4,
@@ -1857,7 +1939,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": "",
+        "comment": [],
         "nominal": true
     },
     {
@@ -1867,13 +1949,15 @@
         "userName": "Ogier Sébastien - Landais V.",
         "realName": "",
         "group": "RC1",
-        "car": "Toyota GR Yaris Rally1",
+        "car": "Toyota GR Yaris Rally1 Hybrid",
         "stageTimeMs": 830200,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "My strategy is a bit different. I tried to drive more clean and gain the performance from the tyres. It's only in the last one that the risk is very high."
+        "comment": [
+            "My strategy is a bit different. I tried to drive more clean and gain the performance from the tyres. It's only in the last one that the risk is very high."
+        ]
     },
     {
         "stageNumber": 5,
@@ -1882,13 +1966,15 @@
         "userName": "Lappi Esapekka - Ferm Janne",
         "realName": "",
         "group": "RC1",
-        "car": "Hyundai i20 N Rally1",
+        "car": "Hyundai i20 N Rally1 Hybrid",
         "stageTimeMs": 838600,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "It more slippy than in the morning which I was not expecting. In some corners at the beginning you have good grip then it becomes really bad."
+        "comment": [
+            "It more slippy than in the morning which I was not expecting. In some corners at the beginning you have good grip then it becomes really bad."
+        ]
     },
     {
         "stageNumber": 5,
@@ -1897,13 +1983,15 @@
         "userName": "Tänak Ott - Järveoja Martin",
         "realName": "",
         "group": "RC1",
-        "car": "Ford Puma Rally1",
+        "car": "Ford Puma Rally1 Hybrid",
         "stageTimeMs": 840400,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "We managed to improve the suspension a bit."
+        "comment": [
+            "We managed to improve the suspension a bit."
+        ]
     },
     {
         "stageNumber": 5,
@@ -1912,13 +2000,13 @@
         "userName": "Evans Elfyn - Martin Scott",
         "realName": "",
         "group": "RC1",
-        "car": "Toyota GR Yaris Rally1",
+        "car": "Toyota GR Yaris Rally1 Hybrid",
         "stageTimeMs": 840700,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 5,
@@ -1927,13 +2015,15 @@
         "userName": "Sordo Dani - Carrera Cándido",
         "realName": "",
         "group": "RC1",
-        "car": "Hyundai i20 N Rally1",
+        "car": "Hyundai i20 N Rally1 Hybrid",
         "stageTimeMs": 841600,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "It was good. Much more slippery than before because it's getting dry. In the first corner we went wide, but anyway, I am quite happy."
+        "comment": [
+            "It was good. Much more slippery than before because it's getting dry. In the first corner we went wide, but anyway, I am quite happy."
+        ]
     },
     {
         "stageNumber": 5,
@@ -1942,13 +2032,15 @@
         "userName": "Neuville Thierry - Wydaeghe M.",
         "realName": "",
         "group": "RC1",
-        "car": "Hyundai i20 N Rally1",
+        "car": "Hyundai i20 N Rally1 Hybrid",
         "stageTimeMs": 844300,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "I think we are even slower than this morning, but generally the feeling was good."
+        "comment": [
+            "I think we are even slower than this morning, but generally the feeling was good."
+        ]
     },
     {
         "stageNumber": 5,
@@ -1957,13 +2049,15 @@
         "userName": "Rovanperä Kalle - Halttunen J.",
         "realName": "",
         "group": "RC1",
-        "car": "Toyota GR Yaris Rally1",
+        "car": "Toyota GR Yaris Rally1 Hybrid",
         "stageTimeMs": 845500,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "I think we made a small mistake on the set-up because we expected to have more grip in the afternoon."
+        "comment": [
+            "I think we made a small mistake on the set-up because we expected to have more grip in the afternoon."
+        ]
     },
     {
         "stageNumber": 5,
@@ -1972,13 +2066,13 @@
         "userName": "Katsuta Takamoto - Johnston Aaron",
         "realName": "",
         "group": "RC1",
-        "car": "Toyota GR Yaris Rally1",
+        "car": "Toyota GR Yaris Rally1 Hybrid",
         "stageTimeMs": 849000,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 5,
@@ -1993,7 +2087,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 5,
@@ -2008,7 +2102,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 5,
@@ -2023,7 +2117,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 5,
@@ -2032,13 +2126,15 @@
         "userName": "Serderidis Jourdan - Malfoy Andy",
         "realName": "",
         "group": "RC1",
-        "car": "Ford Puma Rally1",
+        "car": "Ford Puma Rally1 Hybrid",
         "stageTimeMs": 908500,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "I think the grip is better but it's loose in some parts. More or less, it's not so bad."
+        "comment": [
+            "I think the grip is better but it's loose in some parts. More or less, it's not so bad."
+        ]
     },
     {
         "stageNumber": 5,
@@ -2053,7 +2149,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 5,
@@ -2068,7 +2164,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 5,
@@ -2083,7 +2179,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 5,
@@ -2098,7 +2194,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 5,
@@ -2113,7 +2209,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 5,
@@ -2128,7 +2224,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 5,
@@ -2137,13 +2233,15 @@
         "userName": "Loubet Pierre-Louis - Gilsoul N.",
         "realName": "",
         "group": "RC1",
-        "car": "Ford Puma Rally1",
+        "car": "Ford Puma Rally1 Hybrid",
         "stageTimeMs": 996000,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "Under braking, in the middle there was a big step and we broke the wheel there."
+        "comment": [
+            "Under braking, in the middle there was a big step and we broke the wheel there."
+        ]
     },
     {
         "stageNumber": 5,
@@ -2158,7 +2256,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 5,
@@ -2173,7 +2271,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 5,
@@ -2188,7 +2286,7 @@
         "penaltyOutsideStageMs": 10000,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 5,
@@ -2203,7 +2301,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 5,
@@ -2218,7 +2316,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 5,
@@ -2233,7 +2331,7 @@
         "penaltyOutsideStageMs": 480000,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 5,
@@ -2248,7 +2346,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 5,
@@ -2263,7 +2361,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 5,
@@ -2278,7 +2376,7 @@
         "penaltyOutsideStageMs": 120000,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 5,
@@ -2293,7 +2391,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 5,
@@ -2308,7 +2406,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 5,
@@ -2323,7 +2421,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": "",
+        "comment": [],
         "nominal": true
     },
     {
@@ -2333,13 +2431,15 @@
         "userName": "Ogier Sébastien - Landais V.",
         "realName": "",
         "group": "RC1",
-        "car": "Toyota GR Yaris Rally1",
+        "car": "Toyota GR Yaris Rally1 Hybrid",
         "stageTimeMs": 406500,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "I tried to drive very clean and now I can say it was the right choice."
+        "comment": [
+            "I tried to drive very clean and now I can say it was the right choice."
+        ]
     },
     {
         "stageNumber": 6,
@@ -2348,13 +2448,15 @@
         "userName": "Lappi Esapekka - Ferm Janne",
         "realName": "",
         "group": "RC1",
-        "car": "Hyundai i20 N Rally1",
+        "car": "Hyundai i20 N Rally1 Hybrid",
         "stageTimeMs": 407700,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "It was okay. All good. It's a different kind of challenge but I like it."
+        "comment": [
+            "It was okay. All good. It's a different kind of challenge but I like it."
+        ]
     },
     {
         "stageNumber": 6,
@@ -2363,13 +2465,15 @@
         "userName": "Rovanperä Kalle - Halttunen J.",
         "realName": "",
         "group": "RC1",
-        "car": "Toyota GR Yaris Rally1",
+        "car": "Toyota GR Yaris Rally1 Hybrid",
         "stageTimeMs": 409100,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "Quite a different style of stage, so for sure the understeer was not so big."
+        "comment": [
+            "Quite a different style of stage, so for sure the understeer was not so big."
+        ]
     },
     {
         "stageNumber": 6,
@@ -2378,13 +2482,15 @@
         "userName": "Evans Elfyn - Martin Scott",
         "realName": "",
         "group": "RC1",
-        "car": "Toyota GR Yaris Rally1",
+        "car": "Toyota GR Yaris Rally1 Hybrid",
         "stageTimeMs": 409600,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "I'm just trying to keep it clean and tidy but it's still difficult to know the right balance to push."
+        "comment": [
+            "I'm just trying to keep it clean and tidy but it's still difficult to know the right balance to push."
+        ]
     },
     {
         "stageNumber": 6,
@@ -2393,13 +2499,15 @@
         "userName": "Katsuta Takamoto - Johnston Aaron",
         "realName": "",
         "group": "RC1",
-        "car": "Toyota GR Yaris Rally1",
+        "car": "Toyota GR Yaris Rally1 Hybrid",
         "stageTimeMs": 410200,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "We are just focusing on our driving and luckily we have no water splashes today! There's a long way to go."
+        "comment": [
+            "We are just focusing on our driving and luckily we have no water splashes today! There's a long way to go."
+        ]
     },
     {
         "stageNumber": 6,
@@ -2408,13 +2516,15 @@
         "userName": "Tänak Ott - Järveoja Martin",
         "realName": "",
         "group": "RC1",
-        "car": "Ford Puma Rally1",
+        "car": "Ford Puma Rally1 Hybrid",
         "stageTimeMs": 411900,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "It's a bit hard for the suspension, but still quite smooth anyway."
+        "comment": [
+            "It's a bit hard for the suspension, but still quite smooth anyway."
+        ]
     },
     {
         "stageNumber": 6,
@@ -2423,13 +2533,15 @@
         "userName": "Sordo Dani - Carrera Cándido",
         "realName": "",
         "group": "RC1",
-        "car": "Hyundai i20 N Rally1",
+        "car": "Hyundai i20 N Rally1 Hybrid",
         "stageTimeMs": 412800,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "It's a really nice stage, really nice to drive."
+        "comment": [
+            "It's a really nice stage, really nice to drive."
+        ]
     },
     {
         "stageNumber": 6,
@@ -2438,13 +2550,15 @@
         "userName": "Loubet Pierre-Louis - Gilsoul N.",
         "realName": "",
         "group": "RC1",
-        "car": "Ford Puma Rally1",
+        "car": "Ford Puma Rally1 Hybrid",
         "stageTimeMs": 416100,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "It's quite demanding, I would say. I tried to be careful because we had a puncture in the previous one and it's very hard on the car, you need to be careful."
+        "comment": [
+            "It's quite demanding, I would say. I tried to be careful because we had a puncture in the previous one and it's very hard on the car, you need to be careful."
+        ]
     },
     {
         "stageNumber": 6,
@@ -2459,7 +2573,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 6,
@@ -2474,7 +2588,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 6,
@@ -2489,7 +2603,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 6,
@@ -2498,13 +2612,15 @@
         "userName": "Serderidis Jourdan - Malfoy Andy",
         "realName": "",
         "group": "RC1",
-        "car": "Ford Puma Rally1",
+        "car": "Ford Puma Rally1 Hybrid",
         "stageTimeMs": 456100,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "I think I improved quite well, it's about one second per kilometre so I am very happy."
+        "comment": [
+            "I think I improved quite well, it's about one second per kilometre so I am very happy."
+        ]
     },
     {
         "stageNumber": 6,
@@ -2519,7 +2635,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 6,
@@ -2534,7 +2650,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 6,
@@ -2549,7 +2665,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 6,
@@ -2564,7 +2680,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 6,
@@ -2579,7 +2695,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 6,
@@ -2594,7 +2710,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 6,
@@ -2609,7 +2725,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 6,
@@ -2624,7 +2740,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 6,
@@ -2639,7 +2755,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 6,
@@ -2654,7 +2770,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 6,
@@ -2669,7 +2785,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 6,
@@ -2684,7 +2800,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 6,
@@ -2699,7 +2815,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 6,
@@ -2714,7 +2830,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 6,
@@ -2729,7 +2845,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 6,
@@ -2744,7 +2860,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 6,
@@ -2753,13 +2869,13 @@
         "userName": "Neuville Thierry - Wydaeghe M.",
         "realName": "",
         "group": "RC1",
-        "car": "Hyundai i20 N Rally1",
+        "car": "Hyundai i20 N Rally1 Hybrid",
         "stageTimeMs": 1006500,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": "",
+        "comment": [],
         "nominal": true
     },
     {
@@ -2775,7 +2891,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 6,
@@ -2790,7 +2906,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": "",
+        "comment": [],
         "nominal": true
     },
     {
@@ -2800,13 +2916,15 @@
         "userName": "Ogier Sébastien - Landais V.",
         "realName": "",
         "group": "RC1",
-        "car": "Toyota GR Yaris Rally1",
+        "car": "Toyota GR Yaris Rally1 Hybrid",
         "stageTimeMs": 904600,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "Except for the hybrid issue this morning we had a perfect day, so we can be happy."
+        "comment": [
+            "Except for the hybrid issue this morning we had a perfect day, so we can be happy."
+        ]
     },
     {
         "stageNumber": 7,
@@ -2815,13 +2933,15 @@
         "userName": "Rovanperä Kalle - Halttunen J.",
         "realName": "",
         "group": "RC1",
-        "car": "Toyota GR Yaris Rally1",
+        "car": "Toyota GR Yaris Rally1 Hybrid",
         "stageTimeMs": 907000,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "A lot of surprises, and it's a high-speed stage so not easy."
+        "comment": [
+            "A lot of surprises, and it's a high-speed stage so not easy."
+        ]
     },
     {
         "stageNumber": 7,
@@ -2830,13 +2950,15 @@
         "userName": "Lappi Esapekka - Ferm Janne",
         "realName": "",
         "group": "RC1",
-        "car": "Hyundai i20 N Rally1",
+        "car": "Hyundai i20 N Rally1 Hybrid",
         "stageTimeMs": 907900,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "I was a bit careful but I think you should be in these conditions."
+        "comment": [
+            "I was a bit careful but I think you should be in these conditions."
+        ]
     },
     {
         "stageNumber": 7,
@@ -2845,13 +2967,15 @@
         "userName": "Evans Elfyn - Martin Scott",
         "realName": "",
         "group": "RC1",
-        "car": "Toyota GR Yaris Rally1",
+        "car": "Toyota GR Yaris Rally1 Hybrid",
         "stageTimeMs": 915000,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "I think it was more of a bush than a tree, which we can probably be happy about! I got crossed up in these tricky ruts and didn't manage to catch it in time."
+        "comment": [
+            "I think it was more of a bush than a tree, which we can probably be happy about! I got crossed up in these tricky ruts and didn't manage to catch it in time."
+        ]
     },
     {
         "stageNumber": 7,
@@ -2860,13 +2984,15 @@
         "userName": "Tänak Ott - Järveoja Martin",
         "realName": "",
         "group": "RC1",
-        "car": "Ford Puma Rally1",
+        "car": "Ford Puma Rally1 Hybrid",
         "stageTimeMs": 925900,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "I don't feel really comfortable to go any faster."
+        "comment": [
+            "I don't feel really comfortable to go any faster."
+        ]
     },
     {
         "stageNumber": 7,
@@ -2875,13 +3001,15 @@
         "userName": "Sordo Dani - Carrera Cándido",
         "realName": "",
         "group": "RC1",
-        "car": "Hyundai i20 N Rally1",
+        "car": "Hyundai i20 N Rally1 Hybrid",
         "stageTimeMs": 929400,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "We took a hairpin and we had all the dust in front of us. We were stopped for 10sec to clarify all the dust."
+        "comment": [
+            "We took a hairpin and we had all the dust in front of us. We were stopped for 10sec to clarify all the dust."
+        ]
     },
     {
         "stageNumber": 7,
@@ -2890,13 +3018,15 @@
         "userName": "Katsuta Takamoto - Johnston Aaron",
         "realName": "",
         "group": "RC1",
-        "car": "Toyota GR Yaris Rally1",
+        "car": "Toyota GR Yaris Rally1 Hybrid",
         "stageTimeMs": 932400,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "The puncture was maybe in the last 10km."
+        "comment": [
+            "The puncture was maybe in the last 10km."
+        ]
     },
     {
         "stageNumber": 7,
@@ -2911,7 +3041,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 7,
@@ -2926,7 +3056,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 7,
@@ -2935,13 +3065,13 @@
         "userName": "Serderidis Jourdan - Malfoy Andy",
         "realName": "",
         "group": "RC1",
-        "car": "Ford Puma Rally1",
+        "car": "Ford Puma Rally1 Hybrid",
         "stageTimeMs": 1058100,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 7,
@@ -2950,13 +3080,13 @@
         "userName": "Loubet Pierre-Louis - Gilsoul N.",
         "realName": "",
         "group": "RC1",
-        "car": "Ford Puma Rally1",
+        "car": "Ford Puma Rally1 Hybrid",
         "stageTimeMs": 1076800,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 7,
@@ -2971,7 +3101,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 7,
@@ -2986,7 +3116,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 7,
@@ -3001,7 +3131,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 7,
@@ -3016,7 +3146,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 7,
@@ -3031,7 +3161,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 7,
@@ -3046,7 +3176,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 7,
@@ -3061,7 +3191,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 7,
@@ -3076,7 +3206,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 7,
@@ -3091,7 +3221,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 7,
@@ -3106,7 +3236,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 7,
@@ -3121,7 +3251,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 7,
@@ -3136,7 +3266,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 7,
@@ -3151,7 +3281,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 7,
@@ -3160,13 +3290,13 @@
         "userName": "Neuville Thierry - Wydaeghe M.",
         "realName": "",
         "group": "RC1",
-        "car": "Hyundai i20 N Rally1",
+        "car": "Hyundai i20 N Rally1 Hybrid",
         "stageTimeMs": 1504600,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": "",
+        "comment": [],
         "nominal": true
     },
     {
@@ -3182,7 +3312,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": "",
+        "comment": [],
         "nominal": true
     },
     {
@@ -3198,7 +3328,7 @@
         "penaltyOutsideStageMs": 250000,
         "superRally": true,
         "finished": true,
-        "comment": "",
+        "comment": [],
         "nominal": true
     },
     {
@@ -3214,7 +3344,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": "",
+        "comment": [],
         "nominal": true
     },
     {
@@ -3230,7 +3360,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 7,
@@ -3245,7 +3375,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": "",
+        "comment": [],
         "nominal": true
     },
     {
@@ -3261,7 +3391,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 8,
@@ -3276,7 +3406,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": false,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 8,
@@ -3285,13 +3415,13 @@
         "userName": "Ogier Sébastien - Landais V.",
         "realName": "",
         "group": "RC1",
-        "car": "Toyota GR Yaris Rally1",
+        "car": "Toyota GR Yaris Rally1 Hybrid",
         "stageTimeMs": 1050000,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 8,
@@ -3300,13 +3430,15 @@
         "userName": "Rovanperä Kalle - Halttunen J.",
         "realName": "",
         "group": "RC1",
-        "car": "Toyota GR Yaris Rally1",
+        "car": "Toyota GR Yaris Rally1 Hybrid",
         "stageTimeMs": 1057600,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "You can always go quicker in this rally, it just depends how much you want to push on the rough places. I would say quite good stage. I lost some time on some easy places where I tried to smooth, but it didn't work."
+        "comment": [
+            "You can always go quicker in this rally, it just depends how much you want to push on the rough places. I would say quite good stage. I lost some time on some easy places where I tried to smooth, but it didn't work."
+        ]
     },
     {
         "stageNumber": 8,
@@ -3315,13 +3447,15 @@
         "userName": "Lappi Esapekka - Ferm Janne",
         "realName": "",
         "group": "RC1",
-        "car": "Hyundai i20 N Rally1",
+        "car": "Hyundai i20 N Rally1 Hybrid",
         "stageTimeMs": 1076800,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "All Ok, no drama, bit tricky in the first 2km with puddles and mud so quite a few surprises. On the fast section over there, I was too slow."
+        "comment": [
+            "All Ok, no drama, bit tricky in the first 2km with puddles and mud so quite a few surprises. On the fast section over there, I was too slow."
+        ]
     },
     {
         "stageNumber": 8,
@@ -3330,13 +3464,15 @@
         "userName": "Katsuta Takamoto - Johnston Aaron",
         "realName": "",
         "group": "RC1",
-        "car": "Toyota GR Yaris Rally1",
+        "car": "Toyota GR Yaris Rally1 Hybrid",
         "stageTimeMs": 1084600,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "We stalled the engine at the start."
+        "comment": [
+            "We stalled the engine at the start."
+        ]
     },
     {
         "stageNumber": 8,
@@ -3345,13 +3481,15 @@
         "userName": "Tänak Ott - Järveoja Martin",
         "realName": "",
         "group": "RC1",
-        "car": "Ford Puma Rally1",
+        "car": "Ford Puma Rally1 Hybrid",
         "stageTimeMs": 1084900,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "For sure some moments, some muddy places, you don't see them coming. It is just an adventure, it is a proper zoo!"
+        "comment": [
+            "For sure some moments, some muddy places, you don't see them coming. It is just an adventure, it is a proper zoo!"
+        ]
     },
     {
         "stageNumber": 8,
@@ -3360,13 +3498,15 @@
         "userName": "Sordo Dani - Carrera Cándido",
         "realName": "",
         "group": "RC1",
-        "car": "Hyundai i20 N Rally1",
+        "car": "Hyundai i20 N Rally1 Hybrid",
         "stageTimeMs": 1092700,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "The beginning was very slippery, especially the first corners at the beginning, then really bumpy. The car is not working well in these places..."
+        "comment": [
+            "The beginning was very slippery, especially the first corners at the beginning, then really bumpy. The car is not working well in these places..."
+        ]
     },
     {
         "stageNumber": 8,
@@ -3375,13 +3515,15 @@
         "userName": "Neuville Thierry - Wydaeghe M.",
         "realName": "",
         "group": "RC1",
-        "car": "Hyundai i20 N Rally1",
+        "car": "Hyundai i20 N Rally1 Hybrid",
         "stageTimeMs": 1117100,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "I don't know if it is the car or the road, but something is wrong. It is very hard to see the road, I struggled alot."
+        "comment": [
+            "I don't know if it is the car or the road, but something is wrong. It is very hard to see the road, I struggled alot."
+        ]
     },
     {
         "stageNumber": 8,
@@ -3390,13 +3532,15 @@
         "userName": "Evans Elfyn - Martin Scott",
         "realName": "",
         "group": "RC1",
-        "car": "Toyota GR Yaris Rally1",
+        "car": "Toyota GR Yaris Rally1 Hybrid",
         "stageTimeMs": 1118500,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "I was very slow and tried to lift the front..I don't know."
+        "comment": [
+            "I was very slow and tried to lift the front..I don't know."
+        ]
     },
     {
         "stageNumber": 8,
@@ -3411,7 +3555,9 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "Proper Safari conditions on the first stage this morning - mud, dust, watersplashes, puddles and more! Good run though, winning the stage by more than a minute."
+        "comment": [
+            "Proper Safari conditions on the first stage this morning - mud, dust, watersplashes, puddles and more! Good run though, winning the stage by more than a minute."
+        ]
     },
     {
         "stageNumber": 8,
@@ -3420,13 +3566,15 @@
         "userName": "Loubet Pierre-Louis - Gilsoul N.",
         "realName": "",
         "group": "RC1",
-        "car": "Ford Puma Rally1",
+        "car": "Ford Puma Rally1 Hybrid",
         "stageTimeMs": 1163300,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "I was not seeing the road so it was very strange, very difficult."
+        "comment": [
+            "I was not seeing the road so it was very strange, very difficult."
+        ]
     },
     {
         "stageNumber": 8,
@@ -3441,7 +3589,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 8,
@@ -3456,7 +3604,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 8,
@@ -3465,13 +3613,15 @@
         "userName": "Serderidis Jourdan - Malfoy Andy",
         "realName": "",
         "group": "RC1",
-        "car": "Ford Puma Rally1",
+        "car": "Ford Puma Rally1 Hybrid",
         "stageTimeMs": 1231400,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "This one is an early wake up. Very slippery at the bottom, then some bumps...we took it a little bit carefully."
+        "comment": [
+            "This one is an early wake up. Very slippery at the bottom, then some bumps...we took it a little bit carefully."
+        ]
     },
     {
         "stageNumber": 8,
@@ -3486,7 +3636,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 8,
@@ -3501,7 +3651,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 8,
@@ -3516,7 +3666,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 8,
@@ -3531,7 +3681,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 8,
@@ -3546,7 +3696,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 8,
@@ -3561,7 +3711,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 8,
@@ -3576,7 +3726,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 8,
@@ -3591,7 +3741,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 8,
@@ -3606,7 +3756,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 8,
@@ -3621,7 +3771,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 8,
@@ -3636,7 +3786,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 8,
@@ -3651,7 +3801,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 8,
@@ -3666,7 +3816,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "",
+        "comment": [],
         "nominal": true
     },
     {
@@ -3682,7 +3832,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 8,
@@ -3697,7 +3847,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 8,
@@ -3712,7 +3862,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": "",
+        "comment": [],
         "nominal": true
     },
     {
@@ -3728,7 +3878,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 9,
@@ -3737,13 +3887,15 @@
         "userName": "Rovanperä Kalle - Halttunen J.",
         "realName": "",
         "group": "RC1",
-        "car": "Toyota GR Yaris Rally1",
+        "car": "Toyota GR Yaris Rally1 Hybrid",
         "stageTimeMs": 505200,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "Quite rough in some places and I made one mistake as well."
+        "comment": [
+            "Quite rough in some places and I made one mistake as well."
+        ]
     },
     {
         "stageNumber": 9,
@@ -3752,13 +3904,15 @@
         "userName": "Ogier Sébastien - Landais V.",
         "realName": "",
         "group": "RC1",
-        "car": "Toyota GR Yaris Rally1",
+        "car": "Toyota GR Yaris Rally1 Hybrid",
         "stageTimeMs": 505800,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "All OK in this one, tried be careful..a very long one to go after this."
+        "comment": [
+            "All OK in this one, tried be careful..a very long one to go after this."
+        ]
     },
     {
         "stageNumber": 9,
@@ -3767,13 +3921,15 @@
         "userName": "Evans Elfyn - Martin Scott",
         "realName": "",
         "group": "RC1",
-        "car": "Toyota GR Yaris Rally1",
+        "car": "Toyota GR Yaris Rally1 Hybrid",
         "stageTimeMs": 507400,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "We have to keep doing what we came here to do but obviously there is no magic solution to bring that time back all in one stage."
+        "comment": [
+            "We have to keep doing what we came here to do but obviously there is no magic solution to bring that time back all in one stage."
+        ]
     },
     {
         "stageNumber": 9,
@@ -3782,13 +3938,15 @@
         "userName": "Lappi Esapekka - Ferm Janne",
         "realName": "",
         "group": "RC1",
-        "car": "Hyundai i20 N Rally1",
+        "car": "Hyundai i20 N Rally1 Hybrid",
         "stageTimeMs": 507600,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "It's a bloody long way to go still! Every stage is very tricky, anything can happen in every stage."
+        "comment": [
+            "It's a bloody long way to go still! Every stage is very tricky, anything can happen in every stage."
+        ]
     },
     {
         "stageNumber": 9,
@@ -3797,13 +3955,15 @@
         "userName": "Katsuta Takamoto - Johnston Aaron",
         "realName": "",
         "group": "RC1",
-        "car": "Toyota GR Yaris Rally1",
+        "car": "Toyota GR Yaris Rally1 Hybrid",
         "stageTimeMs": 510200,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "I need to take it easy a bit, but everything is fine. The next one if going to be very difficult and challenging."
+        "comment": [
+            "I need to take it easy a bit, but everything is fine. The next one if going to be very difficult and challenging."
+        ]
     },
     {
         "stageNumber": 9,
@@ -3812,13 +3972,15 @@
         "userName": "Neuville Thierry - Wydaeghe M.",
         "realName": "",
         "group": "RC1",
-        "car": "Hyundai i20 N Rally1",
+        "car": "Hyundai i20 N Rally1 Hybrid",
         "stageTimeMs": 512000,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "I would say it was fun, I enjoyed this one. On the first one the conditions were so bad for us. We lost 3sec per km. We can just try to catch some points from the rally."
+        "comment": [
+            "I would say it was fun, I enjoyed this one. On the first one the conditions were so bad for us. We lost 3sec per km. We can just try to catch some points from the rally."
+        ]
     },
     {
         "stageNumber": 9,
@@ -3827,13 +3989,15 @@
         "userName": "Sordo Dani - Carrera Cándido",
         "realName": "",
         "group": "RC1",
-        "car": "Hyundai i20 N Rally1",
+        "car": "Hyundai i20 N Rally1 Hybrid",
         "stageTimeMs": 512500,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "It is really difficult to read the road."
+        "comment": [
+            "It is really difficult to read the road."
+        ]
     },
     {
         "stageNumber": 9,
@@ -3842,13 +4006,15 @@
         "userName": "Tänak Ott - Järveoja Martin",
         "realName": "",
         "group": "RC1",
-        "car": "Ford Puma Rally1",
+        "car": "Ford Puma Rally1 Hybrid",
         "stageTimeMs": 512700,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "It's a challenge today - Safari challenge!"
+        "comment": [
+            "It's a challenge today - Safari challenge!"
+        ]
     },
     {
         "stageNumber": 9,
@@ -3857,13 +4023,15 @@
         "userName": "Loubet Pierre-Louis - Gilsoul N.",
         "realName": "",
         "group": "RC1",
-        "car": "Ford Puma Rally1",
+        "car": "Ford Puma Rally1 Hybrid",
         "stageTimeMs": 533100,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "I am struggling to see the road."
+        "comment": [
+            "I am struggling to see the road."
+        ]
     },
     {
         "stageNumber": 9,
@@ -3878,7 +4046,9 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "When you have a puncture [yesterday] you should change it. Obviously a very stupid mistake."
+        "comment": [
+            "When you have a puncture [yesterday] you should change it. Obviously a very stupid mistake."
+        ]
     },
     {
         "stageNumber": 9,
@@ -3887,13 +4057,15 @@
         "userName": "Serderidis Jourdan - Malfoy Andy",
         "realName": "",
         "group": "RC1",
-        "car": "Ford Puma Rally1",
+        "car": "Ford Puma Rally1 Hybrid",
         "stageTimeMs": 554600,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "This one was top, I enjoyed it very much."
+        "comment": [
+            "This one was top, I enjoyed it very much."
+        ]
     },
     {
         "stageNumber": 9,
@@ -3908,7 +4080,9 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "I tried but at the same time I try to not take a big risk."
+        "comment": [
+            "I tried but at the same time I try to not take a big risk."
+        ]
     },
     {
         "stageNumber": 9,
@@ -3923,7 +4097,9 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "I think we had a slow puncture front right because we had an impact."
+        "comment": [
+            "I think we had a slow puncture front right because we had an impact."
+        ]
     },
     {
         "stageNumber": 9,
@@ -3938,7 +4114,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 9,
@@ -3953,7 +4129,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 9,
@@ -3968,7 +4144,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 9,
@@ -3983,7 +4159,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 9,
@@ -3998,7 +4174,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 9,
@@ -4013,7 +4189,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 9,
@@ -4028,7 +4204,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 9,
@@ -4043,7 +4219,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 9,
@@ -4058,7 +4234,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 9,
@@ -4073,7 +4249,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 9,
@@ -4088,7 +4264,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 9,
@@ -4103,7 +4279,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 9,
@@ -4118,7 +4294,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 9,
@@ -4133,7 +4309,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": "",
+        "comment": [],
         "nominal": true
     },
     {
@@ -4149,7 +4325,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": "",
+        "comment": [],
         "nominal": true
     },
     {
@@ -4165,7 +4341,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": "",
+        "comment": [],
         "nominal": true
     },
     {
@@ -4181,7 +4357,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": "",
+        "comment": [],
         "nominal": true
     },
     {
@@ -4197,7 +4373,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": false,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 10,
@@ -4206,13 +4382,15 @@
         "userName": "Rovanperä Kalle - Halttunen J.",
         "realName": "",
         "group": "RC1",
-        "car": "Toyota GR Yaris Rally1",
+        "car": "Toyota GR Yaris Rally1 Hybrid",
         "stageTimeMs": 1077700,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "I think we could push a bit more but for sure Seb is pushing a lot for this win."
+        "comment": [
+            "I think we could push a bit more but for sure Seb is pushing a lot for this win."
+        ]
     },
     {
         "stageNumber": 10,
@@ -4221,13 +4399,15 @@
         "userName": "Lappi Esapekka - Ferm Janne",
         "realName": "",
         "group": "RC1",
-        "car": "Hyundai i20 N Rally1",
+        "car": "Hyundai i20 N Rally1 Hybrid",
         "stageTimeMs": 1081200,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "I have never experienced anything like this before. When you see the puddles and mud, you brake like absolutely everything and then you see if you survive."
+        "comment": [
+            "I have never experienced anything like this before. When you see the puddles and mud, you brake like absolutely everything and then you see if you survive."
+        ]
     },
     {
         "stageNumber": 10,
@@ -4236,13 +4416,15 @@
         "userName": "Ogier Sébastien - Landais V.",
         "realName": "",
         "group": "RC1",
-        "car": "Toyota GR Yaris Rally1",
+        "car": "Toyota GR Yaris Rally1 Hybrid",
         "stageTimeMs": 1085400,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "Some sections were very slippy and I was very cautious to be honest. On the last section with the stones it's so easy to damage anything anywhere"
+        "comment": [
+            "Some sections were very slippy and I was very cautious to be honest. On the last section with the stones it's so easy to damage anything anywhere"
+        ]
     },
     {
         "stageNumber": 10,
@@ -4251,13 +4433,15 @@
         "userName": "Evans Elfyn - Martin Scott",
         "realName": "",
         "group": "RC1",
-        "car": "Toyota GR Yaris Rally1",
+        "car": "Toyota GR Yaris Rally1 Hybrid",
         "stageTimeMs": 1099900,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "I don't think we were having a particularly good stage before that either..."
+        "comment": [
+            "I don't think we were having a particularly good stage before that either..."
+        ]
     },
     {
         "stageNumber": 10,
@@ -4266,13 +4450,15 @@
         "userName": "Katsuta Takamoto - Johnston Aaron",
         "realName": "",
         "group": "RC1",
-        "car": "Toyota GR Yaris Rally1",
+        "car": "Toyota GR Yaris Rally1 Hybrid",
         "stageTimeMs": 1100600,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "Sometimes you are not in control, the car was just going everywhere because of the mud and the water."
+        "comment": [
+            "Sometimes you are not in control, the car was just going everywhere because of the mud and the water."
+        ]
     },
     {
         "stageNumber": 10,
@@ -4281,13 +4467,15 @@
         "userName": "Sordo Dani - Carrera Cándido",
         "realName": "",
         "group": "RC1",
-        "car": "Hyundai i20 N Rally1",
+        "car": "Hyundai i20 N Rally1 Hybrid",
         "stageTimeMs": 1107200,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "It was really slippery in some places with a lot of muddy places. In the really fast corners the car was completely sideways with no control, but this I enjoyed a bit. The last part was really rough but it's okay."
+        "comment": [
+            "It was really slippery in some places with a lot of muddy places. In the really fast corners the car was completely sideways with no control, but this I enjoyed a bit. The last part was really rough but it's okay."
+        ]
     },
     {
         "stageNumber": 10,
@@ -4296,13 +4484,15 @@
         "userName": "Tänak Ott - Järveoja Martin",
         "realName": "",
         "group": "RC1",
-        "car": "Ford Puma Rally1",
+        "car": "Ford Puma Rally1 Hybrid",
         "stageTimeMs": 1121400,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "It was so muddy that I ran out of washer fluid so I had no visibility for the last 20 km."
+        "comment": [
+            "It was so muddy that I ran out of washer fluid so I had no visibility for the last 20 km."
+        ]
     },
     {
         "stageNumber": 10,
@@ -4311,13 +4501,15 @@
         "userName": "Neuville Thierry - Wydaeghe M.",
         "realName": "",
         "group": "RC1",
-        "car": "Hyundai i20 N Rally1",
+        "car": "Hyundai i20 N Rally1 Hybrid",
         "stageTimeMs": 1139900,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "I was enjoying, but I have no pressure and I don't need to push."
+        "comment": [
+            "I was enjoying, but I have no pressure and I don't need to push."
+        ]
     },
     {
         "stageNumber": 10,
@@ -4332,7 +4524,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 10,
@@ -4341,13 +4533,15 @@
         "userName": "Loubet Pierre-Louis - Gilsoul N.",
         "realName": "",
         "group": "RC1",
-        "car": "Ford Puma Rally1",
+        "car": "Ford Puma Rally1 Hybrid",
         "stageTimeMs": 1181300,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "On a junction, I go straight."
+        "comment": [
+            "On a junction, I go straight."
+        ]
     },
     {
         "stageNumber": 10,
@@ -4362,7 +4556,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 10,
@@ -4371,13 +4565,15 @@
         "userName": "Serderidis Jourdan - Malfoy Andy",
         "realName": "",
         "group": "RC1",
-        "car": "Ford Puma Rally1",
+        "car": "Ford Puma Rally1 Hybrid",
         "stageTimeMs": 1254400,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "It's not Sleeping Warrior, it's Sleeping Hell! Some parts are extremely slippery and we hit a tree."
+        "comment": [
+            "It's not Sleeping Warrior, it's Sleeping Hell! Some parts are extremely slippery and we hit a tree."
+        ]
     },
     {
         "stageNumber": 10,
@@ -4392,7 +4588,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 10,
@@ -4407,7 +4603,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 10,
@@ -4422,7 +4618,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 10,
@@ -4437,7 +4633,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 10,
@@ -4452,7 +4648,7 @@
         "penaltyOutsideStageMs": 80000,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 10,
@@ -4467,7 +4663,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 10,
@@ -4482,7 +4678,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 10,
@@ -4497,7 +4693,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 10,
@@ -4512,7 +4708,7 @@
         "penaltyOutsideStageMs": 10000,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 10,
@@ -4527,7 +4723,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 10,
@@ -4542,7 +4738,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 10,
@@ -4557,7 +4753,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 10,
@@ -4572,7 +4768,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": "",
+        "comment": [],
         "nominal": true
     },
     {
@@ -4588,7 +4784,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": "",
+        "comment": [],
         "nominal": true
     },
     {
@@ -4604,7 +4800,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": "",
+        "comment": [],
         "nominal": true
     },
     {
@@ -4620,7 +4816,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": "",
+        "comment": [],
         "nominal": true
     },
     {
@@ -4636,7 +4832,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": "",
+        "comment": [],
         "nominal": true
     },
     {
@@ -4646,13 +4842,15 @@
         "userName": "Ogier Sébastien - Landais V.",
         "realName": "",
         "group": "RC1",
-        "car": "Toyota GR Yaris Rally1",
+        "car": "Toyota GR Yaris Rally1 Hybrid",
         "stageTimeMs": 1043400,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "There is a lot of branches in there and this one got stuck in there, no big drama."
+        "comment": [
+            "There is a lot of branches in there and this one got stuck in there, no big drama."
+        ]
     },
     {
         "stageNumber": 11,
@@ -4661,13 +4859,15 @@
         "userName": "Rovanperä Kalle - Halttunen J.",
         "realName": "",
         "group": "RC1",
-        "car": "Toyota GR Yaris Rally1",
+        "car": "Toyota GR Yaris Rally1 Hybrid",
         "stageTimeMs": 1049800,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "I am driving my own pace with quite a level speed in my opinion."
+        "comment": [
+            "I am driving my own pace with quite a level speed in my opinion."
+        ]
     },
     {
         "stageNumber": 11,
@@ -4676,13 +4876,15 @@
         "userName": "Katsuta Takamoto - Johnston Aaron",
         "realName": "",
         "group": "RC1",
-        "car": "Toyota GR Yaris Rally1",
+        "car": "Toyota GR Yaris Rally1 Hybrid",
         "stageTimeMs": 1055500,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "We have two rough stages to go so I don't need to be excited too much, just calm down and do my job."
+        "comment": [
+            "We have two rough stages to go so I don't need to be excited too much, just calm down and do my job."
+        ]
     },
     {
         "stageNumber": 11,
@@ -4691,13 +4893,15 @@
         "userName": "Evans Elfyn - Martin Scott",
         "realName": "",
         "group": "RC1",
-        "car": "Toyota GR Yaris Rally1",
+        "car": "Toyota GR Yaris Rally1 Hybrid",
         "stageTimeMs": 1058200,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "Okay, it looks like a big fight. Let's see. It's Safari at the end of the day."
+        "comment": [
+            "Okay, it looks like a big fight. Let's see. It's Safari at the end of the day."
+        ]
     },
     {
         "stageNumber": 11,
@@ -4706,13 +4910,15 @@
         "userName": "Sordo Dani - Carrera Cándido",
         "realName": "",
         "group": "RC1",
-        "car": "Hyundai i20 N Rally1",
+        "car": "Hyundai i20 N Rally1 Hybrid",
         "stageTimeMs": 1066000,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "I didn't take many risks but I enjoyed the drive at least."
+        "comment": [
+            "I didn't take many risks but I enjoyed the drive at least."
+        ]
     },
     {
         "stageNumber": 11,
@@ -4721,13 +4927,15 @@
         "userName": "Neuville Thierry - Wydaeghe M.",
         "realName": "",
         "group": "RC1",
-        "car": "Hyundai i20 N Rally1",
+        "car": "Hyundai i20 N Rally1 Hybrid",
         "stageTimeMs": 1076700,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "The conditions have changed a lot. For sure it's better but with the car in general there's no real change. We can feel that we are missing traction in the bumpy sections. It's quite hard and we are getting kicked around quite a lot."
+        "comment": [
+            "The conditions have changed a lot. For sure it's better but with the car in general there's no real change. We can feel that we are missing traction in the bumpy sections. It's quite hard and we are getting kicked around quite a lot."
+        ]
     },
     {
         "stageNumber": 11,
@@ -4736,13 +4944,15 @@
         "userName": "Loubet Pierre-Louis - Gilsoul N.",
         "realName": "",
         "group": "RC1",
-        "car": "Ford Puma Rally1",
+        "car": "Ford Puma Rally1 Hybrid",
         "stageTimeMs": 1097500,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "This one was okay. Quite rough in some places but I prefer that to the morning with the wet."
+        "comment": [
+            "This one was okay. Quite rough in some places but I prefer that to the morning with the wet."
+        ]
     },
     {
         "stageNumber": 11,
@@ -4757,7 +4967,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 11,
@@ -4772,7 +4982,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 11,
@@ -4787,7 +4997,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 11,
@@ -4796,13 +5006,15 @@
         "userName": "Tänak Ott - Järveoja Martin",
         "realName": "",
         "group": "RC1",
-        "car": "Ford Puma Rally1",
+        "car": "Ford Puma Rally1 Hybrid",
         "stageTimeMs": 1188700,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "Okay, I didn't investigate too much on the stage but it looks like another tyre off somewhere. Quite a struggle."
+        "comment": [
+            "Okay, I didn't investigate too much on the stage but it looks like another tyre off somewhere. Quite a struggle."
+        ]
     },
     {
         "stageNumber": 11,
@@ -4817,7 +5029,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 11,
@@ -4832,7 +5044,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 11,
@@ -4847,7 +5059,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 11,
@@ -4862,7 +5074,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 11,
@@ -4871,13 +5083,15 @@
         "userName": "Serderidis Jourdan - Malfoy Andy",
         "realName": "",
         "group": "RC1",
-        "car": "Ford Puma Rally1",
+        "car": "Ford Puma Rally1 Hybrid",
         "stageTimeMs": 1300700,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "After the splash, no engine anymore. We stalled and then we got stuck but the engine has an issue."
+        "comment": [
+            "After the splash, no engine anymore. We stalled and then we got stuck but the engine has an issue."
+        ]
     },
     {
         "stageNumber": 11,
@@ -4892,7 +5106,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 11,
@@ -4907,7 +5121,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 11,
@@ -4922,7 +5136,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 11,
@@ -4937,7 +5151,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 11,
@@ -4952,7 +5166,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 11,
@@ -4961,13 +5175,13 @@
         "userName": "Lappi Esapekka - Ferm Janne",
         "realName": "",
         "group": "RC1",
-        "car": "Hyundai i20 N Rally1",
+        "car": "Hyundai i20 N Rally1 Hybrid",
         "stageTimeMs": 1643400,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": "",
+        "comment": [],
         "nominal": true
     },
     {
@@ -4983,7 +5197,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": "",
+        "comment": [],
         "nominal": true
     },
     {
@@ -4999,7 +5213,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "",
+        "comment": [],
         "nominal": true
     },
     {
@@ -5015,7 +5229,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": "",
+        "comment": [],
         "nominal": true
     },
     {
@@ -5031,7 +5245,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": "",
+        "comment": [],
         "nominal": true
     },
     {
@@ -5047,7 +5261,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": "",
+        "comment": [],
         "nominal": true
     },
     {
@@ -5063,7 +5277,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": "",
+        "comment": [],
         "nominal": true
     },
     {
@@ -5079,7 +5293,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": "",
+        "comment": [],
         "nominal": true
     },
     {
@@ -5089,13 +5303,13 @@
         "userName": "Serderidis Jourdan - Malfoy Andy",
         "realName": "",
         "group": "RC1",
-        "car": "Ford Puma Rally1",
+        "car": "Ford Puma Rally1 Hybrid",
         "stageTimeMs": 0,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": false,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 12,
@@ -5110,7 +5324,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": false,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 12,
@@ -5119,13 +5333,13 @@
         "userName": "Katsuta Takamoto - Johnston Aaron",
         "realName": "",
         "group": "RC1",
-        "car": "Toyota GR Yaris Rally1",
+        "car": "Toyota GR Yaris Rally1 Hybrid",
         "stageTimeMs": 500600,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 12,
@@ -5134,13 +5348,15 @@
         "userName": "Ogier Sébastien - Landais V.",
         "realName": "",
         "group": "RC1",
-        "car": "Toyota GR Yaris Rally1",
+        "car": "Toyota GR Yaris Rally1 Hybrid",
         "stageTimeMs": 502900,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "I just try to do my job and not do any mistakes. Hopefully we stay out of trouble up until the end of the day now."
+        "comment": [
+            "I just try to do my job and not do any mistakes. Hopefully we stay out of trouble up until the end of the day now."
+        ]
     },
     {
         "stageNumber": 12,
@@ -5149,13 +5365,15 @@
         "userName": "Neuville Thierry - Wydaeghe M.",
         "realName": "",
         "group": "RC1",
-        "car": "Hyundai i20 N Rally1",
+        "car": "Hyundai i20 N Rally1 Hybrid",
         "stageTimeMs": 503900,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "I don't know if it was a push but there was not hole left that I didn't go through! It was a bit shaky and I had to push back my helmet a few times, but it was fun."
+        "comment": [
+            "I don't know if it was a push but there was not hole left that I didn't go through! It was a bit shaky and I had to push back my helmet a few times, but it was fun."
+        ]
     },
     {
         "stageNumber": 12,
@@ -5164,13 +5382,15 @@
         "userName": "Evans Elfyn - Martin Scott",
         "realName": "",
         "group": "RC1",
-        "car": "Toyota GR Yaris Rally1",
+        "car": "Toyota GR Yaris Rally1 Hybrid",
         "stageTimeMs": 505500,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "It looks like Taka is doing a better job at the moment"
+        "comment": [
+            "It looks like Taka is doing a better job at the moment"
+        ]
     },
     {
         "stageNumber": 12,
@@ -5179,13 +5399,15 @@
         "userName": "Rovanperä Kalle - Halttunen J.",
         "realName": "",
         "group": "RC1",
-        "car": "Toyota GR Yaris Rally1",
+        "car": "Toyota GR Yaris Rally1 Hybrid",
         "stageTimeMs": 506400,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "Definitely now since EP also dropped from the battle I don't want to take crazy risks anymore and catching Seb purely by driving would be pretty much impossible anyways."
+        "comment": [
+            "Definitely now since EP also dropped from the battle I don't want to take crazy risks anymore and catching Seb purely by driving would be pretty much impossible anyways."
+        ]
     },
     {
         "stageNumber": 12,
@@ -5194,13 +5416,15 @@
         "userName": "Sordo Dani - Carrera Cándido",
         "realName": "",
         "group": "RC1",
-        "car": "Hyundai i20 N Rally1",
+        "car": "Hyundai i20 N Rally1 Hybrid",
         "stageTimeMs": 510000,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "The only thing we can do is try to stay here at the end and make some points."
+        "comment": [
+            "The only thing we can do is try to stay here at the end and make some points."
+        ]
     },
     {
         "stageNumber": 12,
@@ -5209,13 +5433,15 @@
         "userName": "Tänak Ott - Järveoja Martin",
         "realName": "",
         "group": "RC1",
-        "car": "Ford Puma Rally1",
+        "car": "Ford Puma Rally1 Hybrid",
         "stageTimeMs": 522400,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "One rear damper has leaked the oil out so we are just trying to get it through now."
+        "comment": [
+            "One rear damper has leaked the oil out so we are just trying to get it through now."
+        ]
     },
     {
         "stageNumber": 12,
@@ -5224,13 +5450,15 @@
         "userName": "Loubet Pierre-Louis - Gilsoul N.",
         "realName": "",
         "group": "RC1",
-        "car": "Ford Puma Rally1",
+        "car": "Ford Puma Rally1 Hybrid",
         "stageTimeMs": 522900,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "For sure it's important to finish but I am just trying to enjoy."
+        "comment": [
+            "For sure it's important to finish but I am just trying to enjoy."
+        ]
     },
     {
         "stageNumber": 12,
@@ -5245,7 +5473,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 12,
@@ -5260,7 +5488,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 12,
@@ -5275,7 +5503,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 12,
@@ -5290,7 +5518,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 12,
@@ -5305,7 +5533,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 12,
@@ -5320,7 +5548,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 12,
@@ -5335,7 +5563,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 12,
@@ -5350,7 +5578,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 12,
@@ -5365,7 +5593,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 12,
@@ -5380,7 +5608,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 12,
@@ -5389,13 +5617,13 @@
         "userName": "Lappi Esapekka - Ferm Janne",
         "realName": "",
         "group": "RC1",
-        "car": "Hyundai i20 N Rally1",
+        "car": "Hyundai i20 N Rally1 Hybrid",
         "stageTimeMs": 1100600,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": "",
+        "comment": [],
         "nominal": true
     },
     {
@@ -5411,7 +5639,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": "",
+        "comment": [],
         "nominal": true
     },
     {
@@ -5427,7 +5655,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": "",
+        "comment": [],
         "nominal": true
     },
     {
@@ -5443,7 +5671,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": "",
+        "comment": [],
         "nominal": true
     },
     {
@@ -5459,7 +5687,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": "",
+        "comment": [],
         "nominal": true
     },
     {
@@ -5475,7 +5703,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": "",
+        "comment": [],
         "nominal": true
     },
     {
@@ -5491,7 +5719,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": "",
+        "comment": [],
         "nominal": true
     },
     {
@@ -5507,7 +5735,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": "",
+        "comment": [],
         "nominal": true
     },
     {
@@ -5523,7 +5751,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": "",
+        "comment": [],
         "nominal": true
     },
     {
@@ -5539,7 +5767,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": false,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 13,
@@ -5548,13 +5776,15 @@
         "userName": "Rovanperä Kalle - Halttunen J.",
         "realName": "",
         "group": "RC1",
-        "car": "Toyota GR Yaris Rally1",
+        "car": "Toyota GR Yaris Rally1 Hybrid",
         "stageTimeMs": 1147700,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "Even on the straights, second gear was quite high-speed. We are here in one piece and that was the only goal for today."
+        "comment": [
+            "Even on the straights, second gear was quite high-speed. We are here in one piece and that was the only goal for today."
+        ]
     },
     {
         "stageNumber": 13,
@@ -5563,13 +5793,15 @@
         "userName": "Evans Elfyn - Martin Scott",
         "realName": "",
         "group": "RC1",
-        "car": "Toyota GR Yaris Rally1",
+        "car": "Toyota GR Yaris Rally1 Hybrid",
         "stageTimeMs": 1160800,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "Super slippy in there and of course when you start coming to the rainy parts it's patchy with the grip. You can only have a few moments before it's time to calm it down and bring it through."
+        "comment": [
+            "Super slippy in there and of course when you start coming to the rainy parts it's patchy with the grip. You can only have a few moments before it's time to calm it down and bring it through."
+        ]
     },
     {
         "stageNumber": 13,
@@ -5578,13 +5810,15 @@
         "userName": "Ogier Sébastien - Landais V.",
         "realName": "",
         "group": "RC1",
-        "car": "Toyota GR Yaris Rally1",
+        "car": "Toyota GR Yaris Rally1 Hybrid",
         "stageTimeMs": 1163000,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "I cannot say that I have so much luck with these tyres but that's the way it is."
+        "comment": [
+            "I cannot say that I have so much luck with these tyres but that's the way it is."
+        ]
     },
     {
         "stageNumber": 13,
@@ -5593,13 +5827,15 @@
         "userName": "Katsuta Takamoto - Johnston Aaron",
         "realName": "",
         "group": "RC1",
-        "car": "Toyota GR Yaris Rally1",
+        "car": "Toyota GR Yaris Rally1 Hybrid",
         "stageTimeMs": 1179600,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "Too many moments! Even with no rain I spun and had to reverse."
+        "comment": [
+            "Too many moments! Even with no rain I spun and had to reverse."
+        ]
     },
     {
         "stageNumber": 13,
@@ -5614,7 +5850,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 13,
@@ -5623,13 +5859,15 @@
         "userName": "Sordo Dani - Carrera Cándido",
         "realName": "",
         "group": "RC1",
-        "car": "Hyundai i20 N Rally1",
+        "car": "Hyundai i20 N Rally1 Hybrid",
         "stageTimeMs": 1206000,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "Really difficult conditions, it's like ice - amazing. This is another level."
+        "comment": [
+            "Really difficult conditions, it's like ice - amazing. This is another level."
+        ]
     },
     {
         "stageNumber": 13,
@@ -5638,13 +5876,15 @@
         "userName": "Neuville Thierry - Wydaeghe M.",
         "realName": "",
         "group": "RC1",
-        "car": "Hyundai i20 N Rally1",
+        "car": "Hyundai i20 N Rally1 Hybrid",
         "stageTimeMs": 1211800,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "A hell of a stage - if you are not in the car you cannot describe the conditions."
+        "comment": [
+            "A hell of a stage - if you are not in the car you cannot describe the conditions."
+        ]
     },
     {
         "stageNumber": 13,
@@ -5653,13 +5893,15 @@
         "userName": "Tänak Ott - Järveoja Martin",
         "realName": "",
         "group": "RC1",
-        "car": "Ford Puma Rally1",
+        "car": "Ford Puma Rally1 Hybrid",
         "stageTimeMs": 1256000,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "It's worse than a slick one ice!"
+        "comment": [
+            "It's worse than a slick one ice!"
+        ]
     },
     {
         "stageNumber": 13,
@@ -5668,13 +5910,15 @@
         "userName": "Loubet Pierre-Louis - Gilsoul N.",
         "realName": "",
         "group": "RC1",
-        "car": "Ford Puma Rally1",
+        "car": "Ford Puma Rally1 Hybrid",
         "stageTimeMs": 1264100,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "I went slowly but even then I did a spin on the last corner!"
+        "comment": [
+            "I went slowly but even then I did a spin on the last corner!"
+        ]
     },
     {
         "stageNumber": 13,
@@ -5689,7 +5933,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 13,
@@ -5704,7 +5948,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 13,
@@ -5719,7 +5963,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 13,
@@ -5734,7 +5978,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 13,
@@ -5749,7 +5993,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 13,
@@ -5764,7 +6008,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 13,
@@ -5779,7 +6023,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 13,
@@ -5794,7 +6038,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 13,
@@ -5803,13 +6047,13 @@
         "userName": "Lappi Esapekka - Ferm Janne",
         "realName": "",
         "group": "RC1",
-        "car": "Hyundai i20 N Rally1",
+        "car": "Hyundai i20 N Rally1 Hybrid",
         "stageTimeMs": 1747700,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": "",
+        "comment": [],
         "nominal": true
     },
     {
@@ -5825,7 +6069,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": "",
+        "comment": [],
         "nominal": true
     },
     {
@@ -5841,7 +6085,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": "",
+        "comment": [],
         "nominal": true
     },
     {
@@ -5857,7 +6101,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": "",
+        "comment": [],
         "nominal": true
     },
     {
@@ -5873,7 +6117,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": "",
+        "comment": [],
         "nominal": true
     },
     {
@@ -5889,7 +6133,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": "",
+        "comment": [],
         "nominal": true
     },
     {
@@ -5905,7 +6149,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": "",
+        "comment": [],
         "nominal": true
     },
     {
@@ -5921,7 +6165,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": "",
+        "comment": [],
         "nominal": true
     },
     {
@@ -5937,7 +6181,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": true,
         "finished": true,
-        "comment": "",
+        "comment": [],
         "nominal": true
     },
     {
@@ -5953,7 +6197,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "",
+        "comment": [],
         "nominal": true
     },
     {
@@ -5969,7 +6213,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": false,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 14,
@@ -5978,13 +6222,15 @@
         "userName": "Rovanperä Kalle - Halttunen J.",
         "realName": "",
         "group": "RC1",
-        "car": "Toyota GR Yaris Rally1",
+        "car": "Toyota GR Yaris Rally1 Hybrid",
         "stageTimeMs": 365100,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "I don't think the others are really trying much. Let's see."
+        "comment": [
+            "I don't think the others are really trying much. Let's see."
+        ]
     },
     {
         "stageNumber": 14,
@@ -5993,13 +6239,15 @@
         "userName": "Ogier Sébastien - Landais V.",
         "realName": "",
         "group": "RC1",
-        "car": "Toyota GR Yaris Rally1",
+        "car": "Toyota GR Yaris Rally1 Hybrid",
         "stageTimeMs": 373200,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "There are huge rocks everywhere on the road and I had to nearly stop because there was a massiver rock in the line."
+        "comment": [
+            "There are huge rocks everywhere on the road and I had to nearly stop because there was a massiver rock in the line."
+        ]
     },
     {
         "stageNumber": 14,
@@ -6008,13 +6256,15 @@
         "userName": "Katsuta Takamoto - Johnston Aaron",
         "realName": "",
         "group": "RC1",
-        "car": "Toyota GR Yaris Rally1",
+        "car": "Toyota GR Yaris Rally1 Hybrid",
         "stageTimeMs": 376500,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "It's very tricky, even I was quite careful. There is a lot of rocks everywhere. I was careful but it still felt on the limit, I don't know why. So tricky."
+        "comment": [
+            "It's very tricky, even I was quite careful. There is a lot of rocks everywhere. I was careful but it still felt on the limit, I don't know why. So tricky."
+        ]
     },
     {
         "stageNumber": 14,
@@ -6023,13 +6273,15 @@
         "userName": "Tänak Ott - Järveoja Martin",
         "realName": "",
         "group": "RC1",
-        "car": "Ford Puma Rally1",
+        "car": "Ford Puma Rally1 Hybrid",
         "stageTimeMs": 379100,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "It's quite a tricky one, it's really painful. A proper headache after this one, yeah."
+        "comment": [
+            "It's quite a tricky one, it's really painful. A proper headache after this one, yeah."
+        ]
     },
     {
         "stageNumber": 14,
@@ -6038,13 +6290,15 @@
         "userName": "Evans Elfyn - Martin Scott",
         "realName": "",
         "group": "RC1",
-        "car": "Toyota GR Yaris Rally1",
+        "car": "Toyota GR Yaris Rally1 Hybrid",
         "stageTimeMs": 381800,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "We got caught in a dried rut and it completely spun us out of the blue."
+        "comment": [
+            "We got caught in a dried rut and it completely spun us out of the blue."
+        ]
     },
     {
         "stageNumber": 14,
@@ -6053,13 +6307,15 @@
         "userName": "Neuville Thierry - Wydaeghe M.",
         "realName": "",
         "group": "RC1",
-        "car": "Hyundai i20 N Rally1",
+        "car": "Hyundai i20 N Rally1 Hybrid",
         "stageTimeMs": 382800,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "Lappi's propshaft is broken already?! I took it very slowly... We can't catch P8 so I just drove through. This is the roughest stage of the rally so we had to be careful in there."
+        "comment": [
+            "Lappi's propshaft is broken already?! I took it very slowly... We can't catch P8 so I just drove through. This is the roughest stage of the rally so we had to be careful in there."
+        ]
     },
     {
         "stageNumber": 14,
@@ -6068,13 +6324,15 @@
         "userName": "Sordo Dani - Carrera Cándido",
         "realName": "",
         "group": "RC1",
-        "car": "Hyundai i20 N Rally1",
+        "car": "Hyundai i20 N Rally1 Hybrid",
         "stageTimeMs": 384500,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "A lot of rocks and you need to just pass through the stage."
+        "comment": [
+            "A lot of rocks and you need to just pass through the stage."
+        ]
     },
     {
         "stageNumber": 14,
@@ -6083,13 +6341,15 @@
         "userName": "Loubet Pierre-Louis - Gilsoul N.",
         "realName": "",
         "group": "RC1",
-        "car": "Ford Puma Rally1",
+        "car": "Ford Puma Rally1 Hybrid",
         "stageTimeMs": 393500,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "We just took it easy, it's already really destroyed. We had some issue and it was very hard, so I was careful with the car."
+        "comment": [
+            "We just took it easy, it's already really destroyed. We had some issue and it was very hard, so I was careful with the car."
+        ]
     },
     {
         "stageNumber": 14,
@@ -6104,7 +6364,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 14,
@@ -6119,7 +6379,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 14,
@@ -6134,7 +6394,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 14,
@@ -6149,7 +6409,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 14,
@@ -6158,13 +6418,15 @@
         "userName": "Lappi Esapekka - Ferm Janne",
         "realName": "",
         "group": "RC1",
-        "car": "Hyundai i20 N Rally1",
+        "car": "Hyundai i20 N Rally1 Hybrid",
         "stageTimeMs": 435200,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "The propshaft is broken already so I don't really know if there is any sense. It happened three kilometres before the finish..."
+        "comment": [
+            "The propshaft is broken already so I don't really know if there is any sense. It happened three kilometres before the finish..."
+        ]
     },
     {
         "stageNumber": 14,
@@ -6179,7 +6441,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 14,
@@ -6194,7 +6456,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 14,
@@ -6209,7 +6471,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 14,
@@ -6224,7 +6486,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 14,
@@ -6239,7 +6501,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 14,
@@ -6254,7 +6516,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 14,
@@ -6269,7 +6531,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 14,
@@ -6284,7 +6546,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 14,
@@ -6299,7 +6561,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 14,
@@ -6314,7 +6576,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 14,
@@ -6329,7 +6591,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 14,
@@ -6344,7 +6606,7 @@
         "penaltyOutsideStageMs": 10000,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 15,
@@ -6353,13 +6615,15 @@
         "userName": "Ogier Sébastien - Landais V.",
         "realName": "",
         "group": "RC1",
-        "car": "Toyota GR Yaris Rally1",
+        "car": "Toyota GR Yaris Rally1 Hybrid",
         "stageTimeMs": 675900,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "I just clipped a little bit a tree and I am very surprised to be honest."
+        "comment": [
+            "I just clipped a little bit a tree and I am very surprised to be honest."
+        ]
     },
     {
         "stageNumber": 15,
@@ -6368,13 +6632,13 @@
         "userName": "Rovanperä Kalle - Halttunen J.",
         "realName": "",
         "group": "RC1",
-        "car": "Toyota GR Yaris Rally1",
+        "car": "Toyota GR Yaris Rally1 Hybrid",
         "stageTimeMs": 684500,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 15,
@@ -6383,13 +6647,13 @@
         "userName": "Tänak Ott - Järveoja Martin",
         "realName": "",
         "group": "RC1",
-        "car": "Ford Puma Rally1",
+        "car": "Ford Puma Rally1 Hybrid",
         "stageTimeMs": 692400,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 15,
@@ -6398,13 +6662,13 @@
         "userName": "Evans Elfyn - Martin Scott",
         "realName": "",
         "group": "RC1",
-        "car": "Toyota GR Yaris Rally1",
+        "car": "Toyota GR Yaris Rally1 Hybrid",
         "stageTimeMs": 693800,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 15,
@@ -6413,13 +6677,13 @@
         "userName": "Neuville Thierry - Wydaeghe M.",
         "realName": "",
         "group": "RC1",
-        "car": "Hyundai i20 N Rally1",
+        "car": "Hyundai i20 N Rally1 Hybrid",
         "stageTimeMs": 699400,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 15,
@@ -6428,13 +6692,13 @@
         "userName": "Katsuta Takamoto - Johnston Aaron",
         "realName": "",
         "group": "RC1",
-        "car": "Toyota GR Yaris Rally1",
+        "car": "Toyota GR Yaris Rally1 Hybrid",
         "stageTimeMs": 703600,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 15,
@@ -6443,13 +6707,13 @@
         "userName": "Sordo Dani - Carrera Cándido",
         "realName": "",
         "group": "RC1",
-        "car": "Hyundai i20 N Rally1",
+        "car": "Hyundai i20 N Rally1 Hybrid",
         "stageTimeMs": 712000,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 15,
@@ -6458,13 +6722,13 @@
         "userName": "Loubet Pierre-Louis - Gilsoul N.",
         "realName": "",
         "group": "RC1",
-        "car": "Ford Puma Rally1",
+        "car": "Ford Puma Rally1 Hybrid",
         "stageTimeMs": 723200,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 15,
@@ -6479,7 +6743,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 15,
@@ -6494,7 +6758,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 15,
@@ -6509,7 +6773,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 15,
@@ -6524,7 +6788,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 15,
@@ -6539,7 +6803,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 15,
@@ -6554,7 +6818,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 15,
@@ -6569,7 +6833,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 15,
@@ -6584,7 +6848,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 15,
@@ -6599,7 +6863,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 15,
@@ -6614,7 +6878,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 15,
@@ -6629,7 +6893,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 15,
@@ -6644,7 +6908,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 15,
@@ -6659,7 +6923,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 15,
@@ -6674,7 +6938,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 15,
@@ -6689,7 +6953,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 15,
@@ -6704,7 +6968,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 15,
@@ -6713,13 +6977,13 @@
         "userName": "Lappi Esapekka - Ferm Janne",
         "realName": "",
         "group": "RC1",
-        "car": "Hyundai i20 N Rally1",
+        "car": "Hyundai i20 N Rally1 Hybrid",
         "stageTimeMs": 1064200,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 16,
@@ -6728,13 +6992,15 @@
         "userName": "Tänak Ott - Järveoja Martin",
         "realName": "",
         "group": "RC1",
-        "car": "Ford Puma Rally1",
+        "car": "Ford Puma Rally1 Hybrid",
         "stageTimeMs": 329700,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "I am not so sure about Power Stage points, but let's see. It's tough, that's for sure, but we will try to come through."
+        "comment": [
+            "I am not so sure about Power Stage points, but let's see. It's tough, that's for sure, but we will try to come through."
+        ]
     },
     {
         "stageNumber": 16,
@@ -6743,13 +7009,15 @@
         "userName": "Neuville Thierry - Wydaeghe M.",
         "realName": "",
         "group": "RC1",
-        "car": "Hyundai i20 N Rally1",
+        "car": "Hyundai i20 N Rally1 Hybrid",
         "stageTimeMs": 330300,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "It's the brake cooling duct, it's been like that since the beginning."
+        "comment": [
+            "It's the brake cooling duct, it's been like that since the beginning."
+        ]
     },
     {
         "stageNumber": 16,
@@ -6758,13 +7026,15 @@
         "userName": "Rovanperä Kalle - Halttunen J.",
         "realName": "",
         "group": "RC1",
-        "car": "Toyota GR Yaris Rally1",
+        "car": "Toyota GR Yaris Rally1 Hybrid",
         "stageTimeMs": 330600,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "It was just one corner where I got caught out a bit in the ruts. I am not feeling good in the car, I am fighting way too much all the time. Especially here it doesn't work out, I am oversteering way too much."
+        "comment": [
+            "It was just one corner where I got caught out a bit in the ruts. I am not feeling good in the car, I am fighting way too much all the time. Especially here it doesn't work out, I am oversteering way too much."
+        ]
     },
     {
         "stageNumber": 16,
@@ -6773,13 +7043,15 @@
         "userName": "Evans Elfyn - Martin Scott",
         "realName": "",
         "group": "RC1",
-        "car": "Toyota GR Yaris Rally1",
+        "car": "Toyota GR Yaris Rally1 Hybrid",
         "stageTimeMs": 333900,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "I'm not really committed in the fast places, but okay, we got through okay."
+        "comment": [
+            "I'm not really committed in the fast places, but okay, we got through okay."
+        ]
     },
     {
         "stageNumber": 16,
@@ -6788,13 +7060,15 @@
         "userName": "Ogier Sébastien - Landais V.",
         "realName": "",
         "group": "RC1",
-        "car": "Toyota GR Yaris Rally1",
+        "car": "Toyota GR Yaris Rally1 Hybrid",
         "stageTimeMs": 334200,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "Without the wing it wasn't easy at high speed"
+        "comment": [
+            "Without the wing it wasn't easy at high speed"
+        ]
     },
     {
         "stageNumber": 16,
@@ -6803,13 +7077,15 @@
         "userName": "Loubet Pierre-Louis - Gilsoul N.",
         "realName": "",
         "group": "RC1",
-        "car": "Ford Puma Rally1",
+        "car": "Ford Puma Rally1 Hybrid",
         "stageTimeMs": 339500,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "We just took it easy and did a good recce for the powerstage."
+        "comment": [
+            "We just took it easy and did a good recce for the powerstage."
+        ]
     },
     {
         "stageNumber": 16,
@@ -6818,13 +7094,13 @@
         "userName": "Sordo Dani - Carrera Cándido",
         "realName": "",
         "group": "RC1",
-        "car": "Hyundai i20 N Rally1",
+        "car": "Hyundai i20 N Rally1 Hybrid",
         "stageTimeMs": 345500,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 16,
@@ -6833,13 +7109,15 @@
         "userName": "Katsuta Takamoto - Johnston Aaron",
         "realName": "",
         "group": "RC1",
-        "car": "Toyota GR Yaris Rally1",
+        "car": "Toyota GR Yaris Rally1 Hybrid",
         "stageTimeMs": 348400,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "All okay, just no hybrid."
+        "comment": [
+            "All okay, just no hybrid."
+        ]
     },
     {
         "stageNumber": 16,
@@ -6854,7 +7132,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 16,
@@ -6869,7 +7147,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 16,
@@ -6884,7 +7162,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 16,
@@ -6899,7 +7177,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 16,
@@ -6914,7 +7192,7 @@
         "penaltyOutsideStageMs": 10000,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 16,
@@ -6929,7 +7207,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 16,
@@ -6944,7 +7222,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 16,
@@ -6959,7 +7237,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 16,
@@ -6974,7 +7252,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 16,
@@ -6983,13 +7261,15 @@
         "userName": "Lappi Esapekka - Ferm Janne",
         "realName": "",
         "group": "RC1",
-        "car": "Hyundai i20 N Rally1",
+        "car": "Hyundai i20 N Rally1 Hybrid",
         "stageTimeMs": 440800,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "I'm not sure what the problem is at the moment but it's only front-wheel drive. Maybe it's something with the propshaft, it might be twisted, but the rear diff isn't working at all.\""
+        "comment": [
+            "I'm not sure what the problem is at the moment but it's only front-wheel drive. Maybe it's something with the propshaft, it might be twisted, but the rear diff isn't working at all.\""
+        ]
     },
     {
         "stageNumber": 16,
@@ -7004,7 +7284,7 @@
         "penaltyOutsideStageMs": 140000,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 16,
@@ -7019,7 +7299,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 16,
@@ -7034,7 +7314,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 16,
@@ -7049,7 +7329,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 16,
@@ -7064,7 +7344,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 16,
@@ -7079,7 +7359,7 @@
         "penaltyOutsideStageMs": 300000,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 16,
@@ -7094,7 +7374,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 17,
@@ -7109,7 +7389,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": false,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 17,
@@ -7124,7 +7404,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": false,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 17,
@@ -7133,13 +7413,13 @@
         "userName": "Rovanperä Kalle - Halttunen J.",
         "realName": "",
         "group": "RC1",
-        "car": "Toyota GR Yaris Rally1",
+        "car": "Toyota GR Yaris Rally1 Hybrid",
         "stageTimeMs": 362600,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 17,
@@ -7148,13 +7428,13 @@
         "userName": "Ogier Sébastien - Landais V.",
         "realName": "",
         "group": "RC1",
-        "car": "Toyota GR Yaris Rally1",
+        "car": "Toyota GR Yaris Rally1 Hybrid",
         "stageTimeMs": 363200,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 17,
@@ -7163,13 +7443,13 @@
         "userName": "Katsuta Takamoto - Johnston Aaron",
         "realName": "",
         "group": "RC1",
-        "car": "Toyota GR Yaris Rally1",
+        "car": "Toyota GR Yaris Rally1 Hybrid",
         "stageTimeMs": 370600,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 17,
@@ -7178,13 +7458,13 @@
         "userName": "Evans Elfyn - Martin Scott",
         "realName": "",
         "group": "RC1",
-        "car": "Toyota GR Yaris Rally1",
+        "car": "Toyota GR Yaris Rally1 Hybrid",
         "stageTimeMs": 373300,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 17,
@@ -7193,13 +7473,13 @@
         "userName": "Sordo Dani - Carrera Cándido",
         "realName": "",
         "group": "RC1",
-        "car": "Hyundai i20 N Rally1",
+        "car": "Hyundai i20 N Rally1 Hybrid",
         "stageTimeMs": 374000,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 17,
@@ -7208,13 +7488,13 @@
         "userName": "Tänak Ott - Järveoja Martin",
         "realName": "",
         "group": "RC1",
-        "car": "Ford Puma Rally1",
+        "car": "Ford Puma Rally1 Hybrid",
         "stageTimeMs": 376600,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 17,
@@ -7223,13 +7503,13 @@
         "userName": "Loubet Pierre-Louis - Gilsoul N.",
         "realName": "",
         "group": "RC1",
-        "car": "Ford Puma Rally1",
+        "car": "Ford Puma Rally1 Hybrid",
         "stageTimeMs": 377500,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 17,
@@ -7238,13 +7518,13 @@
         "userName": "Neuville Thierry - Wydaeghe M.",
         "realName": "",
         "group": "RC1",
-        "car": "Hyundai i20 N Rally1",
+        "car": "Hyundai i20 N Rally1 Hybrid",
         "stageTimeMs": 381800,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 17,
@@ -7259,7 +7539,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 17,
@@ -7274,7 +7554,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "",
+        "comment": [],
         "nominal": true
     },
     {
@@ -7290,7 +7570,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 17,
@@ -7305,7 +7585,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 17,
@@ -7320,7 +7600,7 @@
         "penaltyOutsideStageMs": 60000,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 17,
@@ -7329,13 +7609,13 @@
         "userName": "Lappi Esapekka - Ferm Janne",
         "realName": "",
         "group": "RC1",
-        "car": "Hyundai i20 N Rally1",
+        "car": "Hyundai i20 N Rally1 Hybrid",
         "stageTimeMs": 434700,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 10000,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 17,
@@ -7350,7 +7630,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 17,
@@ -7365,7 +7645,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 17,
@@ -7380,7 +7660,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 17,
@@ -7395,7 +7675,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 17,
@@ -7410,7 +7690,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 17,
@@ -7425,7 +7705,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 17,
@@ -7440,7 +7720,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 17,
@@ -7455,7 +7735,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 17,
@@ -7470,7 +7750,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 18,
@@ -7485,7 +7765,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": false,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 18,
@@ -7494,13 +7774,13 @@
         "userName": "Katsuta Takamoto - Johnston Aaron",
         "realName": "",
         "group": "RC1",
-        "car": "Toyota GR Yaris Rally1",
+        "car": "Toyota GR Yaris Rally1 Hybrid",
         "stageTimeMs": 713600,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 18,
@@ -7509,13 +7789,15 @@
         "userName": "Evans Elfyn - Martin Scott",
         "realName": "",
         "group": "RC1",
-        "car": "Toyota GR Yaris Rally1",
+        "car": "Toyota GR Yaris Rally1 Hybrid",
         "stageTimeMs": 724600,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "Everything's fine, just hot."
+        "comment": [
+            "Everything's fine, just hot."
+        ]
     },
     {
         "stageNumber": 18,
@@ -7524,13 +7806,15 @@
         "userName": "Rovanperä Kalle - Halttunen J.",
         "realName": "",
         "group": "RC1",
-        "car": "Toyota GR Yaris Rally1",
+        "car": "Toyota GR Yaris Rally1 Hybrid",
         "stageTimeMs": 724700,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "I didn't know we have a puncture... It was a proper Safari in there, really deep ruts. I just tried to go through."
+        "comment": [
+            "I didn't know we have a puncture... It was a proper Safari in there, really deep ruts. I just tried to go through."
+        ]
     },
     {
         "stageNumber": 18,
@@ -7539,13 +7823,15 @@
         "userName": "Sordo Dani - Carrera Cándido",
         "realName": "",
         "group": "RC1",
-        "car": "Hyundai i20 N Rally1",
+        "car": "Hyundai i20 N Rally1 Hybrid",
         "stageTimeMs": 725500,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "For sure, we want to fight in the Power Stage but I don't know if we have any chance. It will be difficult but we will try to do our best to bring the car home with no problems."
+        "comment": [
+            "For sure, we want to fight in the Power Stage but I don't know if we have any chance. It will be difficult but we will try to do our best to bring the car home with no problems."
+        ]
     },
     {
         "stageNumber": 18,
@@ -7554,13 +7840,15 @@
         "userName": "Neuville Thierry - Wydaeghe M.",
         "realName": "",
         "group": "RC1",
-        "car": "Hyundai i20 N Rally1",
+        "car": "Hyundai i20 N Rally1 Hybrid",
         "stageTimeMs": 725800,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "This one was horrible. It is so rutted and in some places it felt like we had no suspension in there."
+        "comment": [
+            "This one was horrible. It is so rutted and in some places it felt like we had no suspension in there."
+        ]
     },
     {
         "stageNumber": 18,
@@ -7569,13 +7857,13 @@
         "userName": "Ogier Sébastien - Landais V.",
         "realName": "",
         "group": "RC1",
-        "car": "Toyota GR Yaris Rally1",
+        "car": "Toyota GR Yaris Rally1 Hybrid",
         "stageTimeMs": 728500,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 18,
@@ -7584,13 +7872,15 @@
         "userName": "Tänak Ott - Järveoja Martin",
         "realName": "",
         "group": "RC1",
-        "car": "Ford Puma Rally1",
+        "car": "Ford Puma Rally1 Hybrid",
         "stageTimeMs": 736000,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "We need to try for sure, let's see. Myself, I am struggling quite a bit - probably getting a bit old!"
+        "comment": [
+            "We need to try for sure, let's see. Myself, I am struggling quite a bit - probably getting a bit old!"
+        ]
     },
     {
         "stageNumber": 18,
@@ -7605,7 +7895,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 18,
@@ -7614,13 +7904,15 @@
         "userName": "Loubet Pierre-Louis - Gilsoul N.",
         "realName": "",
         "group": "RC1",
-        "car": "Ford Puma Rally1",
+        "car": "Ford Puma Rally1 Hybrid",
         "stageTimeMs": 761600,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "We had an alarm in the stage so I had to finish the stage in road mode."
+        "comment": [
+            "We had an alarm in the stage so I had to finish the stage in road mode."
+        ]
     },
     {
         "stageNumber": 18,
@@ -7629,13 +7921,15 @@
         "userName": "Lappi Esapekka - Ferm Janne",
         "realName": "",
         "group": "RC1",
-        "car": "Hyundai i20 N Rally1",
+        "car": "Hyundai i20 N Rally1 Hybrid",
         "stageTimeMs": 763600,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "It should be possible, but the thing is that it's not so simple to go really fast when you are doing the stage for the first time fast. Let's see if the car can take it when I push full throttle."
+        "comment": [
+            "It should be possible, but the thing is that it's not so simple to go really fast when you are doing the stage for the first time fast. Let's see if the car can take it when I push full throttle."
+        ]
     },
     {
         "stageNumber": 18,
@@ -7650,7 +7944,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 18,
@@ -7665,7 +7959,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 18,
@@ -7680,7 +7974,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 18,
@@ -7695,7 +7989,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 18,
@@ -7710,7 +8004,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 18,
@@ -7725,7 +8019,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 18,
@@ -7740,7 +8034,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 18,
@@ -7755,7 +8049,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 18,
@@ -7770,7 +8064,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 18,
@@ -7785,7 +8079,7 @@
         "penaltyOutsideStageMs": 50000,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 18,
@@ -7800,7 +8094,7 @@
         "penaltyOutsideStageMs": 220000,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 18,
@@ -7815,7 +8109,7 @@
         "penaltyOutsideStageMs": 250000,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 19,
@@ -7824,13 +8118,13 @@
         "userName": "Neuville Thierry - Wydaeghe M.",
         "realName": "",
         "group": "RC1",
-        "car": "Hyundai i20 N Rally1",
+        "car": "Hyundai i20 N Rally1 Hybrid",
         "stageTimeMs": 0,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": false,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 19,
@@ -7845,7 +8139,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": false,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 19,
@@ -7854,13 +8148,15 @@
         "userName": "Neuville Thierry - Wydaeghe M.",
         "realName": "",
         "group": "RC1",
-        "car": "Hyundai i20 N Rally1",
+        "car": "Hyundai i20 N Rally1 Hybrid",
         "stageTimeMs": 334000,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "It's a fabulous rally but again another really bad weekend for us."
+        "comment": [
+            "It's a fabulous rally but again another really bad weekend for us."
+        ]
     },
     {
         "stageNumber": 19,
@@ -7869,13 +8165,15 @@
         "userName": "Tänak Ott - Järveoja Martin",
         "realName": "",
         "group": "RC1",
-        "car": "Ford Puma Rally1",
+        "car": "Ford Puma Rally1 Hybrid",
         "stageTimeMs": 335000,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "So far it has been a bit tricky this year. We need to find a bit of speed for the next rally."
+        "comment": [
+            "So far it has been a bit tricky this year. We need to find a bit of speed for the next rally."
+        ]
     },
     {
         "stageNumber": 19,
@@ -7884,13 +8182,15 @@
         "userName": "Rovanperä Kalle - Halttunen J.",
         "realName": "",
         "group": "RC1",
-        "car": "Toyota GR Yaris Rally1",
+        "car": "Toyota GR Yaris Rally1 Hybrid",
         "stageTimeMs": 335800,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "You always want to fight for the win but we did our best starting first car on the road, so regarding that I think it's not fully bad. Good points for the season anyway."
+        "comment": [
+            "You always want to fight for the win but we did our best starting first car on the road, so regarding that I think it's not fully bad. Good points for the season anyway."
+        ]
     },
     {
         "stageNumber": 19,
@@ -7899,13 +8199,13 @@
         "userName": "Ogier Sébastien - Landais V.",
         "realName": "",
         "group": "RC1",
-        "car": "Toyota GR Yaris Rally1",
+        "car": "Toyota GR Yaris Rally1 Hybrid",
         "stageTimeMs": 338300,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 19,
@@ -7914,13 +8214,15 @@
         "userName": "Lappi Esapekka - Ferm Janne",
         "realName": "",
         "group": "RC1",
-        "car": "Hyundai i20 N Rally1",
+        "car": "Hyundai i20 N Rally1 Hybrid",
         "stageTimeMs": 338900,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "I really tried to give it everything I could. It wasn't easy when you don't do the first pass of a stage at a fast speed but it was a good run through."
+        "comment": [
+            "I really tried to give it everything I could. It wasn't easy when you don't do the first pass of a stage at a fast speed but it was a good run through."
+        ]
     },
     {
         "stageNumber": 19,
@@ -7929,13 +8231,15 @@
         "userName": "Evans Elfyn - Martin Scott",
         "realName": "",
         "group": "RC1",
-        "car": "Toyota GR Yaris Rally1",
+        "car": "Toyota GR Yaris Rally1 Hybrid",
         "stageTimeMs": 341100,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "We're here, we've taken some points but I would have liked to be better."
+        "comment": [
+            "We're here, we've taken some points but I would have liked to be better."
+        ]
     },
     {
         "stageNumber": 19,
@@ -7944,13 +8248,15 @@
         "userName": "Katsuta Takamoto - Johnston Aaron",
         "realName": "",
         "group": "RC1",
-        "car": "Toyota GR Yaris Rally1",
+        "car": "Toyota GR Yaris Rally1 Hybrid",
         "stageTimeMs": 344400,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "It's okay, we finished and first of all I want to say thanks to the team. They fixed the car every single time and they did a great job."
+        "comment": [
+            "It's okay, we finished and first of all I want to say thanks to the team. They fixed the car every single time and they did a great job."
+        ]
     },
     {
         "stageNumber": 19,
@@ -7959,13 +8265,15 @@
         "userName": "Sordo Dani - Carrera Cándido",
         "realName": "",
         "group": "RC1",
-        "car": "Hyundai i20 N Rally1",
+        "car": "Hyundai i20 N Rally1 Hybrid",
         "stageTimeMs": 344900,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "We are here but we didn't have the speed that we wanted."
+        "comment": [
+            "We are here but we didn't have the speed that we wanted."
+        ]
     },
     {
         "stageNumber": 19,
@@ -7974,13 +8282,15 @@
         "userName": "Loubet Pierre-Louis - Gilsoul N.",
         "realName": "",
         "group": "RC1",
-        "car": "Ford Puma Rally1",
+        "car": "Ford Puma Rally1 Hybrid",
         "stageTimeMs": 357100,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "We were struggling a lot on this rally but we are at the end with the experience. Thanks to the team, we keep on pushing."
+        "comment": [
+            "We were struggling a lot on this rally but we are at the end with the experience. Thanks to the team, we keep on pushing."
+        ]
     },
     {
         "stageNumber": 19,
@@ -7995,7 +8305,7 @@
         "penaltyOutsideStageMs": 120000,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 19,
@@ -8010,7 +8320,9 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "It's an amazing feeling. It was so nice to be here again - it seemed to be easy but it wasn't. Thank you to my team and Maciej, I think we did quite a good job."
+        "comment": [
+            "It's an amazing feeling. It was so nice to be here again - it seemed to be easy but it wasn't. Thank you to my team and Maciej, I think we did quite a good job."
+        ]
     },
     {
         "stageNumber": 19,
@@ -8025,7 +8337,9 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "It took too long, but this year we made everything to finish! It was important for us to do this because me and my co-driver are lifelong friends and our dream was to finish this rally together."
+        "comment": [
+            "It took too long, but this year we made everything to finish! It was important for us to do this because me and my co-driver are lifelong friends and our dream was to finish this rally together."
+        ]
     },
     {
         "stageNumber": 19,
@@ -8040,7 +8354,9 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "It's amazing for us and thanks to my co-driver Timo and the team, it worked perfect. For us it's a big moment to win the Masters Cup and we are really happy."
+        "comment": [
+            "It's amazing for us and thanks to my co-driver Timo and the team, it worked perfect. For us it's a big moment to win the Masters Cup and we are really happy."
+        ]
     },
     {
         "stageNumber": 19,
@@ -8055,7 +8371,9 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "It's a shame we had a technical problem yesterday and are running in super rally. It was an amazing experience and it's a shame that it's over already."
+        "comment": [
+            "It's a shame we had a technical problem yesterday and are running in super rally. It was an amazing experience and it's a shame that it's over already."
+        ]
     },
     {
         "stageNumber": 19,
@@ -8070,7 +8388,9 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "It's been a while since I got in an R5 car, 21 rallies ticked!"
+        "comment": [
+            "It's been a while since I got in an R5 car, 21 rallies ticked!"
+        ]
     },
     {
         "stageNumber": 19,
@@ -8085,7 +8405,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 19,
@@ -8100,7 +8420,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 19,
@@ -8115,7 +8435,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 19,
@@ -8130,7 +8450,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 19,
@@ -8145,7 +8465,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 19,
@@ -8160,7 +8480,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 19,
@@ -8175,6 +8495,6 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     }
 ]

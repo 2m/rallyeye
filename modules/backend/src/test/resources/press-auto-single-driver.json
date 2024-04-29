@@ -12,7 +12,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 2,
@@ -27,7 +27,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 3,
@@ -42,7 +42,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 4,
@@ -57,7 +57,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 5,
@@ -72,7 +72,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 6,
@@ -87,7 +87,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 7,
@@ -102,7 +102,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 8,
@@ -117,7 +117,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 9,
@@ -132,7 +132,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 10,
@@ -147,7 +147,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 11,
@@ -162,7 +162,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "",
+        "comment": [],
         "nominal": true
     },
     {
@@ -178,7 +178,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "",
+        "comment": [],
         "nominal": true
     },
     {
@@ -194,7 +194,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": "",
+        "comment": [],
         "nominal": true
     },
     {
@@ -210,7 +210,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 15,
@@ -225,7 +225,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 16,
@@ -240,7 +240,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 17,
@@ -255,7 +255,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 18,
@@ -270,7 +270,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 19,
@@ -285,7 +285,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 20,
@@ -300,7 +300,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 21,
@@ -315,7 +315,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 22,
@@ -330,7 +330,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": true,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 23,
@@ -345,7 +345,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": false,
-        "comment": ""
+        "comment": []
     },
     {
         "stageNumber": 24,
@@ -360,7 +360,7 @@
         "penaltyOutsideStageMs": 0,
         "superRally": false,
         "finished": false,
-        "comment": "",
+        "comment": [],
         "nominal": true
     }
 ]

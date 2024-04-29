@@ -68,8 +68,7 @@ object Repo:
         Field.const(_.realName, ""), // FIXME: realName should be Option
         Field.const(_.split1Time, None),
         Field.const(_.split2Time, None),
-        Field.const(_.finishRealtime, None),
-        Field.computed(_.comment, r => r.comment.getOrElse("")) // FIXME: comment should be Option
+        Field.const(_.finishRealtime, None)
       )
     )).value
 

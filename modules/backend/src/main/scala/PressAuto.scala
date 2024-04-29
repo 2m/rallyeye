@@ -46,7 +46,7 @@ object PressAuto:
             0,
             false,
             time != "",
-            "",
+            None,
             time.contains("(N)") || stageName.contains("LK Day")
           )
         }

@@ -278,7 +278,7 @@ object Ewrc:
           0,
           false,
           false,
-          ""
+          None
         )
       }
     }
@@ -360,7 +360,7 @@ object Ewrc:
           penalties.getOrElse(driverCodriverName, 0).refine,
           superRally,
           true,
-          comments.getOrElse(driverCodriverName, ""),
+          comments.get(driverCodriverName),
           nominalTime || stageCancelled
         )
       }
