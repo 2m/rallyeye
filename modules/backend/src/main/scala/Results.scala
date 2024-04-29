@@ -80,7 +80,7 @@ case class Entry(
     penaltyOutsideStageMs: Int :| GreaterEqual[0],
     superRally: Boolean,
     finished: Boolean,
-    comment: String,
+    comment: Option[String],
     nominal: Boolean = false
 )
 
@@ -96,7 +96,7 @@ case class TimeResult(
     penaltyOutsideStageMs: Int,
     superRally: Boolean,
     finished: Boolean,
-    comment: String,
+    comment: Option[String],
     nominal: Boolean
 )
 
@@ -113,7 +113,7 @@ case class PositionResult(
     penaltyOutsideStageMs: Int,
     superRally: Boolean,
     rallyFinished: Boolean,
-    comment: String,
+    comment: Option[String],
     nominal: Boolean
 )
 

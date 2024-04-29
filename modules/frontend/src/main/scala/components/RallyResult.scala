@@ -105,7 +105,7 @@ case class RallyResult(
                   div(
                     s"R: ${result.overallTimeMs.prettyDurationAllParts} (${result.overallPosition})"
                   ),
-                  if result.comment.nonEmpty then div(s"“${result.comment}”") else emptyNode
+                  result.comment.fold(emptyNode)(comment => div(s"“$comment”"))
                 )
               case _ => Seq(emptyNode)
           }

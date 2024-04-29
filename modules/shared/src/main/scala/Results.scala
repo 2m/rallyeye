@@ -72,7 +72,7 @@ case class DriverResult(
     penaltyOutsideStageMs: Int,
     superRally: Boolean,
     rallyFinished: Boolean,
-    comment: String,
+    comment: Option[String],
     nominal: Boolean
 )
 

@@ -50,7 +50,7 @@ class ResultsSuite extends munit.FunSuite with DiffxAssertions:
       0,
       false,
       true,
-      "good stage"
+      Some("good stage")
     ),
     Entry(
       1,
@@ -68,7 +68,7 @@ class ResultsSuite extends munit.FunSuite with DiffxAssertions:
       0,
       false,
       true,
-      "good stage"
+      Some("good stage")
     ),
     Entry(
       2,
@@ -86,7 +86,7 @@ class ResultsSuite extends munit.FunSuite with DiffxAssertions:
       0,
       false,
       true,
-      "good stage"
+      Some("good stage")
     ),
     Entry(
       2,
@@ -104,7 +104,7 @@ class ResultsSuite extends munit.FunSuite with DiffxAssertions:
       0,
       false,
       true,
-      "good stage"
+      Some("good stage")
     )
   )
 
@@ -112,12 +112,12 @@ class ResultsSuite extends munit.FunSuite with DiffxAssertions:
     val obtained = results(entries).toMap
     val expected = Map(
       Stage(1, "SS1") -> List(
-        PositionResult(1, "LT", "driver1", "name1", 1, 1, 10100, 10100, 0, 0, false, true, "good stage", false),
-        PositionResult(1, "LT", "driver2", "name2", 2, 2, 14900, 14900, 0, 0, false, true, "good stage", false)
+        PositionResult(1, "LT", "driver1", "name1", 1, 1, 10100, 10100, 0, 0, false, true, Some("good stage"), false),
+        PositionResult(1, "LT", "driver2", "name2", 2, 2, 14900, 14900, 0, 0, false, true, Some("good stage"), false)
       ),
       Stage(2, "SS2") -> List(
-        PositionResult(2, "LT", "driver1", "name1", 1, 1, 20500, 30600, 0, 0, false, true, "good stage", false),
-        PositionResult(2, "LT", "driver2", "name2", 2, 2, 24500, 39400, 0, 0, false, true, "good stage", false)
+        PositionResult(2, "LT", "driver1", "name1", 1, 1, 20500, 30600, 0, 0, false, true, Some("good stage"), false),
+        PositionResult(2, "LT", "driver2", "name2", 2, 2, 24500, 39400, 0, 0, false, true, Some("good stage"), false)
       )
     )
 
@@ -150,15 +150,15 @@ class ResultsSuite extends munit.FunSuite with DiffxAssertions:
         DriverResults(
           Driver("LT", "driver1", "name1"),
           List(
-            DriverResult(1, 1, 1, 10100, 10100, 0, 0, false, true, "good stage", false),
-            DriverResult(2, 1, 1, 20500, 30600, 0, 0, false, true, "good stage", false)
+            DriverResult(1, 1, 1, 10100, 10100, 0, 0, false, true, Some("good stage"), false),
+            DriverResult(2, 1, 1, 20500, 30600, 0, 0, false, true, Some("good stage"), false)
           )
         ),
         DriverResults(
           Driver("LT", "driver2", "name2"),
           List(
-            DriverResult(1, 2, 2, 14900, 14900, 0, 0, false, true, "good stage", false),
-            DriverResult(2, 2, 2, 24500, 39400, 0, 0, false, true, "good stage", false)
+            DriverResult(1, 2, 2, 14900, 14900, 0, 0, false, true, Some("good stage"), false),
+            DriverResult(2, 2, 2, 24500, 39400, 0, 0, false, true, Some("good stage"), false)
           )
         )
       ),
@@ -169,15 +169,15 @@ class ResultsSuite extends munit.FunSuite with DiffxAssertions:
             DriverResults(
               Driver("LT", "driver1", "name1"),
               List(
-                DriverResult(1, 1, 1, 10100, 10100, 0, 0, false, true, "good stage", false),
-                DriverResult(2, 1, 1, 20500, 30600, 0, 0, false, true, "good stage", false)
+                DriverResult(1, 1, 1, 10100, 10100, 0, 0, false, true, Some("good stage"), false),
+                DriverResult(2, 1, 1, 20500, 30600, 0, 0, false, true, Some("good stage"), false)
               )
             ),
             DriverResults(
               Driver("LT", "driver2", "name2"),
               List(
-                DriverResult(1, 2, 2, 14900, 14900, 0, 0, false, true, "good stage", false),
-                DriverResult(2, 2, 2, 24500, 39400, 0, 0, false, true, "good stage", false)
+                DriverResult(1, 2, 2, 14900, 14900, 0, 0, false, true, Some("good stage"), false),
+                DriverResult(2, 2, 2, 24500, 39400, 0, 0, false, true, Some("good stage"), false)
               )
             )
           )
@@ -191,8 +191,8 @@ class ResultsSuite extends munit.FunSuite with DiffxAssertions:
             DriverResults(
               Driver("LT", "driver2", "name2"),
               List(
-                DriverResult(1, 1, 1, 14900, 14900, 0, 0, false, true, "good stage", false),
-                DriverResult(2, 1, 1, 24500, 39400, 0, 0, false, true, "good stage", false)
+                DriverResult(1, 1, 1, 14900, 14900, 0, 0, false, true, Some("good stage"), false),
+                DriverResult(2, 1, 1, 24500, 39400, 0, 0, false, true, Some("good stage"), false)
               )
             )
           )
@@ -204,8 +204,8 @@ class ResultsSuite extends munit.FunSuite with DiffxAssertions:
             DriverResults(
               Driver("LT", "driver1", "name1"),
               List(
-                DriverResult(1, 1, 1, 10100, 10100, 0, 0, false, true, "good stage", false),
-                DriverResult(2, 1, 1, 20500, 30600, 0, 0, false, true, "good stage", false)
+                DriverResult(1, 1, 1, 10100, 10100, 0, 0, false, true, Some("good stage"), false),
+                DriverResult(2, 1, 1, 20500, 30600, 0, 0, false, true, Some("good stage"), false)
               )
             )
           )
@@ -237,7 +237,7 @@ class ResultsSuite extends munit.FunSuite with DiffxAssertions:
           200,
           false,
           true,
-          "good stage"
+          Some("good stage")
         ),
         Entry(
           2,
@@ -255,16 +255,16 @@ class ResultsSuite extends munit.FunSuite with DiffxAssertions:
           0,
           false,
           true,
-          "good stage"
+          Some("good stage")
         )
       )
     ).toMap
     val expected = Map(
       Stage(1, "SS1") -> List(
-        PositionResult(1, "LT", "driver1", "name1", 1, 1, 1000, 1200, 500, 200, false, true, "good stage", false)
+        PositionResult(1, "LT", "driver1", "name1", 1, 1, 1000, 1200, 500, 200, false, true, Some("good stage"), false)
       ),
       Stage(2, "SS2") -> List(
-        PositionResult(2, "LT", "driver1", "name1", 1, 1, 2000, 3200, 0, 0, false, true, "good stage", false)
+        PositionResult(2, "LT", "driver1", "name1", 1, 1, 2000, 3200, 0, 0, false, true, Some("good stage"), false)
       )
     )
 
