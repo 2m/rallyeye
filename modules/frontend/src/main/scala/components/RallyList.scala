@@ -34,11 +34,6 @@ case class RallyList(
       div(
         cls := "max-w-screen-md grid grid-cols-1 sm:grid-cols-5 gap-0 sm:gap-4 p-4",
         margin := "0 auto",
-        ul(
-          cls := "col-span-2 flex-column space-y space-y-4 text-sm font-medium text-gray-500 mb-4",
-          whiteSpace.nowrap,
-          filters.map(renderFilter).toList
-        ),
         div(
           cls := "col-span-3 flex flex-col",
           children <-- Signal
@@ -46,6 +41,11 @@ case class RallyList(
             .mapN: (rallyList, rallyFilter) =>
               given Ordering[RallySummary] = summaryOrdering(rallyFilter)
               rallyList.sorted.map(renderRally(rallyFilter))
+        ),
+        ul(
+          cls := "col-span-2 flex-column space-y space-y-4 text-sm font-medium text-gray-500 mb-4",
+          whiteSpace.nowrap,
+          filters.map(renderFilter).toList
         )
       )
     )
@@ -143,5 +143,7 @@ object RallyList:
     "🖥️ Virtual Rally Championship 2023" -> Championship(RallyKind.Rsf, "Virtual Rally Championship 2023"),
     "🇺🇸 ARA Championship 2024" -> Championship(RallyKind.Ewrc, "ARA", Some(2024)),
     "🇱🇹 Lithuania 2023" -> Championship(RallyKind.Ewrc, "Lithuania", Some(2023)),
+    "🇱🇹 Lithuania Rally Sprint 2024" -> Championship(RallyKind.Ewrc, "Lithuania Rally Sprint", Some(2024)),
+    "🇱🇹 Lithuania Rally Sprint 2023" -> Championship(RallyKind.Ewrc, "Lithuania Rally Sprint", Some(2023)),
     "🇱🇹 Press Auto" -> Championship(RallyKind.PressAuto, "Press Auto")
   )
