@@ -87,6 +87,9 @@ object Ewrc:
           LocalDate.of(year.toInt, startMonth.toInt, startDay.toInt),
           LocalDate.of(year.toInt, endMonth.toInt, endDate.toInt)
         )
+      case s"$day. $month. $year, $organizer" =>
+        val date = LocalDate.of(year.toInt, month.toInt, day.toInt)
+        (date, date)
 
     val distanceRegexp = """[^\d]*(\d+)\.(\d+) km.*""".r
     val distanceMeters = topInfoParts(2).split("cancelled").head match

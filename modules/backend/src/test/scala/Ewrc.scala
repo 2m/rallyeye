@@ -40,6 +40,7 @@ class EwrcSuite extends munit.FunSuite with SnapshotSupport:
   checkEwrcInfo("80244-central-european-rally-2023")
   checkEwrcInfo("80239-safari-rally-kenya-2023")
   checkEwrcInfo("59972-rallye-automobile-monte-carlo-2020")
+  checkEwrcInfo("80976-rallijsprints-vecpils-2023")
 
   val checkEwrcResult = check(Ewrc.rallyResults, "ewrc-results")
   checkEwrcResult("80245-forum8-rally-japan-2023")
