@@ -58,7 +58,7 @@ trait SnapshotSupport extends IronDiffxSupport, DiffxAssertions:
         case Right(results) =>
           val expected = snapshot(results, s"$tag-$rally")
           assertEqual(results, expected)
-        case Left(error) => fail(s"Unable to get $tag: $error")
+        case Left(error) => fail(s"Unable to get $tag: $error", error)
 
   def snapshot[A](value: A, snapshotName: String)(using Encoder[A], Decoder[A]): A =
     val resultJson = Json.encode(value).toUtf8String
