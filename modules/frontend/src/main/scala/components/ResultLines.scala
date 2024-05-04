@@ -79,7 +79,7 @@ case class ResultLines(
 
   def getYScale(drivers: js.Array[DriverResults]) = scaleLinear()
     .domain(js.Array(1, drivers.flatMap(_.results.map(_.overallPosition)).maxOption.getOrElse(1)))
-    .range(js.Array(ResultLines.margin.top, ResultLines.margin.top + drivers.size * ResultLines.rowHeight))
+    .range(js.Array(ResultLines.margin.top, ResultLines.margin.top + (drivers.size - 1) * ResultLines.rowHeight))
 
   def getColorScale(drivers: js.Array[DriverResults]) =
     scaleOrdinal(schemeCategory10).domain(drivers.map(d => d.driver.userName))
@@ -87,8 +87,7 @@ case class ResultLines(
   def columns(n: Int) = n * 2 - 1 // double the x domain to have a spot for crash icon
   def canvasWidth(stages: List[Stage]) =
     ResultLines.margin.left + columns(stages.size) * ResultLines.colWidth + ResultLines.margin.right
-  def canvasHeight(drivers: List[DriverResults]) =
-    ResultLines.margin.top + drivers.size * ResultLines.rowHeight + ResultLines.margin.bottom
+  def canvasHeight(drivers: List[DriverResults]) = drivers.size * ResultLines.rowHeight
 
   def render() =
     svg(
