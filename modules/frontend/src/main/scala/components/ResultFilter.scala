@@ -24,14 +24,19 @@ object ResultFilter:
   val AllResults = "All Drivers"
   val AllResultsId = filterId(AllResults)
 
-  case class ResultFilter(name: String, group: String, isGroup: Boolean = false, isCar: Boolean = false):
+  case class ResultFilter(
+      name: String,
+      group: String,
+      isGroup: Boolean = false,
+      isCar: Boolean = false,
+      order: Int = 1
+  ):
     def id = filterId(name)
 
   private def filters(rallyData: RallyData) =
-    (List(ResultFilter(AllResults, AllResults)) :++ rallyData.groupResults
-      .map(r => ResultFilter(r.group, r.group, isGroup = true))
-      :++ rallyData.carResults
-        .map(r => ResultFilter(r.car, r.group, isCar = true)))
+    (List(ResultFilter(AllResults, AllResults, order = 0)) :++
+      rallyData.groupResults.map(r => ResultFilter(r.group, r.group, isGroup = true)) :++
+      rallyData.carResults.map(r => ResultFilter(r.car, r.group, isCar = true)))
       .map(rf => rf.id -> rf)
       .toMap
 
@@ -45,7 +50,7 @@ object ResultFilter:
 
   def render(rallyData: RallyData, filter: String) =
     filters(rallyData).values.toSeq
-      .sortBy(rf => (rf.group, rf.isCar, rf.name))
+      .sortBy(rf => (rf.order, rf.group, rf.isCar, rf.name))
       .map: rf =>
         li(
           a(
