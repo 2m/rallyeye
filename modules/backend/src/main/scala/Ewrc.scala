@@ -334,7 +334,7 @@ object Ewrc:
         val car = result.select("td.position-relative > span").first.text
 
         val groupElement = result.select("td.px-1")
-        groupElement.select("span").remove
+        groupElement.select(".badge-x").remove
         val group = groupElement.text
 
         val stageTimeElement = result.select("td.font-weight-bold.text-right").first
