@@ -50,19 +50,29 @@ case class RallyList(
       )
     )
 
-  private def renderFilter(group: String, filter: Filter) =
+  private def renderFilter(group: String, filters: List[(String, Filter)]) =
     li(
-      a(
-        cls := "inline-flex items-center px-4 py-3 rounded-lg active w-full",
-        cls <-- rallyListFilterSignal.map {
-          case Some(f) if f == filter => "bg-gray-500 text-white"
-          case _                      => "bg-gray-200 text-gray"
-        },
-        Router.navigateTo(filter match
-          case c: Championship => Router.FindPage(c)
-          case Fresh           => Router.FreshRallyPage
-        ),
-        group
+      cls := "px-4 py-2 rounded-lg active w-full bg-gray-200",
+      cls <-- rallyListFilterSignal.map {
+        case Some(f) if filters.map(_._2).contains(f) => "bg-gray-500 text-white"
+        case _                                        => "bg-gray-200 text-gray"
+      },
+      span(
+        cls := "inline-flex items-center",
+        if group.nonEmpty then span(cls := "p-1", group) else emptyNode,
+        filters.map: (name, filter) =>
+          a(
+            cls := "px-1 py-1 rounded-lg",
+            cls <-- rallyListFilterSignal.map {
+              case Some(f) if f == filter && group.nonEmpty => "outline-1 outline-white outline"
+              case _                                        => ""
+            },
+            Router.navigateTo(filter match
+              case c: Championship => Router.FindPage(c)
+              case Fresh           => Router.FreshRallyPage
+            ),
+            name
+          )
       )
     )
 
@@ -131,19 +141,29 @@ object RallyList:
   sealed trait Filter
   case object Fresh extends Filter
   case class Championship(kind: RallyKind, championship: String, year: Option[Int] = None) extends Filter
-  val filters = List(
-    "🔄 Recently loaded rallies" -> Fresh,
-    "🌎 WRC 2024" -> Championship(RallyKind.Ewrc, "WRC", Some(2024)),
-    "🌎 WRC 2023" -> Championship(RallyKind.Ewrc, "WRC", Some(2023)),
-    "🇪🇺 ERC 2024" -> Championship(RallyKind.Ewrc, "ERC", Some(2024)),
-    "🇪🇺 ERC 2023" -> Championship(RallyKind.Ewrc, "ERC", Some(2023)),
-    "🖥️ Sim Rally Masters 2024" -> Championship(RallyKind.Rsf, "Sim Rally Masters 2024"),
-    "🖥️ Sim Rally Masters 2023" -> Championship(RallyKind.Rsf, "Sim Rally Masters 2023"),
-    "🖥️ Virtual Rally Championship 2024" -> Championship(RallyKind.Rsf, "Virtual Rally Championship 2024"),
-    "🖥️ Virtual Rally Championship 2023" -> Championship(RallyKind.Rsf, "Virtual Rally Championship 2023"),
-    "🇺🇸 ARA Championship 2024" -> Championship(RallyKind.Ewrc, "ARA", Some(2024)),
-    "🇱🇹 Lithuania 2023" -> Championship(RallyKind.Ewrc, "Lithuania", Some(2023)),
-    "🇱🇹 Lithuania Rally Sprint 2024" -> Championship(RallyKind.Ewrc, "Lithuania Rally Sprint", Some(2024)),
-    "🇱🇹 Lithuania Rally Sprint 2023" -> Championship(RallyKind.Ewrc, "Lithuania Rally Sprint", Some(2023)),
-    "🇱🇹 Press Auto" -> Championship(RallyKind.PressAuto, "Press Auto")
+  val filters: List[(String, List[(String, Filter)])] = List(
+    "" -> List("🔄 Recently loaded rallies" -> Fresh),
+    "🌎 WRC" -> List(
+      "'24" -> Championship(RallyKind.Ewrc, "WRC", Some(2024)),
+      "'23" -> Championship(RallyKind.Ewrc, "WRC", Some(2023))
+    ),
+    "🇪🇺 ERC" -> List(
+      "'24" -> Championship(RallyKind.Ewrc, "ERC", Some(2024)),
+      "'23" -> Championship(RallyKind.Ewrc, "ERC", Some(2023))
+    ),
+    "🖥️ Sim Rally Masters" -> List(
+      "'24" -> Championship(RallyKind.Rsf, "Sim Rally Masters 2024"),
+      "'23" -> Championship(RallyKind.Rsf, "Sim Rally Masters 2023")
+    ),
+    "🖥️ Virtual Rally Championship" -> List(
+      "'24" -> Championship(RallyKind.Rsf, "Virtual Rally Championship 2024"),
+      "'23" -> Championship(RallyKind.Rsf, "Virtual Rally Championship 2023")
+    ),
+    "🇺🇸 ARA Championship" -> List("'24" -> Championship(RallyKind.Ewrc, "ARA", Some(2024))),
+    "🇱🇹 Lithuania" -> List("'23" -> Championship(RallyKind.Ewrc, "Lithuania", Some(2023))),
+    "🇱🇹 Lithuania Rally Sprint" -> List(
+      "'24" -> Championship(RallyKind.Ewrc, "Lithuania Rally Sprint", Some(2024)),
+      "'23" -> Championship(RallyKind.Ewrc, "Lithuania Rally Sprint", Some(2023))
+    ),
+    "🇱🇹 Press Auto" -> List("'23" -> Championship(RallyKind.PressAuto, "Press Auto"))
   )
