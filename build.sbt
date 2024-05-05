@@ -101,8 +101,8 @@ lazy val backend = project
     libraryDependencies ++= Seq(
       "com.softwaremill.sttp.tapir" %% "tapir-http4s-server"                       % "1.10.6",
       "com.softwaremill.sttp.tapir" %% "tapir-http4s-client"                       % "1.10.6",
-      "org.http4s"                  %% "http4s-ember-server"                       % "0.23.26",
-      "org.http4s"                  %% "http4s-ember-client"                       % "0.23.26",
+      "org.http4s"                  %% "http4s-ember-server"                       % "0.23.27",
+      "org.http4s"                  %% "http4s-ember-client"                       % "0.23.27",
       "org.http4s"                  %% "http4s-otel4s-middleware"                  % "0.4.0-beta.3",
       "ch.qos.logback"               % "logback-classic"                           % "1.5.6",
       "com.github.geirolz"          %% "fly4s-core"                                % "1.0.0",
