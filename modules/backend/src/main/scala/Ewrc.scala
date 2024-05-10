@@ -123,10 +123,7 @@ object Ewrc:
         val retirementsRegexp = """(\d+) .*""".r
         retirementsElement.siblingElements.first.text match
           case retirementsRegexp(retirementsCount) => retirementsCount.toInt
-          case _ =>
-            throw new Error(
-              s"Unable to parse retirements count from [${retirementsElement.siblingElements.first.text}]"
-            )
+          case _                                   => 0 // no retirements specified in the page
       case None => 0 // no retirements yet in the rally
 
     RallyInfo(
