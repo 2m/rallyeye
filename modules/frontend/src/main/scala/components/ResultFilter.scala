@@ -55,9 +55,9 @@ object ResultFilter:
         li(
           a(
             cls := "rounded-lg block mx-2 px-2 py-2 hover:text-white hover:bg-gray-600",
-            cls.toggle("text-white bg-gray-600") := rf.id == filter,
-            cls.toggle("bg-gray-200") := rf.isGroup,
-            cls.toggle("text-sm") := rf.isCar,
+            cls("text-white bg-gray-600") := rf.id == filter,
+            cls("bg-gray-200") := rf.isGroup,
+            cls("text-sm") := rf.isCar,
             Router.navigateTo(Router.withFilter(rf.id)),
             rf.name
           )
