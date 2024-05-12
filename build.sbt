@@ -20,7 +20,7 @@ lazy val shared = crossProject(JSPlatform, JVMPlatform)
   .settings(
     name := "shared",
     libraryDependencies ++= Seq(
-      "com.softwaremill.sttp.tapir" %% "tapir-core"       % "1.10.6",
+      "com.softwaremill.sttp.tapir" %% "tapir-core"       % "1.10.7",
       "io.bullet"                   %% "borer-derivation" % "1.14.0",
       "io.github.iltotore"          %% "iron"             % "2.5.0",
       "io.github.iltotore"          %% "iron-borer"       % "2.5.0"
@@ -50,7 +50,7 @@ lazy val frontend = project
     libraryDependencies ++= Seq(
       "org.scala-js"                %%% "scalajs-dom"                 % "2.8.0",
       "org.scala-js"                %%% "scala-js-macrotask-executor" % "1.1.1",
-      "com.softwaremill.sttp.tapir" %%% "tapir-sttp-client"           % "1.10.6",
+      "com.softwaremill.sttp.tapir" %%% "tapir-sttp-client"           % "1.10.7",
       "com.raquo"                   %%% "laminar"                     % "16.0.0",
       "com.raquo"                   %%% "waypoint"                    % "7.0.0",
       "io.github.cquiroz"           %%% "scala-java-time"             % "2.5.0",
@@ -99,11 +99,11 @@ lazy val backend = project
   .settings(
     inConfig(Integration)(Defaults.testTasks),
     libraryDependencies ++= Seq(
-      "com.softwaremill.sttp.tapir" %% "tapir-http4s-server"                       % "1.10.6",
-      "com.softwaremill.sttp.tapir" %% "tapir-http4s-client"                       % "1.10.6",
+      "com.softwaremill.sttp.tapir" %% "tapir-http4s-server"                       % "1.10.7",
+      "com.softwaremill.sttp.tapir" %% "tapir-http4s-client"                       % "1.10.7",
       "org.http4s"                  %% "http4s-ember-server"                       % "0.23.27",
       "org.http4s"                  %% "http4s-ember-client"                       % "0.23.27",
-      "org.http4s"                  %% "http4s-otel4s-middleware"                  % "0.4.0-beta.3",
+      "org.http4s"                  %% "http4s-otel4s-middleware"                  % "0.4.0",
       "ch.qos.logback"               % "logback-classic"                           % "1.5.6",
       "com.github.geirolz"          %% "fly4s-core"                                % "1.0.0",
       "org.xerial"                   % "sqlite-jdbc"                               % "3.45.3.0",
@@ -117,12 +117,12 @@ lazy val backend = project
       "org.typelevel"               %% "log4cats-core"                             % "2.7.0",
       "org.typelevel"               %% "log4cats-slf4j"                            % "2.7.0",
       "com.ovoenergy"               %% "natchez-extras-doobie"                     % "8.1.1",
-      "org.typelevel"               %% "otel4s-oteljava"                           % "0.6.0",
+      "org.typelevel"               %% "otel4s-oteljava"                           % "0.7.0",
       "io.opentelemetry"             % "opentelemetry-exporter-otlp"               % "1.38.0",
       "io.opentelemetry"             % "opentelemetry-sdk-extension-autoconfigure" % "1.38.0",
       "org.tpolecat"                %% "doobie-munit"                              % "1.0.0-RC5" % Test,
       "org.scalameta"               %% "munit"                                     % "1.0.0-RC1" % Test,
-      "org.typelevel"               %% "munit-cats-effect"                         % "2.0.0-M5"  % Test,
+      "org.typelevel"               %% "munit-cats-effect"                         % "2.0.0-RC1" % Test,
       "org.typelevel"               %% "scalacheck-effect-munit"                   % "2.0.0-M2"  % Test,
       "org.scalameta"               %% "munit-scalacheck"                          % "1.0.0-RC1" % Test,
       "com.softwaremill.diffx"      %% "diffx-munit"                               % "0.9.0"     % Test,
