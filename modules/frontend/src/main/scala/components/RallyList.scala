@@ -160,7 +160,10 @@ object RallyList:
       "'23" -> Championship(RallyKind.Rsf, "Virtual Rally Championship 2023")
     ),
     "🇺🇸 ARA Championship" -> List("'24" -> Championship(RallyKind.Ewrc, "ARA", Some(2024))),
-    "🇱🇹 Lithuania" -> List("'23" -> Championship(RallyKind.Ewrc, "Lithuania", Some(2023))),
+    "🇱🇹 Lithuania" -> List(
+      "'24" -> Championship(RallyKind.Ewrc, "Lithuania", Some(2024)),
+      "'23" -> Championship(RallyKind.Ewrc, "Lithuania", Some(2023))
+    ),
     "🇱🇹 Lithuania Rally Sprint" -> List(
       "'24" -> Championship(RallyKind.Ewrc, "Lithuania Rally Sprint", Some(2024)),
       "'23" -> Championship(RallyKind.Ewrc, "Lithuania Rally Sprint", Some(2023))
