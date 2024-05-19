@@ -131,9 +131,9 @@ object Ewrc:
       championship,
       start,
       end,
-      distanceMeters.refine,
-      (finished + retirements).refine,
-      finished.refine
+      distanceMeters.refineUnsafe,
+      (finished + retirements).refineUnsafe,
+      finished.refineUnsafe
     )
 
   case class Retired(group: String, stageNumber: Int)
@@ -263,7 +263,7 @@ object Ewrc:
         val car = retiredEntry.select("td.retired-car").text
         val entryNumber = retiredEntry.select("td.font-weight-bold.text-primary").text
         Entry(
-          stageNumber.refine,
+          stageNumber.refineUnsafe,
           stageName,
           country,
           driverCodriverName,
@@ -345,7 +345,7 @@ object Ewrc:
         val superRally = result.select("td.position-relative > span").text.contains("[SR]")
 
         Entry(
-          stageNumber.refine,
+          stageNumber.refineUnsafe,
           stageName,
           country,
           driverCodriverName,
@@ -354,10 +354,10 @@ object Ewrc:
           car,
           None,
           None,
-          (if !stageCancelled then stageTime else 0).refine,
+          (if !stageCancelled then stageTime else 0).refineUnsafe,
           None,
           0,
-          penalties.getOrElse(driverCodriverName, 0).refine,
+          penalties.getOrElse(driverCodriverName, 0).refineUnsafe,
           superRally,
           true,
           comments.get(driverCodriverName),

@@ -31,7 +31,7 @@ object PressAuto:
       case _ :: _ :: realName :: _ :: group :: car :: times =>
         times.init.zip(stages).map { case (time, (stageName, stageNumber)) =>
           Entry(
-            (stageNumber + 1).refine,
+            (stageNumber + 1).refineUnsafe,
             stageName,
             "LT",
             realName,
@@ -40,7 +40,7 @@ object PressAuto:
             car,
             None,
             None,
-            parseTimestamp(time).refine,
+            parseTimestamp(time).refineUnsafe,
             None,
             0,
             0,

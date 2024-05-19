@@ -143,9 +143,9 @@ object Rsf:
       championship,
       start,
       end,
-      distanceMeters.refine,
-      started.refine,
-      finished.refine
+      distanceMeters.refineUnsafe,
+      started.refineUnsafe,
+      finished.refineUnsafe
     )
 
   def rallyResults[F[_]: Async](client: Client[F], rallyId: String): EitherT[F, Throwable, List[Entry]] =
@@ -182,7 +182,7 @@ object Rsf:
     in =>
       in.map: row =>
         Entry(
-          stageNumber = row.at(0).get.toInt.refine,
+          stageNumber = row.at(0).get.toInt.refineUnsafe,
           stageName = row.at(1).get.decodeHtmlUnicode,
           country = row.at(2).get,
           userName = row.at(3).get,
@@ -192,11 +192,11 @@ object Rsf:
           car = row.at(6).get,
           split1Time = Try(BigDecimal(row.at(7).get)).toOption,
           split2Time = Try(BigDecimal(row.at(8).get)).toOption,
-          stageTimeMs = row.at(9).get.toMs.refine,
+          stageTimeMs = row.at(9).get.toMs.refineUnsafe,
           finishRealtime = Try(Instant.parse(row.at(10).get.replace(" ", "T") + "+02:00")).toOption,
           // abs until https://discord.com/channels/@me/1176210913355898930/1210945143297810512 is fixed
-          penaltyInsideStageMs = row.at(11).get.toMs.abs.refine,
-          penaltyOutsideStageMs = row.at(12).get.toMs.refine,
+          penaltyInsideStageMs = row.at(11).get.toMs.abs.refineUnsafe,
+          penaltyOutsideStageMs = row.at(12).get.toMs.refineUnsafe,
           superRally = row.at(13).get == "1",
           finished = row.at(14).get == "F",
           comment = row.at(15).filter(_.nonEmpty)
