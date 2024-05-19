@@ -69,9 +69,9 @@ def allMigrations[F[_]: Async: Tracer] =
           List("Press Auto"),
           LocalDate.of(2023, 6, 16),
           LocalDate.of(2023, 6, 17),
-          60000.refine,
-          68.refine,
-          63.refine
+          60000,
+          68,
+          63
         ),
         "pressauto2023.csv"
       )
