@@ -106,7 +106,7 @@ lazy val backend = project
       "org.http4s"                  %% "http4s-otel4s-middleware"                  % "0.6.0",
       "ch.qos.logback"               % "logback-classic"                           % "1.5.6",
       "com.github.geirolz"          %% "fly4s-core"                                % "1.0.0",
-      "org.xerial"                   % "sqlite-jdbc"                               % "3.45.3.0",
+      "org.xerial"                   % "sqlite-jdbc"                               % "3.46.0.0",
       "org.tpolecat"                %% "doobie-core"                               % "1.0.0-RC5",
       "io.github.arainko"           %% "ducktape"                                  % "0.2.2",
       "com.monovore"                %% "decline-effect"                            % "2.4.1",
