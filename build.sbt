@@ -53,7 +53,7 @@ lazy val frontend = project
       "com.softwaremill.sttp.tapir" %%% "tapir-sttp-client"           % "1.10.8",
       "com.raquo"                   %%% "laminar"                     % "17.0.0",
       "com.raquo"                   %%% "waypoint"                    % "8.0.0",
-      "io.github.cquiroz"           %%% "scala-java-time"             % "2.5.0",
+      "io.github.cquiroz"           %%% "scala-java-time"             % "2.6.0",
       "io.bullet"                   %%% "borer-core"                  % "1.14.0",
       "io.bullet"                   %%% "borer-derivation"            % "1.14.0",
       "com.lihaoyi"                 %%% "utest"                       % "0.8.3" % Test
