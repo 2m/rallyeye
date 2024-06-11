@@ -8,6 +8,8 @@ ThisBuild / licenses += ("Apache-2.0", url("http://www.apache.org/licenses/LICEN
 
 ThisBuild / dynverSeparator := "-"
 
+ThisBuild / libraryDependencies += compilerPlugin("com.github.ghik" % "zerowaste" % "0.2.21" cross CrossVersion.full)
+
 // invisible because used from dyn task
 Global / excludeLintKeys ++= Set(nativeImageJvm, nativeImageVersion)
 

@@ -18,6 +18,7 @@ package rallyeye
 
 import java.time.LocalDate
 
+import scala.annotation.nowarn
 import scala.jdk.CollectionConverters.*
 import scala.util.Try
 import scala.util.chaining.*
@@ -334,12 +335,12 @@ object Ewrc:
         val car = result.select("td.position-relative > span").first.text
 
         val groupElement = result.select("td.px-1")
-        groupElement.select(".badge-x").remove
+        groupElement.select(".badge-x").remove: @nowarn("msg=discarded expression")
         val group = groupElement.text
 
         val stageTimeElement = result.select("td.font-weight-bold.text-right").first
         val nominalTime = stageTimeElement.text.contains("[N]")
-        stageTimeElement.select("span").remove
+        stageTimeElement.select("span").remove: @nowarn("msg=discarded expression")
         val stageTime = getDurationMs(stageTimeElement.text)
 
         val superRally = result.select("td.position-relative > span").text.contains("[SR]")
