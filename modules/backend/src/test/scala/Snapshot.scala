@@ -19,6 +19,8 @@ package rallyeye
 import java.nio.file.Files
 import java.time.Instant
 
+import scala.annotation.nowarn
+
 import cats.data.EitherT
 import cats.effect.IO
 import cats.effect.kernel.Resource
@@ -65,7 +67,7 @@ trait SnapshotSupport extends IronDiffxSupport, DiffxAssertions:
     Files.writeString(
       BuildInfo.test_resourceDirectory.toPath().resolve(snapshotName + ".new.json"),
       resultJson
-    )
+    ): @nowarn("msg=discarded expression")
     Json
       .decode(
         Files.readString(BuildInfo.test_resourceDirectory.toPath().resolve(snapshotName + ".json")).getBytes
