@@ -75,6 +75,8 @@
   }, {
     "pattern":"\\Qpressauto2023.csv\\E"
   }, {
+    "pattern":"\\Qpressauto2024.csv\\E"
+  }, {
     "pattern":"\\Qsqlite-jdbc.properties\\E"
   }, {
     "pattern":"java.base:\\Qjdk/internal/icu/impl/data/icudt72b/nfc.nrm\\E"

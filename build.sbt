@@ -8,6 +8,8 @@ ThisBuild / licenses += ("Apache-2.0", url("http://www.apache.org/licenses/LICEN
 
 ThisBuild / dynverSeparator := "-"
 
+ThisBuild / libraryDependencies += compilerPlugin("com.github.ghik" % "zerowaste" % "0.2.21" cross CrossVersion.full)
+
 // invisible because used from dyn task
 Global / excludeLintKeys ++= Set(nativeImageJvm, nativeImageVersion)
 
@@ -104,6 +106,7 @@ lazy val backend = project
       "org.http4s"                  %% "http4s-ember-server"                       % "0.23.27",
       "org.http4s"                  %% "http4s-ember-client"                       % "0.23.27",
       "org.http4s"                  %% "http4s-otel4s-middleware"                  % "0.8.0",
+      "io.bullet"                   %% "borer-compat-circe"                        % "1.14.0",
       "ch.qos.logback"               % "logback-classic"                           % "1.5.6",
       "com.github.geirolz"          %% "fly4s-core"                                % "1.0.0",
       "org.xerial"                   % "sqlite-jdbc"                               % "3.46.0.0",
@@ -149,6 +152,7 @@ lazy val backend = project
     // include some build settings into module code
     buildInfoKeys := Seq[BuildInfoKey](
       isSnapshot, // for determining which backend URL to use
+      Compile / resourceDirectory, // for press auto results loader
       Test / resourceDirectory // for integration test snapshots
     ),
     buildInfoPackage := "rallyeye",

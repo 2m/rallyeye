@@ -23,7 +23,7 @@ class PressAutoSuite extends munit.FunSuite with SnapshotSupport:
 
   val csv =
     """|POS.;#;Name;Competitor;Group;Vehicle;SS1 Auto Bild I (Aukštadvaris);SS2 Auto Bild II (Aukštadvaris);SS3 Gold FM I (Kaunas);SS4 Gold FM II (Kaunas);SS5 Continental I (Nacionalinis žiedas);SS6 Continental II (Nacionalinis žiedas);SS7 Kėdainiai I;SS8 Kėdainiai II;SS9 Nissan I (Kuršėnai);SS10 Nissan II (Kuršėnai);LK Day 1;SS11 Melnragė I;SS12 Melnragė II;SS13 15min I (Merkio g.);SS14 15min II (Merkio g.);SS15 Febi I (Mickai);SS16 Febi III (Mickai);SS17 Inbalance I (Švepelių g. );SS18 Transeksta I (Perkėlos g.);SS19 Transeksta II (Perkėlos g.);SS20 Febi III (Mickai);SS21 Febi IV (Mickai);SS22 Inbalance II (Švepelių g.);LK Day 2;Total spent time
-       |1;#107;Tomas Markelevičius - Tadas Martinaitis;15min;Press iki 2000cc;Mitsubishi Colt (2000);00:02:20.552;00:02:22.288;00:00:42.851;00:00:41.485;00:03:19.002;00:03:13.681;00:01:31.172;00:01:22.963;00:01:58.995;00:01:55.932;00:00:00.000;00:00:00.000 (N);00:00:00.000 (N);00:01:37.947;00:01:33.431;00:02:04.492;00:02:00.697;00:04:36.525;00:01:15.753;00:01:14.433;00:02:02.350;00:01:57.782;;;
+       |lt;#107;Tomas Markelevičius - Tadas Martinaitis;15min;Press iki 2000cc;Mitsubishi Colt (2000);00:02:20.552;00:02:22.288;00:00:42.851;00:00:41.485;00:03:19.002;00:03:13.681;00:01:31.172;00:01:22.963;00:01:58.995;00:01:55.932;00:00:00.000;00:00:00.000 (N);00:00:00.000 (N);00:01:37.947;00:01:33.431;00:02:04.492;00:02:00.697;00:04:36.525;00:01:15.753;00:01:14.433;00:02:02.350;00:01:57.782;;;
        |""".stripMargin
 
   test("parses single driver result"):

@@ -168,5 +168,5 @@ object RallyList:
       "'24" -> Championship(RallyKind.Ewrc, "Lithuania Rally Sprint", Some(2024)),
       "'23" -> Championship(RallyKind.Ewrc, "Lithuania Rally Sprint", Some(2023))
     ),
-    "🇱🇹 Press Auto" -> List("'23" -> Championship(RallyKind.PressAuto, "Press Auto"))
+    "" -> List("🇱🇹 Press Auto" -> Championship(RallyKind.PressAuto, "Press Auto"))
   )

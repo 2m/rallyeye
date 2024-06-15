@@ -49,20 +49,20 @@ def migrations[F[_]: Async: Tracer] = Fly4s
   )
   .evalMap(_.validateAndMigrate.result.traced("fly4s-migration"))
 
-def loadPressAutoResults[F[_]: Async: Tracer](rallyId: String, rallyInfo: RallyInfo, filename: String) =
+def insertPressAutoResults[F[_]: Async: Tracer](rallyId: String, rallyInfo: RallyInfo, filename: String) =
   given RallyKind = RallyKind.PressAuto
   (for
     csv <- Source.fromResource(filename)(scala.io.Codec.UTF8).mkString.pure[F]
     results <- PressAuto.parseResults(csv).pure[F]
     _ <- Repo.saveRallyInfo(rallyId, rallyInfo)
     _ <- Repo.saveRallyResults(rallyId, results)
-  yield ()).tracedR("load-press-auto")
+  yield ()).tracedR("insert-press-auto")
 
 def allMigrations[F[_]: Async: Tracer] =
   for
     _ <- rallyeye.storage.migrations
     _ <- rallyeye.storage
-      .loadPressAutoResults(
+      .insertPressAutoResults(
         "2023",
         RallyInfo(
           "Press Auto 2023",
@@ -74,5 +74,19 @@ def allMigrations[F[_]: Async: Tracer] =
           63
         ),
         "pressauto2023.csv"
+      )
+    _ <- rallyeye.storage
+      .insertPressAutoResults(
+        "2024",
+        RallyInfo(
+          "Press Auto 2024",
+          List("Press Auto"),
+          LocalDate.of(2024, 5, 31),
+          LocalDate.of(2024, 6, 1),
+          36640,
+          77,
+          72
+        ),
+        "pressauto2024.csv"
       )
   yield ()

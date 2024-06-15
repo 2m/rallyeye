@@ -47,8 +47,11 @@ extension (kind: RallyKind)
     rally.kind match
       case RallyKind.Rsf =>
         s"https://www.rallysimfans.hu/rbr/rally_online.php?centerbox=rally_list_details.php&rally_id=${rally.externalId}"
-      case RallyKind.PressAuto =>
+      case RallyKind.PressAuto if rally.externalId == "2023" =>
         s"https://raceadmin.eu/pr${rally.externalId}/pr${rally.externalId}/results/overall/all"
+      case RallyKind.PressAuto =>
+        val year = rally.externalId.drop(2)
+        s"https://raceadmin.eu/pr$year/pr$year/results/all/overall"
       case RallyKind.Ewrc =>
         s"https://www.ewrc-results.com/results/${rally.externalId}/"
 
