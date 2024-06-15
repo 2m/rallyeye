@@ -32,6 +32,7 @@ object Main
   case class HttpServer()
   case class MigrateDb()
   case class SmokeRun()
+  case class LoadPressAuto()
 
   val httpServer: Opts[HttpServer] =
     Opts.subcommand("http-server", "Runs RallyEye HTTP server.") {
@@ -48,10 +49,17 @@ object Main
       Opts.unit.map(_ => SmokeRun())
     }
 
+  val parsePressAuto: Opts[LoadPressAuto] =
+    Opts.subcommand("load-press-auto", "Load Press Auto data from raceadmin.eu endpoints to csv file") {
+      Opts.unit.map(_ => LoadPressAuto())
+    }
+
   override def main: Opts[IO[ExitCode]] =
-    (httpServer orElse migrateDb orElse smokeRun)
+    (httpServer orElse migrateDb orElse smokeRun orElse parsePressAuto)
       .map {
         case HttpServer() => Telemetry.instrument(rallyeye.httpServer[IO]).use(_ => IO.never)
         case MigrateDb() => Telemetry.instrument(rallyeye.storage.allMigrations[IO]).use(_ => ExitCode.Success.pure[IO])
         case SmokeRun()  => Telemetry.instrument(rallyeye.smokeRun[IO]).use(_ => ExitCode.Success.pure[IO])
+        case LoadPressAuto() =>
+          Telemetry.instrument(rallyeye.loader.loadPressAuto[IO]).use(_ => ExitCode.Success.pure[IO])
       }

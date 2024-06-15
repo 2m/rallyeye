@@ -28,12 +28,12 @@ object PressAuto:
     val (header :: data) = csv.split('\n').toList: @unchecked
     val stages = header.split(";", -1).drop(6).init.zipWithIndex
     data.map(_.split(";", -1).toList).flatMap {
-      case _ :: _ :: realName :: _ :: group :: car :: times =>
+      case country :: _ :: realName :: _ :: group :: car :: times =>
         times.init.zip(stages).map { case (time, (stageName, stageNumber)) =>
           Entry(
             (stageNumber + 1).refineUnsafe,
             stageName,
-            "LT",
+            country.toUpperCase,
             realName,
             "",
             group,
