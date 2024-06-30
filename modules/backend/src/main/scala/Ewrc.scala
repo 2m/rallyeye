@@ -95,13 +95,13 @@ object Ewrc:
 
     val distanceRegexp = """[^\d]*(\d+)\.(\d+) km.*""".r
     val distanceMeters = topInfoParts
-      .find(_.contains("km"))
+      .find(_.contains(" km"))
       .getOrElse(throw Error("unable to find top info part with rally distance"))
       .split("cancelled")
       .head match
       case distanceRegexp(kilometers, decimeters) =>
         kilometers.toInt * 1000 + (decimeters.toInt * 10)
-      case _ => throw Error(s"Unable to parse rally distance from [${topInfoParts(2)}]")
+      case distancePart => throw Error(s"Unable to parse rally distance from [$distancePart}]")
 
     val topSections = parsedPage.select("html body main#main-section div.top-sections").first.text
     val championship = topSections.split("•").toList.map(_.split("#").head.trim)
