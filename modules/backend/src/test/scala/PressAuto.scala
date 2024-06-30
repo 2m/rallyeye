@@ -19,7 +19,11 @@ package rallyeye
 import scala.io.Codec
 import scala.io.Source
 
+import difflicious.Differ
+
 class PressAutoSuite extends munit.FunSuite with SnapshotSupport:
+
+  given Differ[Entry] = Differ.derived
 
   val csv =
     """|POS.;#;Name;Competitor;Group;Vehicle;SS1 Auto Bild I (Aukštadvaris);SS2 Auto Bild II (Aukštadvaris);SS3 Gold FM I (Kaunas);SS4 Gold FM II (Kaunas);SS5 Continental I (Nacionalinis žiedas);SS6 Continental II (Nacionalinis žiedas);SS7 Kėdainiai I;SS8 Kėdainiai II;SS9 Nissan I (Kuršėnai);SS10 Nissan II (Kuršėnai);LK Day 1;SS11 Melnragė I;SS12 Melnragė II;SS13 15min I (Merkio g.);SS14 15min II (Merkio g.);SS15 Febi I (Mickai);SS16 Febi III (Mickai);SS17 Inbalance I (Švepelių g. );SS18 Transeksta I (Perkėlos g.);SS19 Transeksta II (Perkėlos g.);SS20 Febi III (Mickai);SS21 Febi IV (Mickai);SS22 Inbalance II (Švepelių g.);LK Day 2;Total spent time
@@ -29,9 +33,9 @@ class PressAutoSuite extends munit.FunSuite with SnapshotSupport:
   test("parses single driver result"):
     val obtained = PressAuto.parseResults(csv)
     val expected = snapshot(obtained, "press-auto-single-driver")
-    assertEqual(obtained, expected)
+    assertDiffIsOk(obtained, expected)
 
   test("parses all results"):
     val csv = Source.fromResource("pressauto2023.csv")(Codec.UTF8).mkString
     val obtained = PressAuto.parseResults(csv)
-    assertEqual(obtained.size, 1632)
+    assert(obtained.size == 1632)

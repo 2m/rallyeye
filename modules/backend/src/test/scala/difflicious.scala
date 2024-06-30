@@ -17,7 +17,10 @@
 package rallyeye
 
 import difflicious.Differ
-import io.github.iltotore.iron.*
+import difflicious.DiffResultPrinter
+import munit.Assertions.*
+import munit.Location
 
-trait IronDiffiliciousSupport:
-  given [T: Differ, P]: Differ[T IronType P] = Differ.stringDiffer.contramap(_.toString)
+def assertDiffIsOk[A: Differ](obtained: A, expected: A)(implicit loc: Location): Unit =
+  val result = summon[Differ[A]].diff(obtained, expected)
+  if !result.isOk then fail(DiffResultPrinter.consoleOutput(result, 0).render)(loc)
