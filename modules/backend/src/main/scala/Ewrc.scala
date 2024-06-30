@@ -94,7 +94,11 @@ object Ewrc:
         (date, date)
 
     val distanceRegexp = """[^\d]*(\d+)\.(\d+) km.*""".r
-    val distanceMeters = topInfoParts(2).split("cancelled").head match
+    val distanceMeters = topInfoParts
+      .find(_.contains("km"))
+      .getOrElse(throw Error("unable to find top info part with rally distance"))
+      .split("cancelled")
+      .head match
       case distanceRegexp(kilometers, decimeters) =>
         kilometers.toInt * 1000 + (decimeters.toInt * 10)
       case _ => throw Error(s"Unable to parse rally distance from [${topInfoParts(2)}]")
