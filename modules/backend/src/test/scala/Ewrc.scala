@@ -51,3 +51,4 @@ class EwrcSuite extends munit.FunSuite with SnapshotSupport:
   checkEwrcResult("80239-safari-rally-kenya-2023")
   checkEwrcResult("59972-rallye-automobile-monte-carlo-2020")
   checkEwrcResult("81364-alburnus-rally-elektrenai-2023")
+  checkEwrcResult("81370-alburnus-rally-elektrenai-rallysprint-2023")

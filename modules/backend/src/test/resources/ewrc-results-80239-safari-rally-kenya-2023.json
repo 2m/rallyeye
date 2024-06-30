@@ -5998,21 +5998,6 @@
     {
         "stageNumber": 13,
         "stageName": "Sleeping Warrior 2",
-        "country": "greece",
-        "userName": "Vasilakis George - Krawszik Tom",
-        "realName": "",
-        "group": "RC2",
-        "car": "Ford Fiesta Rally2",
-        "stageTimeMs": 1593500,
-        "penaltyInsideStageMs": 0,
-        "penaltyOutsideStageMs": 0,
-        "superRally": false,
-        "finished": true,
-        "comment": []
-    },
-    {
-        "stageNumber": 13,
-        "stageName": "Sleeping Warrior 2",
         "country": "paraguay",
         "userName": "Domínguez Diego Jr. - Peñate R.",
         "realName": "",
@@ -8144,23 +8129,6 @@
     {
         "stageNumber": 19,
         "stageName": "Hell's Gate 2",
-        "country": "belgium",
-        "userName": "Neuville Thierry - Wydaeghe M.",
-        "realName": "",
-        "group": "RC1",
-        "car": "Hyundai i20 N Rally1 Hybrid",
-        "stageTimeMs": 334000,
-        "penaltyInsideStageMs": 0,
-        "penaltyOutsideStageMs": 0,
-        "superRally": false,
-        "finished": true,
-        "comment": [
-            "It's a fabulous rally but again another really bad weekend for us."
-        ]
-    },
-    {
-        "stageNumber": 19,
-        "stageName": "Hell's Gate 2",
         "country": "estonia",
         "userName": "Tänak Ott - Järveoja Martin",
         "realName": "",
@@ -8446,21 +8414,6 @@
         "group": "RC3",
         "car": "Ford Fiesta Rally3",
         "stageTimeMs": 516700,
-        "penaltyInsideStageMs": 0,
-        "penaltyOutsideStageMs": 0,
-        "superRally": false,
-        "finished": true,
-        "comment": []
-    },
-    {
-        "stageNumber": 19,
-        "stageName": "Hell's Gate 2",
-        "country": "kenya",
-        "userName": "Virani Aakif - Bhatti Azhar",
-        "realName": "",
-        "group": "RC2",
-        "car": "Škoda Fabia R5",
-        "stageTimeMs": 535200,
         "penaltyInsideStageMs": 0,
         "penaltyOutsideStageMs": 0,
         "superRally": false,
