@@ -19,19 +19,20 @@ package rallyeye
 import java.time.Instant
 import java.time.LocalDate
 
-import com.softwaremill.diffx.Diff
-import com.softwaremill.diffx.munit.DiffxAssertions
+import difflicious.Differ
+import difflicious.munit.MUnitDiff.*
 import io.github.iltotore.iron.*
 import rallyeye.shared.*
 import rallyeye.storage.Rally
 
-class ResultsSuite extends munit.FunSuite with DiffxAssertions:
-  given Diff[CarResults] = Diff.derived[CarResults]
-  given Diff[GroupResults] = Diff.derived[GroupResults]
-  given Diff[DriverResult] = Diff.derived[DriverResult]
-  given Diff[DriverResults] = Diff.derived[DriverResults]
-  given Diff[Stage] = Diff.derived[Stage]
-  given Diff[Driver] = Diff.derived[Driver]
+class ResultsSuite extends munit.FunSuite:
+
+  given Differ[Stage] = Differ.derived
+  given Differ[Driver] = Differ.derived
+  given Differ[DriverResult] = Differ.derived
+  given Differ[DriverResults] = Differ.derived
+  given Differ[GroupResults] = Differ.derived
+  given Differ[CarResults] = Differ.derived
 
   val entries = List(
     Entry(
@@ -213,10 +214,10 @@ class ResultsSuite extends munit.FunSuite with DiffxAssertions:
       )
     )
 
-    assertEqual(obtained.stages, expected.stages)
-    assertEqual(obtained.allResults, expected.allResults)
-    assertEqual(obtained.groupResults, expected.groupResults)
-    assertEqual(obtained.carResults, expected.carResults)
+    assertDiffIsOk(obtained.stages, expected.stages)
+    assertDiffIsOk(obtained.allResults, expected.allResults)
+    assertDiffIsOk(obtained.groupResults, expected.groupResults)
+    assertDiffIsOk(obtained.carResults, expected.carResults)
 
   test("applies penalties outside stage to overall time"):
     val obtained = results(

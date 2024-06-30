@@ -128,7 +128,7 @@ lazy val backend = project
       "org.typelevel"               %% "munit-cats-effect"                         % "2.0.0"     % Test,
       "org.typelevel"               %% "scalacheck-effect-munit"                   % "2.0.0-M2"  % Test,
       "org.scalameta"               %% "munit-scalacheck"                          % "1.0.0"     % Test,
-      "com.softwaremill.diffx"      %% "diffx-munit"                               % "0.9.0"     % Test,
+      "com.github.jatcwang"         %% "difflicious-munit"                         % "0.4.2"     % Test,
       "io.github.iltotore"          %% "iron-scalacheck"                           % "2.6.0"     % Test,
       "com.rallyhealth"             %% "scalacheck-ops_1"                          % "2.12.0"    % Test
     ),
@@ -141,9 +141,6 @@ lazy val backend = project
 
     // for correct IOApp resource cleanup
     Compile / run / fork := true,
-
-    // for diffx assertions in tests
-    Test / scalacOptions ++= Seq("-Xmax-inlines", "64"),
 
     // exclude integration tests
     Test / testOptions += Tests.Argument(MUnitFramework, "--exclude-tags=integration"),

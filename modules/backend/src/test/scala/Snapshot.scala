@@ -24,8 +24,6 @@ import scala.annotation.nowarn
 import cats.data.EitherT
 import cats.effect.IO
 import cats.effect.kernel.Resource
-import com.softwaremill.diffx.Diff
-import com.softwaremill.diffx.munit.DiffxAssertions
 import io.bullet.borer.Codec
 import io.bullet.borer.Decoder
 import io.bullet.borer.Encoder
@@ -35,7 +33,7 @@ import io.github.iltotore.iron.borer.given
 import org.http4s.client.Client
 import rallyeye.shared.Codecs.given
 
-trait SnapshotSupport extends IronDiffxSupport, DiffxAssertions:
+trait SnapshotSupport extends IronDiffiliciousSupport:
   this: munit.FunSuite =>
 
   val integration = new munit.Tag("integration")
@@ -43,13 +41,10 @@ trait SnapshotSupport extends IronDiffxSupport, DiffxAssertions:
   given Codec[RallyInfo] = deriveCodec[RallyInfo]
   given Codec[Entry] = deriveCodec[Entry]
 
-  given Diff[RallyInfo] = Diff.derived[RallyInfo]
-  given Diff[Entry] = Diff.derived[Entry]
-
   def check[T](
       fun: (Client[IO], String) => EitherT[IO, Throwable, T],
       tag: String
-  )(rally: String)(using munit.Location, Encoder[T], Decoder[T], Diff[T], Resource[IO, Client[IO]]): Unit =
+  )(rally: String)(using munit.Location, Encoder[T], Decoder[T], Resource[IO, Client[IO]]): Unit =
     import cats.effect.unsafe.implicits.global
 
     val httpClient = summon[Resource[IO, Client[IO]]]
@@ -59,7 +54,7 @@ trait SnapshotSupport extends IronDiffxSupport, DiffxAssertions:
         .unsafeRunSync() match
         case Right(results) =>
           val expected = snapshot(results, s"$tag-$rally")
-          assertEqual(results, expected)
+          assert(results == expected, s"$tag-$rally snapshot mismatch")
         case Left(error) => fail(s"Unable to get $tag: $error", error)
 
   def snapshot[A](value: A, snapshotName: String)(using Encoder[A], Decoder[A]): A =
