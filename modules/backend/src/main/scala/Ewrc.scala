@@ -83,10 +83,11 @@ object Ewrc:
     val topInfo = parsedPage.select("html body main#main-section div.top-info").first.text
     val topInfoParts = topInfo.split("•").toList.map(_.trim)
     val (start, end) = topInfoParts.head match
-      case s"$startDay. $startMonth. – $endDate. $endMonth. $year, $organizer" =>
+      case s"$startDay. $startMonth. – $endDate. $endMonth. $year" =>
+        val yearValue = year.takeWhile(_.isDigit).toInt
         (
-          LocalDate.of(year.toInt, startMonth.toInt, startDay.toInt),
-          LocalDate.of(year.toInt, endMonth.toInt, endDate.toInt)
+          LocalDate.of(yearValue, startMonth.toInt, startDay.toInt),
+          LocalDate.of(yearValue, endMonth.toInt, endDate.toInt)
         )
       case s"$day. $month. $year, $organizer" =>
         val date = LocalDate.of(year.toInt, month.toInt, day.toInt)
