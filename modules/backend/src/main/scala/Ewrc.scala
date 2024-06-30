@@ -142,7 +142,7 @@ object Ewrc:
       finished.refineUnsafe
     )
 
-  case class Retired(group: String, stageNumber: Int)
+  case class Retired(group: String)
 
   def retiredNumberGroup[F[_]: Async](client: Client[F], rallyId: String): EitherT[F, Throwable, Map[String, Retired]] =
     val (request, parseResponse) = finalPage(rallyId)
@@ -167,8 +167,7 @@ object Ewrc:
       .map: retiredRow =>
         val number = retiredRow.select(".final-results-number").text
         val group = retiredRow.select(".final-results-cat").text
-        val stageNumber = retiredRow.select(".final-results-stage").text.trim.drop(2).toInt
-        number -> Retired(group, stageNumber)
+        number -> Retired(group)
       .toMap
 
   private def parseStageIds(finalPageBody: String, rallyId: String) =
@@ -258,6 +257,18 @@ object Ewrc:
           .asScala
           .toList
 
+    val overallResultTable = document
+      .select("main#main-section div#stage-results table.results")
+      .last()
+      .pipe(Option.apply)
+      .toList
+      .flatMap: table =>
+        table
+          .select("tr")
+          .iterator()
+          .asScala
+          .toList
+
     val stageCancelled =
       document.select("main#main-section div#stage-results span.badge-danger").text.contains("Stage cancelled")
 
@@ -326,12 +337,19 @@ object Ewrc:
       }
       .toMap
 
+    val driversInOverallTable = overallResultTable.map: result =>
+      result.select("td span.font-weight-bold.text-primary").text
+
     retired ++ stageResultTable
-      .filterNot { result =>
+      .filter { result =>
+        // consider only those drivers that are still in the overall results
+        // some drivers do not start a stage, but then continue in the next loop
+        // in such cases they are sometimes not listed in the retired drivers list
+        // but continue to be present in the stage times table
         val entryNumber = result.select("td.text-left span.font-weight-bold.text-primary").text
-        retiredDrivers.get(entryNumber) match
-          case Some(Retired(_, retiredStageNumber)) => stageNumber > retiredStageNumber
-          case _                                    => false
+
+        // if the stage was cancelled, there is only a stage results table, so no filtering
+        driversInOverallTable.contains(entryNumber) || stageCancelled
       }
       .map { result =>
         val country = getCountry(result)
