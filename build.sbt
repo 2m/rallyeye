@@ -23,7 +23,7 @@ lazy val shared = crossProject(JSPlatform, JVMPlatform)
     name := "shared",
     libraryDependencies ++= Seq(
       "com.softwaremill.sttp.tapir" %% "tapir-core"       % "1.10.10",
-      "io.bullet"                   %% "borer-derivation" % "1.14.0",
+      "io.bullet"                   %% "borer-derivation" % "1.14.1",
       "io.github.iltotore"          %% "iron"             % "2.6.0",
       "io.github.iltotore"          %% "iron-borer"       % "2.6.0"
     ),
@@ -56,8 +56,8 @@ lazy val frontend = project
       "com.raquo"                   %%% "laminar"                     % "17.0.0",
       "com.raquo"                   %%% "waypoint"                    % "8.0.0",
       "io.github.cquiroz"           %%% "scala-java-time"             % "2.6.0",
-      "io.bullet"                   %%% "borer-core"                  % "1.14.0",
-      "io.bullet"                   %%% "borer-derivation"            % "1.14.0",
+      "io.bullet"                   %%% "borer-core"                  % "1.14.1",
+      "io.bullet"                   %%% "borer-derivation"            % "1.14.1",
       "com.lihaoyi"                 %%% "utest"                       % "0.8.3" % Test
     ),
     // Tell Scala.js that this is an application with a main method
@@ -106,7 +106,7 @@ lazy val backend = project
       "org.http4s"                  %% "http4s-ember-server"                       % "0.23.27",
       "org.http4s"                  %% "http4s-ember-client"                       % "0.23.27",
       "org.http4s"                  %% "http4s-otel4s-middleware"                  % "0.8.0",
-      "io.bullet"                   %% "borer-compat-circe"                        % "1.14.0",
+      "io.bullet"                   %% "borer-compat-circe"                        % "1.14.1",
       "ch.qos.logback"               % "logback-classic"                           % "1.5.6",
       "com.github.geirolz"          %% "fly4s-core"                                % "1.0.0",
       "org.xerial"                   % "sqlite-jdbc"                               % "3.46.0.0",
