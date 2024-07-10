@@ -73,7 +73,7 @@ case class Entry(
     country: String,
     userName: String,
     realName: String,
-    group: String,
+    group: List[String],
     car: String,
     split1Time: Option[BigDecimal] = None,
     split2Time: Option[BigDecimal] = None,
@@ -213,12 +213,14 @@ def drivers(results: MapView[Stage, List[PositionResult]]) =
     .sortBy(_.driver.userName)
 
 def rallyData(rally: Rally, entries: List[Entry]) =
-  val groupResults = entries.groupBy(_.group).map { case (group, entries) =>
-    GroupResults(group, results(entries) pipe drivers)
-  }
-  val carResults = entries.groupBy(e => (e.group, e.car)).map { case ((group, car), entries) =>
-    CarResults(car, group, results(entries) pipe drivers)
-  }
+  val groupResults =
+    entries.flatMap(entry => entry.group.map(g => entry.copy(group = List(g)))).groupBy(_.group).map {
+      case (group, entries) => GroupResults(group.head, results(entries) pipe drivers)
+    }
+  val carResults =
+    entries.flatMap(entry => entry.group.map(g => entry.copy(group = List(g)))).groupBy(e => (e.group, e.car)).map {
+      case ((group, car), entries) => CarResults(car, group.head, results(entries) pipe drivers)
+    }
 
   RallyData(
     rally.externalId,

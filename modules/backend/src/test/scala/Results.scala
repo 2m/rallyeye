@@ -25,7 +25,7 @@ import io.github.iltotore.iron.*
 import rallyeye.shared.*
 import rallyeye.storage.Rally
 
-class ResultsSuite extends munit.FunSuite:
+class ResultsSuite extends munit.FunSuite with SnapshotSupport:
 
   given Differ[Stage] = Differ.derived
   given Differ[Driver] = Differ.derived
@@ -33,6 +33,7 @@ class ResultsSuite extends munit.FunSuite:
   given Differ[DriverResults] = Differ.derived
   given Differ[GroupResults] = Differ.derived
   given Differ[CarResults] = Differ.derived
+  given Differ[RallyData] = Differ.derived
 
   val entries = List(
     Entry(
@@ -41,7 +42,7 @@ class ResultsSuite extends munit.FunSuite:
       "LT",
       "driver1",
       "name1",
-      "group1",
+      List("group1"),
       "car1",
       None,
       None,
@@ -59,7 +60,7 @@ class ResultsSuite extends munit.FunSuite:
       "LT",
       "driver2",
       "name2",
-      "group1",
+      List("group1"),
       "car2",
       None,
       None,
@@ -77,7 +78,7 @@ class ResultsSuite extends munit.FunSuite:
       "LT",
       "driver1",
       "name1",
-      "group1",
+      List("group1"),
       "car1",
       None,
       None,
@@ -95,7 +96,7 @@ class ResultsSuite extends munit.FunSuite:
       "LT",
       "driver2",
       "name2",
-      "group1",
+      List("group1"),
       "car2",
       None,
       None,
@@ -228,7 +229,7 @@ class ResultsSuite extends munit.FunSuite:
           "LT",
           "driver1",
           "name1",
-          "group1",
+          List("group1"),
           "car1",
           None,
           None,
@@ -246,7 +247,7 @@ class ResultsSuite extends munit.FunSuite:
           "LT",
           "driver1",
           "name1",
-          "group1",
+          List("group1"),
           "car1",
           None,
           None,
@@ -270,3 +271,59 @@ class ResultsSuite extends munit.FunSuite:
     )
 
     assertEquals(obtained, expected)
+
+  test("multiple group drivers are merged"):
+    val rally = Rally(
+      RallyKind.Rsf,
+      "1",
+      "rally",
+      Instant.EPOCH,
+      List("championship"),
+      LocalDate.parse("2024-01-01"),
+      LocalDate.parse("2024-01-01"),
+      1000,
+      2,
+      1
+    )
+
+    val entries = List(
+      Entry(
+        1,
+        "SS1",
+        "LT",
+        "driver1",
+        "name1",
+        List("group1", "group2"),
+        "car1",
+        None,
+        None,
+        1000,
+        None,
+        500,
+        200,
+        false,
+        true,
+        Some("good stage")
+      ),
+      Entry(
+        1,
+        "SS1",
+        "LT",
+        "driver2",
+        "name1",
+        List("group1"),
+        "car2",
+        None,
+        None,
+        2000,
+        None,
+        0,
+        0,
+        false,
+        true,
+        Some("good stage")
+      )
+    )
+
+    val obtained = rallyData(rally, entries)
+    assertSnapshotIsOk(obtained, "multiple-group-drivers-merged")

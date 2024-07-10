@@ -49,7 +49,7 @@ object TapirJsonBorer:
           )
     }(t => io.bullet.borer.Json.encode(t).toUtf8String)
 
-object Codecs extends IronTapirSupport:
+trait BorerCodecs extends IronTapirSupport:
   given Encoder[Instant] = Encoder[Long].contramap(_.getEpochSecond)
   given Decoder[Instant] = Decoder[Long].map(Instant.ofEpochSecond)
 
@@ -73,3 +73,5 @@ object Codecs extends IronTapirSupport:
   given Codec[RallyKind] = deriveCodec[RallyKind]
   given Codec[RallySummary] = deriveCodec[RallySummary]
   given Codec[RefreshResult] = deriveCodec[RefreshResult]
+
+object Codecs extends BorerCodecs

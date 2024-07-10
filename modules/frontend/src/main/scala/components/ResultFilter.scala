@@ -31,7 +31,7 @@ object ResultFilter:
       isCar: Boolean = false,
       order: Int = 1
   ):
-    def id = filterId(name)
+    def id = if isCar then filterId(s"$group|$name") else filterId(name)
 
   private def filters(rallyData: RallyData) =
     (List(ResultFilter(AllResults, AllResults, order = 0)) :++
@@ -41,12 +41,12 @@ object ResultFilter:
       .toMap
 
   def entries(rallyData: RallyData) =
-    Map(filterId(AllResults) -> rallyData.allResults) ++ rallyData.groupResults.map(r =>
-      filterId(r.group) -> r.results
-    ) ++ rallyData.carResults.map(r => filterId(r.car) -> r.results)
+    Map(filterId(AllResults) -> rallyData.allResults) ++
+      rallyData.groupResults.map(r => filterId(r.group) -> r.results) ++
+      rallyData.carResults.map(r => filterId(s"${r.group}|${r.car}") -> r.results)
 
   def filterId(name: String) =
-    name.toLowerCase.replaceAll("[^a-z0-9]", "-")
+    name.toLowerCase.replaceAll("[^|a-z0-9]", "-")
 
   def render(rallyData: RallyData, filter: String) =
     filters(rallyData).values.toSeq

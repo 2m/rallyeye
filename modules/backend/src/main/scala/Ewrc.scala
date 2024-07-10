@@ -142,7 +142,7 @@ object Ewrc:
       finished.refineUnsafe
     )
 
-  case class Retired(group: String)
+  case class Retired(group: List[String])
 
   def retiredNumberGroup[F[_]: Async](client: Client[F], rallyId: String): EitherT[F, Throwable, Map[String, Retired]] =
     val (request, parseResponse) = finalPage(rallyId)
@@ -166,8 +166,9 @@ object Ewrc:
       .map(_.parent)
       .map: retiredRow =>
         val number = retiredRow.select(".final-results-number").text
-        val group = retiredRow.select(".final-results-cat").text
-        number -> Retired(group)
+        val group = retiredRow.select(".final-results-cat").html.split("<br>").toList
+        val specialGroup = Some(retiredRow.select(".startlist-m").text).filterNot(_.isEmpty)
+        number -> Retired(group ++ specialGroup.toList)
       .toMap
 
   private def parseStageIds(finalPageBody: String, rallyId: String) =
@@ -358,8 +359,9 @@ object Ewrc:
         val car = result.select("td.position-relative > span").first.text
 
         val groupElement = result.select("td.px-1")
-        groupElement.select(".badge-x").remove: @nowarn("msg=discarded expression")
-        val group = groupElement.text
+        val separator = "---"
+        groupElement.select("br").before(s"""<span>$separator</span>"""): @nowarn("msg=discarded expression")
+        val group = groupElement.text.split(separator).toList.map(_.trim)
 
         val stageTimeElement = result.select("td.font-weight-bold.text-right").first
         val nominalTime = stageTimeElement.text.contains("[N]")

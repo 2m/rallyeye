@@ -57,7 +57,7 @@ case class Result(
     codriverCountry: Option[String],
     codriverPrimaryName: Option[String],
     codriverSecondaryName: Option[String],
-    group: String,
+    group: List[String],
     car: String,
     stageTimeMs: Int :| GreaterEqual[0],
     penaltyInsideStageMs: Int :| GreaterEqual[0],
