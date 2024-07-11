@@ -33,6 +33,11 @@ trait Arbitraries:
 
   case class RallyWithResults(rally: Rally, results: List[Result])
 
+  // borer sometimes fails to parse arbitrary ascii strings wrapped in a list
+  // therefore stick to alphanumeric strings
+  given Arbitrary[String] = Arbitrary:
+    Gen.alphaNumStr
+
   given Arbitrary[RallyKind] = Arbitrary:
     Gen.oneOf(ArraySeq.unsafeWrapArray(RallyKind.values))
   given Arbitrary[Rally] = Arbitrary:

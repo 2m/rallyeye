@@ -53,6 +53,8 @@
   }, {
     "pattern":"\\Qdb/V004__convert_championship_to_array.sql\\E"
   }, {
+    "pattern":"\\Qdb/V005__convert_group_to_array.sql\\E"
+  }, {
     "pattern":"\\Qdb/callback\\E"
   }, {
     "pattern":"\\Qdb\\E"

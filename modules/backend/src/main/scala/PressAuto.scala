@@ -36,7 +36,7 @@ object PressAuto:
             country.toUpperCase,
             realName,
             "",
-            group,
+            List(group),
             car,
             None,
             None,

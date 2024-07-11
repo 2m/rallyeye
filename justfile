@@ -1,5 +1,5 @@
 dev:
-  tmux new-session -s rallyeye "tmux source-file './.tmux.conf'"
+  process-compose -p 8088 up
 
 dev-js:
   cd modules/frontend; npm run dev

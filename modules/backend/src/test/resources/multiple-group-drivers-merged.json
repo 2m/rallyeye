@@ -1,0 +1,238 @@
+{
+    "id": "1",
+    "name": "rally",
+    "link": "https://www.rallysimfans.hu/rbr/rally_online.php?centerbox=rally_list_details.php&rally_id=1",
+    "retrievedAt": 0,
+    "stages": [
+        {
+            "number": 1,
+            "name": "SS1"
+        }
+    ],
+    "allResults": [
+        {
+            "driver": {
+                "country": "LT",
+                "userName": "driver1",
+                "realName": "name1"
+            },
+            "results": [
+                {
+                    "stageNumber": 1,
+                    "stagePosition": 1,
+                    "overallPosition": 1,
+                    "stageTimeMs": 1000,
+                    "overallTimeMs": 1200,
+                    "penaltyInsideStageMs": 500,
+                    "penaltyOutsideStageMs": 200,
+                    "superRally": false,
+                    "rallyFinished": true,
+                    "comment": [
+                        "good stage"
+                    ],
+                    "nominal": false
+                }
+            ]
+        },
+        {
+            "driver": {
+                "country": "LT",
+                "userName": "driver2",
+                "realName": "name1"
+            },
+            "results": [
+                {
+                    "stageNumber": 1,
+                    "stagePosition": 2,
+                    "overallPosition": 2,
+                    "stageTimeMs": 2000,
+                    "overallTimeMs": 2000,
+                    "penaltyInsideStageMs": 0,
+                    "penaltyOutsideStageMs": 0,
+                    "superRally": false,
+                    "rallyFinished": true,
+                    "comment": [
+                        "good stage"
+                    ],
+                    "nominal": false
+                }
+            ]
+        }
+    ],
+    "groupResults": [
+        {
+            "group": "group1",
+            "results": [
+                {
+                    "driver": {
+                        "country": "LT",
+                        "userName": "driver1",
+                        "realName": "name1"
+                    },
+                    "results": [
+                        {
+                            "stageNumber": 1,
+                            "stagePosition": 1,
+                            "overallPosition": 1,
+                            "stageTimeMs": 1000,
+                            "overallTimeMs": 1200,
+                            "penaltyInsideStageMs": 500,
+                            "penaltyOutsideStageMs": 200,
+                            "superRally": false,
+                            "rallyFinished": true,
+                            "comment": [
+                                "good stage"
+                            ],
+                            "nominal": false
+                        }
+                    ]
+                },
+                {
+                    "driver": {
+                        "country": "LT",
+                        "userName": "driver2",
+                        "realName": "name1"
+                    },
+                    "results": [
+                        {
+                            "stageNumber": 1,
+                            "stagePosition": 2,
+                            "overallPosition": 2,
+                            "stageTimeMs": 2000,
+                            "overallTimeMs": 2000,
+                            "penaltyInsideStageMs": 0,
+                            "penaltyOutsideStageMs": 0,
+                            "superRally": false,
+                            "rallyFinished": true,
+                            "comment": [
+                                "good stage"
+                            ],
+                            "nominal": false
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "group": "group2",
+            "results": [
+                {
+                    "driver": {
+                        "country": "LT",
+                        "userName": "driver1",
+                        "realName": "name1"
+                    },
+                    "results": [
+                        {
+                            "stageNumber": 1,
+                            "stagePosition": 1,
+                            "overallPosition": 1,
+                            "stageTimeMs": 1000,
+                            "overallTimeMs": 1200,
+                            "penaltyInsideStageMs": 500,
+                            "penaltyOutsideStageMs": 200,
+                            "superRally": false,
+                            "rallyFinished": true,
+                            "comment": [
+                                "good stage"
+                            ],
+                            "nominal": false
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "carResults": [
+        {
+            "car": "car1",
+            "group": "group2",
+            "results": [
+                {
+                    "driver": {
+                        "country": "LT",
+                        "userName": "driver1",
+                        "realName": "name1"
+                    },
+                    "results": [
+                        {
+                            "stageNumber": 1,
+                            "stagePosition": 1,
+                            "overallPosition": 1,
+                            "stageTimeMs": 1000,
+                            "overallTimeMs": 1200,
+                            "penaltyInsideStageMs": 500,
+                            "penaltyOutsideStageMs": 200,
+                            "superRally": false,
+                            "rallyFinished": true,
+                            "comment": [
+                                "good stage"
+                            ],
+                            "nominal": false
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "car": "car2",
+            "group": "group1",
+            "results": [
+                {
+                    "driver": {
+                        "country": "LT",
+                        "userName": "driver2",
+                        "realName": "name1"
+                    },
+                    "results": [
+                        {
+                            "stageNumber": 1,
+                            "stagePosition": 1,
+                            "overallPosition": 1,
+                            "stageTimeMs": 2000,
+                            "overallTimeMs": 2000,
+                            "penaltyInsideStageMs": 0,
+                            "penaltyOutsideStageMs": 0,
+                            "superRally": false,
+                            "rallyFinished": true,
+                            "comment": [
+                                "good stage"
+                            ],
+                            "nominal": false
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "car": "car1",
+            "group": "group1",
+            "results": [
+                {
+                    "driver": {
+                        "country": "LT",
+                        "userName": "driver1",
+                        "realName": "name1"
+                    },
+                    "results": [
+                        {
+                            "stageNumber": 1,
+                            "stagePosition": 1,
+                            "overallPosition": 1,
+                            "stageTimeMs": 1000,
+                            "overallTimeMs": 1200,
+                            "penaltyInsideStageMs": 500,
+                            "penaltyOutsideStageMs": 200,
+                            "superRally": false,
+                            "rallyFinished": true,
+                            "comment": [
+                                "good stage"
+                            ],
+                            "nominal": false
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

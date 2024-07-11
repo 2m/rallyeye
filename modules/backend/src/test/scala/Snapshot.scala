@@ -24,6 +24,7 @@ import scala.annotation.nowarn
 import cats.data.EitherT
 import cats.effect.IO
 import cats.effect.kernel.Resource
+import difflicious.Differ
 import io.bullet.borer.Codec
 import io.bullet.borer.Decoder
 import io.bullet.borer.Encoder
@@ -31,9 +32,9 @@ import io.bullet.borer.Json
 import io.bullet.borer.derivation.MapBasedCodecs.*
 import io.github.iltotore.iron.borer.given
 import org.http4s.client.Client
-import rallyeye.shared.Codecs.given
+import rallyeye.shared.BorerCodecs
 
-trait SnapshotSupport extends IronDiffiliciousSupport:
+trait SnapshotSupport extends IronDiffiliciousSupport with BorerCodecs:
   this: munit.FunSuite =>
 
   val integration = new munit.Tag("integration")
@@ -69,3 +70,7 @@ trait SnapshotSupport extends IronDiffiliciousSupport:
       )
       .to[A]
       .value
+
+  def assertSnapshotIsOk[A](value: A, snapshotName: String)(using Encoder[A], Decoder[A], Differ[A]): Unit =
+    val expected = snapshot(value, snapshotName)
+    assertDiffIsOk(value, expected)

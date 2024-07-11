@@ -1,0 +1,19 @@
+version: "0.5"
+
+log_level: info
+
+processes:
+  backend:
+    command: just dev-scala
+    depends_on:
+      telemetry:
+        condition: process_started
+
+  compile-scala-js:
+    command: just dev-scala-js
+
+  vite:
+    command: just dev-js
+
+  telemetry:
+    command: just telemetry

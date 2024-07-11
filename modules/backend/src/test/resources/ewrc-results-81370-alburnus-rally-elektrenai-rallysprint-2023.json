@@ -5,7 +5,9 @@
         "country": "lithuania",
         "userName": "Marcinkevičius E. - Žukauskas I.",
         "realName": "",
-        "group": "2WD",
+        "group": [
+            "2WD"
+        ],
         "car": "BMW 325 Ti Compact E46",
         "stageTimeMs": 0,
         "penaltyInsideStageMs": 0,
@@ -20,7 +22,10 @@
         "country": "lithuania",
         "userName": "Apočkinas A. - Šachsuvarova A.",
         "realName": "",
-        "group": "2WD Junior",
+        "group": [
+            "2WD",
+            "Junior"
+        ],
         "car": "BMW 320i E36",
         "stageTimeMs": 554400,
         "penaltyInsideStageMs": 0,
@@ -35,7 +40,10 @@
         "country": "lithuania",
         "userName": "Sukackas Darius - Vasiliauskas D.",
         "realName": "",
-        "group": "2WD Junior",
+        "group": [
+            "2WD",
+            "Junior"
+        ],
         "car": "BMW 328 Ti Compact E46",
         "stageTimeMs": 571170,
         "penaltyInsideStageMs": 0,
@@ -50,7 +58,9 @@
         "country": "lithuania",
         "userName": "Šimkus Benas - Paulikas Vaidas",
         "realName": "",
-        "group": "SG-4",
+        "group": [
+            "SG-4"
+        ],
         "car": "Subaru Impreza WRX",
         "stageTimeMs": 572180,
         "penaltyInsideStageMs": 0,
@@ -65,7 +75,9 @@
         "country": "lithuania",
         "userName": "Plastininas V. - Šileikis G.",
         "realName": "",
-        "group": "Open",
+        "group": [
+            "Open"
+        ],
         "car": "Audi A1 Rally2-Kit",
         "stageTimeMs": 581290,
         "penaltyInsideStageMs": 0,
@@ -80,7 +92,10 @@
         "country": "lithuania",
         "userName": "Patėjūnas M. - Rapalavičiūtė L.",
         "realName": "",
-        "group": "2WD Junior",
+        "group": [
+            "2WD",
+            "Junior"
+        ],
         "car": "BMW 325i E36",
         "stageTimeMs": 582770,
         "penaltyInsideStageMs": 0,
@@ -95,7 +110,9 @@
         "country": "lithuania",
         "userName": "Ožiūnas Donatas - Ožiūnas V.",
         "realName": "",
-        "group": "2WD",
+        "group": [
+            "2WD"
+        ],
         "car": "BMW 330i E46",
         "stageTimeMs": 584340,
         "penaltyInsideStageMs": 0,
@@ -110,7 +127,9 @@
         "country": "lithuania",
         "userName": "Černius A. - Ščiglinskienė J.",
         "realName": "",
-        "group": "Open",
+        "group": [
+            "Open"
+        ],
         "car": "Subaru Impreza STi N10",
         "stageTimeMs": 585920,
         "penaltyInsideStageMs": 0,
@@ -125,7 +144,9 @@
         "country": "lithuania",
         "userName": "Ivanauskas G. - Pauliukonis V.",
         "realName": "",
-        "group": "SG-3",
+        "group": [
+            "SG-3"
+        ],
         "car": "BMW 328i E46",
         "stageTimeMs": 587930,
         "penaltyInsideStageMs": 0,
@@ -140,7 +161,9 @@
         "country": "lithuania",
         "userName": "Čiulada Rokas - Tumosa Ignas",
         "realName": "",
-        "group": "SG-4",
+        "group": [
+            "SG-4"
+        ],
         "car": "Subaru Impreza STi N8",
         "stageTimeMs": 588330,
         "penaltyInsideStageMs": 0,
@@ -155,7 +178,9 @@
         "country": "lithuania",
         "userName": "Žemaitis Tomas - Rulys Šarūnas",
         "realName": "",
-        "group": "2WD",
+        "group": [
+            "2WD"
+        ],
         "car": "BMW 328 Ti Compact E46",
         "stageTimeMs": 588420,
         "penaltyInsideStageMs": 0,
@@ -170,7 +195,9 @@
         "country": "lithuania",
         "userName": "Vaitašius R. - Kazickaitė K.",
         "realName": "",
-        "group": "SG-3",
+        "group": [
+            "SG-3"
+        ],
         "car": "BMW 318 Ti Compact E36",
         "stageTimeMs": 589550,
         "penaltyInsideStageMs": 0,
@@ -185,7 +212,9 @@
         "country": "lithuania",
         "userName": "Garbuzas Mantas - Butavičius P.",
         "realName": "",
-        "group": "SG-3",
+        "group": [
+            "SG-3"
+        ],
         "car": "BMW 323 Ti Compact E36",
         "stageTimeMs": 592170,
         "penaltyInsideStageMs": 0,
@@ -200,7 +229,9 @@
         "country": "lithuania",
         "userName": "Vidrickas Lukas - Bakutis E.",
         "realName": "",
-        "group": "SG-4",
+        "group": [
+            "SG-4"
+        ],
         "car": "Subaru Impreza STi N12",
         "stageTimeMs": 595600,
         "penaltyInsideStageMs": 0,
@@ -215,7 +246,9 @@
         "country": "lithuania",
         "userName": "Knyšius Ovidijus - Lapėnas S.",
         "realName": "",
-        "group": "SG-3",
+        "group": [
+            "SG-3"
+        ],
         "car": "BMW 325 Ti Compact E36",
         "stageTimeMs": 613350,
         "penaltyInsideStageMs": 0,
@@ -230,7 +263,9 @@
         "country": "lithuania",
         "userName": "Dervinskas A. - Sakalauskas D.",
         "realName": "",
-        "group": "2WD",
+        "group": [
+            "2WD"
+        ],
         "car": "BMW 325 Ti Compact E36",
         "stageTimeMs": 627410,
         "penaltyInsideStageMs": 0,
@@ -245,7 +280,9 @@
         "country": "lithuania",
         "userName": "Žibutis K. - Žibutis D.",
         "realName": "",
-        "group": "SG-3",
+        "group": [
+            "SG-3"
+        ],
         "car": "BMW 325 Ti Compact E46",
         "stageTimeMs": 639560,
         "penaltyInsideStageMs": 0,
@@ -260,7 +297,9 @@
         "country": "lithuania",
         "userName": "Skrebūnas J. - Laurinavičiūtė G.",
         "realName": "",
-        "group": "SG-2",
+        "group": [
+            "SG-2"
+        ],
         "car": "Honda Civic",
         "stageTimeMs": 640100,
         "penaltyInsideStageMs": 0,
@@ -275,7 +314,9 @@
         "country": "lithuania",
         "userName": "Globytė E. - Mioduševskis R.",
         "realName": "",
-        "group": "2WD",
+        "group": [
+            "2WD"
+        ],
         "car": "BMW E46",
         "stageTimeMs": 650630,
         "penaltyInsideStageMs": 0,
@@ -290,7 +331,9 @@
         "country": "lithuania",
         "userName": "Pranys Dainius - Plotnikova K.",
         "realName": "",
-        "group": "SG-2",
+        "group": [
+            "SG-2"
+        ],
         "car": "BMW 318 Ti Compact E36",
         "stageTimeMs": 661260,
         "penaltyInsideStageMs": 0,
@@ -305,7 +348,9 @@
         "country": "lithuania",
         "userName": "Grabinskis Justas - Šneideris J.",
         "realName": "",
-        "group": "2WD",
+        "group": [
+            "2WD"
+        ],
         "car": "Renault Clio Sport",
         "stageTimeMs": 666040,
         "penaltyInsideStageMs": 0,
@@ -320,7 +365,9 @@
         "country": "lithuania",
         "userName": "Tarailė Stasys - Ruzgas Saulius",
         "realName": "",
-        "group": "Open",
+        "group": [
+            "Open"
+        ],
         "car": "Ford Fiesta MK7",
         "stageTimeMs": 1390420,
         "penaltyInsideStageMs": 0,
@@ -335,7 +382,9 @@
         "country": "lithuania",
         "userName": "Ivanauskas G. - Pauliukonis V.",
         "realName": "",
-        "group": "SG-3",
+        "group": [
+            "SG-3"
+        ],
         "car": "BMW 328i E46",
         "stageTimeMs": 0,
         "penaltyInsideStageMs": 0,
@@ -350,7 +399,9 @@
         "country": "lithuania",
         "userName": "Skrebūnas J. - Laurinavičiūtė G.",
         "realName": "",
-        "group": "SG-2",
+        "group": [
+            "SG-2"
+        ],
         "car": "Honda Civic",
         "stageTimeMs": 0,
         "penaltyInsideStageMs": 0,
@@ -365,7 +416,10 @@
         "country": "lithuania",
         "userName": "Apočkinas A. - Šachsuvarova A.",
         "realName": "",
-        "group": "2WD Junior",
+        "group": [
+            "2WD",
+            "Junior"
+        ],
         "car": "BMW 320i E36",
         "stageTimeMs": 467060,
         "penaltyInsideStageMs": 0,
@@ -380,7 +434,10 @@
         "country": "lithuania",
         "userName": "Sukackas Darius - Vasiliauskas D.",
         "realName": "",
-        "group": "2WD Junior",
+        "group": [
+            "2WD",
+            "Junior"
+        ],
         "car": "BMW 328 Ti Compact E46",
         "stageTimeMs": 471050,
         "penaltyInsideStageMs": 0,
@@ -395,7 +452,9 @@
         "country": "lithuania",
         "userName": "Žemaitis Tomas - Rulys Šarūnas",
         "realName": "",
-        "group": "2WD",
+        "group": [
+            "2WD"
+        ],
         "car": "BMW 328 Ti Compact E46",
         "stageTimeMs": 471460,
         "penaltyInsideStageMs": 0,
@@ -410,7 +469,9 @@
         "country": "lithuania",
         "userName": "Černius A. - Ščiglinskienė J.",
         "realName": "",
-        "group": "Open",
+        "group": [
+            "Open"
+        ],
         "car": "Subaru Impreza STi N10",
         "stageTimeMs": 474840,
         "penaltyInsideStageMs": 0,
@@ -425,7 +486,9 @@
         "country": "lithuania",
         "userName": "Ožiūnas Donatas - Ožiūnas V.",
         "realName": "",
-        "group": "2WD",
+        "group": [
+            "2WD"
+        ],
         "car": "BMW 330i E46",
         "stageTimeMs": 478360,
         "penaltyInsideStageMs": 0,
@@ -440,7 +503,9 @@
         "country": "lithuania",
         "userName": "Vaitašius R. - Kazickaitė K.",
         "realName": "",
-        "group": "SG-3",
+        "group": [
+            "SG-3"
+        ],
         "car": "BMW 318 Ti Compact E36",
         "stageTimeMs": 483550,
         "penaltyInsideStageMs": 0,
@@ -455,7 +520,9 @@
         "country": "lithuania",
         "userName": "Čiulada Rokas - Tumosa Ignas",
         "realName": "",
-        "group": "SG-4",
+        "group": [
+            "SG-4"
+        ],
         "car": "Subaru Impreza STi N8",
         "stageTimeMs": 484760,
         "penaltyInsideStageMs": 0,
@@ -470,7 +537,9 @@
         "country": "lithuania",
         "userName": "Garbuzas Mantas - Butavičius P.",
         "realName": "",
-        "group": "SG-3",
+        "group": [
+            "SG-3"
+        ],
         "car": "BMW 323 Ti Compact E36",
         "stageTimeMs": 485600,
         "penaltyInsideStageMs": 0,
@@ -485,7 +554,9 @@
         "country": "lithuania",
         "userName": "Vidrickas Lukas - Bakutis E.",
         "realName": "",
-        "group": "SG-4",
+        "group": [
+            "SG-4"
+        ],
         "car": "Subaru Impreza STi N12",
         "stageTimeMs": 485670,
         "penaltyInsideStageMs": 0,
@@ -500,7 +571,9 @@
         "country": "lithuania",
         "userName": "Plastininas V. - Šileikis G.",
         "realName": "",
-        "group": "Open",
+        "group": [
+            "Open"
+        ],
         "car": "Audi A1 Rally2-Kit",
         "stageTimeMs": 490170,
         "penaltyInsideStageMs": 0,
@@ -515,7 +588,9 @@
         "country": "lithuania",
         "userName": "Knyšius Ovidijus - Lapėnas S.",
         "realName": "",
-        "group": "SG-3",
+        "group": [
+            "SG-3"
+        ],
         "car": "BMW 325 Ti Compact E36",
         "stageTimeMs": 493590,
         "penaltyInsideStageMs": 0,
@@ -530,7 +605,9 @@
         "country": "lithuania",
         "userName": "Dervinskas A. - Sakalauskas D.",
         "realName": "",
-        "group": "2WD",
+        "group": [
+            "2WD"
+        ],
         "car": "BMW 325 Ti Compact E36",
         "stageTimeMs": 500470,
         "penaltyInsideStageMs": 0,
@@ -545,7 +622,9 @@
         "country": "lithuania",
         "userName": "Pranys Dainius - Plotnikova K.",
         "realName": "",
-        "group": "SG-2",
+        "group": [
+            "SG-2"
+        ],
         "car": "BMW 318 Ti Compact E36",
         "stageTimeMs": 508570,
         "penaltyInsideStageMs": 0,
@@ -560,7 +639,9 @@
         "country": "lithuania",
         "userName": "Globytė E. - Mioduševskis R.",
         "realName": "",
-        "group": "2WD",
+        "group": [
+            "2WD"
+        ],
         "car": "BMW E46",
         "stageTimeMs": 520460,
         "penaltyInsideStageMs": 0,
@@ -575,7 +656,9 @@
         "country": "lithuania",
         "userName": "Grabinskis Justas - Šneideris J.",
         "realName": "",
-        "group": "2WD",
+        "group": [
+            "2WD"
+        ],
         "car": "Renault Clio Sport",
         "stageTimeMs": 530300,
         "penaltyInsideStageMs": 0,
@@ -590,7 +673,9 @@
         "country": "lithuania",
         "userName": "Žibutis K. - Žibutis D.",
         "realName": "",
-        "group": "SG-3",
+        "group": [
+            "SG-3"
+        ],
         "car": "BMW 325 Ti Compact E46",
         "stageTimeMs": 537390,
         "penaltyInsideStageMs": 0,
@@ -605,7 +690,9 @@
         "country": "lithuania",
         "userName": "Tarailė Stasys - Ruzgas Saulius",
         "realName": "",
-        "group": "Open",
+        "group": [
+            "Open"
+        ],
         "car": "Ford Fiesta MK7",
         "stageTimeMs": 557100,
         "penaltyInsideStageMs": 0,
@@ -620,7 +707,9 @@
         "country": "lithuania",
         "userName": "Šimkus Benas - Paulikas Vaidas",
         "realName": "",
-        "group": "SG-4",
+        "group": [
+            "SG-4"
+        ],
         "car": "Subaru Impreza WRX",
         "stageTimeMs": 808350,
         "penaltyInsideStageMs": 0,
@@ -635,7 +724,10 @@
         "country": "lithuania",
         "userName": "Patėjūnas M. - Rapalavičiūtė L.",
         "realName": "",
-        "group": "2WD Junior",
+        "group": [
+            "2WD",
+            "Junior"
+        ],
         "car": "BMW 325i E36",
         "stageTimeMs": 895630,
         "penaltyInsideStageMs": 0,
@@ -650,7 +742,9 @@
         "country": "lithuania",
         "userName": "Knyšius Ovidijus - Lapėnas S.",
         "realName": "",
-        "group": "SG-3",
+        "group": [
+            "SG-3"
+        ],
         "car": "BMW 325 Ti Compact E36",
         "stageTimeMs": 0,
         "penaltyInsideStageMs": 0,
@@ -665,7 +759,10 @@
         "country": "lithuania",
         "userName": "Patėjūnas M. - Rapalavičiūtė L.",
         "realName": "",
-        "group": "2WD Junior",
+        "group": [
+            "2WD",
+            "Junior"
+        ],
         "car": "BMW 325i E36",
         "stageTimeMs": 0,
         "penaltyInsideStageMs": 0,
@@ -680,7 +777,9 @@
         "country": "lithuania",
         "userName": "Dervinskas A. - Sakalauskas D.",
         "realName": "",
-        "group": "2WD",
+        "group": [
+            "2WD"
+        ],
         "car": "BMW 325 Ti Compact E36",
         "stageTimeMs": 0,
         "penaltyInsideStageMs": 0,
@@ -695,7 +794,10 @@
         "country": "lithuania",
         "userName": "Apočkinas A. - Šachsuvarova A.",
         "realName": "",
-        "group": "2WD Junior",
+        "group": [
+            "2WD",
+            "Junior"
+        ],
         "car": "BMW 320i E36",
         "stageTimeMs": 550480,
         "penaltyInsideStageMs": 0,
@@ -710,7 +812,10 @@
         "country": "lithuania",
         "userName": "Sukackas Darius - Vasiliauskas D.",
         "realName": "",
-        "group": "2WD Junior",
+        "group": [
+            "2WD",
+            "Junior"
+        ],
         "car": "BMW 328 Ti Compact E46",
         "stageTimeMs": 567810,
         "penaltyInsideStageMs": 0,
@@ -725,7 +830,9 @@
         "country": "lithuania",
         "userName": "Žemaitis Tomas - Rulys Šarūnas",
         "realName": "",
-        "group": "2WD",
+        "group": [
+            "2WD"
+        ],
         "car": "BMW 328 Ti Compact E46",
         "stageTimeMs": 576390,
         "penaltyInsideStageMs": 0,
@@ -740,7 +847,9 @@
         "country": "lithuania",
         "userName": "Ožiūnas Donatas - Ožiūnas V.",
         "realName": "",
-        "group": "2WD",
+        "group": [
+            "2WD"
+        ],
         "car": "BMW 330i E46",
         "stageTimeMs": 581570,
         "penaltyInsideStageMs": 0,
@@ -755,7 +864,9 @@
         "country": "lithuania",
         "userName": "Černius A. - Ščiglinskienė J.",
         "realName": "",
-        "group": "Open",
+        "group": [
+            "Open"
+        ],
         "car": "Subaru Impreza STi N10",
         "stageTimeMs": 582750,
         "penaltyInsideStageMs": 0,
@@ -770,7 +881,9 @@
         "country": "lithuania",
         "userName": "Plastininas V. - Šileikis G.",
         "realName": "",
-        "group": "Open",
+        "group": [
+            "Open"
+        ],
         "car": "Audi A1 Rally2-Kit",
         "stageTimeMs": 587100,
         "penaltyInsideStageMs": 0,
@@ -785,7 +898,9 @@
         "country": "lithuania",
         "userName": "Garbuzas Mantas - Butavičius P.",
         "realName": "",
-        "group": "SG-3",
+        "group": [
+            "SG-3"
+        ],
         "car": "BMW 323 Ti Compact E36",
         "stageTimeMs": 599680,
         "penaltyInsideStageMs": 0,
@@ -800,7 +915,9 @@
         "country": "lithuania",
         "userName": "Vaitašius R. - Kazickaitė K.",
         "realName": "",
-        "group": "SG-3",
+        "group": [
+            "SG-3"
+        ],
         "car": "BMW 318 Ti Compact E36",
         "stageTimeMs": 611590,
         "penaltyInsideStageMs": 0,
@@ -815,7 +932,9 @@
         "country": "lithuania",
         "userName": "Šimkus Benas - Paulikas Vaidas",
         "realName": "",
-        "group": "SG-4",
+        "group": [
+            "SG-4"
+        ],
         "car": "Subaru Impreza WRX",
         "stageTimeMs": 611600,
         "penaltyInsideStageMs": 0,
@@ -830,7 +949,9 @@
         "country": "lithuania",
         "userName": "Vidrickas Lukas - Bakutis E.",
         "realName": "",
-        "group": "SG-4",
+        "group": [
+            "SG-4"
+        ],
         "car": "Subaru Impreza STi N12",
         "stageTimeMs": 615950,
         "penaltyInsideStageMs": 0,
@@ -845,7 +966,9 @@
         "country": "lithuania",
         "userName": "Globytė E. - Mioduševskis R.",
         "realName": "",
-        "group": "2WD",
+        "group": [
+            "2WD"
+        ],
         "car": "BMW E46",
         "stageTimeMs": 632050,
         "penaltyInsideStageMs": 0,
@@ -860,7 +983,9 @@
         "country": "lithuania",
         "userName": "Pranys Dainius - Plotnikova K.",
         "realName": "",
-        "group": "SG-2",
+        "group": [
+            "SG-2"
+        ],
         "car": "BMW 318 Ti Compact E36",
         "stageTimeMs": 634670,
         "penaltyInsideStageMs": 0,
@@ -875,7 +1000,9 @@
         "country": "lithuania",
         "userName": "Čiulada Rokas - Tumosa Ignas",
         "realName": "",
-        "group": "SG-4",
+        "group": [
+            "SG-4"
+        ],
         "car": "Subaru Impreza STi N8",
         "stageTimeMs": 641930,
         "penaltyInsideStageMs": 0,
@@ -890,7 +1017,9 @@
         "country": "lithuania",
         "userName": "Grabinskis Justas - Šneideris J.",
         "realName": "",
-        "group": "2WD",
+        "group": [
+            "2WD"
+        ],
         "car": "Renault Clio Sport",
         "stageTimeMs": 667280,
         "penaltyInsideStageMs": 0,
@@ -905,7 +1034,9 @@
         "country": "lithuania",
         "userName": "Žibutis K. - Žibutis D.",
         "realName": "",
-        "group": "SG-3",
+        "group": [
+            "SG-3"
+        ],
         "car": "BMW 325 Ti Compact E46",
         "stageTimeMs": 685440,
         "penaltyInsideStageMs": 0,
@@ -920,7 +1051,10 @@
         "country": "lithuania",
         "userName": "Apočkinas A. - Šachsuvarova A.",
         "realName": "",
-        "group": "2WD Junior",
+        "group": [
+            "2WD",
+            "Junior"
+        ],
         "car": "BMW 320i E36",
         "stageTimeMs": 457690,
         "penaltyInsideStageMs": 0,
@@ -935,7 +1069,9 @@
         "country": "lithuania",
         "userName": "Šimkus Benas - Paulikas Vaidas",
         "realName": "",
-        "group": "SG-4",
+        "group": [
+            "SG-4"
+        ],
         "car": "Subaru Impreza WRX",
         "stageTimeMs": 465070,
         "penaltyInsideStageMs": 0,
@@ -950,7 +1086,10 @@
         "country": "lithuania",
         "userName": "Sukackas Darius - Vasiliauskas D.",
         "realName": "",
-        "group": "2WD Junior",
+        "group": [
+            "2WD",
+            "Junior"
+        ],
         "car": "BMW 328 Ti Compact E46",
         "stageTimeMs": 470720,
         "penaltyInsideStageMs": 0,
@@ -965,7 +1104,9 @@
         "country": "lithuania",
         "userName": "Ožiūnas Donatas - Ožiūnas V.",
         "realName": "",
-        "group": "2WD",
+        "group": [
+            "2WD"
+        ],
         "car": "BMW 330i E46",
         "stageTimeMs": 476020,
         "penaltyInsideStageMs": 0,
@@ -980,7 +1121,9 @@
         "country": "lithuania",
         "userName": "Garbuzas Mantas - Butavičius P.",
         "realName": "",
-        "group": "SG-3",
+        "group": [
+            "SG-3"
+        ],
         "car": "BMW 323 Ti Compact E36",
         "stageTimeMs": 486350,
         "penaltyInsideStageMs": 0,
@@ -995,7 +1138,9 @@
         "country": "lithuania",
         "userName": "Žemaitis Tomas - Rulys Šarūnas",
         "realName": "",
-        "group": "2WD",
+        "group": [
+            "2WD"
+        ],
         "car": "BMW 328 Ti Compact E46",
         "stageTimeMs": 489930,
         "penaltyInsideStageMs": 0,
@@ -1010,7 +1155,9 @@
         "country": "lithuania",
         "userName": "Vaitašius R. - Kazickaitė K.",
         "realName": "",
-        "group": "SG-3",
+        "group": [
+            "SG-3"
+        ],
         "car": "BMW 318 Ti Compact E36",
         "stageTimeMs": 491140,
         "penaltyInsideStageMs": 0,
@@ -1025,7 +1172,9 @@
         "country": "lithuania",
         "userName": "Černius A. - Ščiglinskienė J.",
         "realName": "",
-        "group": "Open",
+        "group": [
+            "Open"
+        ],
         "car": "Subaru Impreza STi N10",
         "stageTimeMs": 492430,
         "penaltyInsideStageMs": 0,
@@ -1040,7 +1189,9 @@
         "country": "lithuania",
         "userName": "Čiulada Rokas - Tumosa Ignas",
         "realName": "",
-        "group": "SG-4",
+        "group": [
+            "SG-4"
+        ],
         "car": "Subaru Impreza STi N8",
         "stageTimeMs": 493860,
         "penaltyInsideStageMs": 0,
@@ -1055,7 +1206,9 @@
         "country": "lithuania",
         "userName": "Plastininas V. - Šileikis G.",
         "realName": "",
-        "group": "Open",
+        "group": [
+            "Open"
+        ],
         "car": "Audi A1 Rally2-Kit",
         "stageTimeMs": 498040,
         "penaltyInsideStageMs": 0,
@@ -1070,7 +1223,9 @@
         "country": "lithuania",
         "userName": "Vidrickas Lukas - Bakutis E.",
         "realName": "",
-        "group": "SG-4",
+        "group": [
+            "SG-4"
+        ],
         "car": "Subaru Impreza STi N12",
         "stageTimeMs": 504760,
         "penaltyInsideStageMs": 0,
@@ -1085,7 +1240,9 @@
         "country": "lithuania",
         "userName": "Globytė E. - Mioduševskis R.",
         "realName": "",
-        "group": "2WD",
+        "group": [
+            "2WD"
+        ],
         "car": "BMW E46",
         "stageTimeMs": 516500,
         "penaltyInsideStageMs": 0,
@@ -1100,7 +1257,9 @@
         "country": "lithuania",
         "userName": "Pranys Dainius - Plotnikova K.",
         "realName": "",
-        "group": "SG-2",
+        "group": [
+            "SG-2"
+        ],
         "car": "BMW 318 Ti Compact E36",
         "stageTimeMs": 518520,
         "penaltyInsideStageMs": 0,
@@ -1115,7 +1274,9 @@
         "country": "lithuania",
         "userName": "Grabinskis Justas - Šneideris J.",
         "realName": "",
-        "group": "2WD",
+        "group": [
+            "2WD"
+        ],
         "car": "Renault Clio Sport",
         "stageTimeMs": 537710,
         "penaltyInsideStageMs": 0,
@@ -1130,7 +1291,9 @@
         "country": "lithuania",
         "userName": "Žibutis K. - Žibutis D.",
         "realName": "",
-        "group": "SG-3",
+        "group": [
+            "SG-3"
+        ],
         "car": "BMW 325 Ti Compact E46",
         "stageTimeMs": 635700,
         "penaltyInsideStageMs": 0,
@@ -1145,7 +1308,9 @@
         "country": "lithuania",
         "userName": "Žemaitis Tomas - Rulys Šarūnas",
         "realName": "",
-        "group": "2WD",
+        "group": [
+            "2WD"
+        ],
         "car": "BMW 328 Ti Compact E46",
         "stageTimeMs": 0,
         "penaltyInsideStageMs": 0,
@@ -1160,7 +1325,10 @@
         "country": "lithuania",
         "userName": "Sukackas Darius - Vasiliauskas D.",
         "realName": "",
-        "group": "2WD Junior",
+        "group": [
+            "2WD",
+            "Junior"
+        ],
         "car": "BMW 328 Ti Compact E46",
         "stageTimeMs": 184430,
         "penaltyInsideStageMs": 0,
@@ -1175,7 +1343,9 @@
         "country": "lithuania",
         "userName": "Šimkus Benas - Paulikas Vaidas",
         "realName": "",
-        "group": "SG-4",
+        "group": [
+            "SG-4"
+        ],
         "car": "Subaru Impreza WRX",
         "stageTimeMs": 191180,
         "penaltyInsideStageMs": 0,
@@ -1190,7 +1360,9 @@
         "country": "lithuania",
         "userName": "Ožiūnas Donatas - Ožiūnas V.",
         "realName": "",
-        "group": "2WD",
+        "group": [
+            "2WD"
+        ],
         "car": "BMW 330i E46",
         "stageTimeMs": 192400,
         "penaltyInsideStageMs": 0,
@@ -1205,7 +1377,9 @@
         "country": "lithuania",
         "userName": "Garbuzas Mantas - Butavičius P.",
         "realName": "",
-        "group": "SG-3",
+        "group": [
+            "SG-3"
+        ],
         "car": "BMW 323 Ti Compact E36",
         "stageTimeMs": 193060,
         "penaltyInsideStageMs": 0,
@@ -1220,7 +1394,9 @@
         "country": "lithuania",
         "userName": "Plastininas V. - Šileikis G.",
         "realName": "",
-        "group": "Open",
+        "group": [
+            "Open"
+        ],
         "car": "Audi A1 Rally2-Kit",
         "stageTimeMs": 194370,
         "penaltyInsideStageMs": 0,
@@ -1235,7 +1411,9 @@
         "country": "lithuania",
         "userName": "Vidrickas Lukas - Bakutis E.",
         "realName": "",
-        "group": "SG-4",
+        "group": [
+            "SG-4"
+        ],
         "car": "Subaru Impreza STi N12",
         "stageTimeMs": 196450,
         "penaltyInsideStageMs": 0,
@@ -1250,7 +1428,9 @@
         "country": "lithuania",
         "userName": "Čiulada Rokas - Tumosa Ignas",
         "realName": "",
-        "group": "SG-4",
+        "group": [
+            "SG-4"
+        ],
         "car": "Subaru Impreza STi N8",
         "stageTimeMs": 198250,
         "penaltyInsideStageMs": 0,
@@ -1265,7 +1445,9 @@
         "country": "lithuania",
         "userName": "Vaitašius R. - Kazickaitė K.",
         "realName": "",
-        "group": "SG-3",
+        "group": [
+            "SG-3"
+        ],
         "car": "BMW 318 Ti Compact E36",
         "stageTimeMs": 199670,
         "penaltyInsideStageMs": 0,
@@ -1280,7 +1462,9 @@
         "country": "lithuania",
         "userName": "Černius A. - Ščiglinskienė J.",
         "realName": "",
-        "group": "Open",
+        "group": [
+            "Open"
+        ],
         "car": "Subaru Impreza STi N10",
         "stageTimeMs": 201300,
         "penaltyInsideStageMs": 0,
@@ -1295,7 +1479,9 @@
         "country": "lithuania",
         "userName": "Globytė E. - Mioduševskis R.",
         "realName": "",
-        "group": "2WD",
+        "group": [
+            "2WD"
+        ],
         "car": "BMW E46",
         "stageTimeMs": 209670,
         "penaltyInsideStageMs": 0,
@@ -1310,7 +1496,9 @@
         "country": "lithuania",
         "userName": "Žibutis K. - Žibutis D.",
         "realName": "",
-        "group": "SG-3",
+        "group": [
+            "SG-3"
+        ],
         "car": "BMW 325 Ti Compact E46",
         "stageTimeMs": 210640,
         "penaltyInsideStageMs": 0,
@@ -1325,7 +1513,9 @@
         "country": "lithuania",
         "userName": "Grabinskis Justas - Šneideris J.",
         "realName": "",
-        "group": "2WD",
+        "group": [
+            "2WD"
+        ],
         "car": "Renault Clio Sport",
         "stageTimeMs": 212550,
         "penaltyInsideStageMs": 0,
@@ -1340,7 +1530,9 @@
         "country": "lithuania",
         "userName": "Pranys Dainius - Plotnikova K.",
         "realName": "",
-        "group": "SG-2",
+        "group": [
+            "SG-2"
+        ],
         "car": "BMW 318 Ti Compact E36",
         "stageTimeMs": 245510,
         "penaltyInsideStageMs": 0,
@@ -1355,7 +1547,10 @@
         "country": "lithuania",
         "userName": "Apočkinas A. - Šachsuvarova A.",
         "realName": "",
-        "group": "2WD Junior",
+        "group": [
+            "2WD",
+            "Junior"
+        ],
         "car": "BMW 320i E36",
         "stageTimeMs": 355860,
         "penaltyInsideStageMs": 0,

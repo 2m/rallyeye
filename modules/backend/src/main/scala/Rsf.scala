@@ -188,7 +188,7 @@ object Rsf:
           userName = row.at(3).get,
           realName = row.at(4).get.decodeHtmlUnicode,
           // until https://discord.com/channels/723091638951608320/792825986055798825/1114861057035489341 is fixed
-          group = row.at(5).map(g => if g.isEmpty then "Rally 3" else g).get,
+          group = row.at(5).map(g => if g.isEmpty then "Rally 3" else g).toList,
           car = row.at(6).get,
           split1Time = Try(BigDecimal(row.at(7).get)).toOption,
           split2Time = Try(BigDecimal(row.at(8).get)).toOption,
