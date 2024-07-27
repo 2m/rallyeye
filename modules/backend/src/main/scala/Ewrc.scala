@@ -361,7 +361,12 @@ object Ewrc:
         val groupElement = result.select("td.px-1")
         val separator = "---"
         groupElement.select("br").before(s"""<span>$separator</span>"""): @nowarn("msg=discarded expression")
-        val group = groupElement.text.split(separator).toList.map(_.trim)
+        val group = groupElement.text
+          .split(separator)
+          .toList
+          .map(_.trim)
+          .map: g =>
+            if g.isEmpty then "No group" else g
 
         val stageTimeElement = result.select("td.font-weight-bold.text-right").first
         val nominalTime = stageTimeElement.text.contains("[N]")

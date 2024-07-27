@@ -16,6 +16,8 @@
 
 package components
 
+import scala.util.Try
+
 import com.raquo.laminar.api.L.*
 import rallyeye.Router
 import rallyeye.shared.RallyData
@@ -50,7 +52,7 @@ object ResultFilter:
 
   def render(rallyData: RallyData, filter: String) =
     filters(rallyData).values.toSeq
-      .sortBy(rf => (rf.order, rf.group, rf.isCar, rf.name))
+      .sortBy(rf => (rf.order, Try(rf.group.takeWhile(_.isDigit).toInt).getOrElse(0), rf.group, rf.isCar, rf.name))
       .map: rf =>
         li(
           a(
