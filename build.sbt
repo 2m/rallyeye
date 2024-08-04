@@ -116,7 +116,7 @@ lazy val backend = project
       "io.github.iltotore"          %% "iron"                                      % "2.6.0",
       "io.github.iltotore"          %% "iron-doobie"                               % "2.6.0",
       "com.themillhousegroup"       %% "scoup"                                     % "1.0.0",
-      "org.gnieh"                   %% "fs2-data-csv"                              % "1.11.0",
+      "org.gnieh"                   %% "fs2-data-csv"                              % "1.11.1",
       "org.typelevel"               %% "log4cats-core"                             % "2.7.0",
       "org.typelevel"               %% "log4cats-slf4j"                            % "2.7.0",
       "com.ovoenergy"               %% "natchez-extras-doobie"                     % "8.1.1",
