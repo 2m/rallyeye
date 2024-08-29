@@ -19,8 +19,6 @@ import cats.effect.IO
 import cats.implicits.*
 import com.monovore.decline.Opts
 import com.monovore.decline.effect.CommandIOApp
-import org.typelevel.otel4s.metrics.Meter
-import org.typelevel.otel4s.trace.Tracer
 import rallyeye.Telemetry
 
 object Main

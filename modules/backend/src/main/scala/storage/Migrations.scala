@@ -20,7 +20,6 @@ package storage
 import java.time.LocalDate
 
 import scala.io.Source
-import scala.util.chaining.*
 
 import cats.effect.kernel.Async
 import cats.syntax.all.*
