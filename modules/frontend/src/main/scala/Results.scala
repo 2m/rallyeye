@@ -16,8 +16,6 @@
 
 package rallyeye
 
-import scala.util.chaining.*
-
 import org.scalajs.dom
 import rallyeye.shared.*
 import sttp.client3.*

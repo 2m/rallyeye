@@ -21,7 +21,6 @@ import scala.util.chaining.*
 
 import com.raquo.airstream.core.{Observer, Signal}
 import com.raquo.airstream.state.Var
-import com.raquo.airstream.state.Var.apply
 import com.raquo.laminar.api.*
 import com.raquo.laminar.api.L.*
 import components.About
