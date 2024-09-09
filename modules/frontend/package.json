@@ -24,7 +24,7 @@
     "@types/d3-selection": "3.0.10",
     "@types/d3-shape": "3.1.6",
     "autoprefixer": "^10.4.20",
-    "postcss": "^8.4.44",
+    "postcss": "^8.4.45",
     "tailwindcss": "^3.4.10",
     "typescript": "5.5.4",
     "vite": "^5.4.2"
