@@ -1,3 +1,5 @@
+set dotenv-load
+
 dev:
   process-compose -p 8088 up
 
@@ -42,7 +44,7 @@ native-image:
   sbt --client backend/nativeImage
 
 run-native-image:
-  eval $(cat .env) modules/backend/target/native-image/backend http-server
+  modules/backend/target/native-image/backend http-server
 
 rm-db:
   rm modules/backend/rallyeye.db
@@ -67,3 +69,6 @@ litefs-export:
 
 telemetry:
   cd telemetry; docker-compose up
+
+delete-rally kind rally:
+  http --auth admin:$ADMIN_PASS POST 'https://rallyeye-data.fly.dev/admin/delete/{{kind}}/{{rally}}'

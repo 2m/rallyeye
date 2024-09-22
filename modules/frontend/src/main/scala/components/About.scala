@@ -26,7 +26,7 @@ object About:
         cls := "grid grid-cols-1 sm:grid-cols-1 gap-4 p-4 max-w-fit",
         margin := "0 auto",
         div(
-          cls := "max-w-md",
+          cls := "max-w-xl",
           p(cls := "mt-2", "Welcome to RallyEye!"),
           p(
             cls := "mt-2",
@@ -65,17 +65,23 @@ object About:
             " rally result in RallyEye."
           ),
           p(
-            "For rally from RallySimFans, get the ",
-            samp("rally_id"),
-            " from the URL and use it like so: "
+            cls := "mt-2",
+            p(
+              "For rally from RallySimFans, get the ",
+              samp("rally_id"),
+              " from the URL and use it like so: "
+            ),
+            samp("https://rallyeye.2m.lt/#/rsf/", strong("rally_id"))
           ),
-          samp("https://rallyeye.2m.lt/#/rsf/<rally_id>"),
           p(
-            "For rally from ewrc-results.com, get the ",
-            samp("rally_slug"),
-            " from the URL and use it like so: "
+            cls := "mt-2",
+            p(
+              "For rally from ewrc-results.com, get the ",
+              samp("rally_slug"),
+              " from the URL and use it like so: "
+            ),
+            samp("https://rallyeye.2m.lt/#/ewrc/", strong("rally_slug"))
           ),
-          samp("https://rallyeye.2m.lt/#/ewrc/<rally_slug>"),
           p(
             cls := "mt-2",
             "When on the results stage, every rally stage is represented as a column and every rally driver as a row. The number in a circle shows the position driver took in that particular stage."
