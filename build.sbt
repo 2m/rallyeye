@@ -1,4 +1,4 @@
-ThisBuild / scalaVersion := "3.5.0"
+ThisBuild / scalaVersion := "3.5.1"
 ThisBuild / scalafmtOnCompile := true
 
 ThisBuild / organization := "lt.dvim.rallyeye"
@@ -8,7 +8,7 @@ ThisBuild / licenses += ("Apache-2.0", url("http://www.apache.org/licenses/LICEN
 
 ThisBuild / dynverSeparator := "-"
 
-ThisBuild / libraryDependencies += compilerPlugin("com.github.ghik" % "zerowaste" % "0.2.22" cross CrossVersion.full)
+ThisBuild / libraryDependencies += compilerPlugin("com.github.ghik" % "zerowaste" % "0.2.23" cross CrossVersion.full)
 
 // invisible because used from dyn task
 Global / excludeLintKeys ++= Set(nativeImageJvm, nativeImageVersion)
