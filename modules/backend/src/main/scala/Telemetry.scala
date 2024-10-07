@@ -30,6 +30,7 @@ import cats.implicits.*
 import org.http4s.HttpApp
 import org.http4s.otel4s.middleware.ClientMiddleware
 import org.http4s.otel4s.middleware.ServerMiddleware
+import org.typelevel.ci.CIString
 import org.typelevel.otel4s.Attribute
 import org.typelevel.otel4s.metrics.Meter
 import org.typelevel.otel4s.oteljava.OtelJava
@@ -79,6 +80,10 @@ object Telemetry:
 
   def tracedServer[F[_]: Tracer: MonadCancelThrow](f: HttpApp[F]): HttpApp[F] = ServerMiddleware.default
     .withServerSpanName(req => s"${req.method} ${req.uri}")
+    .withAllowedRequestHeaders(
+      ServerMiddleware.Defaults.allowedRequestHeaders ++ Set("Fly-Client-IP", "Fly-Forwarded-Port", "Fly-Region")
+        .map(CIString(_))
+    )
     .buildHttpApp(f)
 
 extension [A, F[_]: Tracer](f: F[A])
