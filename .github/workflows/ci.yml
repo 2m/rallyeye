@@ -6,6 +6,9 @@ on:
     - main
   pull_request:
 
+env:
+  JAVA_OPTS: -Xms2048M -Xmx2048M -Xss6M -XX:ReservedCodeCacheSize=256M -Dfile.encoding=UTF-8
+
 jobs:
   checks:
     runs-on: ubuntu-latest
@@ -31,6 +34,8 @@ jobs:
         distribution: temurin
         java-version: 17
         cache: sbt
+    - uses: sbt/setup-sbt@v1
+
     - run: sbt --client scalafmtCheckAll
     - run: sbt --client scalafmtSbtCheck
     - run: sbt --client headerCheckAll
