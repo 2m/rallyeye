@@ -28,8 +28,8 @@ import cats.effect.kernel.Sync
 import cats.effect.syntax.all.*
 import cats.implicits.*
 import org.http4s.HttpApp
-import org.http4s.otel4s.middleware.ClientMiddleware
-import org.http4s.otel4s.middleware.ServerMiddleware
+import org.http4s.otel4s.middleware.trace.client.ClientMiddleware
+import org.http4s.otel4s.middleware.trace.server.ServerMiddleware
 import org.typelevel.ci.CIString
 import org.typelevel.otel4s.Attribute
 import org.typelevel.otel4s.metrics.Meter
