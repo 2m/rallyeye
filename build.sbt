@@ -143,6 +143,9 @@ lazy val backend = project
     // for correct IOApp resource cleanup
     Compile / run / fork := true,
 
+    // disable varnings for given search alternatives
+    scalacOptions ++= Seq("-source", "3.7"),
+
     // exclude integration tests
     Test / testOptions += Tests.Argument(MUnitFramework, "--exclude-tags=integration"),
     Integration / testOptions := Seq(Tests.Argument(MUnitFramework, "--include-tags=integration")),
