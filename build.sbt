@@ -1,4 +1,4 @@
-ThisBuild / scalaVersion := "3.5.2"
+ThisBuild / scalaVersion := "3.6.2"
 ThisBuild / scalafmtOnCompile := true
 
 ThisBuild / organization := "lt.dvim.rallyeye"
@@ -142,6 +142,9 @@ lazy val backend = project
 
     // for correct IOApp resource cleanup
     Compile / run / fork := true,
+
+    // disable varnings for given search alternatives
+    scalacOptions ++= Seq("-source", "3.7"),
 
     // exclude integration tests
     Test / testOptions += Tests.Argument(MUnitFramework, "--exclude-tags=integration"),
