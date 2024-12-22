@@ -108,7 +108,7 @@ lazy val backend = project
       "org.http4s"                  %% "http4s-otel4s-middleware-trace-client"     % "0.10.0",
       "org.http4s"                  %% "http4s-otel4s-middleware-trace-server"     % "0.10.0",
       "io.bullet"                   %% "borer-compat-circe"                        % "1.15.0",
-      "ch.qos.logback"               % "logback-classic"                           % "1.5.12",
+      "ch.qos.logback"               % "logback-classic"                           % "1.5.15",
       "com.github.geirolz"          %% "fly4s-core"                                % "1.0.0",
       "org.xerial"                   % "sqlite-jdbc"                               % "3.47.1.0",
       "org.tpolecat"                %% "doobie-core"                               % "1.0.0-RC5",
