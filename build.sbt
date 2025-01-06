@@ -54,7 +54,7 @@ lazy val frontend = project
       "org.scala-js"                %%% "scala-js-macrotask-executor" % "1.1.1",
       "com.softwaremill.sttp.tapir" %%% "tapir-sttp-client"           % "1.11.11",
       "com.raquo"                   %%% "laminar"                     % "17.2.0",
-      "com.raquo"                   %%% "waypoint"                    % "8.0.1",
+      "com.raquo"                   %%% "waypoint"                    % "9.0.0",
       "io.github.cquiroz"           %%% "scala-java-time"             % "2.6.0",
       "io.bullet"                   %%% "borer-core"                  % "1.15.0",
       "io.bullet"                   %%% "borer-derivation"            % "1.15.0",
