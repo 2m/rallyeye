@@ -125,8 +125,7 @@ object Router:
     ),
     getPageTitle = _ => "RallyEye",
     serializePage = page => Json.encode(page).toUtf8String,
-    deserializePage = pageStr => Json.decode(pageStr.getBytes("UTF8")).to[Page].value
-  )(
+    deserializePage = pageStr => Json.decode(pageStr.getBytes("UTF8")).to[Page].value,
     popStateEvents = L.windowEvents(_.onPopState),
     owner = L.unsafeWindowOwner
   )
