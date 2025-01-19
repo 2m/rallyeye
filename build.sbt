@@ -110,7 +110,7 @@ lazy val backend = project
       "io.bullet"                   %% "borer-compat-circe"                        % "1.15.0",
       "ch.qos.logback"               % "logback-classic"                           % "1.5.16",
       "com.github.geirolz"          %% "fly4s-core"                                % "1.0.0",
-      "org.xerial"                   % "sqlite-jdbc"                               % "3.47.2.0",
+      "org.xerial"                   % "sqlite-jdbc"                               % "3.48.0.0",
       "org.tpolecat"                %% "doobie-core"                               % "1.0.0-RC5",
       "io.github.arainko"           %% "ducktape"                                  % "0.2.7",
       "com.monovore"                %% "decline-effect"                            % "2.5.0",
