@@ -33,8 +33,7 @@ case class Alert(errorInfoSignal: Signal[Option[ErrorInfo]]):
         p(cls := "font-bold", errorTitle(errorInfo)),
         p(errorMessage(errorInfo))
       )
-    case None => emptyNode
-  )
+    case None => emptyNode)
 
   private def errorTitle(errorInfo: ErrorInfo) = errorInfo match
     case GenericError(message) => "Error"
