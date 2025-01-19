@@ -69,8 +69,7 @@ case class RallyList(
             },
             Router.navigateTo(filter match
               case c: Championship => Router.FindPage(c)
-              case Fresh           => Router.FreshRallyPage
-            ),
+              case Fresh           => Router.FreshRallyPage),
             name
           )
       )
