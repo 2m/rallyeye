@@ -143,6 +143,7 @@ object RallyList:
   val filters: List[(String, List[(String, Filter)])] = List(
     "" -> List("🔄 Recently loaded rallies" -> Fresh),
     "🌎 WRC" -> List(
+      "'25" -> Championship(RallyKind.Ewrc, "WRC", Some(2025)),
       "'24" -> Championship(RallyKind.Ewrc, "WRC", Some(2024)),
       "'23" -> Championship(RallyKind.Ewrc, "WRC", Some(2023))
     ),
