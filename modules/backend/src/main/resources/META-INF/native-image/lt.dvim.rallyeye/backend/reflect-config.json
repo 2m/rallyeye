@@ -24,6 +24,9 @@
   "name":"[Lcats.parse.Parser;"
 },
 {
+  "name":"[Lio.opentelemetry.api.metrics.ObservableMeasurement;"
+},
+{
   "name":"[Ljava.lang.StackTraceElement;"
 },
 {
@@ -83,20 +86,16 @@
   "fields":[{"name":"value$lzy1"}]
 },
 {
-  "name":"cats.effect.metrics.CpuStarvation",
-  "queryAllPublicConstructors":true
-},
-{
-  "name":"cats.effect.metrics.CpuStarvationMBean",
-  "queryAllPublicMethods":true
+  "name":"cats.effect.IO$",
+  "fields":[{"name":"secureRandom$lzy1"}]
 },
 {
   "name":"cats.effect.std.Console$",
-  "fields":[{"name":"0bitmap$1"}]
+  "fields":[{"name":"cats$effect$std$ConsoleCompanionPlatform$$stdinReader$lzy1"}]
 },
 {
   "name":"cats.effect.std.Semaphore$impl",
-  "fields":[{"name":"0bitmap$1"}]
+  "fields":[{"name":"Done$lzy1"}, {"name":"Wait$lzy1"}]
 },
 {
   "name":"cats.effect.unsafe.Head",
@@ -107,15 +106,19 @@
   "fields":[{"name":"tailPublisher"}]
 },
 {
-  "name":"cats.effect.unsafe.TimerSkipListNodeBase",
-  "fields":[{"name":"callback"}]
-},
-{
   "name":"cats.effect.unsafe.metrics.ComputePoolSampler",
   "queryAllPublicConstructors":true
 },
 {
   "name":"cats.effect.unsafe.metrics.ComputePoolSamplerMBean",
+  "queryAllPublicMethods":true
+},
+{
+  "name":"cats.effect.unsafe.metrics.CpuStarvation",
+  "queryAllPublicConstructors":true
+},
+{
+  "name":"cats.effect.unsafe.metrics.CpuStarvationMBean",
   "queryAllPublicMethods":true
 },
 {
@@ -132,6 +135,30 @@
 },
 {
   "name":"cats.effect.unsafe.metrics.LocalQueueSamplerMBean",
+  "queryAllPublicMethods":true
+},
+{
+  "name":"cats.effect.unsafe.metrics.PollerSampler",
+  "queryAllPublicConstructors":true
+},
+{
+  "name":"cats.effect.unsafe.metrics.PollerSamplerMBean",
+  "queryAllPublicMethods":true
+},
+{
+  "name":"cats.effect.unsafe.metrics.TimerHeapSampler",
+  "queryAllPublicConstructors":true
+},
+{
+  "name":"cats.effect.unsafe.metrics.TimerHeapSamplerMBean",
+  "queryAllPublicMethods":true
+},
+{
+  "name":"cats.effect.unsafe.metrics.WorkerThreadSampler",
+  "queryAllPublicConstructors":true
+},
+{
+  "name":"cats.effect.unsafe.metrics.WorkerThreadSamplerMBean",
   "queryAllPublicMethods":true
 },
 {
@@ -154,38 +181,6 @@
 },
 {
   "name":"ch.qos.logback.classic.joran.SerializedModelConfigurator",
-  "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
-  "name":"ch.qos.logback.classic.pattern.DateConverter",
-  "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
-  "name":"ch.qos.logback.classic.pattern.LevelConverter",
-  "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
-  "name":"ch.qos.logback.classic.pattern.LineSeparatorConverter",
-  "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
-  "name":"ch.qos.logback.classic.pattern.LoggerConverter",
-  "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
-  "name":"ch.qos.logback.classic.pattern.MDCConverter",
-  "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
-  "name":"ch.qos.logback.classic.pattern.MarkerConverter",
-  "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
-  "name":"ch.qos.logback.classic.pattern.MessageConverter",
-  "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
-  "name":"ch.qos.logback.classic.pattern.ThreadConverter",
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
@@ -234,11 +229,7 @@
 },
 {
   "name":"com.monovore.decline.effect.CommandIOApp",
-  "fields":[{"name":"0bitmap$1"}]
-},
-{
-  "name":"com.ovoenergy.natchez.extras.doobie.TracedTransactor$$anon$1",
-  "fields":[{"name":"ConnectionInterpreter$lzy1"}, {"name":"PreparedStatementInterpreter$lzy1"}]
+  "fields":[{"name":"MainThread$lzy1"}, {"name":"cats$effect$IOApp$$queue$lzy1"}]
 },
 {
   "name":"com.sun.crypto.provider.AESCipher$General",
@@ -349,6 +340,10 @@
   "fields":[{"name":"WeakAsyncBlobIO$lzy1"}, {"name":"WeakAsyncCallableStatementIO$lzy1"}, {"name":"WeakAsyncClobIO$lzy1"}, {"name":"WeakAsyncConnectionIO$lzy1"}, {"name":"WeakAsyncDatabaseMetaDataIO$lzy1"}, {"name":"WeakAsyncDriverIO$lzy1"}, {"name":"WeakAsyncNClobIO$lzy1"}, {"name":"WeakAsyncPreparedStatementIO$lzy1"}, {"name":"WeakAsyncRefIO$lzy1"}, {"name":"WeakAsyncResultSetIO$lzy1"}, {"name":"WeakAsyncSQLDataIO$lzy1"}, {"name":"WeakAsyncSQLInputIO$lzy1"}, {"name":"WeakAsyncSQLOutputIO$lzy1"}, {"name":"WeakAsyncStatementIO$lzy1"}]
 },
 {
+  "name":"doobie.otel4s.TracedTransactor$$anon$1",
+  "fields":[{"name":"ConnectionInterpreter$lzy1"}, {"name":"PreparedStatementInterpreter$lzy1"}]
+},
+{
   "name":"doobie.package$",
   "fields":[{"name":"FB$lzy1"}, {"name":"FC$lzy1"}, {"name":"FCL$lzy1"}, {"name":"FCS$lzy1"}, {"name":"FD$lzy1"}, {"name":"FDMD$lzy1"}, {"name":"FNCL$lzy1"}, {"name":"FPS$lzy1"}, {"name":"FREF$lzy1"}, {"name":"FRS$lzy1"}, {"name":"FS$lzy1"}, {"name":"FSD$lzy1"}, {"name":"FSI$lzy1"}, {"name":"FSO$lzy1"}, {"name":"HC$lzy1"}, {"name":"HPS$lzy1"}, {"name":"HRS$lzy1"}, {"name":"HS$lzy1"}]
 },
@@ -441,6 +436,14 @@
   "fields":[{"name":"default$lzy1"}]
 },
 {
+  "name":"io.opentelemetry.api.incubator.metrics.ExtendedDefaultMeterProvider",
+  "methods":[{"name":"getNoop","parameterTypes":[] }]
+},
+{
+  "name":"io.opentelemetry.api.incubator.trace.ExtendedDefaultTracerProvider",
+  "methods":[{"name":"getNoop","parameterTypes":[] }]
+},
+{
   "name":"io.opentelemetry.internal.shaded.jctools.queues.MpscArrayQueueConsumerIndexField",
   "fields":[{"name":"consumerIndex"}]
 },
@@ -454,7 +457,7 @@
 },
 {
   "name":"io.opentelemetry.sdk.metrics.SdkMeterProviderBuilder",
-  "methods":[{"name":"registerMetricReader","parameterTypes":["io.opentelemetry.sdk.metrics.export.MetricReader","io.opentelemetry.sdk.metrics.internal.export.CardinalityLimitSelector"] }, {"name":"setExemplarFilter","parameterTypes":["io.opentelemetry.sdk.metrics.internal.exemplar.ExemplarFilter"] }]
+  "methods":[{"name":"setExemplarFilter","parameterTypes":["io.opentelemetry.sdk.metrics.internal.exemplar.ExemplarFilter"] }]
 },
 {
   "name":"java.io.FilePermission"
@@ -511,11 +514,12 @@
 },
 {
   "name":"java.lang.String",
-  "fields":[{"name":"TYPE"}]
+  "fields":[{"name":"TYPE"}, {"name":"coder"}, {"name":"value"}]
 },
 {
   "name":"java.lang.Thread",
-  "fields":[{"name":"threadLocalRandomProbe"}]
+  "fields":[{"name":"threadLocalRandomProbe"}],
+  "methods":[{"name":"isVirtual","parameterTypes":[] }]
 },
 {
   "name":"java.lang.Void",
@@ -843,7 +847,27 @@
 },
 {
   "name":"org.typelevel.ci.package$CIStringSyntax",
-  "fields":[{"name":"0bitmap$1"}]
+  "fields":[{"name":"ci$lzy1"}]
+},
+{
+  "name":"org.typelevel.otel4s.instrumentation.ce.IORuntimeMetrics$",
+  "fields":[{"name":"Config$lzy1"}]
+},
+{
+  "name":"org.typelevel.otel4s.instrumentation.ce.IORuntimeMetricsPlatform$Config$",
+  "fields":[{"name":"CpuStarvationConfig$lzy1"}, {"name":"WorkStealingThreadPoolConfig$lzy1"}]
+},
+{
+  "name":"org.typelevel.otel4s.instrumentation.ce.IORuntimeMetricsPlatform$Config$WorkStealingThreadPoolConfig$",
+  "fields":[{"name":"ComputeConfig$lzy1"}, {"name":"WorkerThreadsConfig$lzy1"}]
+},
+{
+  "name":"org.typelevel.otel4s.instrumentation.ce.IORuntimeMetricsPlatform$Config$WorkStealingThreadPoolConfig$WorkerThreadsConfig$",
+  "fields":[{"name":"LocalQueueConfig$lzy1"}, {"name":"PollerConfig$lzy1"}, {"name":"ThreadConfig$lzy1"}, {"name":"TimerHeapConfig$lzy1"}]
+},
+{
+  "name":"org.typelevel.otel4s.oteljava.context.Context$",
+  "fields":[{"name":"root$lzy1"}]
 },
 {
   "name":"org.typelevel.otel4s.trace.TraceState$MapBasedTraceState",
@@ -895,7 +919,7 @@
 },
 {
   "name":"sttp.tapir.package$",
-  "fields":[{"name":"filesGetEndpoint$lzy1"}, {"name":"resourcesGetEndpoint$lzy1"}, {"name":"sttp$tapir$static$TapirStaticContentEndpoints$$staticHeadEndpoint$lzy1"}]
+  "fields":[{"name":"NoTrailingSlash$lzy1"}, {"name":"filesGetEndpoint$lzy1"}, {"name":"resourcesGetEndpoint$lzy1"}, {"name":"sttp$tapir$static$TapirStaticContentEndpoints$$staticHeadEndpoint$lzy1"}]
 },
 {
   "name":"sttp.tapir.server.PartialServerEndpoint",
