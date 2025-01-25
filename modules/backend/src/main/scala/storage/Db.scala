@@ -20,10 +20,10 @@ package storage
 import cats.*
 import cats.effect.*
 import cats.implicits.*
-import com.ovoenergy.natchez.extras.doobie.TracedTransactor
 import doobie.*
 import doobie.implicits.*
 import doobie.implicits.javatimedrivernative.*
+import doobie.otel4s.TracedTransactor
 import doobie.util.fragments.whereAndOpt
 import io.bullet.borer.Decoder
 import io.bullet.borer.Encoder
@@ -59,8 +59,13 @@ object Db:
     Transactor.before.modify(transactor, sql"PRAGMA foreign_keys = 1".update.run *> _)
 
   def tracedTransactor[F[_]: Async: Tracer] =
-    given natchez.Trace[F] = rallyeye.NatchezOtel4s.fromOtel4s[F](summon[Tracer[F]])
-    TracedTransactor.trace(com.ovoenergy.natchez.extras.core.Config.UseExistingNames, xa, LogHandler.noop[F])
+    TracedTransactor(
+      xa,
+      LogHandler.noop[F],
+      TracedTransactor.Config.default.copy(
+        makeSpanName = sql => s"sql: $sql"
+      )
+    )
 
   given [A](using Encoder[A]): Put[List[A]] =
     Put[String].tcontramap(io.bullet.borer.Json.encode(_).toUtf8String)

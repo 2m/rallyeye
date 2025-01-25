@@ -120,7 +120,7 @@ lazy val backend = project
       "org.gnieh"                   %% "fs2-data-csv"                              % "1.11.2",
       "org.typelevel"               %% "log4cats-core"                             % "2.7.0",
       "org.typelevel"               %% "log4cats-slf4j"                            % "2.7.0",
-      "com.ovoenergy"               %% "natchez-extras-doobie"                     % "8.1.1",
+      "io.github.arturaz"           %% "otel4s-doobie"                             % "0.1.0",
       "org.typelevel"               %% "otel4s-oteljava"                           % "0.11.2",
       "io.opentelemetry"             % "opentelemetry-exporter-otlp"               % "1.46.0",
       "io.opentelemetry"             % "opentelemetry-sdk-extension-autoconfigure" % "1.46.0",
