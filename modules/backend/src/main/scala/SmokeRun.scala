@@ -92,7 +92,7 @@ def validateResults[F[_], Resp: ResultValidator](
       println(e); e
 
 def smokeRun[F[_]: Async: Tracer: Meter: Network: Compression] =
-  for
+  (for
     _ <- Files.deleteIfExists(Paths.get(Db.file)).pure[F].toResource
     _ <- rallyeye.storage.allMigrations
     _ <- rallyeye.httpServer
@@ -120,4 +120,4 @@ def smokeRun[F[_]: Async: Tracer: Meter: Network: Compression] =
         yield ()
       }
     _ <- smokeTest.toResource
-  yield ()
+  yield ()).rootSpan("smoke-run")
