@@ -33,6 +33,8 @@
   }, {
     "pattern":"\\QMETA-INF/services/java.nio.channels.spi.AsynchronousChannelProvider\\E"
   }, {
+    "pattern":"\\QMETA-INF/services/java.nio.channels.spi.SelectorProvider\\E"
+  }, {
     "pattern":"\\QMETA-INF/services/java.nio.charset.spi.CharsetProvider\\E"
   }, {
     "pattern":"\\QMETA-INF/services/java.sql.Driver\\E"
