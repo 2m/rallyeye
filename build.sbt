@@ -129,7 +129,7 @@ lazy val backend = project
       "org.scalameta"               %% "munit"                                     % "1.1.0"     % Test,
       "org.typelevel"               %% "munit-cats-effect"                         % "2.0.0"     % Test,
       "org.typelevel"               %% "scalacheck-effect-munit"                   % "2.0.0-M2"  % Test,
-      "org.scalameta"               %% "munit-scalacheck"                          % "1.0.0"     % Test,
+      "org.scalameta"               %% "munit-scalacheck"                          % "1.1.0"     % Test,
       "com.github.jatcwang"         %% "difflicious-munit"                         % "0.4.3"     % Test,
       "io.github.iltotore"          %% "iron-scalacheck"                           % "2.6.0"     % Test,
       "com.rallyhealth"             %% "scalacheck-ops_1"                          % "2.12.0"    % Test
