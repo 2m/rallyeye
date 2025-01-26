@@ -1,4 +1,4 @@
-addSbtPlugin("org.scala-js"                % "sbt-scalajs"              % "1.18.1")
+addSbtPlugin("org.scala-js"                % "sbt-scalajs"              % "1.18.2")
 addSbtPlugin("org.scalablytyped.converter" % "sbt-converter"            % "1.0.0-beta44")
 addSbtPlugin("org.scalameta"               % "sbt-scalafmt"             % "2.5.4")
 addSbtPlugin("de.heikoseeberger"           % "sbt-header"               % "5.10.0")
