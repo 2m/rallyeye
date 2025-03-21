@@ -28,10 +28,8 @@ import typings.d3Shape.mod.line
 import com.raquo.airstream.core.{Observer, Signal}
 import com.raquo.airstream.eventbus.EventBus
 import com.raquo.laminar.api.*
-import com.raquo.laminar.api.L
 import com.raquo.laminar.api.L.children
 import com.raquo.laminar.api.L.emptyNode
-import com.raquo.laminar.api.L.seqToModifier
 import com.raquo.laminar.api.L.svg.*
 import rallyeye.shared.*
 

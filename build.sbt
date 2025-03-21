@@ -1,4 +1,4 @@
-ThisBuild / scalaVersion := "3.6.2"
+ThisBuild / scalaVersion := "3.6.4"
 ThisBuild / scalafmtOnCompile := true
 
 ThisBuild / organization := "lt.dvim.rallyeye"
@@ -8,7 +8,7 @@ ThisBuild / licenses += ("Apache-2.0", url("http://www.apache.org/licenses/LICEN
 
 ThisBuild / dynverSeparator := "-"
 
-ThisBuild / libraryDependencies += compilerPlugin("com.github.ghik" % "zerowaste" % "0.2.29" cross CrossVersion.full)
+ThisBuild / libraryDependencies += compilerPlugin("com.github.ghik" % "zerowaste" % "1.0.0" cross CrossVersion.full)
 
 // invisible because used from dyn task
 Global / excludeLintKeys ++= Set(nativeImageJvm, nativeImageVersion)
@@ -22,10 +22,10 @@ lazy val shared = crossProject(JSPlatform, JVMPlatform)
   .settings(
     name := "shared",
     libraryDependencies ++= Seq(
-      "com.softwaremill.sttp.tapir" %% "tapir-core"       % "1.11.19",
-      "io.bullet"                   %% "borer-derivation" % "1.16.0",
-      "io.github.iltotore"          %% "iron"             % "2.6.0",
-      "io.github.iltotore"          %% "iron-borer"       % "2.6.0"
+      "com.softwaremill.sttp.tapir" %%% "tapir-core"       % "1.11.19",
+      "io.bullet"                   %%% "borer-derivation" % "1.16.0",
+      "io.github.iltotore"          %%% "iron"             % "2.6.0",
+      "io.github.iltotore"          %%% "iron-borer"       % "2.6.0"
     ),
     // for borer semi-automatic derivation
     scalacOptions ++= Seq("-Xmax-inlines", "64")
