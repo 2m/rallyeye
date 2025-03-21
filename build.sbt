@@ -23,7 +23,7 @@ lazy val shared = crossProject(JSPlatform, JVMPlatform)
     name := "shared",
     libraryDependencies ++= Seq(
       "com.softwaremill.sttp.tapir" %% "tapir-core"       % "1.11.19",
-      "io.bullet"                   %% "borer-derivation" % "1.15.0",
+      "io.bullet"                   %% "borer-derivation" % "1.16.0",
       "io.github.iltotore"          %% "iron"             % "2.6.0",
       "io.github.iltotore"          %% "iron-borer"       % "2.6.0"
     ),
@@ -56,8 +56,8 @@ lazy val frontend = project
       "com.raquo"                   %%% "laminar"                     % "17.2.0",
       "com.raquo"                   %%% "waypoint"                    % "9.0.0",
       "io.github.cquiroz"           %%% "scala-java-time"             % "2.6.0",
-      "io.bullet"                   %%% "borer-core"                  % "1.15.0",
-      "io.bullet"                   %%% "borer-derivation"            % "1.15.0",
+      "io.bullet"                   %%% "borer-core"                  % "1.16.0",
+      "io.bullet"                   %%% "borer-derivation"            % "1.16.0",
       "com.lihaoyi"                 %%% "utest"                       % "0.8.5" % Test
     ),
     // Tell Scala.js that this is an application with a main method
@@ -107,7 +107,7 @@ lazy val backend = project
       "org.http4s"                  %% "http4s-ember-client"                       % "0.23.30",
       "org.http4s"                  %% "http4s-otel4s-middleware-trace-client"     % "0.10.0",
       "org.http4s"                  %% "http4s-otel4s-middleware-trace-server"     % "0.10.0",
-      "io.bullet"                   %% "borer-compat-circe"                        % "1.15.0",
+      "io.bullet"                   %% "borer-compat-circe"                        % "1.16.0",
       "ch.qos.logback"               % "logback-classic"                           % "1.5.17",
       "com.github.geirolz"          %% "fly4s-core"                                % "1.0.0",
       "org.xerial"                   % "sqlite-jdbc"                               % "3.49.1.0",
