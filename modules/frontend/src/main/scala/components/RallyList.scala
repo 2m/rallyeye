@@ -18,7 +18,6 @@ package components
 
 import com.raquo.laminar.api.L.*
 import rallyeye.*
-import rallyeye.Router
 import rallyeye.shared.RallyKind
 import rallyeye.shared.RallySummary
 

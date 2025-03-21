@@ -17,7 +17,6 @@
 package components
 
 import com.raquo.laminar.api.L.*
-import com.raquo.laminar.api.L.svg
 import com.raquo.laminar.api.features.unitArrows
 import rallyeye.*
 import rallyeye.shared.RallyData

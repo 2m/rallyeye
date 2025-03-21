@@ -20,8 +20,7 @@ import java.time.Instant
 
 import Codecs.given
 import TapirJsonBorer.*
-import sttp.tapir.*
-import sttp.tapir.Codec as TapirCodec
+import sttp.tapir.{Codec as TapirCodec, *}
 import sttp.tapir.generic.auto.*
 import sttp.tapir.model.UsernamePassword
 
