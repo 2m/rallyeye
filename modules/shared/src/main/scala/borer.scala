@@ -50,11 +50,11 @@ object TapirJsonBorer:
     }(t => io.bullet.borer.Json.encode(t).toUtf8String)
 
 trait BorerCodecs extends IronTapirSupport:
-  given Encoder[Instant] = Encoder[Long].contramap(_.getEpochSecond)
-  given Decoder[Instant] = Decoder[Long].map(Instant.ofEpochSecond)
+  given Encoder[Instant] = Encoder.of[Long].contramap(_.getEpochSecond)
+  given Decoder[Instant] = Decoder.of[Long].map(Instant.ofEpochSecond)
 
-  given Encoder[LocalDate] = Encoder[Long].contramap(_.atStartOfDay(ZoneOffset.UTC).toInstant.getEpochSecond)
-  given Decoder[LocalDate] = Decoder[Long].map(l => Instant.ofEpochSecond(l).atZone(ZoneOffset.UTC).toLocalDate)
+  given Encoder[LocalDate] = Encoder.of[Long].contramap(_.atStartOfDay(ZoneOffset.UTC).toInstant.getEpochSecond)
+  given Decoder[LocalDate] = Decoder.of[Long].map(l => Instant.ofEpochSecond(l).atZone(ZoneOffset.UTC).toLocalDate)
 
   given Codec[Stage] = deriveCodec[Stage]
   given Codec[Driver] = deriveCodec[Driver]
