@@ -20,11 +20,15 @@ package storage
 import java.time.Instant
 import java.time.LocalDate
 
+import doobie.implicits.javatimedrivernative.*
 import doobie.util.{Get, Put}
 import doobie.util.Read
 import doobie.util.Write
+import io.bullet.borer.Decoder
+import io.bullet.borer.Encoder
 import io.github.iltotore.iron.*
 import io.github.iltotore.iron.constraint.numeric.*
+import io.github.iltotore.iron.doobie.given
 import rallyeye.shared.RallyKind
 
 given Write[RallyKind] = Write[Int].contramap(_.ordinal)
@@ -44,7 +48,8 @@ case class Rally(
     distanceMeters: Int :| Greater[0],
     started: Int :| GreaterEqual[0],
     finished: Int :| GreaterEqual[0]
-)
+) derives Read,
+      Write
 
 case class Result(
     rallyKind: RallyKind,
@@ -66,4 +71,11 @@ case class Result(
     finished: Boolean,
     comment: Option[String],
     nominal: Boolean
-)
+) derives Read,
+      Write
+
+given [A](using Encoder[A]): Put[List[A]] =
+  Put[String].tcontramap(io.bullet.borer.Json.encode(_).toUtf8String)
+
+given [A](using Decoder[A]): Get[List[A]] =
+  Get[String].tmap(s => io.bullet.borer.Json.decode(s.getBytes("UTF8")).to[List[A]].value)

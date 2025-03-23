@@ -21,13 +21,9 @@ import cats.*
 import cats.effect.*
 import cats.implicits.*
 import doobie.*
-import doobie.implicits.*
-import doobie.implicits.javatimedrivernative.*
 import doobie.otel4s.TracedTransactor
+import doobie.syntax.all.*
 import doobie.util.fragments.whereAndOpt
-import io.bullet.borer.Decoder
-import io.bullet.borer.Encoder
-import io.github.iltotore.iron.doobie.given
 import org.typelevel.otel4s.trace.Tracer
 import rallyeye.shared.RallyKind
 
@@ -66,12 +62,6 @@ object Db:
         makeSpanName = sql => s"sql: $sql"
       )
     )
-
-  given [A](using Encoder[A]): Put[List[A]] =
-    Put[String].tcontramap(io.bullet.borer.Json.encode(_).toUtf8String)
-
-  given [A](using Decoder[A]): Get[List[A]] =
-    Get[String].tmap(s => io.bullet.borer.Json.decode(s.getBytes("UTF8")).to[List[A]].value)
 
   def insertRally[F[_]: Async: Tracer](rally: Rally) =
     sql"""|insert or replace into rally (
