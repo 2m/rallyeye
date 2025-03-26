@@ -25,7 +25,7 @@ import java.time.LocalDate
 
 import cats.effect.IO
 import difflicious.Differ
-import doobie.implicits.*
+import doobie.syntax.all.*
 import munit.CatsEffectSuite
 import munit.ScalaCheckEffectSuite
 import org.scalacheck.Arbitrary
