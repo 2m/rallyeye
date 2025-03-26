@@ -328,44 +328,24 @@
   "fields":[{"name":"BlobInterpreter$lzy1"}, {"name":"CallableStatementInterpreter$lzy1"}, {"name":"ClobInterpreter$lzy1"}, {"name":"ConnectionInterpreter$lzy1"}, {"name":"DatabaseMetaDataInterpreter$lzy1"}, {"name":"DriverInterpreter$lzy1"}, {"name":"NClobInterpreter$lzy1"}, {"name":"PreparedStatementInterpreter$lzy1"}, {"name":"RefInterpreter$lzy1"}, {"name":"ResultSetInterpreter$lzy1"}, {"name":"SQLDataInterpreter$lzy1"}, {"name":"SQLInputInterpreter$lzy1"}, {"name":"SQLOutputInterpreter$lzy1"}, {"name":"StatementInterpreter$lzy1"}]
 },
 {
-  "name":"doobie.free.package$",
-  "fields":[{"name":"FB$lzy1"}, {"name":"FC$lzy1"}, {"name":"FCL$lzy1"}, {"name":"FCS$lzy1"}, {"name":"FD$lzy1"}, {"name":"FDMD$lzy1"}, {"name":"FNCL$lzy1"}, {"name":"FPS$lzy1"}, {"name":"FREF$lzy1"}, {"name":"FRS$lzy1"}, {"name":"FS$lzy1"}, {"name":"FSD$lzy1"}, {"name":"FSI$lzy1"}, {"name":"FSO$lzy1"}]
-},
-{
-  "name":"doobie.hi.package$",
-  "fields":[{"name":"FB$lzy1"}, {"name":"FC$lzy1"}, {"name":"FCL$lzy1"}, {"name":"FCS$lzy1"}, {"name":"FD$lzy1"}, {"name":"FDMD$lzy1"}, {"name":"FNCL$lzy1"}, {"name":"FPS$lzy1"}, {"name":"FREF$lzy1"}, {"name":"FRS$lzy1"}, {"name":"FS$lzy1"}, {"name":"FSD$lzy1"}, {"name":"FSI$lzy1"}, {"name":"FSO$lzy1"}, {"name":"HC$lzy1"}, {"name":"HPS$lzy1"}, {"name":"HRS$lzy1"}, {"name":"HS$lzy1"}]
-},
-{
-  "name":"doobie.hi.package$implicits$",
-  "fields":[{"name":"WeakAsyncBlobIO$lzy1"}, {"name":"WeakAsyncCallableStatementIO$lzy1"}, {"name":"WeakAsyncClobIO$lzy1"}, {"name":"WeakAsyncConnectionIO$lzy1"}, {"name":"WeakAsyncDatabaseMetaDataIO$lzy1"}, {"name":"WeakAsyncDriverIO$lzy1"}, {"name":"WeakAsyncNClobIO$lzy1"}, {"name":"WeakAsyncPreparedStatementIO$lzy1"}, {"name":"WeakAsyncRefIO$lzy1"}, {"name":"WeakAsyncResultSetIO$lzy1"}, {"name":"WeakAsyncSQLDataIO$lzy1"}, {"name":"WeakAsyncSQLInputIO$lzy1"}, {"name":"WeakAsyncSQLOutputIO$lzy1"}, {"name":"WeakAsyncStatementIO$lzy1"}]
-},
-{
   "name":"doobie.otel4s.TracedTransactor$$anon$1",
   "fields":[{"name":"ConnectionInterpreter$lzy1"}, {"name":"PreparedStatementInterpreter$lzy1"}]
 },
 {
-  "name":"doobie.package$",
-  "fields":[{"name":"FB$lzy1"}, {"name":"FC$lzy1"}, {"name":"FCL$lzy1"}, {"name":"FCS$lzy1"}, {"name":"FD$lzy1"}, {"name":"FDMD$lzy1"}, {"name":"FNCL$lzy1"}, {"name":"FPS$lzy1"}, {"name":"FREF$lzy1"}, {"name":"FRS$lzy1"}, {"name":"FS$lzy1"}, {"name":"FSD$lzy1"}, {"name":"FSI$lzy1"}, {"name":"FSO$lzy1"}, {"name":"HC$lzy1"}, {"name":"HPS$lzy1"}, {"name":"HRS$lzy1"}, {"name":"HS$lzy1"}]
-},
-{
   "name":"doobie.package$implicits$",
-  "fields":[{"name":"WeakAsyncBlobIO$lzy1"}, {"name":"WeakAsyncCallableStatementIO$lzy1"}, {"name":"WeakAsyncClobIO$lzy1"}, {"name":"WeakAsyncConnectionIO$lzy1"}, {"name":"WeakAsyncDatabaseMetaDataIO$lzy1"}, {"name":"WeakAsyncDriverIO$lzy1"}, {"name":"WeakAsyncNClobIO$lzy1"}, {"name":"WeakAsyncPreparedStatementIO$lzy1"}, {"name":"WeakAsyncRefIO$lzy1"}, {"name":"WeakAsyncResultSetIO$lzy1"}, {"name":"WeakAsyncSQLDataIO$lzy1"}, {"name":"WeakAsyncSQLInputIO$lzy1"}, {"name":"WeakAsyncSQLOutputIO$lzy1"}, {"name":"WeakAsyncStatementIO$lzy1"}, {"name":"javasql$lzy1"}, {"name":"javatime$lzy1"}, {"name":"javatimedrivernative$lzy1"}, {"name":"legacy$lzy1"}]
+  "fields":[{"name":"legacy$lzy1"}]
 },
 {
-  "name":"doobie.util.Read",
+  "name":"doobie.util.Read$Composite",
+  "fields":[{"name":"gets$lzy1"}, {"name":"length$lzy2"}]
+},
+{
+  "name":"doobie.util.Read$Transform",
   "fields":[{"name":"length$lzy1"}]
 },
 {
-  "name":"doobie.util.Read$",
-  "fields":[{"name":"given_Read_EmptyTuple$lzy1"}, {"name":"roe$lzy1"}, {"name":"rou$lzy1"}]
-},
-{
-  "name":"doobie.util.Write",
-  "fields":[{"name":"length$lzy1"}]
-},
-{
-  "name":"doobie.util.Write$",
-  "fields":[{"name":"given_Write_EmptyTuple$lzy1"}, {"name":"woe$lzy1"}, {"name":"wou$lzy1"}]
+  "name":"doobie.util.Write$Composite",
+  "fields":[{"name":"length$lzy1"}, {"name":"puts$lzy1"}]
 },
 {
   "name":"doobie.util.fragment$Fragment",
@@ -376,11 +356,7 @@
   "fields":[{"name":"Advanced$lzy1"}, {"name":"Basic$lzy1"}]
 },
 {
-  "name":"doobie.util.meta.SqlMeta$javasql$",
-  "fields":[{"name":"Advanced$lzy1"}, {"name":"Basic$lzy1"}]
-},
-{
-  "name":"doobie.util.meta.TimeMeta$javatimedrivernative$",
+  "name":"doobie.util.meta.MetaConstructors$",
   "fields":[{"name":"Advanced$lzy2"}, {"name":"Basic$lzy2"}]
 },
 {
@@ -436,12 +412,10 @@
   "fields":[{"name":"default$lzy1"}]
 },
 {
-  "name":"io.opentelemetry.api.incubator.metrics.ExtendedDefaultMeterProvider",
-  "methods":[{"name":"getNoop","parameterTypes":[] }]
+  "name":"io.opentelemetry.api.incubator.metrics.ExtendedDefaultMeterProvider"
 },
 {
-  "name":"io.opentelemetry.api.incubator.trace.ExtendedDefaultTracerProvider",
-  "methods":[{"name":"getNoop","parameterTypes":[] }]
+  "name":"io.opentelemetry.api.incubator.trace.ExtendedDefaultTracerProvider"
 },
 {
   "name":"io.opentelemetry.internal.shaded.jctools.queues.MpscArrayQueueConsumerIndexField",
@@ -456,11 +430,11 @@
   "fields":[{"name":"producerLimit"}]
 },
 {
-  "name":"io.opentelemetry.sdk.metrics.SdkMeterProviderBuilder",
-  "methods":[{"name":"setExemplarFilter","parameterTypes":["io.opentelemetry.sdk.metrics.internal.exemplar.ExemplarFilter"] }]
+  "name":"io.opentelemetry.sdk.extension.incubator.fileconfig.DeclarativeConfiguration"
 },
 {
-  "name":"java.io.FilePermission"
+  "name":"io.opentelemetry.sdk.metrics.SdkMeterProviderBuilder",
+  "methods":[{"name":"setExemplarFilter","parameterTypes":["io.opentelemetry.sdk.metrics.internal.exemplar.ExemplarFilter"] }]
 },
 {
   "name":"java.lang.Boolean",
@@ -500,9 +474,6 @@
 {
   "name":"java.lang.Long",
   "fields":[{"name":"TYPE"}]
-},
-{
-  "name":"java.lang.RuntimePermission"
 },
 {
   "name":"java.lang.Short",
@@ -589,29 +560,13 @@
   "name":"java.math.BigInteger"
 },
 {
-  "name":"java.net.NetPermission"
-},
-{
-  "name":"java.net.SocketPermission"
-},
-{
-  "name":"java.net.URLPermission",
-  "methods":[{"name":"<init>","parameterTypes":["java.lang.String","java.lang.String"] }]
-},
-{
   "name":"java.security.AlgorithmParametersSpi"
-},
-{
-  "name":"java.security.AllPermission"
 },
 {
   "name":"java.security.KeyStoreSpi"
 },
 {
   "name":"java.security.SecureRandomParameters"
-},
-{
-  "name":"java.security.SecurityPermission"
 },
 {
   "name":"java.security.interfaces.RSAPrivateKey"
@@ -653,6 +608,10 @@
   "fields":[{"name":"base"}, {"name":"cellsBusy"}]
 },
 {
+  "name":"java.util.concurrent.atomic.Striped64$Cell",
+  "fields":[{"name":"value"}]
+},
+{
   "name":"java.util.logging.LogManager",
   "methods":[{"name":"getLoggingMXBean","parameterTypes":[] }]
 },
@@ -689,9 +648,6 @@
   "name":"javax.security.auth.x500.X500Principal",
   "fields":[{"name":"thisX500Name"}],
   "methods":[{"name":"<init>","parameterTypes":["sun.security.x509.X500Name"] }]
-},
-{
-  "name":"javax.smartcardio.CardPermission"
 },
 {
   "name":"jdk.management.jfr.ConfigurationInfo",
@@ -884,6 +840,14 @@
 {
   "name":"rallyeye.storage.Model$package$",
   "fields":[{"name":"given_Read_Instant$lzy1"}, {"name":"given_Read_RallyKind$lzy1"}, {"name":"given_Write_Instant$lzy1"}, {"name":"given_Write_RallyKind$lzy1"}]
+},
+{
+  "name":"rallyeye.storage.Rally$",
+  "fields":[{"name":"derived$Read$lzy1"}, {"name":"derived$Write$lzy1"}]
+},
+{
+  "name":"rallyeye.storage.Result$",
+  "fields":[{"name":"derived$Read$lzy2"}, {"name":"derived$Write$lzy2"}]
 },
 {
   "name":"scodec.bits.BitVector",
