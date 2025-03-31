@@ -20,4 +20,4 @@ import difflicious.Differ
 import io.github.iltotore.iron.*
 
 trait IronDiffiliciousSupport:
-  given [T: Differ, P]: Differ[T IronType P] = Differ.stringDiffer.contramap(_.toString)
+  given [T: Differ, P]: Differ[IronType[T, P]] = Differ.stringDiffer.contramap(_.toString)
