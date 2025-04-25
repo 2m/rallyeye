@@ -40,6 +40,7 @@ import org.http4s.server.middleware.CORS
 import org.http4s.server.middleware.GZip
 import org.typelevel.otel4s.trace.StatusCode
 import org.typelevel.otel4s.trace.Tracer
+import org.typelevel.otel4s.trace.TracerProvider
 import rallyeye.shared.*
 import rallyeye.storage.Db
 import rallyeye.storage.Repo
@@ -56,22 +57,25 @@ object Logic:
   case object RallyInProgress extends Error("Rally in progress") with LogicError
   case object RefreshNotSupported extends Error("Refresh is not supported for PressAuto rallies") with LogicError
 
-  private def fetchAndStore[F[_]: Async: Tracer: Network](rallyId: String)(using kind: RallyKind) =
-    EmberClientBuilder
-      .default[F]
-      .withTimeout(Timeout)
-      .withIdleConnectionTime(IdleTimeout)
-      .build
-      .map(Telemetry.tracedClient)
-      .use { client =>
-        (for
-          info <- kind.rallyInfo(client, rallyId)
-          results <- kind.rallyResults(client, rallyId)
-          _ <- EitherT(Repo.deleteResultsAndRally(rallyId))
-          _ <- EitherT(Repo.saveRallyInfo(rallyId, info))
-          _ <- EitherT(Repo.saveRallyResults(rallyId, results))
-        yield ()).value
-      }
+  private def fetchAndStore[F[_]: Async: Tracer: TracerProvider: Network](rallyId: String)(using kind: RallyKind) =
+    for
+      clientTelemetry <- Telemetry.tracedClient
+      client <- EmberClientBuilder
+        .default[F]
+        .withTimeout(Timeout)
+        .withIdleConnectionTime(IdleTimeout)
+        .build
+        .map(clientTelemetry.wrap)
+        .use { client =>
+          (for
+            info <- kind.rallyInfo(client, rallyId)
+            results <- kind.rallyResults(client, rallyId)
+            _ <- EitherT(Repo.deleteResultsAndRally(rallyId))
+            _ <- EitherT(Repo.saveRallyInfo(rallyId, info))
+            _ <- EitherT(Repo.saveRallyResults(rallyId, results))
+          yield ()).value
+        }
+    yield client
 
   def data[F[_]: Async: Tracer](kind: RallyKind, rallyId: String) =
     given RallyKind = kind
@@ -81,7 +85,7 @@ object Logic:
       rallyResults <- EitherT(Repo.getRallyResults(rallyId))
     yield rallyData(rally, rallyResults)
 
-  def refresh[F[_]: Async: Tracer: Network](kind: RallyKind, rallyId: String) =
+  def refresh[F[_]: Async: Tracer: TracerProvider: Network](kind: RallyKind, rallyId: String) =
     given RallyKind = kind
     for
       maybeRally <- EitherT(Repo.getRally(rallyId))
@@ -109,7 +113,7 @@ object Logic:
           EitherT.rightT(())
         case _ => EitherT.leftT(new Error("Unauthorized"))
 
-    def refreshAll[F[_]: Async: Tracer: Network](): EitherT[F, Throwable, List[RefreshResult]] =
+    def refreshAll[F[_]: Async: Tracer: TracerProvider: Network](): EitherT[F, Throwable, List[RefreshResult]] =
       for
         storedRallies <- EitherT(Db.selectRallies())
         refreshResults <- EitherT(
@@ -143,7 +147,7 @@ def handleErrors[F[_]: Monad: Tracer, T](f: F[Either[Throwable, T]]) =
       case Right(value) => value.asRight.pure[F]
   yield errorInfo
 
-def httpServer[F[_]: Async: Network: Tracer: Spawn: Compression] =
+def httpServer[F[_]: Async: Network: Tracer: TracerProvider: Spawn: Compression] =
   import cats.syntax.semigroupk.*
 
   for
@@ -152,6 +156,7 @@ def httpServer[F[_]: Async: Network: Tracer: Spawn: Compression] =
     ).toResource
     (refreshShardedStream, refreshShardedLogic) = refreshShardedStreamAndLogic
     _ <- refreshShardedStream.compile.drain.start.toResource
+    serverTelemetry <- Telemetry.tracedServer.toResource
     server <- EmberServerBuilder
       .default[F]
       .withHost(ipv4"0.0.0.0")
@@ -201,7 +206,7 @@ def httpServer[F[_]: Async: Network: Tracer: Spawn: Compression] =
         val fresh =
           interp.toRoutes(Endpoints.fresh.serverLogic(Logic.fresh().andThen(_.value).andThen(handleErrors)))
 
-        Telemetry.tracedServer(
+        serverTelemetry.wrapHttpApp(
           GZip(
             CORS.policy.withAllowOriginAll(
               (rally <+> admin <+> find <+> fresh).orNotFound

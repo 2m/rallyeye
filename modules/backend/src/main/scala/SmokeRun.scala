@@ -29,6 +29,7 @@ import org.http4s.client.Client
 import org.http4s.ember.client.EmberClientBuilder
 import org.http4s.implicits.*
 import org.typelevel.otel4s.trace.Tracer
+import org.typelevel.otel4s.trace.TracerProvider
 import rallyeye.shared.Endpoints
 import rallyeye.shared.ErrorInfo
 import rallyeye.shared.GenericError
@@ -90,17 +91,18 @@ def validateResults[F[_], Resp: ResultValidator](
     .map: e =>
       println(e); e
 
-def smokeRun[F[_]: Async: Tracer: Network: Compression] =
+def smokeRun[F[_]: Async: Tracer: TracerProvider: Network: Compression] =
   (for
     _ <- Files.deleteIfExists(Paths.get(Db.file)).pure[F].toResource
     _ <- rallyeye.storage.allMigrations
     _ <- rallyeye.httpServer
+    clientTelemetry <- Telemetry.tracedClient.toResource
     smokeTest = EmberClientBuilder
       .default[F]
       .withTimeout(Timeout)
       .withIdleConnectionTime(IdleTimeout)
       .build
-      .map(Telemetry.tracedClient)
+      .map(clientTelemetry.wrap)
       .use { client =>
         val pressauto = (RallyKind.PressAuto, "2023")
         val rsf = (RallyKind.Rsf, "48272")
