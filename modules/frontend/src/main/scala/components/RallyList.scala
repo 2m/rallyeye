@@ -147,7 +147,7 @@ object RallyList:
       "'23" -> Championship(RallyKind.Ewrc, "WRC", Some(2023))
     ),
     "🇪🇺 ERC" -> List(
-      // "'25" -> Championship(RallyKind.Ewrc, "ERC", Some(2025)),
+      "'25" -> Championship(RallyKind.Ewrc, "ERC", Some(2025)),
       "'24" -> Championship(RallyKind.Ewrc, "ERC", Some(2024)),
       "'23" -> Championship(RallyKind.Ewrc, "ERC", Some(2023))
     ),
@@ -166,7 +166,7 @@ object RallyList:
       "'24" -> Championship(RallyKind.Ewrc, "ARA", Some(2024))
     ),
     "🇱🇹 Lithuania" -> List(
-      // "'25" -> Championship(RallyKind.Ewrc, "Lithuania", Some(2025)),
+      "'25" -> Championship(RallyKind.Ewrc, "Lithuania", Some(2025)),
       "'24" -> Championship(RallyKind.Ewrc, "Lithuania", Some(2024)),
       "'23" -> Championship(RallyKind.Ewrc, "Lithuania", Some(2023))
     ),
@@ -176,7 +176,7 @@ object RallyList:
       "'23" -> Championship(RallyKind.Ewrc, "Lithuania Rally Sprint", Some(2023))
     ),
     "🇱🇹 Lithuania Minirally" -> List(
-      // "'25" -> Championship(RallyKind.Ewrc, "Lithuania Minirally", Some(2025)),
+      "'25" -> Championship(RallyKind.Ewrc, "Lithuania Minirally", Some(2025)),
       "'24" -> Championship(RallyKind.Ewrc, "Lithuania Minirally", Some(2024)),
       "'23" -> Championship(RallyKind.Ewrc, "Lithuania Minirally", Some(2023))
     ),
