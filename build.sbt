@@ -1,4 +1,4 @@
-ThisBuild / scalaVersion := "3.6.4"
+ThisBuild / scalaVersion := "3.7.0"
 ThisBuild / scalafmtOnCompile := true
 
 ThisBuild / organization := "lt.dvim.rallyeye"
