@@ -46,4 +46,4 @@ case class Alert(errorInfoSignal: Signal[Option[ErrorInfo]]):
     case RallyNotStored()      => ""
     case RallyInProgress() =>
       "We are waiting for the rally to finish. Currently it is not possible to get the results from RallySimFans.hu while the rally is still in progress."
-    case RefreshNotSupported() => "PressAuto rally results are static and refreshing is not supported."
+    case RefreshNotSupported() => "Press Auto 2023/2024 rally results are static and refreshing is not supported."
