@@ -57,15 +57,17 @@ extension (kind: RallyKind)
 
   def rallyInfo[F[_]: Async](client: Client[F], rallyId: String) =
     kind match
-      case RallyKind.Rsf       => rallyeye.Rsf.rallyInfo(client, rallyId)
-      case RallyKind.Ewrc      => rallyeye.Ewrc.rallyInfo(client, rallyId)
-      case RallyKind.PressAuto => EitherT(RefreshNotSupported.asLeft.pure[F])
+      case RallyKind.Rsf                                                 => rallyeye.Rsf.rallyInfo(client, rallyId)
+      case RallyKind.Ewrc                                                => rallyeye.Ewrc.rallyInfo(client, rallyId)
+      case RallyKind.PressAuto if List("2023", "2024").contains(rallyId) => EitherT(RefreshNotSupported.asLeft.pure[F])
+      case RallyKind.PressAuto => rallyeye.Autorally.rallyInfo(client, rallyId)
 
   def rallyResults[F[_]: Async](client: Client[F], rallyId: String) =
     kind match
-      case RallyKind.Rsf       => rallyeye.Rsf.rallyResults(client, rallyId)
-      case RallyKind.Ewrc      => rallyeye.Ewrc.rallyResults(client, rallyId)
-      case RallyKind.PressAuto => EitherT(RefreshNotSupported.asLeft.pure[F])
+      case RallyKind.Rsf                                                 => rallyeye.Rsf.rallyResults(client, rallyId)
+      case RallyKind.Ewrc                                                => rallyeye.Ewrc.rallyResults(client, rallyId)
+      case RallyKind.PressAuto if List("2023", "2024").contains(rallyId) => EitherT(RefreshNotSupported.asLeft.pure[F])
+      case RallyKind.PressAuto => rallyeye.Autorally.rallyResults(client, rallyId)
 
 case class Entry(
     stageNumber: Int :| Greater[0],

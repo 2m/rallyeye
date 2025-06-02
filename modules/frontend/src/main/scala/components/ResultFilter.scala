@@ -16,6 +16,8 @@
 
 package components
 
+import java.net.URLEncoder
+
 import scala.util.Try
 
 import com.raquo.laminar.api.L.*
@@ -48,7 +50,7 @@ object ResultFilter:
       rallyData.carResults.map(r => filterId(s"${r.group}|${r.car}") -> r.results)
 
   def filterId(name: String) =
-    name.toLowerCase.replaceAll("[^|a-z0-9]", "-")
+    URLEncoder.encode(name.toLowerCase, "UTF-8")
 
   def render(rallyData: RallyData, filter: String) =
     filters(rallyData).values.toSeq

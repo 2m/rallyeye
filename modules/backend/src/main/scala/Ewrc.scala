@@ -224,16 +224,6 @@ object Ewrc:
         case "newzealand"   => "new zealand"
         case c              => c
 
-    def getDurationMs(s: String) =
-      s.split(":").toList match
-        case hours :: minutes :: secondsAndTenths :: Nil =>
-          (hours.toInt * 3600 + minutes.toInt * 60) * 1000 + secondsAndTenths.toMs
-        case minutes :: secondsAndTenths :: Nil =>
-          minutes.toInt * 60 * 1000 + secondsAndTenths.toMs
-        case secondsAndTenths :: Nil =>
-          secondsAndTenths.toMs
-        case time => throw Error(s"Unable to parse stage time from $time")
-
     def getStageNumberAndName(s: String) =
       Try:
         s match
@@ -395,3 +385,13 @@ object Ewrc:
           nominalTime || stageCancelled
         )
       }
+
+  def getDurationMs(s: String) =
+    s.split(":").toList match
+      case hours :: minutes :: secondsAndTenths :: Nil =>
+        (hours.toInt * 3600 + minutes.toInt * 60) * 1000 + secondsAndTenths.toMs
+      case minutes :: secondsAndTenths :: Nil =>
+        minutes.toInt * 60 * 1000 + secondsAndTenths.toMs
+      case secondsAndTenths :: Nil =>
+        secondsAndTenths.toMs
+      case time => throw Error(s"Unable to parse stage time from $time")
