@@ -16,6 +16,7 @@
 
 package rallyeye
 
+import java.nio.charset.Charset
 import java.nio.charset.StandardCharsets
 import java.time.Instant
 import java.time.LocalDate
@@ -53,7 +54,7 @@ object Rsf:
       .in("rbr" / "rally_online.php")
       .in(query[String]("centerbox"))
       .in(query[String]("rally_id"))
-      .out(stringBody)
+      .out(plainBody[String](Charset.forName("ISO-8859-2")))
 
   def resultsEndpoint[F[_]] =
     endpoint
