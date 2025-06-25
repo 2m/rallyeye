@@ -40,6 +40,7 @@ class RsfSuite extends munit.FunSuite with SnapshotSupport:
   checkRsfInfo("59862")
   checkRsfInfo("59247")
   checkRsfInfo("66003")
+  checkRsfInfo("83536")
 
   val checkRsfResult = check(Rsf.rallyResults, "rsf-results")
   checkRsfResult("58147")
