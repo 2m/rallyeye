@@ -110,7 +110,7 @@ lazy val backend = project
       "io.bullet"                   %% "borer-compat-circe"                        % "1.16.1",
       "ch.qos.logback"               % "logback-classic"                           % "1.5.18",
       "com.github.geirolz"          %% "fly4s-core"                                % "1.0.0",
-      "org.xerial"                   % "sqlite-jdbc"                               % "3.49.1.0",
+      "org.xerial"                   % "sqlite-jdbc"                               % "3.50.1.0",
       "org.tpolecat"                %% "doobie-core"                               % "1.0.0-RC9",
       "io.github.arainko"           %% "ducktape"                                  % "0.2.9",
       "com.monovore"                %% "decline-effect"                            % "2.5.0",
@@ -137,9 +137,7 @@ lazy val backend = project
     libraryDependencySchemes ++= Seq(
       // while http4s-otel4s-middleware depends on older otel4s version
       "org.typelevel" %% "otel4s-core-trace"  % VersionScheme.Always,
-      "org.typelevel" %% "otel4s-core-common" % VersionScheme.Always,
-      // until iron-doobie is updated to doobie RC8
-      "org.tpolecat" %% "doobie-core" % VersionScheme.Always
+      "org.typelevel" %% "otel4s-core-common" % VersionScheme.Always
     ),
 
     // for correct IOApp resource cleanup
