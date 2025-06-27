@@ -28,7 +28,6 @@ import difflicious.Differ
 import doobie.syntax.all.*
 import munit.CatsEffectSuite
 import munit.ScalaCheckEffectSuite
-import org.scalacheck.Arbitrary
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.Gen
 import org.scalacheck.effect.PropF

@@ -20,7 +20,6 @@ import java.time.Instant
 import java.time.LocalDate
 
 import difflicious.Differ
-import difflicious.munit.MUnitDiff.*
 import io.github.iltotore.iron.*
 import rallyeye.shared.*
 import rallyeye.storage.Rally
@@ -142,7 +141,7 @@ class ResultsSuite extends munit.FunSuite with SnapshotSupport:
     val expected = RallyData(
       rally.externalId,
       rally.name,
-      rally.kind.link(rally),
+      rally.link,
       rally.retrievedAt,
       List(
         Stage(1, "SS1"),

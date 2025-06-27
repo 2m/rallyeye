@@ -46,7 +46,7 @@ class RsfSuite extends munit.FunSuite with SnapshotSupport:
   checkRsfResult("65713")
 
 class RsfParserSuite extends CatsEffectSuite with SnapshotSupport:
-  def httpClient[F[_]: Files: Concurrent](response: Stream[F, Byte]) = Client[F]: _ =>
+  def httpClient[F[_]: Concurrent](response: Stream[F, Byte]) = Client[F]: _ =>
     Resource.eval(Response[F](body = response).pure[F])
 
   test("parses csv response"):

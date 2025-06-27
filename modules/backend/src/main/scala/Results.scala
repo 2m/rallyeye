@@ -42,8 +42,8 @@ case class RallyInfo(
     finished: Int :| GreaterEqual[0]
 )
 
-extension (kind: RallyKind)
-  def link(rally: Rally) =
+extension (rally: Rally)
+  def link =
     rally.kind match
       case RallyKind.Rsf =>
         s"https://www.rallysimfans.hu/rbr/rally_online.php?centerbox=rally_list_details.php&rally_id=${rally.externalId}"
@@ -54,6 +54,8 @@ extension (kind: RallyKind)
         s"https://raceadmin.eu/pr$year/pr$year/results/all/overall"
       case RallyKind.Ewrc =>
         s"https://www.ewrc-results.com/results/${rally.externalId}/"
+
+extension (kind: RallyKind)
 
   def rallyInfo[F[_]: Async](client: Client[F], rallyId: String) =
     kind match
@@ -227,7 +229,7 @@ def rallyData(rally: Rally, entries: List[Entry]) =
   RallyData(
     rally.externalId,
     rally.name,
-    rally.kind.link(rally),
+    rally.link,
     rally.retrievedAt,
     stages(entries),
     results(entries) pipe drivers,

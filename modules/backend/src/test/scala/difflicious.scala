@@ -20,7 +20,8 @@ import difflicious.Differ
 import difflicious.DiffResultPrinter
 import munit.Assertions.*
 import munit.Location
+import munit.diff.DiffOptions
 
 def assertDiffIsOk[A: Differ](obtained: A, expected: A)(implicit loc: Location): Unit =
   val result = summon[Differ[A]].diff(obtained, expected)
-  if !result.isOk then fail(DiffResultPrinter.consoleOutput(result, 0).render)(loc)
+  if !result.isOk then fail(DiffResultPrinter.consoleOutput(result, 0).render)

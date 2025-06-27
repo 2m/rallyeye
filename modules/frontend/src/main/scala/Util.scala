@@ -21,9 +21,9 @@ import java.time.Instant
 
 import scala.concurrent.duration.*
 
-extension (millis: Int)
-  def padTo(n: Int)(i: Int) = i.toString.reverse.padTo(n, '0').reverse
+private def padTo(n: Int)(i: Int) = i.toString.reverse.padTo(n, '0').reverse
 
+extension (millis: Int)
   def prettyDuration: String =
     val duration = Duration.ofMillis(millis.toLong)
     val ms = padTo(3)(duration.toMillisPart)

@@ -51,7 +51,7 @@ def migrations[F[_]: Async: Tracer] = Fly4s
 def insertPressAutoResults[F[_]: Async: Tracer](rallyId: String, rallyInfo: RallyInfo, filename: String) =
   given RallyKind = RallyKind.PressAuto
   (for
-    csv <- Source.fromResource(filename)(scala.io.Codec.UTF8).mkString.pure[F]
+    csv <- Source.fromResource(filename)(using scala.io.Codec.UTF8).mkString.pure[F]
     results <- PressAuto.parseResults(csv).pure[F]
     _ <- Repo.saveRallyInfo(rallyId, rallyInfo)
     _ <- Repo.saveRallyResults(rallyId, results)

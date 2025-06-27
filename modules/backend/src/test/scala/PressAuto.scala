@@ -36,6 +36,6 @@ class PressAutoSuite extends munit.FunSuite with SnapshotSupport:
     assertDiffIsOk(obtained, expected)
 
   test("parses all results"):
-    val csv = Source.fromResource("pressauto2023.csv")(Codec.UTF8).mkString
+    val csv = Source.fromResource("pressauto2023.csv")(using Codec.UTF8).mkString
     val obtained = PressAuto.parseResults(csv)
     assert(obtained.size == 1632)

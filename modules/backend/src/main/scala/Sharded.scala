@@ -30,7 +30,6 @@ import cats.implicits.*
 import fs2.Stream
 import fs2.concurrent.Topic
 import org.typelevel.otel4s.Attribute
-import org.typelevel.otel4s.metrics.Meter
 import org.typelevel.otel4s.trace.SpanContext
 import org.typelevel.otel4s.trace.Tracer
 import rallyeye.shared.ErrorInfo
@@ -49,7 +48,7 @@ case class ShardedEntry[F[_], Req, Resp](
     resp: Deferred[F, Try[Either[ErrorInfo, Resp]]]
 )
 
-def shardedLogic[F[_]: Monad: Concurrent: Tracer: Meter: Clock, Req: Shardable, Resp](shards: Int)(
+def shardedLogic[F[_]: Monad: Concurrent: Tracer: Clock, Req: Shardable, Resp](shards: Int)(
     logic: Req => F[Either[ErrorInfo, Resp]]
 ) =
   def logicPipe(shard: Int)(stream: Stream[F, ShardedEntry[F, Req, Resp]]) =

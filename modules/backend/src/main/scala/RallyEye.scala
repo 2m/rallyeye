@@ -38,13 +38,11 @@ import org.http4s.implicits.*
 import org.http4s.server.middleware.Caching
 import org.http4s.server.middleware.CORS
 import org.http4s.server.middleware.GZip
-import org.typelevel.otel4s.metrics.Meter
 import org.typelevel.otel4s.trace.StatusCode
 import org.typelevel.otel4s.trace.Tracer
 import rallyeye.shared.*
 import rallyeye.storage.Db
 import rallyeye.storage.Repo
-import sttp.tapir.*
 import sttp.tapir.model.UsernamePassword
 import sttp.tapir.server.http4s.Http4sServerInterpreter
 
@@ -100,11 +98,11 @@ object Logic:
     given RallyKind = kind
     Repo.findRallies[F](championship, year)
 
-  def fresh[F[_]: Async: Tracer](u: Unit) =
-    Repo.freshRallies[F]()
+  def fresh[F[_]: Async: Tracer]() =
+    (_: Unit) => Repo.freshRallies[F]()
 
   object Admin:
-    def authLogic[F[_]: Async: Tracer](usernamePassword: UsernamePassword): EitherT[F, Throwable, Unit] =
+    def authLogic[F[_]: Async](usernamePassword: UsernamePassword): EitherT[F, Throwable, Unit] =
       usernamePassword match
         case UsernamePassword("admin", Some(password))
             if password.sha256hash == sys.env.getOrElse("ADMIN_PASS_HASH", "") =>
@@ -145,7 +143,7 @@ def handleErrors[F[_]: Monad: Tracer, T](f: F[Either[Throwable, T]]) =
       case Right(value) => value.asRight.pure[F]
   yield errorInfo
 
-def httpServer[F[_]: Async: Network: Tracer: Meter: Spawn: Compression] =
+def httpServer[F[_]: Async: Network: Tracer: Spawn: Compression] =
   import cats.syntax.semigroupk.*
 
   for
@@ -185,7 +183,7 @@ def httpServer[F[_]: Async: Network: Tracer: Meter: Spawn: Compression] =
                 .andThen(_.value)
                 .andThen(handleErrors)
             )
-            .serverLogic(u => u => handleErrors(Logic.Admin.refreshAll().value))
+            .serverLogic(_ => _ => handleErrors(Logic.Admin.refreshAll().value))
         ) <+> interp.toRoutes(
           Endpoints.Admin.delete
             .serverSecurityLogic(
@@ -193,7 +191,7 @@ def httpServer[F[_]: Async: Network: Tracer: Meter: Spawn: Compression] =
                 .andThen(_.value)
                 .andThen(handleErrors)
             )
-            .serverLogic(u =>
+            .serverLogic(_ =>
               (rallyKind, rallyId) => handleErrors(Logic.Admin.deleteResultsAndRally(rallyKind, rallyId).value)
             )
         )
@@ -201,7 +199,7 @@ def httpServer[F[_]: Async: Network: Tracer: Meter: Spawn: Compression] =
         val find =
           interp.toRoutes(Endpoints.find.serverLogic(Logic.find.tupled.andThen(_.value).andThen(handleErrors)))
         val fresh =
-          interp.toRoutes(Endpoints.fresh.serverLogic(Logic.fresh.andThen(_.value).andThen(handleErrors)))
+          interp.toRoutes(Endpoints.fresh.serverLogic(Logic.fresh().andThen(_.value).andThen(handleErrors)))
 
         Telemetry.tracedServer(
           GZip(

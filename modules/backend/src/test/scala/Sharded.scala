@@ -19,7 +19,6 @@ package rallyeye
 import scala.concurrent.duration.*
 import scala.util.Failure
 import scala.util.Success
-import scala.util.Try
 
 import cats.effect.*
 import cats.syntax.all.*
