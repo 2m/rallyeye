@@ -137,9 +137,7 @@ lazy val backend = project
     libraryDependencySchemes ++= Seq(
       // while http4s-otel4s-middleware depends on older otel4s version
       "org.typelevel" %% "otel4s-core-trace"  % VersionScheme.Always,
-      "org.typelevel" %% "otel4s-core-common" % VersionScheme.Always,
-      // until iron-doobie is updated to doobie RC8
-      "org.tpolecat" %% "doobie-core" % VersionScheme.Always
+      "org.typelevel" %% "otel4s-core-common" % VersionScheme.Always
     ),
 
     // for correct IOApp resource cleanup
