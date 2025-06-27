@@ -17,7 +17,6 @@
 package rallyeye
 
 import java.nio.file.Files
-import java.time.Instant
 
 import scala.annotation.nowarn
 

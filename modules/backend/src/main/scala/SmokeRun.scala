@@ -28,7 +28,6 @@ import org.http4s.Request
 import org.http4s.client.Client
 import org.http4s.ember.client.EmberClientBuilder
 import org.http4s.implicits.*
-import org.typelevel.otel4s.metrics.Meter
 import org.typelevel.otel4s.trace.Tracer
 import rallyeye.shared.Endpoints
 import rallyeye.shared.ErrorInfo
@@ -91,7 +90,7 @@ def validateResults[F[_], Resp: ResultValidator](
     .map: e =>
       println(e); e
 
-def smokeRun[F[_]: Async: Tracer: Meter: Network: Compression] =
+def smokeRun[F[_]: Async: Tracer: Network: Compression] =
   (for
     _ <- Files.deleteIfExists(Paths.get(Db.file)).pure[F].toResource
     _ <- rallyeye.storage.allMigrations
