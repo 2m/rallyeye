@@ -168,7 +168,8 @@ lazy val backend = project
       "-H:IncludeResources=db/V.*sql$",
       "-march=compatibility", // Use most compatible instructions, 'native' fails to start on flyio
       s"-Dorg.sqlite.lib.exportPath=${nativeImageOutput.value.getParent}", // https://github.com/xerial/sqlite-jdbc#graalvm-native-image-support
-      "--enable-url-protocols=https" // for OpenTelemetry export to honeycomb
+      "--enable-url-protocols=https", // for OpenTelemetry export to honeycomb
+      "-H:+AddAllCharsets" // include all charsets for RSF page parsing
     ),
 
     // docker image build
