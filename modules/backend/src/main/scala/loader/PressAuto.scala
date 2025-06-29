@@ -28,6 +28,7 @@ import scala.util.chaining.*
 import cats.data.EitherT
 import cats.effect.kernel.Async
 import cats.effect.kernel.Resource
+import cats.effect.syntax.all.*
 import cats.syntax.all.*
 import com.themillhousegroup.scoup.Scoup
 import fs2.io.net.Network
@@ -39,6 +40,7 @@ import org.http4s.client.Client
 import org.http4s.ember.client.EmberClientBuilder
 import org.http4s.implicits.uri
 import org.typelevel.otel4s.trace.Tracer
+import org.typelevel.otel4s.trace.TracerProvider
 import rallyeye.shared.TapirJsonBorer.*
 import sttp.tapir.*
 import sttp.tapir.client.http4s.Http4sClientInterpreter
@@ -193,24 +195,27 @@ object PressAuto:
     val path = BuildInfo.resourceDirectory.toPath.resolve(file)
     Files.write(path, results.map(_.mkString(";")).mkString("\n").getBytes)
 
-def loadPressAuto[F[_]: Async: Tracer: Network] =
-  EmberClientBuilder
-    .default[F]
-    .withTimeout(Timeout)
-    .withIdleConnectionTime(IdleTimeout)
-    .build
-    .map(Telemetry.tracedClient)
-    .flatMap { client =>
-      val res = (for
-        results <- PressAuto.pa2024.stages.keys.toList
-          .map(ss => PressAuto.stageResults(client, PressAuto.pa2024.id, ss))
-          .sequence
-          .map(_.flatten)
-        parsedResults = PressAuto.parseResults(results)
-        _ = PressAuto.writeCsv("pressauto2024.csv", parsedResults)
-      yield ()).value.flatMap:
-        case Right(_)    => ().pure[F]
-        case Left(error) => println(s"error! $error"); Tracer[F].currentSpanOrNoop.flatMap(_.recordException(error))
-      Resource.eval(res)
-    }
-    .rootSpan("load-press-auto")
+def loadPressAuto[F[_]: Async: Tracer: TracerProvider: Network] =
+  for
+    clientTelemetry <- Telemetry.tracedClient.toResource
+    client <- EmberClientBuilder
+      .default[F]
+      .withTimeout(Timeout)
+      .withIdleConnectionTime(IdleTimeout)
+      .build
+      .map(clientTelemetry.wrap)
+      .flatMap { client =>
+        val res = (for
+          results <- PressAuto.pa2024.stages.keys.toList
+            .map(ss => PressAuto.stageResults(client, PressAuto.pa2024.id, ss))
+            .sequence
+            .map(_.flatten)
+          parsedResults = PressAuto.parseResults(results)
+          _ = PressAuto.writeCsv("pressauto2024.csv", parsedResults)
+        yield ()).value.flatMap:
+          case Right(_)    => ().pure[F]
+          case Left(error) => println(s"error! $error"); Tracer[F].currentSpanOrNoop.flatMap(_.recordException(error))
+        Resource.eval(res)
+      }
+      .rootSpan("load-press-auto")
+  yield client

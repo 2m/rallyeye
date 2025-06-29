@@ -27,6 +27,7 @@ import munit.ScalaCheckEffectSuite
 import org.scalacheck.effect.PropF
 import org.typelevel.otel4s.metrics.Meter
 import org.typelevel.otel4s.trace.Tracer
+import org.typelevel.otel4s.trace.TracerProvider
 import rallyeye.shared.ErrorInfo
 import rallyeye.shared.RallyKind
 
@@ -38,7 +39,7 @@ class ShardedSuite extends CatsEffectSuite:
     Telemetry
       .instruments("test")
       .map:
-        case (given Tracer[IO], given Meter[IO]) =>
+        case (given TracerProvider[IO], given Tracer[IO], given Meter[IO]) =>
           (test: (Tracer[IO], Meter[IO]) ?=> IO[Any]) => summon[Tracer[IO]].rootSpan(options.name).surround(test)
 
   traced.test("shards requests"):

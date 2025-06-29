@@ -24,6 +24,9 @@
   "name":"[Lcats.parse.Parser;"
 },
 {
+  "name":"[Ldoobie.util.Read;"
+},
+{
   "name":"[Lio.opentelemetry.api.metrics.ObservableMeasurement;"
 },
 {
@@ -412,10 +415,12 @@
   "fields":[{"name":"default$lzy1"}]
 },
 {
-  "name":"io.opentelemetry.api.incubator.metrics.ExtendedDefaultMeterProvider"
+  "name":"io.opentelemetry.api.incubator.metrics.ExtendedDefaultMeterProvider",
+  "methods":[{"name":"getNoop","parameterTypes":[] }]
 },
 {
-  "name":"io.opentelemetry.api.incubator.trace.ExtendedDefaultTracerProvider"
+  "name":"io.opentelemetry.api.incubator.trace.ExtendedDefaultTracerProvider",
+  "methods":[{"name":"getNoop","parameterTypes":[] }]
 },
 {
   "name":"io.opentelemetry.internal.shaded.jctools.queues.MpscArrayQueueConsumerIndexField",
@@ -598,18 +603,8 @@
   "fields":[{"name":"value"}]
 },
 {
-  "name":"java.util.concurrent.atomic.DoubleAdder"
-},
-{
-  "name":"java.util.concurrent.atomic.LongAdder"
-},
-{
   "name":"java.util.concurrent.atomic.Striped64",
   "fields":[{"name":"base"}, {"name":"cellsBusy"}]
-},
-{
-  "name":"java.util.concurrent.atomic.Striped64$Cell",
-  "fields":[{"name":"value"}]
 },
 {
   "name":"java.util.logging.LogManager",
@@ -781,8 +776,12 @@
   "fields":[{"name":"comment$lzy1"}]
 },
 {
-  "name":"org.http4s.otel4s.middleware.TypedAttributes$Headers$",
-  "fields":[{"name":"defaultAllowedHeaders$lzy1"}]
+  "name":"org.http4s.otel4s.middleware.trace.redact.HeaderRedactor$",
+  "fields":[{"name":"default$lzy1"}, {"name":"defaultAllowedHeaders$lzy1"}]
+},
+{
+  "name":"org.http4s.otel4s.middleware.trace.redact.HeaderRedactor$Behavior$ReplaceWith",
+  "fields":[{"name":"replacement$lzy1"}]
 },
 {
   "name":"org.http4s.util.Renderer$",
@@ -826,6 +825,14 @@
   "fields":[{"name":"root$lzy1"}]
 },
 {
+  "name":"org.typelevel.otel4s.oteljava.context.IOLocalContextStorage",
+  "fields":[{"name":"ioLocal$lzy1"}, {"name":"unsafeThreadLocal$lzy1"}]
+},
+{
+  "name":"org.typelevel.otel4s.oteljava.context.IOLocalContextStorageProvider$",
+  "fields":[{"name":"localContext$lzy1"}, {"name":"threadLocalContext$lzy1"}]
+},
+{
   "name":"org.typelevel.otel4s.trace.TraceState$MapBasedTraceState",
   "fields":[{"name":"asMap$lzy1"}]
 },
@@ -867,11 +874,15 @@
 },
 {
   "name":"sttp.tapir.Codec$",
-  "fields":[{"name":"path$lzy1"}]
+  "fields":[{"name":"cookieWithMeta$lzy1"}, {"name":"cookiesWithMeta$lzy1"}, {"name":"date$lzy1"}, {"name":"duration$lzy1"}, {"name":"instant$lzy1"}, {"name":"localDate$lzy1"}, {"name":"localDateTime$lzy1"}, {"name":"localTime$lzy1"}, {"name":"offsetDateTime$lzy1"}, {"name":"offsetTime$lzy1"}, {"name":"path$lzy1"}, {"name":"zoneId$lzy1"}, {"name":"zoneOffset$lzy1"}, {"name":"zonedDateTime$lzy1"}]
 },
 {
   "name":"sttp.tapir.Endpoint",
   "fields":[{"name":"method$lzy1"}, {"name":"show$lzy1"}, {"name":"showDetail$lzy1"}, {"name":"showShort$lzy1"}]
+},
+{
+  "name":"sttp.tapir.Schema$",
+  "fields":[{"name":"schemaForDate$lzy1"}, {"name":"schemaForInstant$lzy1"}, {"name":"schemaForJavaDuration$lzy1"}, {"name":"schemaForLocalDate$lzy1"}, {"name":"schemaForLocalDateTime$lzy1"}, {"name":"schemaForLocalTime$lzy1"}, {"name":"schemaForOffsetDateTime$lzy1"}, {"name":"schemaForOffsetTime$lzy1"}, {"name":"schemaForZoneId$lzy1"}, {"name":"schemaForZoneOffset$lzy1"}, {"name":"schemaForZonedDateTime$lzy1"}]
 },
 {
   "name":"sttp.tapir.internal.package$ParamsAsAny",

@@ -22,15 +22,21 @@ import cats.effect.Concurrent
 import cats.effect.IO
 import cats.effect.LiftIO
 import cats.effect.kernel.Async
-import cats.effect.kernel.MonadCancelThrow
 import cats.effect.kernel.Resource
 import cats.effect.kernel.Sync
 import cats.effect.syntax.all.*
 import cats.effect.unsafe.IORuntime
 import cats.implicits.*
-import org.http4s.HttpApp
+import org.http4s.RequestPrelude
+import org.http4s.Uri
+import org.http4s.otel4s.middleware.client.UriTemplateClassifier
+import org.http4s.otel4s.middleware.server.RouteClassifier
 import org.http4s.otel4s.middleware.trace.client.ClientMiddleware
+import org.http4s.otel4s.middleware.trace.client.ClientSpanDataProvider
+import org.http4s.otel4s.middleware.trace.client.UriRedactor
+import org.http4s.otel4s.middleware.trace.redact.HeaderRedactor
 import org.http4s.otel4s.middleware.trace.server.ServerMiddleware
+import org.http4s.otel4s.middleware.trace.server.ServerSpanDataProvider
 import org.typelevel.ci.CIString
 import org.typelevel.otel4s.Attribute
 import org.typelevel.otel4s.instrumentation.ce.IORuntimeMetrics
@@ -39,6 +45,7 @@ import org.typelevel.otel4s.metrics.MeterProvider
 import org.typelevel.otel4s.oteljava.OtelJava
 import org.typelevel.otel4s.oteljava.context.Context
 import org.typelevel.otel4s.trace.Tracer
+import org.typelevel.otel4s.trace.TracerProvider
 
 object Telemetry:
   final val App = "rallyeye"
@@ -63,29 +70,53 @@ object Telemetry:
   def instruments(service: String) =
     for
       otel <- globalOtel[IO](service)
-      tracer <- otel.tracerProvider.get(App).toResource
+      provider = otel.tracerProvider
+      tracer <- provider.get(App).toResource
       (given MeterProvider[IO]) = otel.meterProvider
       meter <- summon[MeterProvider[IO]].get(App).toResource
       _ <- IORuntimeMetrics.register[IO](IORuntime.global.metrics, IORuntimeMetrics.Config.default)
-    yield (tracer, meter)
+    yield (provider, tracer, meter)
 
-  def instrument[A](entry: (Tracer[IO], Meter[IO]) ?=> Resource[IO, A]) =
+  def instrument[A](entry: (TracerProvider[IO], Tracer[IO], Meter[IO]) ?=> Resource[IO, A]) =
     for
-      (given Tracer[IO], given Meter[IO]) <- instruments(serviceName)
+      (given TracerProvider[IO], given Tracer[IO], given Meter[IO]) <- instruments(serviceName)
       results <- entry
     yield results
 
-  def tracedClient[F[_]: Tracer: Concurrent] = ClientMiddleware.default
-    .withClientSpanName(req => s"${req.method} ${req.uri}")
+  def tracedClient[F[_]: TracerProvider: Concurrent] = ClientMiddleware
+    .builder(
+      ClientSpanDataProvider
+        .openTelemetry(new UriRedactor.OnlyRedactUserInfo {})
+        .withUrlTemplateClassifier(
+          new UriTemplateClassifier:
+            override def classify(uri: Uri): Option[String] = Some(uri.path.toString)
+        )
+        .optIntoHttpResponseHeaders(HeaderRedactor.default)
+        .optIntoUrlScheme
+        .optIntoUrlTemplate
+    )
     .build
 
-  def tracedServer[F[_]: Tracer: MonadCancelThrow](f: HttpApp[F]): HttpApp[F] = ServerMiddleware.default
-    .withServerSpanName(req => s"${req.method} ${req.uri}")
-    .withAllowedRequestHeaders(
-      ServerMiddleware.Defaults.allowedRequestHeaders ++ Set("Fly-Client-IP", "Fly-Forwarded-Port", "Fly-Region")
-        .map(CIString(_))
+  def tracedServer[F[_]: TracerProvider: Concurrent] = ServerMiddleware
+    .builder[F](
+      ServerSpanDataProvider
+        .openTelemetry(new UriRedactor.OnlyRedactUserInfo {})
+        .withRouteClassifier(
+          new RouteClassifier:
+            override def classify(request: RequestPrelude): Option[String] = Some(request.uri.path.toString)
+        )
+        .optIntoClientPort
+        .optIntoHttpRequestHeaders(
+          HeaderRedactor.default.copy(headersAllowedUnredacted =
+            HeaderRedactor.default.headersAllowedUnredacted ++ Set(
+              "Fly-Client-IP",
+              "Fly-Forwarded-Port",
+              "Fly-Region"
+            ).map(CIString(_))
+          )
+        )
     )
-    .buildHttpApp(f)
+    .build
 
 extension [A, F[_]: Tracer](f: F[A])
   def traced(name: String, attributes: Attribute[?]*): F[A] = Tracer[F].span(name, attributes).surround(f)
