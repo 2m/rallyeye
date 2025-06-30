@@ -435,6 +435,9 @@
   "fields":[{"name":"producerLimit"}]
 },
 {
+  "name":"io.opentelemetry.sdk.autoconfigure.AutoConfiguredOpenTelemetrySdk"
+},
+{
   "name":"io.opentelemetry.sdk.extension.incubator.fileconfig.DeclarativeConfiguration"
 },
 {
@@ -601,6 +604,12 @@
 {
   "name":"java.util.concurrent.atomic.AtomicReference",
   "fields":[{"name":"value"}]
+},
+{
+  "name":"java.util.concurrent.atomic.DoubleAdder"
+},
+{
+  "name":"java.util.concurrent.atomic.LongAdder"
 },
 {
   "name":"java.util.concurrent.atomic.Striped64",
@@ -823,14 +832,6 @@
 {
   "name":"org.typelevel.otel4s.oteljava.context.Context$",
   "fields":[{"name":"root$lzy1"}]
-},
-{
-  "name":"org.typelevel.otel4s.oteljava.context.IOLocalContextStorage",
-  "fields":[{"name":"ioLocal$lzy1"}, {"name":"unsafeThreadLocal$lzy1"}]
-},
-{
-  "name":"org.typelevel.otel4s.oteljava.context.IOLocalContextStorageProvider$",
-  "fields":[{"name":"localContext$lzy1"}, {"name":"threadLocalContext$lzy1"}]
 },
 {
   "name":"org.typelevel.otel4s.trace.TraceState$MapBasedTraceState",

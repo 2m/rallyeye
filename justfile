@@ -44,7 +44,7 @@ native-image:
   sbt --client backend/nativeImage
 
 run-native-image:
-  modules/backend/target/native-image/backend -Dcats.effect.trackFiberContext=true http-server
+  modules/backend/target/native-image/backend http-server
 
 rm-db:
   rm modules/backend/rallyeye.db
