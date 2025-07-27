@@ -50,7 +50,7 @@ lazy val frontend = project
   .in(file("modules/frontend"))
   .settings(
     libraryDependencies ++= Seq(
-      "org.scala-js"                %%% "scalajs-dom"                 % "2.8.0",
+      "org.scala-js"                %%% "scalajs-dom"                 % "2.8.1",
       "org.scala-js"                %%% "scala-js-macrotask-executor" % "1.1.1",
       "com.softwaremill.sttp.tapir" %%% "tapir-sttp-client"           % "1.11.37",
       "com.raquo"                   %%% "laminar"                     % "17.2.1",
