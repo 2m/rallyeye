@@ -58,7 +58,7 @@ lazy val frontend = project
       "io.github.cquiroz"           %%% "scala-java-time"             % "2.6.0",
       "io.bullet"                   %%% "borer-core"                  % "1.16.1",
       "io.bullet"                   %%% "borer-derivation"            % "1.16.1",
-      "com.lihaoyi"                 %%% "utest"                       % "0.8.9" % Test
+      "com.lihaoyi"                 %%% "utest"                       % "0.9.0" % Test
     ),
     // Tell Scala.js that this is an application with a main method
     scalaJSUseMainModuleInitializer := true,
