@@ -112,7 +112,7 @@ lazy val backend = project
       "com.github.geirolz"          %% "fly4s-core"                                % "1.0.0",
       "org.xerial"                   % "sqlite-jdbc"                               % "3.50.3.0",
       "org.tpolecat"                %% "doobie-core"                               % "1.0.0-RC9",
-      "io.github.arainko"           %% "ducktape"                                  % "0.2.9",
+      "io.github.arainko"           %% "ducktape"                                  % "0.2.10",
       "com.monovore"                %% "decline-effect"                            % "2.5.0",
       "io.github.iltotore"          %% "iron"                                      % "3.0.3",
       "io.github.iltotore"          %% "iron-doobie"                               % "3.0.3",
