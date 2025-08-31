@@ -24,8 +24,8 @@ lazy val shared = crossProject(JSPlatform, JVMPlatform)
     libraryDependencies ++= Seq(
       "com.softwaremill.sttp.tapir" %%% "tapir-core"       % "1.11.42",
       "io.bullet"                   %%% "borer-derivation" % "1.16.1",
-      "io.github.iltotore"          %%% "iron"             % "3.1.0",
-      "io.github.iltotore"          %%% "iron-borer"       % "3.1.0"
+      "io.github.iltotore"          %%% "iron"             % "3.2.0",
+      "io.github.iltotore"          %%% "iron-borer"       % "3.2.0"
     ),
     // for borer semi-automatic derivation
     scalacOptions ++= Seq("-Xmax-inlines", "64")
@@ -114,8 +114,8 @@ lazy val backend = project
       "org.tpolecat"                %% "doobie-core"                               % "1.0.0-RC9",
       "io.github.arainko"           %% "ducktape"                                  % "0.2.10",
       "com.monovore"                %% "decline-effect"                            % "2.5.0",
-      "io.github.iltotore"          %% "iron"                                      % "3.1.0",
-      "io.github.iltotore"          %% "iron-doobie"                               % "3.1.0",
+      "io.github.iltotore"          %% "iron"                                      % "3.2.0",
+      "io.github.iltotore"          %% "iron-doobie"                               % "3.2.0",
       "com.themillhousegroup"       %% "scoup"                                     % "1.0.0",
       "org.gnieh"                   %% "fs2-data-csv"                              % "1.12.0",
       "org.typelevel"               %% "log4cats-core"                             % "2.7.1",
@@ -131,7 +131,7 @@ lazy val backend = project
       "org.typelevel"               %% "scalacheck-effect-munit"                   % "2.0.0-M2"  % Test,
       "org.scalameta"               %% "munit-scalacheck"                          % "1.1.0"     % Test,
       "com.github.jatcwang"         %% "difflicious-munit"                         % "0.4.3"     % Test,
-      "io.github.iltotore"          %% "iron-scalacheck"                           % "3.1.0"     % Test,
+      "io.github.iltotore"          %% "iron-scalacheck"                           % "3.2.0"     % Test,
       "com.rallyhealth"             %% "scalacheck-ops_1"                          % "2.12.0"    % Test
     ),
     libraryDependencySchemes ++= Seq(
