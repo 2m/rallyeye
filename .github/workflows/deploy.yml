@@ -45,7 +45,7 @@ jobs:
     - run: just build-scala-js
     - run: just build-js
 
-    - uses: actions/upload-pages-artifact@v3
+    - uses: actions/upload-pages-artifact@v4
       with:
         path: 'modules/frontend/dist'
     - uses: actions/deploy-pages@v4
