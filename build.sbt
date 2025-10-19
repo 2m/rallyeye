@@ -111,7 +111,7 @@ lazy val backend = project
       "ch.qos.logback"               % "logback-classic"                           % "1.5.20",
       "com.github.geirolz"          %% "fly4s-core"                                % "1.0.0",
       "org.xerial"                   % "sqlite-jdbc"                               % "3.50.3.0",
-      "org.tpolecat"                %% "doobie-core"                               % "1.0.0-RC9",
+      "org.tpolecat"                %% "doobie-core"                               % "1.0.0-RC10",
       "io.github.arainko"           %% "ducktape"                                  % "0.2.10",
       "com.monovore"                %% "decline-effect"                            % "2.5.0",
       "io.github.iltotore"          %% "iron"                                      % "3.2.0",
@@ -125,14 +125,14 @@ lazy val backend = project
       "org.typelevel"              %%% "otel4s-instrumentation-metrics"            % "0.13.2",
       "io.opentelemetry"             % "opentelemetry-exporter-otlp"               % "1.55.0",
       "io.opentelemetry"             % "opentelemetry-sdk-extension-autoconfigure" % "1.55.0",
-      "org.tpolecat"                %% "doobie-munit"                              % "1.0.0-RC9" % Test,
-      "org.scalameta"               %% "munit"                                     % "1.2.1"     % Test,
-      "org.typelevel"               %% "munit-cats-effect"                         % "2.1.0"     % Test,
-      "org.typelevel"               %% "scalacheck-effect-munit"                   % "2.0.0-M2"  % Test,
-      "org.scalameta"               %% "munit-scalacheck"                          % "1.2.0"     % Test,
-      "com.github.jatcwang"         %% "difflicious-munit"                         % "0.4.3"     % Test,
-      "io.github.iltotore"          %% "iron-scalacheck"                           % "3.2.0"     % Test,
-      "com.rallyhealth"             %% "scalacheck-ops_1"                          % "2.12.0"    % Test
+      "org.tpolecat"                %% "doobie-munit"                              % "1.0.0-RC10" % Test,
+      "org.scalameta"               %% "munit"                                     % "1.2.1"      % Test,
+      "org.typelevel"               %% "munit-cats-effect"                         % "2.1.0"      % Test,
+      "org.typelevel"               %% "scalacheck-effect-munit"                   % "2.0.0-M2"   % Test,
+      "org.scalameta"               %% "munit-scalacheck"                          % "1.2.0"      % Test,
+      "com.github.jatcwang"         %% "difflicious-munit"                         % "0.4.3"      % Test,
+      "io.github.iltotore"          %% "iron-scalacheck"                           % "3.2.0"      % Test,
+      "com.rallyhealth"             %% "scalacheck-ops_1"                          % "2.12.0"     % Test
     ),
     libraryDependencySchemes ++= Seq(
       // while http4s-otel4s-middleware depends on older otel4s version
