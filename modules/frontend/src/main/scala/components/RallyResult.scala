@@ -115,7 +115,7 @@ case class RallyResult(
   private def renderCountryAndName(driver: Driver) =
     val (flag, countryName) = driver.country.toLowerCase match
       case "ru" | "russia" => ("🌻", "Slava Ukraini!")
-      case country =>
+      case country         =>
         val flag = countryEmoji.mod.flag(country).toOption.getOrElse("🏴")
         val name = countryEmoji.mod.name(flag).toOption.getOrElse(country)
         (flag, name)

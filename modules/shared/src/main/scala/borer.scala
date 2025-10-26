@@ -36,7 +36,7 @@ object TapirJsonBorer:
   implicit def borerCodec[T: Encoder: Decoder: Schema]: JsonCodec[T] =
     sttp.tapir.Codec.json[T] { s =>
       io.bullet.borer.Json.decode(s.getBytes("UTF8")).to[T].valueEither match
-        case Right(v) => Value(v)
+        case Right(v)         => Value(v)
         case Left(borerError) =>
           val tapirJsonError = JsonError(borerError.getMessage, path = List.empty)
 
