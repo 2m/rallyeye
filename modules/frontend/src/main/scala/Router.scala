@@ -131,7 +131,6 @@ object Router:
   )
 
   def navigateTo(page: Page): Binder[HtmlElement] = Binder { el =>
-
     val isLinkElement = el.ref.isInstanceOf[dom.html.Anchor]
 
     if isLinkElement then el.amend(href(router.absoluteUrlForPage(page))): @nowarn("msg=discarded expression")
