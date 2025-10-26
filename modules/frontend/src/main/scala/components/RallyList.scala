@@ -152,7 +152,7 @@ object RallyList:
       "'23" -> Championship(RallyKind.Ewrc, "ERC", Some(2023))
     ),
     "🖥️ SRM" -> List(
-      "'25" -> Championship(RallyKind.Rsf, "Sim Rally Masters 2025"),
+      "'25/'26" -> Championship(RallyKind.Rsf, "Sim Rally Masters 2025/2026"),
       "'24" -> Championship(RallyKind.Rsf, "Sim Rally Masters 2024"),
       "'23" -> Championship(RallyKind.Rsf, "Sim Rally Masters 2023")
     ),
