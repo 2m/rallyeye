@@ -127,7 +127,6 @@ object Autorally:
       .asScala
       .toList
       .map: stage =>
-
         val country = stage.select("span.flag img").attr("src").split("/").last.split("\\.").head
         val driverCodriverName = stage.select("span.names strong").text()
         val (group, car) = stage.select("span.names p").text() match
