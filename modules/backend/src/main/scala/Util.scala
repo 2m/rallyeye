@@ -26,7 +26,7 @@ extension (s: String)
 
   def toMs =
     s.match
-      case "" => 0
+      case ""                  => 0
       case s"$seconds.$millis" =>
         seconds.toInt * 1000 + millis.padTo(3, '0').take(3).toInt
       case s"$seconds" =>

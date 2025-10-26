@@ -115,7 +115,7 @@ object Rsf:
       case Some(startedFinishedElement) =>
         startedFinishedElement.siblingElements.first.text match
           case s"$started / $finished" => (started.toInt, finished.toInt)
-          case _ =>
+          case _                       =>
             throw new Error(
               s"Unable to parse started, finished from [${startedFinishedElement.siblingElements.first.text}]"
             )
