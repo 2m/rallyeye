@@ -120,7 +120,7 @@ lazy val backend = project
       "org.gnieh"                   %% "fs2-data-csv"                              % "1.12.0",
       "org.typelevel"               %% "log4cats-core"                             % "2.7.1",
       "org.typelevel"               %% "log4cats-slf4j"                            % "2.7.1",
-      "io.github.arturaz"           %% "otel4s-doobie"                             % "0.7.1",
+      "io.github.arturaz"           %% "otel4s-doobie"                             % "0.8.0",
       "org.typelevel"               %% "otel4s-oteljava"                           % "0.13.2",
       "org.typelevel"              %%% "otel4s-instrumentation-metrics"            % "0.13.2",
       "io.opentelemetry"             % "opentelemetry-exporter-otlp"               % "1.55.0",
@@ -137,7 +137,9 @@ lazy val backend = project
     libraryDependencySchemes ++= Seq(
       // while http4s-otel4s-middleware depends on older otel4s version
       "org.typelevel" %% "otel4s-core-trace"  % VersionScheme.Always,
-      "org.typelevel" %% "otel4s-core-common" % VersionScheme.Always
+      "org.typelevel" %% "otel4s-core-common" % VersionScheme.Always,
+      // while iron-doobie depends on older doobie version
+      "org.tpolecat" %% "doobie-core" % VersionScheme.Always
     ),
 
     // for correct IOApp resource cleanup
