@@ -203,7 +203,7 @@ def loadPressAuto[F[_]: Async: Tracer: TracerProvider: Network] =
       .withTimeout(Timeout)
       .withIdleConnectionTime(IdleTimeout)
       .build
-      .map(clientTelemetry.wrap)
+      .map(clientTelemetry.wrapClient)
       .flatMap { client =>
         val res = (for
           results <- PressAuto.pa2024.stages.keys.toList
