@@ -65,7 +65,7 @@ object Logic:
         .withTimeout(Timeout)
         .withIdleConnectionTime(IdleTimeout)
         .build
-        .map(clientTelemetry.wrap)
+        .map(clientTelemetry.wrapClient)
         .use { client =>
           (for
             info <- kind.rallyInfo(client, rallyId)

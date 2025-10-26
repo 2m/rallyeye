@@ -102,7 +102,7 @@ def smokeRun[F[_]: Async: Tracer: TracerProvider: Network: Compression] =
       .withTimeout(Timeout)
       .withIdleConnectionTime(IdleTimeout)
       .build
-      .map(clientTelemetry.wrap)
+      .map(clientTelemetry.wrapClient)
       .use { client =>
         val pressauto = (RallyKind.PressAuto, "2023")
         val rsf = (RallyKind.Rsf, "48272")
