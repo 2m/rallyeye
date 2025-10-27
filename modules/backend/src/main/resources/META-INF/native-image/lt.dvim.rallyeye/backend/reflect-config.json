@@ -81,6 +81,9 @@
   "name":"[[Ljava.lang.Object;"
 },
 {
+  "name":"android.os.Build$VERSION"
+},
+{
   "name":"apple.security.AppleProvider",
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
@@ -267,15 +270,7 @@
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
-  "name":"com.sun.crypto.provider.TlsKeyMaterialGenerator",
-  "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
   "name":"com.sun.crypto.provider.TlsMasterSecretGenerator",
-  "methods":[{"name":"<init>","parameterTypes":[] }]
-},
-{
-  "name":"com.sun.crypto.provider.TlsPrfGenerator$V12",
   "methods":[{"name":"<init>","parameterTypes":[] }]
 },
 {
@@ -387,12 +382,8 @@
   "fields":[{"name":"TheLease$lzy1"}]
 },
 {
-  "name":"fs2.io.net.Network$",
-  "fields":[{"name":"fs2$io$net$NetworkCompanionPlatform$$globalAcg$lzy1"}, {"name":"fs2$io$net$NetworkCompanionPlatform$$globalAdsg$lzy1"}]
-},
-{
   "name":"fs2.io.net.NetworkCompanionPlatform$$anon$1",
-  "fields":[{"name":"globalDatagramSocketGroup$lzy1"}, {"name":"globalSocketGroup$lzy1"}]
+  "fields":[{"name":"fallback$lzy1"}]
 },
 {
   "name":"io.bullet.borer.Decoder$",
@@ -423,19 +414,16 @@
   "methods":[{"name":"getNoop","parameterTypes":[] }]
 },
 {
-  "name":"io.opentelemetry.internal.shaded.jctools.queues.MpscArrayQueueConsumerIndexField",
+  "name":"io.opentelemetry.internal.shaded.jctools.queues.atomic.MpscAtomicArrayQueueConsumerIndexField",
   "fields":[{"name":"consumerIndex"}]
 },
 {
-  "name":"io.opentelemetry.internal.shaded.jctools.queues.MpscArrayQueueProducerIndexField",
+  "name":"io.opentelemetry.internal.shaded.jctools.queues.atomic.MpscAtomicArrayQueueProducerIndexField",
   "fields":[{"name":"producerIndex"}]
 },
 {
-  "name":"io.opentelemetry.internal.shaded.jctools.queues.MpscArrayQueueProducerLimitField",
+  "name":"io.opentelemetry.internal.shaded.jctools.queues.atomic.MpscAtomicArrayQueueProducerLimitField",
   "fields":[{"name":"producerLimit"}]
-},
-{
-  "name":"io.opentelemetry.sdk.autoconfigure.AutoConfiguredOpenTelemetrySdk"
 },
 {
   "name":"io.opentelemetry.sdk.extension.incubator.fileconfig.DeclarativeConfiguration"
@@ -577,6 +565,12 @@
   "name":"java.security.SecureRandomParameters"
 },
 {
+  "name":"java.security.interfaces.ECPrivateKey"
+},
+{
+  "name":"java.security.interfaces.ECPublicKey"
+},
+{
   "name":"java.security.interfaces.RSAPrivateKey"
 },
 {
@@ -681,6 +675,10 @@
 {
   "name":"magnolia1.CallByNeed",
   "fields":[{"name":"value$lzy1"}]
+},
+{
+  "name":"okhttp3.internal.connection.RealConnectionPool",
+  "fields":[{"name":"addressStates"}]
 },
 {
   "name":"org.flywaydb.core.api.migration.baseline.BaselineMigrationConfigurationExtension",
@@ -950,8 +948,7 @@
 },
 {
   "name":"sun.misc.Unsafe",
-  "fields":[{"name":"theUnsafe"}],
-  "methods":[{"name":"getAndAddLong","parameterTypes":["java.lang.Object","long","long"] }, {"name":"getAndSetObject","parameterTypes":["java.lang.Object","long","java.lang.Object"] }]
+  "fields":[{"name":"theUnsafe"}]
 },
 {
   "name":"sun.security.pkcs12.PKCS12KeyStore",

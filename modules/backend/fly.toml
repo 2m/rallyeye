@@ -1,5 +1,5 @@
 app = "rallyeye-data"
-primary_region = "waw"
+primary_region = "arn"
 kill_signal = "SIGINT"
 kill_timeout = 5
 processes = []
