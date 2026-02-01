@@ -126,7 +126,7 @@ lazy val backend = project
       "io.opentelemetry"             % "opentelemetry-exporter-otlp"               % "1.58.0",
       "io.opentelemetry"             % "opentelemetry-sdk-extension-autoconfigure" % "1.58.0",
       "org.tpolecat"                %% "doobie-munit"                              % "1.0.0-RC11" % Test,
-      "org.scalameta"               %% "munit"                                     % "1.2.1"      % Test,
+      "org.scalameta"               %% "munit"                                     % "1.2.2"      % Test,
       "org.typelevel"               %% "munit-cats-effect"                         % "2.1.0"      % Test,
       "org.typelevel"               %% "scalacheck-effect-munit"                   % "2.0.0-M2"   % Test,
       "org.scalameta"               %% "munit-scalacheck"                          % "1.2.0"      % Test,
