@@ -113,7 +113,7 @@ lazy val backend = project
       "org.xerial"                   % "sqlite-jdbc"                               % "3.51.3.0",
       "org.tpolecat"                %% "doobie-core"                               % "1.0.0-RC12",
       "io.github.arainko"           %% "ducktape"                                  % "0.2.12",
-      "com.monovore"                %% "decline-effect"                            % "2.6.1",
+      "com.monovore"                %% "decline-effect"                            % "2.6.2",
       "io.github.iltotore"          %% "iron"                                      % "3.3.0",
       "io.github.iltotore"          %% "iron-doobie"                               % "3.3.0",
       "com.themillhousegroup"       %% "scoup"                                     % "1.0.0",
