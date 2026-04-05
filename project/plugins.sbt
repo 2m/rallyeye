@@ -7,6 +7,6 @@ addSbtPlugin("io.spray"                    % "sbt-revolver"             % "0.10.
 addSbtPlugin("com.github.sbt"              % "sbt-dynver"               % "5.1.1")
 addSbtPlugin("com.eed3si9n"                % "sbt-buildinfo"            % "0.13.1")
 addSbtPlugin("org.portable-scala"          % "sbt-scalajs-crossproject" % "1.3.2")
-addSbtPlugin("org.scalameta"               % "sbt-native-image"         % "0.3.4")
+addSbtPlugin("org.scalameta"               % "sbt-native-image"         % "0.4.0")
 addSbtPlugin("se.marcuslonnberg"           % "sbt-docker"               % "1.11.0")
 addSbtPlugin("nl.gn0s1s"                   % "sbt-dotenv"               % "3.2.0")
