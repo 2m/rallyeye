@@ -23,7 +23,7 @@ function printSbtTask(task) {
         throw result.error;
     if (result.status !== 0)
         throw new Error(`sbt process failed with exit code ${result.status}`);
-    const linkerDir = readFileSync("target/linker-output.txt")
+    const linkerDir = readFileSync("target/linker-output.txt").toString().trim()
     console.log(`"${task}" task output: [${linkerDir}]`)
     return linkerDir;
 }
