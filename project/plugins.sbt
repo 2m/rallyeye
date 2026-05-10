@@ -2,7 +2,7 @@ addSbtPlugin("org.scala-js"                % "sbt-scalajs"              % "1.21.
 addSbtPlugin("org.scalablytyped.converter" % "sbt-converter"            % "1.0.0-beta45")
 addSbtPlugin("org.scalameta"               % "sbt-scalafmt"             % "2.6.0")
 addSbtPlugin("com.github.sbt"              % "sbt-header"               % "5.11.0")
-addSbtPlugin("org.typelevel"               % "sbt-tpolecat"             % "0.5.3")
+addSbtPlugin("org.typelevel"               % "sbt-tpolecat"             % "0.5.4")
 addSbtPlugin("io.spray"                    % "sbt-revolver"             % "0.10.0")
 addSbtPlugin("com.github.sbt"              % "sbt-dynver"               % "5.1.1")
 addSbtPlugin("com.eed3si9n"                % "sbt-buildinfo"            % "0.13.1")
