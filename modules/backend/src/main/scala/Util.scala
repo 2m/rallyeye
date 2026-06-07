@@ -31,7 +31,7 @@ extension (s: String)
         seconds.toInt * 1000 + millis.padTo(3, '0').take(3).toInt
       case s"$seconds" =>
         seconds.toInt * 1000
-      case time => throw Error(s"Unable to parse milliseconds from [$s]")
+      case time => throw Error(s"Unable to parse milliseconds from [$time]")
 
   def sha256hash: String =
     val digest = MessageDigest.getInstance("SHA-256")

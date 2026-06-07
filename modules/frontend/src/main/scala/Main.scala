@@ -107,8 +107,8 @@ object App:
 
     val endpoint = if refresh then Endpoints.refresh else Endpoints.data
     val response = fetch((kind, rallyId), endpoint).flatMap {
-      case response @ Left(RallyNotStored()) => fetch((kind, rallyId), Endpoints.refresh)
-      case response                          => Future.successful(response)
+      case _ @Left(RallyNotStored()) => fetch((kind, rallyId), Endpoints.refresh)
+      case response                  => Future.successful(response)
     }
     response.onComplete(_ => Var.set(App.loading -> false))
     response

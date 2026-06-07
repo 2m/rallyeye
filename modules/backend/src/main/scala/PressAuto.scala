@@ -23,7 +23,7 @@ object PressAuto:
     def parseTimestamp(ts: String) = ts.replace(" (N)", "") match
       case ""              => 0
       case s"$h:$m:$s.$ms" => (h.toInt * 3600 + m.toInt * 60 + s.toInt) * 1000 + ms.toInt
-      case time            => throw Error(s"Unable to parse [$ts] timestamp")
+      case time            => throw Error(s"Unable to parse [$time] timestamp")
 
     val (header :: data) = csv.split('\n').toList: @unchecked
     val stages = header.split(";", -1).drop(6).init.zipWithIndex

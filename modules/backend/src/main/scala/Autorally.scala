@@ -73,6 +73,7 @@ object Autorally:
           LocalDate.of(year.toInt, startMonth.toInt, startDay.toInt),
           LocalDate.of(year.toInt, endMonth.toInt, endDay.toInt)
         )
+      case _ => throw Error(s"Unable to parse start and end dates from [$dates]")
 
     RallyInfo(
       s"Press Auto ${end.getYear()}",
@@ -131,6 +132,7 @@ object Autorally:
         val driverCodriverName = stage.select("span.names strong").text()
         val (group, car) = stage.select("span.names p").text() match
           case s"$car ($group)" => (group.trim(), car)
+          case names            => throw Error(s"Unable to parse group and car from [$names]")
 
         val stageTimeMs = Ewrc.getDurationMs(stage.select("span.time strong").text())
         val penaltyTimeMs = stage
