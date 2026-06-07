@@ -205,7 +205,7 @@ case class ResultLines(
           List.empty[(DriverResult, Int)],
           false
         )
-      ) { case ((rallyResults, superRallyResults, acc, lastSuperRally), resWithIdx @ (result, idx)) =>
+      ) { case ((rallyResults, superRallyResults, acc, lastSuperRally), resWithIdx @ (result, _)) =>
         if lastSuperRally == result.superRally then
           (rallyResults, superRallyResults, acc :+ resWithIdx, result.superRally)
         else if lastSuperRally then

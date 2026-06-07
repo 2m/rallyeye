@@ -89,9 +89,10 @@ object Ewrc:
           LocalDate.of(yearValue, startMonth.toInt, startDay.toInt),
           LocalDate.of(yearValue, endMonth.toInt, endDate.toInt)
         )
-      case s"$day. $month. $year, $organizer" =>
+      case s"$day. $month. $year, $_" =>
         val date = LocalDate.of(year.toInt, month.toInt, day.toInt)
         (date, date)
+      case dates => throw Error(s"Unable to parse start and end dates from [$dates]")
 
     val distanceRegexp = """[^\d]*(\d+)\.(\d+) km.*""".r
     val distanceMeters = topInfoParts
@@ -225,11 +226,10 @@ object Ewrc:
         case c              => c
 
     def getStageNumberAndName(s: String) =
-      Try:
-        s match
-          case s"SS$stageNumber $stageName - $_ km" => (stageNumber.toInt, stageName)
-          case s"SS$stageNumber $stageName"         => (stageNumber.toInt, stageName)
-      .fold(_ => throw Error(s"Unable to parse stage number and name from [$s]"), identity)
+      s match
+        case s"SS$stageNumber $stageName - $_ km" => (stageNumber.toInt, stageName)
+        case s"SS$stageNumber $stageName"         => (stageNumber.toInt, stageName)
+        case _                                    => throw Error(s"Unable to parse stage number and name from [$s]")
 
     val document = Scoup.parseHTML(resultsPageBody)
 
