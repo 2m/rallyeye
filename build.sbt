@@ -111,7 +111,7 @@ lazy val backend = project
       "ch.qos.logback"               % "logback-classic"                           % "1.5.34",
       "com.github.geirolz"          %% "fly4s-core"                                % "1.0.0",
       "org.xerial"                   % "sqlite-jdbc"                               % "3.53.2.0",
-      "org.tpolecat"                %% "doobie-core"                               % "1.0.0-RC12",
+      "org.typelevel"               %% "doobie-core"                               % "1.0.0-RC13",
       "io.github.arainko"           %% "ducktape"                                  % "0.2.13",
       "com.monovore"                %% "decline-effect"                            % "2.6.2",
       "io.github.iltotore"          %% "iron"                                      % "3.3.1",
@@ -125,7 +125,7 @@ lazy val backend = project
       "org.typelevel"              %%% "otel4s-instrumentation-metrics"            % "1.0.0",
       "io.opentelemetry"             % "opentelemetry-exporter-otlp"               % "1.63.0",
       "io.opentelemetry"             % "opentelemetry-sdk-extension-autoconfigure" % "1.63.0",
-      "org.tpolecat"                %% "doobie-munit"                              % "1.0.0-RC12" % Test,
+      "org.typelevel"               %% "doobie-munit"                              % "1.0.0-RC13" % Test,
       "org.scalameta"               %% "munit"                                     % "1.3.3"      % Test,
       "org.typelevel"               %% "munit-cats-effect"                         % "2.2.0"      % Test,
       "org.typelevel"               %% "scalacheck-effect-munit"                   % "2.1.0"      % Test,
@@ -136,7 +136,7 @@ lazy val backend = project
     ),
     libraryDependencySchemes ++= Seq(
       // while iron-doobie depends on older doobie version
-      "org.tpolecat" %% "doobie-core" % VersionScheme.Always
+      "org.typelevel" %% "doobie-core" % VersionScheme.Always
     ),
 
     // for correct IOApp resource cleanup
