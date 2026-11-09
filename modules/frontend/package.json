@@ -12,7 +12,7 @@
     "@tailwindcss/postcss": "^4.3.3",
     "country-emoji": "^2.0.1",
     "country-flag-emoji-polyfill": "^0.1.10",
-    "d3-array": "3.2.4",
+    "d3-array": "3.2.5",
     "d3-scale": "4.0.3",
     "d3-scale-chromatic": "3.1.0",
     "d3-selection": "3.0.0",
