@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@tailwindcss/postcss": "^4.3.3",
+    "@tailwindcss/postcss": "^4.3.5",
     "country-emoji": "^2.0.1",
     "country-flag-emoji-polyfill": "^0.1.10",
     "d3-array": "3.2.5",
